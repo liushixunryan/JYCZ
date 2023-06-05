@@ -54,17 +54,18 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainVM>() {
         mPdaAdapter = HomePDAAdapter()
         mCarAdapter = HomeCARAdapter()
 
-        mDatabind!!.rvPda.adapter = mPdaAdapter
-        mDatabind!!.rvCar.adapter = mCarAdapter
+        mDatabind.rvPda.adapter = mPdaAdapter
+        mDatabind.rvCar.adapter = mCarAdapter
 
-        mDatabind!!.rvPda.addItemDecoration(GridSpaceItemDecoration(4, 10, 16))
-        mDatabind!!.rvCar.addItemDecoration(GridSpaceItemDecoration(4, 10, 16))
+        mDatabind.rvPda.addItemDecoration(GridSpaceItemDecoration(4, 10, 16))
+        mDatabind.rvCar.addItemDecoration(GridSpaceItemDecoration(4, 10, 16))
 
         //PDA点击事件
         mPdaAdapter.setOnItemClickListener { adapter, view, position ->
             when (mPdaAdapter.data[position].id) {
                 Constant.PDAType.SAOMAXIECHE -> {
                     //跳转到model中
+                    ScanUnloadingActivity.launch(this)
                 }
                 Constant.PDAType.RUCHANGJIAOJIE -> {
                     //跳转到model中
