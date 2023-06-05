@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="common_white">#FFFFFF</color>
+    <color name="common_gray">#E7E7E7</color>
+    <color name="common_red">#FF0000</color>
+    <color name="common_green">#00FF00</color>
+    <color name="common_black0">#000000</color>
+    <color name="common_black">#323232</color>
+    <color name="Gray9">#999</color>
+    <color name="C">#CCCCCC</color>
+    <color name="E">#EEEEEE</color>
+    <color name="gray_text5">#F6F6F6</color>
+
+    <color name="common_text_theme">#007FFF</color>
+    <color name="common_text_normal">#333</color>
+    <color name="common_text_black">#333</color>
+    <color name="common_text_gray">#999</color>
+    <color name="common_text_gray_dark">#666</color>
+    <color name="common_text_yellow">#E3BD19</color>
+    <color name="common_text_red">#FF0000</color>
+    <color name="common_text_green">#00FF00</color>
+    <color name="common_text_green_1">#057748</color>
+    <color name="common_text_green_2">#008b8b</color>
+    <color name="common_text_yellow_1">#F29103</color>
+    <color name="common_text_red_1">#F20C00</color>
+    <color name="common_text_blue">#0083C4</color>
+
+    <color name="common_icon_theme">#007FFF</color>
+    <color name="common_icon_gray">#CCCCCC</color>
+    <color name="common_icon_normal">#333</color>
+    <color name="common_icon_disable">#c5c8ce</color>
+    <color name="common_icon_red">#ed4014</color>
+    <color name="common_icon_green">#5BB75B</color>
+    <color name="common_icon_yellow">#FAA732</color>
+    <color name="common_icon_blue">#49afcd</color>
+    <color name="common_icon_blue2">#0088CC</color>
+
+    <color name="common_line_gray_bg">#EEEEEE</color>
+    <color name="common_line_gray">#e5e5e5</color>
+    <color name="common_line_gray1">#BEC2C7</color>
+    <color name="common_line_dark">#CCCCCC</color>
+    <color name="common_line_divider">#e8eaec</color>
+    <color name="common_line_gray_read">#FAF8F8</color>
+    <color name="common_line_border">#dcdee2</color>
+
+    <color name="common_bg_card">#f8f8f9</color>
+    <color name="common_bg_gray">#FAFAFA</color>
+    <color name="common_bg_green">#C7F8C8</color>
+    <color name="common_bg_gray2">#CACACA</color>
+    <color name="common_bg_gray3">#F9F9F9</color>
+    <color name="common_bg_gray4">#4B4B4D</color>
+    <color name="common_bg_yellow">#FFB300</color>
+    <color name="common_bg_gray_selected">#DCDCDC</color>
+    <color name="common_bg_gray_disable">#c5c8ce</color>
+
+    <color name="common_checkbox_gray">#999</color>
+
+    <color name="common_bg_red">#CDFFC2C2</color>
+
+    <color name="timeline_colorPrimary">#008577</color>
+    <color name="timeline_colorPrimaryDark">#00574B</color>
+    <color name="timeline_colorAccent">#D81B60</color>
+
+    <color name="timeline_color_pass">#007FFF</color>
+    <color name="timeline_color_refuse">#FF0000</color>
+    <color name="timeline_color_undo">#CCCCCC</color>
+
+    <color name="app_color_f6">#f6f6f6</color>
+
+
+    <color name="common_calendar_blue">#2196F3</color>
+    <color name="common_calendar_blue1">#B93492F3</color>
+    <color name="common_calendar_gray_F2">#F2F2F2</color>
+    <color name="common_calendar_gray_20">#36000000</color>
+
+
+    <color name="common_port_tab__2">#808080</color>
+    <color name="common_port_tab__1">#FF0000</color>
+    <color name="common_port_tab_0">#007FFF</color>
+    <color name="common_port_tab_1">#00FFFF</color>
+    <color name="common_port_tab_2">#800000</color>
+    <color name="common_port_tab_3">#008000</color>
+    <color name="common_port_tab_4">#00FF00</color>
+    <color name="common_port_tab_5">#FFFF00</color>
+    <color name="common_port_tab_6">#FF00FF</color>
+    <color name="common_port_tab_7">#CC808000</color>
+</resources>

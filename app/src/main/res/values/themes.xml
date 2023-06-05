@@ -1,0 +1,25 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="Theme.MyApplication" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/common_icon_theme</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorAccent">@color/common_icon_theme</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+    </style>
+    <style name="common_edittext" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@drawable/xui_config_bg_edittext</item>
+    </style>
+
+
+    <style name="Launch" parent="Theme.MyApplication">
+        <!--        <item name="android:windowBackground">@color/base_transparent</item>-->
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+</resources>

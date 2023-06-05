@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--PickerView-->
+    <color name="picker_view_bg_topbar">#F5F5F5</color>
+    <color name="picker_view_bg_color_overlay">#60000000</color>
+
+    <color name="xui_config_color_transparent">#00000000</color>
+    <color name="xui_config_color_white">#FFFFFF</color>
+    <color name="xui_config_color_pressed">#F2F6F9</color>
+    <color name="xui_config_color_light_blue">#299EE3</color>
+
+    <!-- SuperTextView -->
+    <color name="stv_color_common_pressed">#10000000</color>  <!--白色背景按下去的颜色-->
+    <color name="stv_color_common_text">#FF373737</color>  <!--默认字体的颜色-->
+
+    <!--DropDownMenu-->
+    <color name="default_ddm_mask_color">#88888888</color>
+
+    <color name="xui_config_color_main_theme">@color/xui_config_color_light_blue</color>
+
+    <!-- TabControlView -->
+    <color name="default_tcv_selected_color">@color/xui_config_color_main_theme</color>
+    <color name="default_tcv_unselected_color">@color/xui_config_color_white</color>
+</resources>
