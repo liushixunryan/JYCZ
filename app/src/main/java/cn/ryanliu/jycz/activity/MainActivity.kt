@@ -31,19 +31,19 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainVM>() {
                     "条码打印",
                     arrayOf("仅打印一个【托码】标签", "扫箱码后补打【托码】标签", "补打【箱码】标签", "打印机油标签")
                 ) { position, text ->
-                    when(position){
-                        0->{
+                    when (position) {
+                        0 -> {
                             OnlyPrintTMActivity.launch(this@MainActivity)
                         }
-                        1->{
-
+                        1 -> {
+                            ScanBoxTMActivity.launch(this@MainActivity)
                         }
 
-                        2->{
-
+                        2 -> {
+                            PatchworkXMActivity.launch(this@MainActivity)
                         }
-                        3->{
-
+                        3 -> {
+                            EngineOilActivity.launch(this@MainActivity)
                         }
                     }
                 }

@@ -16,10 +16,4 @@
         <item name="android:background">@drawable/xui_config_bg_edittext</item>
     </style>
 
-
-    <style name="Launch" parent="Theme.MyApplication">
-        <!--        <item name="android:windowBackground">@color/base_transparent</item>-->
-        <item name="android:windowFullscreen">true</item>
-    </style>
-
 </resources>

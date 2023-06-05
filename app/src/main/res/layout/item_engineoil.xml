@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/vg_ticket1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/xui_config_bg_edittext"
+    android:gravity="center"
+    android:orientation="horizontal">
+    <!--信息-->
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_15">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="条形码："
+                android:textColor="@color/common_text_black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txm_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="05100-00451NB"
+                android:textColor="@color/common_text_black" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="型号："
+                android:textColor="@color/common_text_black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/xh_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="5W-20"
+                android:textColor="@color/common_text_black" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="名称："
+                android:textColor="@color/common_text_black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/mc_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="SM机油"
+                android:textColor="@color/common_text_black" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="包装："
+                android:textColor="@color/common_text_black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/bz_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="28箱/托，12桶/箱"
+                android:textColor="@color/common_text_black" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="备注："
+                android:textColor="@color/common_text_black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/beiz_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="成托装货，成托发运"
+                android:textColor="@color/common_text_black" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <!--右边展示-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/typ_tv"
+            android:layout_width="80dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/xui_config_bg_edittext"
+            android:gravity="center"
+            android:text="SKU"
+            android:textColor="@color/common_text_black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/dw_tv"
+            android:layout_width="80dp"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:background="@drawable/xui_config_bg_edittext"
+            android:gravity="center"
+            android:text="箱"
+            android:textColor="@color/common_text_black"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

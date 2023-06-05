@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- BaseDialog -->
+    <style name="XUIDialog" parent="@android:style/Theme.Dialog">
+        <!-- Dialog的windowFrame框为无 -->
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <!-- 是否漂现在activity上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 是否半透明 -->
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowSoftInputMode">adjustPan</item>
+        <item name="android:windowBackground">@color/xui_config_color_transparent</item>
+    </style>
+    <!--自定义弹窗样式-->
+    <style name="XUIDialog.Custom">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:background">@color/xui_config_color_transparent</item>
+        <!-- 去除黑色边框的关键设置项 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 屏幕背景是否变暗 -->
+        <item name="android:backgroundDimAmount">0.6</item>
+    </style>
+
+    <!-- PickerView -->
+    <style name="picker_view_scale_anim" mce_bogus="1" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@drawable/picker_view_dialog_scale_in</item>
+        <item name="android:windowExitAnimation">@drawable/picker_view_dialog_scale_out</item>
+    </style>
+
+    <style name="picker_view_slide_anim" mce_bogus="1" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@drawable/picker_view_slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@drawable/picker_view_slide_out_bottom</item>
+    </style>
+
+
+    <style name="EditText">
+        <item name="android:background">@drawable/xui_config_bg_edittext</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:textColor">@color/common_text_black</item>
+        <!--        <item name="android:textColorHint">?attr/xui_config_color_hint_text</item>-->
+        <item name="android:singleLine">true</item>
+        <!--华为手机光标问题解决-->
+        <item name="android:imeOptions">normal</item>
+    </style>
+
+
+    <style name="Material.SpinnerStyle" parent="@style/Widget.AppCompat.Spinner">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/common_text_black</item>
+        <item name="ms_dropdown_height">wrap_content</item>
+        <item name="ms_text_color">@color/common_text_black</item>
+        <item name="ms_background_selector">@drawable/xui_config_bg_edittext</item>
+        <item name="ms_dropdown_bg">@drawable/ms_drop_down_bg_radius</item>
+    </style>
+
+    <style name="pop_window_anim_style" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@drawable/pop_show_anim</item>
+        <item name="android:windowExitAnimation">@drawable/pop_hidden_anim</item>
+    </style>
+    <!--EditSpinner-->
+    <style name="EditSpinner" parent="EditText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">36dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/common_text_black</item>
+        <item name="android:background">@drawable/xui_config_bg_edittext</item>
+    </style>
+
+
+    <!--LabelView-->
+    <declare-styleable name="LabelView">
+        <!--距离对角的距离-->
+        <attr name="label_distance" format="dimension" />
+        <!--标签的宽度-->
+        <attr name="label_height" format="dimension" />
+        <!--标签的背景颜色-->
+        <attr name="label_backgroundColor" format="color" />
+        <!--标签的边框宽度-->
+        <attr name="label_strokeWidth" format="dimension" />
+        <!--标签的边框颜色-->
+        <attr name="label_strokeColor" format="color" />
+        <!--标签的文字-->
+        <attr name="label_text" format="string" />
+        <!--标签的文字大小-->
+        <attr name="label_textSize" format="dimension" />
+        <!--标签的文字样式-->
+        <attr name="label_textStyle" format="enum">
+            <enum name="NORMAL" value="0" />
+            <enum name="BOLD" value="1" />
+            <enum name="ITALIC" value="2" />
+            <enum name="BOLD_ITALIC" value="3" />
+        </attr>
+        <!--标签的字体样式-->
+        <attr name="label_textFont" format="string" />
+        <!--标签的文字颜色-->
+        <attr name="label_textColor" format="color" />
+        <!--标签是否可见-->
+        <attr name="label_visual" format="boolean" />
+        <!--标签的对齐方式-->
+        <attr name="label_orientation" format="enum">
+            <enum name="LEFT_TOP" value="1" />
+            <enum name="RIGHT_TOP" value="2" />
+            <enum name="LEFT_BOTTOM" value="3" />
+            <enum name="RIGHT_BOTTOM" value="4" />
+        </attr>
+    </declare-styleable>
+</resources>

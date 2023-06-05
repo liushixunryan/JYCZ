@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="ms_dropdown_offset" format="dimension" />
+
+    <declare-styleable name="MultiLineEditText">
+        <!--最大输入文字的数目，默认240-->
+        <attr name="mlet_maxCount" format="integer" />
+        <!--是否忽略中英文的差异，默认true-->
+        <attr name="mlet_ignoreCnOrEn" format="boolean" />
+        <!--输入框提示文字-->
+        <attr name="mlet_hintText" format="string|reference" />
+        <!--输入框提示文字的颜色-->
+        <attr name="mlet_hintTextColor" format="color|reference" />
+        <!--输入框的padding， 默认10dp-->
+        <attr name="mlet_contentPadding" format="dimension" />
+        <!--输入框背景-->
+        <attr name="mlet_contentBackground" format="reference" />
+        <!--输入框的内容-->
+        <attr name="mlet_contentText" format="string|reference" />
+        <!--输入框文字的大小-->
+        <attr name="mlet_contentTextSize" format="dimension|reference" />
+        <!--输入框文字的颜色-->
+        <attr name="mlet_contentTextColor" format="color|reference" />
+        <!--输入框的高度，默认140dp-->
+        <attr name="mlet_contentViewHeight" format="dimension|reference" />
+        <!--输入框的高度是否是固定高度，默认是true-->
+        <attr name="mlet_isFixHeight" format="boolean" />
+        <!--统计数字显示剩余数目,默认false-->
+        <attr name="mlet_showSurplusNumber" format="boolean" />
+    </declare-styleable>
+    <attr name="MultiLineEditTextStyle" format="reference" />
+    <!--==============================Picker=======================================-->
+    <declare-styleable name="WheelView">
+        <attr name="wv_gravity" format="enum">
+            <enum name="center" value="17" />
+            <enum name="left" value="3" />
+            <enum name="right" value="5" />
+        </attr>
+        <attr name="wv_textSize" format="dimension" />
+        <attr name="wv_textColorOut" format="color" />
+        <attr name="wv_textColorCenter" format="color" />
+        <attr name="wv_dividerColor" format="color" />
+        <attr name="wv_lineSpacingMultiplier" format="float" />
+    </declare-styleable>
+
+    <!--===============================Spinner======================================-->
+    <!--MaterialSpinner-->
+    <declare-styleable name="MaterialSpinner">
+        <!--下拉框选择的内容-->
+        <attr name="ms_entries" format="reference" />
+        <!--下拉框箭头的资源-->
+        <attr name="ms_arrow_image" format="reference" />
+        <!--下拉框箭头的颜色， 默认和字体的颜色一样-->
+        <attr name="ms_arrow_tint" format="color" />
+        <!--下拉框是否有箭头， 默认是true-->
+        <attr name="ms_hide_arrow" format="boolean" />
+        <!--下拉框背景的颜色-->
+        <attr name="ms_background_color" format="color" />
+        <!--下拉框背景点击的效果-->
+        <attr name="ms_background_selector" format="integer" />
+        <!--下拉框字体的颜色-->
+        <attr name="ms_text_color" format="color" />
+        <!--下拉框 下拉条目最大的高度-->
+        <attr name="ms_dropdown_max_height" format="dimension" />
+        <!--下拉框 下拉条目的样式，默认wrap_content-->
+        <attr name="ms_dropdown_height" format="dimension">
+            <enum name="fill_parent" value="-1" />
+            <enum name="match_parent" value="-1" />
+            <enum name="wrap_content" value="-2" />
+        </attr>
+        <!--下拉框 下拉条目的背景-->
+        <attr name="ms_dropdown_bg" format="reference" />
+        <!--是否在dialog中, 默认false-->
+        <attr name="ms_in_dialog" format="boolean" />
+        <!--弹出窗的动画样式-->
+        <attr name="ms_pop_anim_style" format="reference" />
+    </declare-styleable>
+    <attr name="MaterialSpinnerStyle" format="reference" />
+
+    <!--EditSpinner-->
+    <declare-styleable name="EditSpinner">
+        <!--输入提示-->
+        <attr name="es_hint" format="string" />
+        <!--输入框的高度-->
+        <attr name="es_height" format="dimension" />
+        <!--输入框的字体大小-->
+        <attr name="es_textSize" format="dimension" />
+        <!--输入框的字体颜色-->
+        <attr name="es_textColor" format="color" />
+        <!--箭头图标的margin-->
+        <attr name="es_arrowMargin" format="dimension" />
+        <!--箭头图标的资源-->
+        <attr name="es_arrowImage" format="reference" />
+        <!--输入框的背景-->
+        <attr name="es_background" format="reference" />
+        <attr name="es_maxLine" format="integer" />
+        <!--默认可选性内容-->
+        <attr name="es_entries" format="reference" />
+        <!--下拉框 下拉条目的背景-->
+        <attr name="es_dropdown_bg" format="reference" />
+        <!--输入下拉框是否可编辑, 默认true-->
+        <attr name="es_enable" format="boolean" />
+        <!--输入下拉框可输入的最大字符长度-->
+        <attr name="es_maxLength" format="integer" />
+        <!--输入下拉框可输入的最大字符宽度-->
+        <attr name="es_maxEms" format="integer" />
+        <!--输入下拉框在输入时是否显示筛选到的信息，默认true-->
+        <attr name="es_isShowFilterData" format="boolean" />
+        <!--输入下拉框显示筛选信息时，是否显示key为醒目的颜色，默认false-->
+        <attr name="es_isFilterKey" format="boolean" />
+        <!--弹出窗的动画样式-->
+        <attr name="es_popAnimStyle" format="reference" />
+    </declare-styleable>
+    <attr name="EditSpinnerStyle" format="reference" />
+
+    <!--DropDownMenu 下拉选择菜单-->
+    <declare-styleable name="DropDownMenu">
+        <!--下拉选择菜单的内容布局-->
+        <attr name="ddm_contentLayoutId" format="reference" />
+        <!--菜单垂直分割线的颜色，默认R.attr.xui_config_color_separator_dark-->
+        <attr name="ddm_dividerColor" format="color" />
+        <!--菜单垂直分割线的宽度， 默认0.5dp-->
+        <attr name="ddm_dividerWidth" format="dimension" />
+        <!--菜单垂直分割线的Margin， 默认10dp-->
+        <attr name="ddm_dividerMargin" format="dimension" />
+        <!--菜单底线的颜色, 默认R.attr.xui_config_color_separator_light-->
+        <attr name="ddm_underlineColor" format="color" />
+        <!--菜单底线的高度， 默认1dp-->
+        <attr name="ddm_underlineHeight" format="dimension" />
+        <!--半透明遮罩颜色, 默认#88888888-->
+        <attr name="ddm_maskColor" format="color" />
+        <!--菜单文字的字体大小，默认14sp-->
+        <attr name="ddm_menuTextSize" format="dimension" />
+        <!--菜单文字水平padding，默认5dp-->
+        <attr name="ddm_menuTextPaddingHorizontal" format="dimension" />
+        <!--菜单文字垂直padding，默认12dp-->
+        <attr name="ddm_menuTextPaddingVertical" format="dimension" />
+        <!--菜单文字选中的颜色，默认R.attr.colorAccent-->
+        <attr name="ddm_menuTextSelectedColor" format="color" />
+        <!--菜单文字未选中的颜色，默认R.attr.xui_config_color_content_text-->
+        <attr name="ddm_menuTextUnselectedColor" format="color" />
+        <!--菜单选择时的图标， 默认R.drawable.ddm_ic_arrow_up-->
+        <attr name="ddm_menuSelectedIcon" format="reference" />
+        <!--菜单未选择时的图标, 默认R.drawable.ddm_ic_arrow_down-->
+        <attr name="ddm_menuUnselectedIcon" format="reference" />
+        <!--菜单的背景颜色，默认Color.WHITE-->
+        <attr name="ddm_menuBackgroundColor" format="color" />
+        <!--选择菜单的高度/屏幕高度 占比， 默认0.5-->
+        <attr name="ddm_menuHeightPercent" format="float" />
+    </declare-styleable>
+    <attr name="DropDownMenuStyle" format="reference" />
+    <!--可伸展的布局-->
+    <declare-styleable name="ExpandableLayout">
+        <!--动画持续的时间，默认是300ms-->
+        <attr name="el_duration" format="integer" />
+        <!--是否是展开的，默认是false-->
+        <attr name="el_expanded" format="boolean" />
+        <!--视差效果，默认是1-->
+        <attr name="el_parallax" format="float" />
+        <!--对齐方式，默认是VERTICAL，垂直-->
+        <attr name="android:orientation" />
+    </declare-styleable>
+
+
+    <declare-styleable name="TabControlView">
+        <!--文字字体的大小，默认14sp-->
+        <attr name="tcv_textSize" format="dimension" />
+        <!--没选中的文字颜色，默认#299EE3-->
+        <attr name="tcv_unselectedTextColor" format="reference" />
+        <!--选中的文字颜色， 默认Color.WHITE-->
+        <attr name="tcv_selectedTextColor" format="reference" />
+        <!--没选中的背景颜色， 默认Color.TRANSPARENT-->
+        <attr name="tcv_unselectedColor" format="reference" />
+        <!--选中的背景颜色， 默认#299EE3-->
+        <attr name="tcv_selectedColor" format="reference" />
+        <!--边框宽度，默认1dp-->
+        <attr name="tcv_strokeWidth" format="dimension" />
+        <!--选项卡间的padding-->
+        <attr name="tcv_item_padding" format="dimension" />
+        <!--选项卡水平间的padding-->
+        <attr name="tcv_item_padding_horizontal" format="dimension" />
+        <!--选项卡垂直间的padding-->
+        <attr name="tcv_item_padding_vertical" format="dimension" />
+        <!--选项卡中展示的内容-->
+        <attr name="tcv_items" format="reference" />
+        <!--选项卡中选中的内容（默认和展示的一样）-->
+        <attr name="tcv_values" format="reference" />
+        <!--是否等宽显示，默认false-->
+        <attr name="tcv_equalWidth" format="boolean" />
+        <!--是否伸展开，填充整个父布局，默认false-->
+        <attr name="tcv_stretch" format="boolean" />
+        <!--默认选中项的索引-->
+        <attr name="tcv_defaultSelection" format="integer" />
+    </declare-styleable>
+
+</resources>
