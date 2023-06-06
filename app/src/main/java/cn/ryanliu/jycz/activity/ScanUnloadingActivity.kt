@@ -2,15 +2,11 @@ package cn.ryanliu.jycz.activity
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.util.Log
 import android.view.View
 import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.basic.BaseActivity
-import cn.ryanliu.jycz.databinding.ActivityLoginBinding
 import cn.ryanliu.jycz.databinding.ActivityScanUnloadingBinding
-import cn.ryanliu.jycz.viewmodel.LoginVM
 import cn.ryanliu.jycz.viewmodel.ScanUnloadingVM
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.AttachPopupView
@@ -33,6 +29,24 @@ class ScanUnloadingActivity : BaseActivity<ActivityScanUnloadingBinding, ScanUnl
         }
         mDatabind.inNavBar.tvNavTitle.text = "扫码卸货"
 
+        onClick();
+
+    }
+
+    private fun onClick() {
+        mDatabind.btnSearchcar.setOnClickListener(object : OnSingleClickListener() {
+            override fun onSingleClick(view: View?) {
+                val intent = Intent(this@ScanUnloadingActivity, SelectCarActivity::class.java)
+                startActivityForResult(intent, SelectCarActivity.REQUEST_CODE_XXCL)
+            }
+        })
+
+        mDatabind.btnSelectarea.setOnClickListener(object : OnSingleClickListener() {
+            override fun onSingleClick(view: View?) {
+                val intent = Intent(this@ScanUnloadingActivity, SelectAreaActivity::class.java)
+                startActivityForResult(intent, SelectAreaActivity.REQUEST_CODE_XXKQ)
+            }
+        })
 
         mDatabind.etYylx.setOnClickListener {
             val isyesorno = listOf("司机预约", "项目预约")
@@ -55,6 +69,18 @@ class ScanUnloadingActivity : BaseActivity<ActivityScanUnloadingBinding, ScanUnl
                     0 /*, Gravity.LEFT*/
                 )
             attachPopupView.show()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (RESULT_OK == resultCode) {
+            if (SelectCarActivity.REQUEST_CODE_XXCL == requestCode) {
+                mDatabind.etCph.setText(data?.getStringExtra("carNum") ?: "")
+            }
+            if (SelectAreaActivity.REQUEST_CODE_XXKQ == requestCode) {
+                mDatabind.etKq.setText(data?.getStringExtra("areaName") ?: "")
+            }
         }
     }
 

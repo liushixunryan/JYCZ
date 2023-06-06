@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/iv_icon1"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_margin="@dimen/dp_5" />
 
     <TextView
@@ -20,7 +20,7 @@
         android:layout_marginBottom="4dp"
         android:text="吊装"
         android:textColor="@color/common_text_black"
-        android:textSize="14sp" />
+        android:textSize="12sp" />
 
 
 </LinearLayout>

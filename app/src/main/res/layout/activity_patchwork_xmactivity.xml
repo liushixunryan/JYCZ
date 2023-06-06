@@ -54,7 +54,7 @@
                 android:gravity="center"
                 android:text="添加"
                 android:textColor="@color/white"
-                android:textSize="@dimen/sp_20" />
+                android:textSize="@dimen/sp_16" />
 
         </LinearLayout>
 
@@ -92,7 +92,7 @@
                 android:background="@drawable/xui_config_bg_edittext"
                 android:gravity="center"
                 android:text="箱码数量"
-                android:textSize="@dimen/sp_20" />
+                android:textSize="@dimen/sp_16" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -124,7 +124,7 @@
                 android:gravity="center"
                 android:text="生成箱码"
                 android:textColor="@color/white"
-                android:textSize="@dimen/sp_20" />
+                android:textSize="@dimen/sp_16" />
 
         </LinearLayout>
 
