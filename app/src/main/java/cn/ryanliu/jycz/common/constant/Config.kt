@@ -1,14 +1,12 @@
 package com.zwl.common.constant
 
 
-
 object Config {
+    @JvmField
+    var sPlatformServerIP = "47.97.245.87"//服务器
 
     @JvmField
-    var sPlatformServerIP = "39.106.138.228"//服务器
-
-    @JvmField
-    var sPlatformServerPort = "8080"
+    var sPlatformServerPort = "33251"
 
     @JvmField
     var sBaseUrl: String = "http://${sPlatformServerIP}:${sPlatformServerPort}"//服务器

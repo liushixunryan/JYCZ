@@ -92,4 +92,5 @@
     <color name="common_port_tab_5">#FFFF00</color>
     <color name="common_port_tab_6">#FF00FF</color>
     <color name="common_port_tab_7">#CC808000</color>
+    <color name="bg_green">#008080</color>
 </resources>

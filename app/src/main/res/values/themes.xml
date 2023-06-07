@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="Theme.MyApplication" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.MyApplication" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/common_icon_theme</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -12,6 +12,7 @@
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
     </style>
+
     <style name="common_edittext" parent="Widget.AppCompat.EditText">
         <item name="android:background">@drawable/xui_config_bg_edittext</item>
     </style>

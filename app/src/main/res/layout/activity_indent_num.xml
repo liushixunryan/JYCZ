@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/in_nav_bar"
+            layout="@layout/nav_bar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_gray_tv"
+                android:gravity="center"
+                android:text="订单数量"
+                android:textColor="@color/common_text_black"
+                android:textSize="@dimen/sp_13"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_select_tv"
+                android:gravity="center"
+                android:text="50"
+                android:textColor="@color/common_text_black"
+                android:textSize="@dimen/sp_13"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_gray_tv"
+                android:gravity="center"
+                android:text="总箱数"
+                android:textColor="@color/common_text_black"
+                android:textSize="@dimen/sp_13"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_select_tv"
+                android:gravity="center"
+                android:text="50"
+                android:textColor="@color/common_text_black"
+                android:textSize="@dimen/sp_13"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_gray_tv"
+                android:gravity="center"
+                android:text="已扫总箱数"
+                android:textColor="@color/common_text_black"
+                android:textSize="@dimen/sp_13"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_select_tv"
+                android:gravity="center"
+                android:text="50"
+                android:textColor="@color/common_text_black"
+                android:textSize="@dimen/sp_13"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_gray_tv"
+                android:gravity="center"
+                android:text="未扫箱数"
+                android:textColor="@color/common_text_black"
+                android:textSize="@dimen/sp_13"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_select_tv"
+                android:gravity="center"
+                android:text="50"
+                android:textColor="@color/common_text_black"
+                android:textSize="@dimen/sp_13"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_10">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_weight="1"
+                android:background="#015478"
+                android:paddingVertical="0dp"
+                android:text="全部订单"
+                android:textColor="@color/common_white"
+                android:textSize="@dimen/sp_12" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_weight="1"
+                android:background="#015478"
+                android:paddingVertical="0dp"
+                android:text="只看已扫"
+                android:textColor="@color/common_white"
+                android:textSize="@dimen/sp_12" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_weight="1"
+                android:background="#015478"
+                android:paddingVertical="0dp"
+                android:text="只看未扫"
+                android:textColor="@color/common_white"
+                android:textSize="@dimen/sp_12" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:background="@color/common_bg_gray4" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ddsllb_rv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+    </LinearLayout>
+</layout>
