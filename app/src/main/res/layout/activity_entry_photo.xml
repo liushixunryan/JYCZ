@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/in_nav_bar"
+            layout="@layout/nav_bar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="车牌号："
+                    android:textColor="@color/common_text_black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/cph_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/common_text_black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="卸车完成时间："
+                    android:textColor="@color/common_text_black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/xcwcsj_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/common_text_black" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="扫描人："
+                    android:textColor="@color/common_text_black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/smr_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/common_text_black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="卸车扫描箱数："
+                    android:textColor="@color/common_text_black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/xcsmxs_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/common_text_black" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:background="@color/common_bg_gray4" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_10"
+            android:gravity="center"
+            android:text="请拍照并上传交接单图片" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="@dimen/dp_80"
+                    android:layout_height="@dimen/dp_80"
+                    android:background="@drawable/bg_rectangle_photo">
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="@dimen/dp_80"
+                    android:layout_height="@dimen/dp_80"
+                    android:layout_marginHorizontal="@dimen/dp_20"
+                    android:background="@drawable/bg_rectangle_photo">
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="@dimen/dp_80"
+                    android:layout_height="@dimen/dp_80"
+                    android:background="@drawable/bg_rectangle_photo">
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="@dimen/dp_80"
+                    android:layout_height="@dimen/dp_80"
+                    android:background="@drawable/bg_rectangle_photo">
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="@dimen/dp_80"
+                    android:layout_height="@dimen/dp_80"
+                    android:layout_marginHorizontal="@dimen/dp_20"
+                    android:background="@drawable/bg_rectangle_photo">
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="@dimen/dp_80"
+                    android:layout_height="@dimen/dp_80"
+                    android:background="@drawable/bg_rectangle_photo">
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btn_sureselect"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/ll_pwd"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:background="@drawable/shape_blue_r32"
+            android:paddingVertical="0dp"
+            android:text="完成交接车辆出场"
+            android:textColor="@color/common_white"
+            android:textSize="18dp" />
+
+    </LinearLayout>
+</layout>

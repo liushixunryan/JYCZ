@@ -35,6 +35,7 @@ public class Constant {
     public static class MmKv_KEY {
         public final static String ROLES = "roles";
         public final static String ALL_ROLES = "allRoles";
+        public final static String TOKEN = "token";
     }
 
 }

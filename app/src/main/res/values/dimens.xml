@@ -20,4 +20,7 @@
     <dimen name="dp_20">20dp</dimen>
     <dimen name="sp_9">9sp</dimen>
     <dimen name="sp_13">13sp</dimen>
+    <dimen name="dp_70">70dp</dimen>
+    <dimen name="dp_75">75dp</dimen>
+    <dimen name="dp_80">80dp</dimen>
 </resources>

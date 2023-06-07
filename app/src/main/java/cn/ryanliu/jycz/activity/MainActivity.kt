@@ -8,14 +8,19 @@ import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.adapter.HomeCARAdapter
 import cn.ryanliu.jycz.adapter.HomePDAAdapter
 import cn.ryanliu.jycz.basic.BaseActivity
+import cn.ryanliu.jycz.basic.BaseApplication
 import cn.ryanliu.jycz.bean.HomeCARBean
 import cn.ryanliu.jycz.bean.HomePDABean
 import cn.ryanliu.jycz.common.constant.Constant
 import cn.ryanliu.jycz.databinding.ActivityMainBinding
 import cn.ryanliu.jycz.util.AuthorUtil
 import cn.ryanliu.jycz.util.DialogUtil
+import cn.ryanliu.jycz.util.LogoutEvent
+import cn.ryanliu.jycz.util.ToastUtilsExt
 import cn.ryanliu.jycz.view.GridSpaceItemDecoration
 import cn.ryanliu.jycz.viewmodel.MainVM
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainVM>() {
     lateinit var mPdaAdapter: HomePDAAdapter
@@ -69,6 +74,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainVM>() {
                 }
                 Constant.PDAType.RUCHANGJIAOJIE -> {
                     //跳转到model中
+                    EntryHandoverActivity.launch(this)
                 }
                 Constant.PDAType.SAOMAZHUANGCHE -> {
                     //跳转到model中
