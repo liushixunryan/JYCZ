@@ -5,9 +5,9 @@ import android.content.Intent
 import android.view.View
 import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.basic.BaseActivity
-import cn.ryanliu.jycz.databinding.ActivityEntryPhotoBinding
+import cn.ryanliu.jycz.databinding.ActivityExitPhotoBinding
 import cn.ryanliu.jycz.util.GlideEngine
-import cn.ryanliu.jycz.viewmodel.EntryPhotoVM
+import cn.ryanliu.jycz.viewmodel.ExitPhotoVM
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.luck.picture.lib.basic.PictureSelector
@@ -16,15 +16,13 @@ import com.luck.picture.lib.config.SelectMimeType
 import com.luck.picture.lib.entity.LocalMedia
 import com.luck.picture.lib.interfaces.OnResultCallbackListener
 
-
 /**
  * @Author: lsx
- * @Date: 2023/6/7
- * @Description:入场交接 - 拍照上传交接单
+ * @Date: 2023/6/8
+ * @Description:出场交接 - 拍照上传交接单
  */
-class EntryPhotoActivity : BaseActivity<ActivityEntryPhotoBinding, EntryPhotoVM>() {
-
-    override fun layoutId(): Int = R.layout.activity_entry_photo
+class ExitPhotoActivity : BaseActivity<ActivityExitPhotoBinding, ExitPhotoVM>() {
+    override fun layoutId(): Int = R.layout.activity_exit_photo
 
     override fun initView() {
 
@@ -32,7 +30,7 @@ class EntryPhotoActivity : BaseActivity<ActivityEntryPhotoBinding, EntryPhotoVM>
         mDatabind.inNavBar.ivNavBack.setOnClickListener {
             onBackPressed()
         }
-        mDatabind.inNavBar.tvNavTitle.text = "入场交接 - 拍照上传交接单"
+        mDatabind.inNavBar.tvNavTitle.text = "出场交接 - 拍照上传交接单"
 
         onClick()
 
@@ -50,7 +48,7 @@ class EntryPhotoActivity : BaseActivity<ActivityEntryPhotoBinding, EntryPhotoVM>
                         mDatabind.img1.visibility = View.VISIBLE
                         mDatabind.uploadimg1.visibility = View.GONE
 
-                        Glide.with(this@EntryPhotoActivity)
+                        Glide.with(this@ExitPhotoActivity)
                             .load(result[0]?.availablePath)
                             .centerCrop()
                             .placeholder(R.color.app_color_f6)
@@ -72,7 +70,7 @@ class EntryPhotoActivity : BaseActivity<ActivityEntryPhotoBinding, EntryPhotoVM>
                         mDatabind.img2.visibility = View.VISIBLE
                         mDatabind.uploadimg2.visibility = View.GONE
 
-                        Glide.with(this@EntryPhotoActivity)
+                        Glide.with(this@ExitPhotoActivity)
                             .load(result[0]?.availablePath)
                             .centerCrop()
                             .placeholder(R.color.app_color_f6)
@@ -94,7 +92,7 @@ class EntryPhotoActivity : BaseActivity<ActivityEntryPhotoBinding, EntryPhotoVM>
                         mDatabind.img3.visibility = View.VISIBLE
                         mDatabind.uploadimg3.visibility = View.GONE
 
-                        Glide.with(this@EntryPhotoActivity)
+                        Glide.with(this@ExitPhotoActivity)
                             .load(result[0]?.availablePath)
                             .centerCrop()
                             .placeholder(R.color.app_color_f6)
@@ -116,7 +114,7 @@ class EntryPhotoActivity : BaseActivity<ActivityEntryPhotoBinding, EntryPhotoVM>
                         mDatabind.img4.visibility = View.VISIBLE
                         mDatabind.uploadimg4.visibility = View.GONE
 
-                        Glide.with(this@EntryPhotoActivity)
+                        Glide.with(this@ExitPhotoActivity)
                             .load(result[0]?.availablePath)
                             .centerCrop()
                             .placeholder(R.color.app_color_f6)
@@ -138,7 +136,7 @@ class EntryPhotoActivity : BaseActivity<ActivityEntryPhotoBinding, EntryPhotoVM>
                         mDatabind.img5.visibility = View.VISIBLE
                         mDatabind.uploadimg5.visibility = View.GONE
 
-                        Glide.with(this@EntryPhotoActivity)
+                        Glide.with(this@ExitPhotoActivity)
                             .load(result[0]?.availablePath)
                             .centerCrop()
                             .placeholder(R.color.app_color_f6)
@@ -160,7 +158,7 @@ class EntryPhotoActivity : BaseActivity<ActivityEntryPhotoBinding, EntryPhotoVM>
                         mDatabind.img6.visibility = View.VISIBLE
                         mDatabind.uploadimg6.visibility = View.GONE
 
-                        Glide.with(this@EntryPhotoActivity)
+                        Glide.with(this@ExitPhotoActivity)
                             .load(result[0]?.availablePath)
                             .centerCrop()
                             .placeholder(R.color.app_color_f6)
@@ -199,9 +197,10 @@ class EntryPhotoActivity : BaseActivity<ActivityEntryPhotoBinding, EntryPhotoVM>
 
     }
 
+
     companion object {
         fun launch(context: Context) {
-            val intent = Intent(context, EntryPhotoActivity::class.java)
+            val intent = Intent(context, ExitPhotoActivity::class.java)
             context.startActivity(intent)
         }
 

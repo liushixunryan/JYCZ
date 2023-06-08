@@ -19,6 +19,7 @@ import cn.ryanliu.jycz.util.LogoutEvent
 import cn.ryanliu.jycz.util.ToastUtilsExt
 import cn.ryanliu.jycz.view.GridSpaceItemDecoration
 import cn.ryanliu.jycz.viewmodel.MainVM
+import cn.ryanliu.jycz.viewmodel.ScanLoadingVM
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -78,9 +79,11 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainVM>() {
                 }
                 Constant.PDAType.SAOMAZHUANGCHE -> {
                     //跳转到model中
+                    ScanloadingActivity.launch(this)
                 }
                 Constant.PDAType.CHUCHANGJIAOJIE -> {
                     //跳转到model中
+                    ExitHandoverActivity.launch(this)
                 }
                 Constant.PDAType.FENJIANMAFANG -> {
                     //跳转到model中
