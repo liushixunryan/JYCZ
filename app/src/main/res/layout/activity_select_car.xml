@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_15"
             android:gravity="center"
-            android:text="请在下方选择已入场车辆" />
+            android:text="请在下方选择车辆" />
 
         <View
             android:layout_width="match_parent"

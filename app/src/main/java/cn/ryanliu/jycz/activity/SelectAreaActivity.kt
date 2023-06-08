@@ -1,6 +1,5 @@
 package cn.ryanliu.jycz.activity
 
-import android.content.Context
 import android.content.Intent
 import android.view.View
 import cn.ryanliu.jycz.R

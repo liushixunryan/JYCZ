@@ -84,6 +84,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainVM>() {
                 }
                 Constant.PDAType.FENJIANMAFANG -> {
                     //跳转到model中
+                    SortingStackActivity.launch(this)
                 }
                 Constant.PDAType.KUQUTIAOZHENG -> {
                     //跳转到model中
