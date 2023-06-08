@@ -69,4 +69,6 @@ dependencies {
     api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.11'
     implementation 'com.geyifeng.immersionbar:immersionbar:3.2.2'
     api 'com.github.li-xiaojun:XPopup:2.9.18'
+    // PictureSelector basic (Necessary)
+    implementation 'io.github.lucksiege:pictureselector:v3.11.1'
 }

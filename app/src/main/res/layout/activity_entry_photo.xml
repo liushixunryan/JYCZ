@@ -120,7 +120,40 @@
                 <LinearLayout
                     android:layout_width="@dimen/dp_80"
                     android:layout_height="@dimen/dp_80"
-                    android:background="@drawable/bg_rectangle_photo">
+                    android:background="@drawable/bg_rectangle_photo"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/uploadimg1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:paddingTop="@dimen/dp_10"
+                            android:text="+" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingBottom="@dimen/dp_5"
+                            android:text="上传"
+                            android:textSize="10sp" />
+
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/img1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone" />
 
 
                 </LinearLayout>
@@ -129,7 +162,40 @@
                     android:layout_width="@dimen/dp_80"
                     android:layout_height="@dimen/dp_80"
                     android:layout_marginHorizontal="@dimen/dp_20"
-                    android:background="@drawable/bg_rectangle_photo">
+                    android:background="@drawable/bg_rectangle_photo"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/uploadimg2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:paddingTop="@dimen/dp_10"
+                            android:text="+" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingBottom="@dimen/dp_5"
+                            android:text="上传"
+                            android:textSize="10sp" />
+
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/img2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone" />
 
 
                 </LinearLayout>
@@ -137,7 +203,40 @@
                 <LinearLayout
                     android:layout_width="@dimen/dp_80"
                     android:layout_height="@dimen/dp_80"
-                    android:background="@drawable/bg_rectangle_photo">
+                    android:background="@drawable/bg_rectangle_photo"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/uploadimg3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:paddingTop="@dimen/dp_10"
+                            android:text="+" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingBottom="@dimen/dp_5"
+                            android:text="上传"
+                            android:textSize="10sp" />
+
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/img3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone" />
 
 
                 </LinearLayout>
@@ -154,8 +253,40 @@
                 <LinearLayout
                     android:layout_width="@dimen/dp_80"
                     android:layout_height="@dimen/dp_80"
-                    android:background="@drawable/bg_rectangle_photo">
+                    android:background="@drawable/bg_rectangle_photo"
+                    android:orientation="vertical">
 
+                    <LinearLayout
+                        android:id="@+id/uploadimg4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:paddingTop="@dimen/dp_10"
+                            android:text="+" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingBottom="@dimen/dp_5"
+                            android:text="上传"
+                            android:textSize="10sp" />
+
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/img4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone" />
 
                 </LinearLayout>
 
@@ -163,15 +294,80 @@
                     android:layout_width="@dimen/dp_80"
                     android:layout_height="@dimen/dp_80"
                     android:layout_marginHorizontal="@dimen/dp_20"
-                    android:background="@drawable/bg_rectangle_photo">
+                    android:background="@drawable/bg_rectangle_photo"
+                    android:orientation="vertical">
 
+                    <LinearLayout
+                        android:id="@+id/uploadimg5"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:paddingTop="@dimen/dp_10"
+                            android:text="+" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingBottom="@dimen/dp_5"
+                            android:text="上传"
+                            android:textSize="10sp" />
+
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/img5"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="@dimen/dp_80"
                     android:layout_height="@dimen/dp_80"
-                    android:background="@drawable/bg_rectangle_photo">
+                    android:background="@drawable/bg_rectangle_photo"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/uploadimg6"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:paddingTop="@dimen/dp_10"
+                            android:text="+" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingBottom="@dimen/dp_5"
+                            android:text="上传"
+                            android:textSize="10sp" />
+
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/img6"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone" />
 
 
                 </LinearLayout>
