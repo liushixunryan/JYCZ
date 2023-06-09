@@ -95,6 +95,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainVM>() {
                 }
                 Constant.PDAType.KUCUNPANDIAN -> {
                     //跳转到model中
+                    AreaSelectActivity.launch(this)
                 }
             }
         }

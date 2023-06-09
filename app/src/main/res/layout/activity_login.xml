@@ -139,7 +139,6 @@
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_below="@+id/ll_pwd"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="50dp"
             android:background="@drawable/shape_blue_r32"
