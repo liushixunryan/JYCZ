@@ -5,6 +5,7 @@ import android.content.Intent
 import android.util.Log
 import android.view.View
 import cn.ryanliu.jycz.R
+import cn.ryanliu.jycz.activity.detail.LoadingDetailActivity
 import cn.ryanliu.jycz.adapter.HomeCARAdapter
 import cn.ryanliu.jycz.adapter.HomePDAAdapter
 import cn.ryanliu.jycz.basic.BaseActivity
@@ -108,6 +109,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainVM>() {
                 }
                 Constant.CARType.ZHUANGCHEMINGXI -> {
                     //跳转到model中
+                    LoadingDetailActivity.launch(this)
                 }
                 Constant.CARType.ZHUANGXIECHEHUZONG -> {
                     //跳转到model中
