@@ -29,7 +29,34 @@ class InventoryCountActivity : BaseActivity<ActivityInventoryCountBinding, Inven
         }
         mDatabind.inNavBar.tvNavTitle.text = "库存盘点"
 
+        onClick()
 
+
+    }
+
+    private fun onClick() {
+        mDatabind.ysxmTv.setOnClickListener {
+            XMListActivity.launch(this)
+        }
+
+        mDatabind.xsTv.setOnClickListener {
+            XMListActivity.launch(this)
+        }
+
+        mDatabind.khddhTv.setOnClickListener {
+            XMListActivity.launch(this)
+
+        }
+
+        mDatabind.qrpdwnBtn.setOnClickListener {
+            InventoryResultActivity.launch(this)
+        }
+        mDatabind.qxbcpdBtn.setOnClickListener {
+            showTipDialog("确认取消盘点？", {
+                Log.e("sansuiban", "onClick:确认 ")
+
+            }, {})
+        }
     }
 
     /**
@@ -46,7 +73,6 @@ class InventoryCountActivity : BaseActivity<ActivityInventoryCountBinding, Inven
      */
     fun showTipDialog(
         msg: String,
-        title: String,
         subbtn: TipDialog.SubmitListener?,
         canbtn: TipDialog.CancelListener
     ): TipDialog? {

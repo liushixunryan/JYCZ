@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/in_nav_bar"
+            layout="@layout/nav_bar" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="盘点区域"
+            android:textColor="@color/common_text_black" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:background="@color/common_bg_gray4" />
+
+        <TextView
+            android:id="@+id/pdqx_tv"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:background="@drawable/bg_select_tv" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_10"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_gray_tv"
+                android:gravity="center"
+                android:text="系统库存"
+                android:textColor="@color/common_text_black" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_select_tv"
+                android:gravity="center"
+                android:text="3214"
+                android:textColor="@color/common_text_black" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:layout_weight="1"
+                android:background="@drawable/bg_gray_tv"
+                android:gravity="center"
+                android:text="盘点库存"
+                android:textColor="@color/common_text_black" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_select_tv"
+                android:gravity="center"
+                android:text="1517"
+                android:textColor="@color/common_text_black" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="@dimen/dp_10"
+            android:text="盘点差异"
+            android:textColor="@color/common_text_black" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/cylist_rv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/bcpd_btn"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_blue_r32"
+                android:paddingVertical="0dp"
+                android:text="保存盘点"
+                android:textColor="@color/common_white"
+                android:textSize="18dp" />
+
+            <Button
+                android:id="@+id/jxpd_btn"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_blue_r32"
+                android:paddingVertical="0dp"
+                android:text="继续盘点"
+                android:textColor="@color/common_white"
+                android:textSize="18dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>
