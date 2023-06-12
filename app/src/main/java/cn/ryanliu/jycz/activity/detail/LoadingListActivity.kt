@@ -13,7 +13,7 @@ import cn.ryanliu.jycz.viewmodel.detail.LoadingListVM
 /**
  * @Author: lsx
  * @Date: 2023/6/12
- * @Description:装车明细列表
+ * @Description:装车/卸车明细列表
  */
 
 class LoadingListActivity : BaseActivity<DetailActivityLoadingListBinding, LoadingListVM>() {

@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.activity.detail.LoadingDetailActivity
+import cn.ryanliu.jycz.activity.detail.UnLoadingDetailActivity
 import cn.ryanliu.jycz.adapter.HomeCARAdapter
 import cn.ryanliu.jycz.adapter.HomePDAAdapter
 import cn.ryanliu.jycz.basic.BaseActivity
@@ -106,6 +107,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainVM>() {
             when (mCarAdapter.data[position].id) {
                 Constant.CARType.XIECHEMINGXI -> {
                     //跳转到model中
+                    UnLoadingDetailActivity.launch(this)
                 }
                 Constant.CARType.ZHUANGCHEMINGXI -> {
                     //跳转到model中
