@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/vg_ticket1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="@dimen/dp_10">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="订单状态："
+            android:textColor="@color/common_text_black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/ddzt_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/common_text_black" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="扫描总箱数："
+            android:textColor="@color/common_text_black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/smzxs_tv"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/common_text_black" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="装车完成时间："
+            android:textColor="@color/common_text_black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/zcwcsj_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/common_text_black" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="出场交接时间："
+            android:textColor="@color/common_text_black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/ccjjsj_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/common_text_black" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="车牌号："
+            android:textColor="@color/common_text_black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/cph_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/common_text_black" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="司机姓名："
+            android:textColor="@color/common_text_black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/sjxm_tv"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/common_text_black" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="扫描人："
+            android:textColor="@color/common_text_black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/smr_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/common_text_black" />
+
+        <Button
+            android:id="@+id/btn_all"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_green_small_btn"
+            android:paddingVertical="0dp"
+            android:text="查看已扫描箱码明细"
+            android:textColor="@color/common_white"
+            android:textSize="@dimen/sp_10" />
+
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@color/common_bg_gray4" />
+
+</LinearLayout>

@@ -23,6 +23,10 @@ class LoadingDetailActivity : BaseActivity<DetailActivityLoadingBinding, Loading
             onBackPressed()
         }
         mDatabind.inNavBar.tvNavTitle.text = "装车明细"
+
+        mDatabind.btnSelect.setOnClickListener {
+            LoadingListActivity.launch(this)
+        }
     }
 
     override fun createObserver() {

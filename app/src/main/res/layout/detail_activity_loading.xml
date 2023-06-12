@@ -307,5 +307,76 @@
             </LinearLayout>
         </LinearLayout>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:gravity="center"
+            android:text="装卸车扫描总箱数汇总"
+            android:textColor="@color/common_text_black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_30"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_gray_tv"
+                android:gravity="center"
+                android:text="当日装车扫描总箱数"
+                android:textColor="@color/common_text_black" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_gray_tv"
+                android:gravity="center"
+                android:text="1459"
+                android:textColor="@color/common_text_black" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_30"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_gray_tv"
+                android:gravity="center"
+                android:text="昨日装车扫描总箱数"
+                android:textColor="@color/common_text_black" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_gray_tv"
+                android:gravity="center"
+                android:text="1459"
+                android:textColor="@color/common_text_black" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_select"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@drawable/shape_blue_r32"
+            android:paddingVertical="0dp"
+            android:text="查询"
+            android:textColor="@color/common_white"
+            android:textSize="18dp" />
+
+
     </LinearLayout>
 </layout>
