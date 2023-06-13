@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/vg_ticket1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="@dimen/dp_10">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="箱码："
+            android:textColor="@color/common_text_black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/zcwcsj_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/common_text_black" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="调整时间："
+            android:textColor="@color/common_text_black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/ddzt_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/common_text_black" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="调整人："
+            android:textColor="@color/common_text_black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/smzxs_tv"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/common_text_black" />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="目的地："
+            android:textColor="@color/common_text_black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/ccjjsj_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/common_text_black" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="原库区："
+            android:textColor="@color/common_text_black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/cph_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/common_text_black" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="新库区："
+            android:textColor="@color/common_text_black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/sjxm_tv"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/common_text_black" />
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@color/common_bg_gray4" />
+
+</LinearLayout>

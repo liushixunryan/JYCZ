@@ -5,9 +5,7 @@ import android.content.Intent
 import android.util.Log
 import android.view.View
 import cn.ryanliu.jycz.R
-import cn.ryanliu.jycz.activity.detail.LoadingDetailActivity
-import cn.ryanliu.jycz.activity.detail.OrderDetailActivity
-import cn.ryanliu.jycz.activity.detail.UnLoadingDetailActivity
+import cn.ryanliu.jycz.activity.detail.*
 import cn.ryanliu.jycz.adapter.HomeCARAdapter
 import cn.ryanliu.jycz.adapter.HomePDAAdapter
 import cn.ryanliu.jycz.basic.BaseActivity
@@ -23,6 +21,7 @@ import cn.ryanliu.jycz.util.ToastUtilsExt
 import cn.ryanliu.jycz.view.GridSpaceItemDecoration
 import cn.ryanliu.jycz.viewmodel.MainVM
 import cn.ryanliu.jycz.viewmodel.ScanLoadingVM
+import cn.ryanliu.jycz.viewmodel.detail.AreaAdjustDetailVM
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -120,9 +119,11 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainVM>() {
                 }
                 Constant.CARType.PANDIANCHAXUN -> {
                     //跳转到model中
+                    InventoryDetailActivity.launch(this)
                 }
                 Constant.CARType.KUQUTIAOZHENGMINGXI -> {
                     //跳转到model中
+                    AreaAdjustDetailActivity.launch(this)
                 }
             }
         }
