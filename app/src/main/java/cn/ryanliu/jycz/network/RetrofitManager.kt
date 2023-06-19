@@ -4,8 +4,7 @@ import android.util.Log
 import cn.ryanliu.jycz.basic.BaseApplication
 import cn.ryanliu.jycz.network.TokenInterceptor
 import cn.ryanliu.jycz.util.UserUtil
-import com.zwl.common.constant.Config.sBaseUrl
-import com.zwl.common.constant.Config.sPlatformServerIP
+import cn.ryanliu.jycz.common.constant.Config.sBaseUrl
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -46,7 +45,7 @@ object RetrofitManager {
                 chain.proceed(request)
             } else {
                 val request =
-                    chain.request().newBuilder().addHeader("Authorization", ("Bearer $token") ?: "")
+                    chain.request().newBuilder().addHeader("Authorization", ("$token") ?: "")
                         .removeHeader("isToken").build()
                 chain.proceed(request)
             }

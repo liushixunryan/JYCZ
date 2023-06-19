@@ -1,5 +1,7 @@
 package cn.ryanliu.jycz.common.constant;
 
+import org.jetbrains.annotations.Nullable;
+
 public class Constant {
     public static class PDAType {
         //扫码卸车
@@ -36,6 +38,24 @@ public class Constant {
         public final static String ROLES = "roles";
         public final static String ALL_ROLES = "allRoles";
         public final static String TOKEN = "token";
+        public final static String USER_ID = "userid";
+        public static final String USER_NAME = "username";
+        public static final String LOGIN_ACOUNT = "loginacount";
+        public static final String PHONE = "phone";
+        public static final String UNIT_NAME = "unitname";
+        public static final String UNIT_CODE = "unitcode";
+        public static final String UNIT_ID = "unitid";
+        public static final String SITE_ID = "siteid";
+        public static final String SITE_CODE = "sitecode";
+        public static final String SITE_NAME = "sitename";
     }
+    public static class PageModel {
+        //装车
+        public final static int ZHUANGCHE = 1;
+        //卸车
+        public final static int XIECHE = 0;
+
+    }
+
 
 }

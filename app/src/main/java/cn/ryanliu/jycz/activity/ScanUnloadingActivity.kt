@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.basic.BaseActivity
+import cn.ryanliu.jycz.common.constant.Constant
 import cn.ryanliu.jycz.databinding.ActivityScanUnloadingBinding
 import cn.ryanliu.jycz.util.ToastUtilsExt
 import cn.ryanliu.jycz.viewmodel.ScanUnloadingVM
@@ -30,12 +31,20 @@ class ScanUnloadingActivity : BaseActivity<ActivityScanUnloadingBinding, ScanUnl
         }
         mDatabind.inNavBar.tvNavTitle.text = "扫码卸货"
 
+        mDatabind.etYylx.text = "司机预约"
+
         onClick();
 
     }
 
     private fun onClick() {
         mDatabind.btnSearchcar.setOnClickListener(object : OnSingleClickListener() {
+            override fun onSingleClick(view: View?) {
+                mViewModel.getCarInfoIn2(mDatabind.etCph.text.toString())
+            }
+        })
+        //选择车辆
+        mDatabind.btnSelectcar.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
                 val intent = Intent(this@ScanUnloadingActivity, SelectCarActivity::class.java)
                 startActivityForResult(intent, SelectCarActivity.REQUEST_CODE_XXCL)
@@ -75,25 +84,34 @@ class ScanUnloadingActivity : BaseActivity<ActivityScanUnloadingBinding, ScanUnl
 
         mDatabind.btnStartscan.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
-//                if (mDatabind.etCph.text.toString().isNullOrEmpty()) {
-//                    ToastUtilsExt.info("您未选择车辆信息")
-//                    return
-//                }
-//                if (mDatabind.etKq.text.toString().isNullOrEmpty()) {
-//                    ToastUtilsExt.info("您未选择库区")
-//                    return
-//                }
-//                if (mDatabind.etYylx.text.toString().isNullOrEmpty()) {
-//                    ToastUtilsExt.info("您未选择预约类型")
-//                    return
-//                }
+                if (mDatabind.etCph.text.toString().isNullOrEmpty()) {
+                    ToastUtilsExt.info("您未选择车辆信息")
+                    return
+                }
+                if (mDatabind.etKq.text.toString().isNullOrEmpty()) {
+                    ToastUtilsExt.info("您未选择库区")
+                    return
+                }
+                if (mDatabind.etYylx.text.toString().isNullOrEmpty()) {
+                    ToastUtilsExt.info("您未选择预约类型")
+                    return
+                }
 
                 if (reservationId == 0) {
+                    //卸车传0 装车传1
                     //跳转到司机
-                    DriverActivity.launch(this@ScanUnloadingActivity)
+                    DriverActivity.launch(
+                        this@ScanUnloadingActivity,
+                        mDatabind.etCph.text.toString(),
+                        Constant.PageModel.XIECHE
+                    )
                 } else if (reservationId == 1) {
                     //跳转到项目
-                    ProjectActivity.launch(this@ScanUnloadingActivity)
+                    ProjectActivity.launch(
+                        this@ScanUnloadingActivity,
+                        mDatabind.etCph.text.toString(),
+                        Constant.PageModel.XIECHE
+                    )
                 }
             }
         })
@@ -112,6 +130,25 @@ class ScanUnloadingActivity : BaseActivity<ActivityScanUnloadingBinding, ScanUnl
     }
 
     override fun createObserver() {
+        mViewModel.mSelectCar.observe(this) {
+            if (it.isNullOrEmpty()) {
+                mDatabind.driverLl.visibility = View.GONE
+                mDatabind.projectLl.visibility = View.GONE
+                mDatabind.hintLl.visibility = View.VISIBLE
+                mDatabind.hintTv.text = "未搜索到任何车辆信息，点击 “开始扫码卸车” 将按司机预约执行。"
+            } else {
+
+                if (it[0].reservation_type == "项目预约") {
+                    mDatabind.driverLl.visibility = View.GONE
+                    mDatabind.projectLl.visibility = View.VISIBLE
+                    mDatabind.hintLl.visibility = View.GONE
+                } else {
+                    mDatabind.driverLl.visibility = View.VISIBLE
+                    mDatabind.projectLl.visibility = View.GONE
+                    mDatabind.hintLl.visibility = View.GONE
+                }
+            }
+        }
     }
 
     companion object {

@@ -21,7 +21,7 @@ import java.lang.reflect.ParameterizedType
  */
 abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel> : AppCompatActivity() {
     lateinit var mDatabind: B
-    var mViewModel: VM? = null;
+    lateinit var mViewModel: VM;
 
     //是否显示标题栏
     private var isShowTitle: Boolean? = false;
@@ -40,12 +40,12 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel> : AppCompat
         //初始化布局
         mDatabind = DataBindingUtil.setContentView(this, layoutId());
 
+        //创建我们的ViewModel。
+        createViewModel()
         //activity管理
         ActivityCollector().addActivity(this)
 
-        mDatabind!!.lifecycleOwner = (this)
-        //创建我们的ViewModel。
-        createViewModel()
+        mDatabind.lifecycleOwner = (this)
         //初始化控件
         initView()
         //设置数据
@@ -56,21 +56,20 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel> : AppCompat
      * 绑定viewmodel
      */
     open fun createViewModel() {
-        if (mViewModel == null) {
-            val modelClass: Class<*>
-            val type = javaClass.genericSuperclass
-            if (type is ParameterizedType) {
-                modelClass = type.actualTypeArguments[1] as Class<*>
-            } else {
-                //如果没有指定泛型参数，则默认使用BaseViewModel
-                modelClass = BaseViewModel::class.java
-            }
-            mViewModel =
-                ViewModelProvider(
-                    this,
-                    ViewModelProvider.NewInstanceFactory()
-                ).get<ViewModel>(modelClass as Class<ViewModel>) as VM
+        val modelClass: Class<*>
+        val type = javaClass.genericSuperclass
+        if (type is ParameterizedType) {
+            modelClass = type.actualTypeArguments[1] as Class<*>
+        } else {
+            //如果没有指定泛型参数，则默认使用BaseViewModel
+            modelClass = BaseViewModel::class.java
         }
+        mViewModel =
+            ViewModelProvider(
+                this,
+                ViewModelProvider.NewInstanceFactory()
+            ).get<ViewModel>(modelClass as Class<ViewModel>) as VM
+
     }
 
     /**
@@ -84,7 +83,6 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel> : AppCompat
      * 初始化控件
      */
     protected abstract fun initView()
-
 
 
     /**

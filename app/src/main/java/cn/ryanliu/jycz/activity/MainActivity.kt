@@ -1,5 +1,6 @@
 package cn.ryanliu.jycz.activity
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.util.Log
@@ -14,10 +15,7 @@ import cn.ryanliu.jycz.bean.HomeCARBean
 import cn.ryanliu.jycz.bean.HomePDABean
 import cn.ryanliu.jycz.common.constant.Constant
 import cn.ryanliu.jycz.databinding.ActivityMainBinding
-import cn.ryanliu.jycz.util.AuthorUtil
-import cn.ryanliu.jycz.util.DialogUtil
-import cn.ryanliu.jycz.util.LogoutEvent
-import cn.ryanliu.jycz.util.ToastUtilsExt
+import cn.ryanliu.jycz.util.*
 import cn.ryanliu.jycz.view.GridSpaceItemDecoration
 import cn.ryanliu.jycz.viewmodel.MainVM
 import cn.ryanliu.jycz.viewmodel.ScanLoadingVM
@@ -31,7 +29,14 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainVM>() {
 
     override fun layoutId(): Int = R.layout.activity_main
 
+    @SuppressLint("SetTextI18n")
     override fun initView() {
+        mDatabind.zzTv.text = MmkvHelper.getInstance().getString(Constant.MmKv_KEY.UNIT_NAME)
+        mDatabind.czTv.text = MmkvHelper.getInstance().getString(Constant.MmKv_KEY.SITE_NAME)
+        mDatabind.xmTv.text = MmkvHelper.getInstance().getString(Constant.MmKv_KEY.USER_NAME) + "(${
+            MmkvHelper.getInstance().getString(Constant.MmKv_KEY.LOGIN_ACOUNT)
+        })"
+        mDatabind.sjTv.text = MmkvHelper.getInstance().getString(Constant.MmKv_KEY.PHONE)
         mDatabind.dayinjiImg.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
                 DialogUtil.showSelectDialog(

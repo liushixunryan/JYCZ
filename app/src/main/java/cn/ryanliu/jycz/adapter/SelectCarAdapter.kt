@@ -21,8 +21,8 @@ class SelectCarAdapter : BaseQuickAdapter<SelectCarBean, BaseViewHolder>(R.layou
 
     @SuppressLint("NotifyDataSetChanged")
     override fun convert(holder: BaseViewHolder, item: SelectCarBean) {
-        holder.setText(R.id.tv_carplant, item.plant)
-        if (item.isuse == 1) {
+        holder.setText(R.id.tv_carplant, item.car_number)
+        if (item.work_state == "卸车中") {
             holder.setTextColor(R.id.tv_carplant, Color.RED)
         }
 

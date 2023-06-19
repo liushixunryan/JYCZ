@@ -10,7 +10,7 @@ open class BaseResponse<T>(
     var success: Boolean? = null
 ) {
     fun isSuccess(): Boolean {
-        if (code == 200) {
+        if (code == 1) {
             return true
         } else {
             if (!msg.isNullOrEmpty())

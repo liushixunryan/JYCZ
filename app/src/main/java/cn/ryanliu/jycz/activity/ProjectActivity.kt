@@ -14,8 +14,8 @@ import cn.ryanliu.jycz.viewmodel.ProjectVM
  * @Description:项目预约
  */
 class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
-
-
+    var carNum = ""
+    private var pageModel: Int = 0
     override fun layoutId(): Int = R.layout.activity_project
 
     override fun initView() {
@@ -30,6 +30,9 @@ class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
         mDatabind.inNavBar.tvNavRight.visibility = View.VISIBLE
         mDatabind.inNavBar.tvNavRight.text = "库区：A06"
 
+        pageModel = intent.getIntExtra("edit", 0)
+        carNum = intent.getStringExtra("carnumber").toString()
+
         onClick()
     }
 
@@ -43,8 +46,10 @@ class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
     }
 
     companion object {
-        fun launch(context: Context) {
+        fun launch(context: Context, carnumber: String, pageModel: Int) {
             val intent = Intent(context, ProjectActivity::class.java)
+            intent.putExtra("carnumber", carnumber)
+            intent.putExtra("edit", pageModel)
             context.startActivity(intent)
         }
 

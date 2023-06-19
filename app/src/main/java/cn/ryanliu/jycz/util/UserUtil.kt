@@ -16,4 +16,11 @@ object UserUtil {
         }
         return sToken
     }
+
+    @JvmStatic
+    fun setUserToken(token: String?) {
+        sToken = token
+        MmkvHelper.getInstance().putString(Constant.MmKv_KEY.TOKEN, token ?: "")
+    }
+
 }

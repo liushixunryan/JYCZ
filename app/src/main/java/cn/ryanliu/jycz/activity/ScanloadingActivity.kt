@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.basic.BaseActivity
+import cn.ryanliu.jycz.common.constant.Constant
 import cn.ryanliu.jycz.databinding.ActivityScanloadingActivityBinding
 import cn.ryanliu.jycz.viewmodel.ScanLoadingVM
 import com.lxj.xpopup.XPopup
@@ -80,10 +81,17 @@ class ScanloadingActivity :
 
                 if (reservationId == 0) {
                     //跳转到司机
-                    DriverActivity.launch(this@ScanloadingActivity)
+                    DriverActivity.launch(
+                        this@ScanloadingActivity, mDatabind.etCph.text.toString(),
+                        Constant.PageModel.ZHUANGCHE
+                    )
                 } else if (reservationId == 1) {
                     //跳转到项目
-                    ProjectActivity.launch(this@ScanloadingActivity)
+                    ProjectActivity.launch(
+                        this@ScanloadingActivity,
+                        mDatabind.etCph.text.toString(),
+                        Constant.PageModel.ZHUANGCHE
+                    )
                 }
             }
         })

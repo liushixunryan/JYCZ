@@ -57,7 +57,6 @@
                             android:id="@+id/zz_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="北京分公司"
                             android:textColor="@color/common_text_black" />
 
                     </LinearLayout>
@@ -80,7 +79,6 @@
                             android:id="@+id/cz_tv"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="顺义空港物流园"
                             android:textColor="@color/common_text_black"
                             android:textSize="14sp" />
 
@@ -104,7 +102,6 @@
                             android:id="@+id/xm_tv"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="陈东平 (账号：1005)"
                             android:textColor="@color/common_text_black"
                             android:textSize="14sp" />
 
@@ -128,7 +125,6 @@
                             android:id="@+id/sj_tv"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="15920202020"
                             android:textColor="@color/common_text_black"
                             android:textSize="14sp" />
 

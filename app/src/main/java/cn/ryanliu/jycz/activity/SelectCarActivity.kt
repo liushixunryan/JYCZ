@@ -19,13 +19,9 @@ import cn.ryanliu.jycz.viewmodel.SelectCarVM
  */
 class SelectCarActivity : BaseActivity<ActivitySelectCarBinding, SelectCarVM>() {
     lateinit var mAdapter: SelectCarAdapter
-    lateinit var selectBean: MutableList<SelectCarBean>
+    var selectBean: MutableList<SelectCarBean>? = null
     override fun layoutId(): Int = R.layout.activity_select_car
     override fun initView() {
-
-        selectBean = ArrayList();
-
-
         mDatabind.inNavBar.ivNavBack.visibility = View.VISIBLE
         mDatabind.inNavBar.ivNavBack.setOnClickListener {
             onBackPressed()
@@ -40,25 +36,16 @@ class SelectCarActivity : BaseActivity<ActivitySelectCarBinding, SelectCarVM>() 
 
     private fun onClick() {
         mDatabind.btnSelectarea.setOnClickListener {
-            var a = SelectCarBean("京A96M56", 0)
-            var b = SelectCarBean("京AQW322W", 0)
-            var d = SelectCarBean("京A226MQW", 0)
-            var c = SelectCarBean("京A43QWW", 0)
-            selectBean.add(a)
-            selectBean.add(b)
-            selectBean.add(c)
-            selectBean.add(d)
-
-            mAdapter.setList(selectBean)
+            mViewModel.getCarInfoIn1(mDatabind.etKq.text.toString())
         }
 
         mDatabind.btnConfirm.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
                 val isSelect = arrayListOf<Int>()
-                for (i in selectBean.indices) {
-                    if (selectBean[i].isselect == 1) {
+                for (i in selectBean!!.indices) {
+                    if (selectBean!![i].isselect == 1) {
                         val intent = Intent(this@SelectCarActivity, SelectCarActivity::class.java)
-                        intent.putExtra("carNum", selectBean[i].plant)
+                        intent.putExtra("carNum", selectBean!![i].car_number)
                         setResult(RESULT_OK, intent);
                         finish()
                     } else {
@@ -66,7 +53,7 @@ class SelectCarActivity : BaseActivity<ActivitySelectCarBinding, SelectCarVM>() 
                     }
                 }
 
-                if (isSelect.size == selectBean.size) {
+                if (isSelect.size == selectBean!!.size) {
                     ToastUtilsExt.info("您未选中任何车牌号")
                     return
                 }
@@ -78,6 +65,25 @@ class SelectCarActivity : BaseActivity<ActivitySelectCarBinding, SelectCarVM>() 
     }
 
     override fun createObserver() {
+        mViewModel.mSelectCar.observe(this) {
+            if (it.isNullOrEmpty()) {
+                mDatabind.loadingLayout.showEmpty()
+            } else {
+                mAdapter.setList(it)
+                selectBean = it
+                if (mAdapter.data.isEmpty()) {
+                    mDatabind.loadingLayout.showEmpty()
+                } else {
+                    mDatabind.loadingLayout.showContent()
+                }
+            }
+
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mViewModel.getCarInfoIn1(mDatabind.etKq.text.toString())
     }
 
     companion object {

@@ -45,7 +45,6 @@
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/bg_edittext"
                     android:hint="请输入车牌号"
-                    android:inputType="number"
                     android:lines="1"
                     android:maxLines="1"
                     android:textSize="14sp" />
@@ -100,9 +99,10 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <TextView
+                    android:id="@+id/hint_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="操作提示：\n1、可手工输入车牌号进行搜索预约单信息\n2、直接选择已入场车辆信息"
@@ -391,7 +391,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -597,7 +597,6 @@
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/bg_edittext"
                     android:hint="请输入库区"
-                    android:inputType="number"
                     android:lines="1"
                     android:maxLines="1"
                     android:textSize="14sp" />

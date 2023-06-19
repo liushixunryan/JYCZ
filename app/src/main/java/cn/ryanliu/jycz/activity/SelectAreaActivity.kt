@@ -36,16 +36,7 @@ class SelectAreaActivity : BaseActivity<ActivitySelectAreaBinding, SelectAreaVM>
 
     private fun onClick() {
         mDatabind.btnSelectarea.setOnClickListener {
-            var a = SelectAreaBean("A05", 0)
-            var b = SelectAreaBean("A06", 0)
-            var d = SelectAreaBean("A18", 0)
-            var c = SelectAreaBean("D15", 0)
-            selectBean.add(a)
-            selectBean.add(b)
-            selectBean.add(c)
-            selectBean.add(d)
-
-            mAdapter.setList(selectBean)
+            mViewModel.getWareArea(mDatabind.etKq.text.toString())
         }
 
         mDatabind.btnConfirm.setOnClickListener(object : OnSingleClickListener() {
@@ -71,7 +62,8 @@ class SelectAreaActivity : BaseActivity<ActivitySelectAreaBinding, SelectAreaVM>
                         if (selectBean[i].isselect == 1) {
                             val intent =
                                 Intent(this@SelectAreaActivity, SelectCarActivity::class.java)
-                            intent.putExtra("areaName", selectBean[i].areaname)
+                            intent.putExtra("areaName", selectBean[i].ware_area_name)
+                            intent.putExtra("areaId", selectBean[i].ware_area_id)
                             setResult(RESULT_OK, intent);
                             finish()
                         } else {
@@ -89,7 +81,26 @@ class SelectAreaActivity : BaseActivity<ActivitySelectAreaBinding, SelectAreaVM>
         })
     }
 
+    override fun onResume() {
+        super.onResume()
+        mViewModel.getWareArea()
+    }
+
     override fun createObserver() {
+        mViewModel.mSelectArea.observe(this) {
+            if (it.isNullOrEmpty()) {
+                mDatabind.loadingLayout.showEmpty()
+            } else {
+                mAdapter.setList(it)
+                selectBean = it
+                if (mAdapter.data.isEmpty()) {
+                    mDatabind.loadingLayout.showEmpty()
+                } else {
+                    mDatabind.loadingLayout.showContent()
+                }
+            }
+        }
+
     }
 
     companion object {

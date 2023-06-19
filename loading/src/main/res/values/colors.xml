@@ -12,5 +12,6 @@
     <color name="defalut_text">#333333</color>
     <color name="gray_text">#b1b1b1</color>
     <color name="data_text">#66667F</color>
+    <color name="colorPrimary">#6200EE</color>
 
 </resources>

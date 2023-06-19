@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">集运场站管理系统</string>
+    <string name="activity_main_originalsize">原大小：</string>
+    <string name="activity_main_minifront">小字体:</string>
+    <string name="activity_main_heightsize">倍高:</string>
+    <string name="activity_main_widthsize">倍宽:</string>
+    <string name="activity_main_heightwidthsize">倍高倍宽:</string>
+    <string name="activity_main_bold">加粗:</string>
+    <string name="activity_main_underline">下划线:</string>
+    <string name="activity_main_type">类型:</string>
+    <string name="activity_main_original">原图</string>
+    <string name="activity_main_shake">抖动</string>
+    <string name="activity_main_bw">黑白</string>
+    <string name="activity_main_gather">聚集</string>
+    <string name="activity_main_light">亮度（-100—100）</string>
+    <string name="activity_main_light_message">亮度范围必须是-100到100</string>
+    <string name="acticity_main_nonsupport">打印机不支持</string>
 </resources>

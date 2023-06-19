@@ -23,10 +23,10 @@ class SelectAreaAdapter :
 
     @SuppressLint("NotifyDataSetChanged")
     override fun convert(holder: BaseViewHolder, item: SelectAreaBean) {
-        holder.setText(R.id.tv_carplant, item.areaname)
-        if (item.isuse == 1) {
-            holder.setTextColor(R.id.tv_carplant, Color.RED)
-        }
+        holder.setText(R.id.tv_carplant, item.ware_area_name)
+//        if (item.isuse == 1) {
+//            holder.setTextColor(R.id.tv_carplant, Color.RED)
+//        }
 
         if (selPosition != holder.bindingAdapterPosition) {
             item.isselect = -1
