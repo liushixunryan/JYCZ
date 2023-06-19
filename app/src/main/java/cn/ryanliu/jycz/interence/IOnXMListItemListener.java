@@ -1,7 +1,6 @@
 package cn.ryanliu.jycz.interence;
 
-
-import cn.ryanliu.jycz.bean.IndentNumBean;
+import cn.ryanliu.jycz.bean.List1;
 
 /**
  * @Author: lsx
@@ -10,5 +9,5 @@ import cn.ryanliu.jycz.bean.IndentNumBean;
  */
 public interface IOnXMListItemListener {
 
-    void onXMListItemListener(IndentNumBean xmlist);
+    void onXMListItemListener(List1 xmlist);
 }

@@ -34,6 +34,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/xs_tv"
             android:layout_width="55dp"
             android:layout_height="wrap_content"
             android:text=""
@@ -56,6 +57,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/ddmdd_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -78,24 +80,11 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/ddzt_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textColor="@color/common_text_black" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="箱数："
-            android:textColor="@color/common_text_black"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="55dp"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="@color/common_text_black" />
-
 
     </LinearLayout>
 

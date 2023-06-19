@@ -4,6 +4,7 @@ import android.widget.Button
 import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.bean.HomePDABean
 import cn.ryanliu.jycz.bean.IndentNumBean
+import cn.ryanliu.jycz.bean.List1
 import cn.ryanliu.jycz.bean.TMBQBean
 import cn.ryanliu.jycz.interence.IOnXMListItemListener
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -14,7 +15,7 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder
  * @Date: 2023/6/4
  * @Description:
  */
-class IndentNumAdapter : BaseQuickAdapter<IndentNumBean, BaseViewHolder>(R.layout.item_indentnum) {
+class IndentNumAdapter : BaseQuickAdapter<List1, BaseViewHolder>(R.layout.item_indentnum) {
     //全部
     private var mallIOnXMListItemListener: IOnXMListItemListener? = null
 
@@ -39,8 +40,14 @@ class IndentNumAdapter : BaseQuickAdapter<IndentNumBean, BaseViewHolder>(R.layou
         munreadIOnXMListItemListener = l
     }
 
-    override fun convert(holder: BaseViewHolder, item: IndentNumBean) {
-        holder.setText(R.id.wtdh_tv, item.indentnum)
+    override fun convert(holder: BaseViewHolder, item: List1) {
+        holder.setText(R.id.wtdh_tv, item.py_order_code)
+        holder.setText(R.id.xs_tv, item.goods_num)
+        holder.setText(R.id.ddmdd_tv, item.rec_area)
+        holder.setText(R.id.ddzt_tv, item.order_state_in_scan)
+
+        holder.setText(R.id.btn_read, "已扫(${item.yes_scan_num})")
+        holder.setText(R.id.btn_unall, "未扫(${item.no_scan_num})")
 
 
         //点击全部

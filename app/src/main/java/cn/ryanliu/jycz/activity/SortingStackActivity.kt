@@ -29,11 +29,11 @@ class SortingStackActivity : BaseActivity<ActivitySortingStackBinding, SortingSt
 
     private fun onClick() {
         mDatabind.xsTv.setOnClickListener {
-            XMListActivity.launch(this)
+//            XMListActivity.launch(this)
         }
 
         mDatabind.wtdhTv.setOnClickListener {
-            XMListActivity.launch(this)
+//            XMListActivity.launch(this)
 
         }
 

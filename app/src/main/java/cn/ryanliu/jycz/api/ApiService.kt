@@ -38,6 +38,13 @@ interface ApiService {
     @POST("/api/APP/submit_save")
     suspend fun submitSaveIn(@Body request: PSubmitSaveIn): BaseResponse<Any?>
 
+    //订单数量 按钮 点击时查看 订单扫描情况
+    @POST("/api/APP/search_car_orders")
+    suspend fun searchCarOrders(@Body request: PCarOrders): BaseResponse<IndentNumBean>
+
+    //通过委托单号查询对应的箱码明细/api/APP/get_boxcode_list
+    @POST("/api/APP/get_boxcode_list")
+    suspend fun getBoxcodeList(@Body request: PBoxcodeList): BaseResponse<MutableList<XMListBean>>
     companion object {
         // 4.通过动态代理获取到所定义的接口
         val apiService = RetrofitManager.retrofit.create(ApiService::class.java)

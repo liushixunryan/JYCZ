@@ -33,12 +33,12 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/ddsl_tv"
                 android:layout_width="0dp"
                 android:layout_height="38dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_select_tv"
                 android:gravity="center"
-                android:text="50"
                 android:textColor="@color/common_text_black"
                 android:textSize="@dimen/sp_13"
                 android:textStyle="bold" />
@@ -56,12 +56,12 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/zxs_tv"
                 android:layout_width="0dp"
                 android:layout_height="38dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_select_tv"
                 android:gravity="center"
-                android:text="50"
                 android:textColor="@color/common_text_black"
                 android:textSize="@dimen/sp_13"
                 android:textStyle="bold" />
@@ -84,12 +84,12 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/ysmzxs_tv"
                 android:layout_width="0dp"
                 android:layout_height="38dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_select_tv"
                 android:gravity="center"
-                android:text="50"
                 android:textColor="@color/common_text_black"
                 android:textSize="@dimen/sp_13"
                 android:textStyle="bold" />
@@ -107,12 +107,12 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/wsxs_tv"
                 android:layout_width="0dp"
                 android:layout_height="38dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_select_tv"
                 android:gravity="center"
-                android:text="50"
                 android:textColor="@color/common_text_black"
                 android:textSize="@dimen/sp_13"
                 android:textStyle="bold" />
@@ -124,6 +124,7 @@
             android:layout_marginTop="@dimen/dp_10">
 
             <Button
+                android:id="@+id/qbdd_btn"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:layout_marginHorizontal="20dp"
@@ -135,6 +136,7 @@
                 android:textSize="@dimen/sp_12" />
 
             <Button
+                android:id="@+id/zkys_btn"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:layout_marginHorizontal="20dp"
@@ -146,6 +148,7 @@
                 android:textSize="@dimen/sp_12" />
 
             <Button
+                android:id="@+id/zkws_btn"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:layout_marginHorizontal="20dp"
@@ -163,12 +166,18 @@
             android:layout_marginBottom="@dimen/dp_10"
             android:background="@color/common_bg_gray4" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/ddsllb_rv"
+        <cn.ryanliu.jycz.view.LoadingLayout
+            android:id="@+id/loading_layout"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:overScrollMode="never"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/ddsllb_rv"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:overScrollMode="never"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        </cn.ryanliu.jycz.view.LoadingLayout>
     </LinearLayout>
 </layout>

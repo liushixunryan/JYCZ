@@ -22,7 +22,7 @@ class OrderListAdapter :
         holder.setText(R.id.ddzt_tv, item.indentnum)
 
         holder.getView<Button>(R.id.btn_all).setOnClickListener {
-            XMListActivity.launch(context)
+//            XMListActivity.launch(context)
         }
 
     }

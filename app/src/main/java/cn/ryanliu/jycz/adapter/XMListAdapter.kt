@@ -1,5 +1,6 @@
 package cn.ryanliu.jycz.adapter
 
+import android.graphics.Color
 import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.bean.XMListBean
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -14,7 +15,12 @@ class XMListAdapter : BaseQuickAdapter<XMListBean, BaseViewHolder>(R.layout.item
 
 
     override fun convert(holder: BaseViewHolder, item: XMListBean) {
-        holder.setText(R.id.tv_tmbq, item.bqname)
+        holder.setText(R.id.tv_tmbq, item.scan_code)
+        if (item.color_flag == 0) {
+            holder.setTextColor(R.id.tv_tmbq, Color.alpha(R.color.common_text_black))
+        } else {
+            holder.setTextColor(R.id.tv_tmbq,Color.alpha(R.color.common_red))
+        }
 
     }
 }

@@ -7,6 +7,7 @@ import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.adapter.XMListAdapter
 import cn.ryanliu.jycz.basic.BaseActivity
 import cn.ryanliu.jycz.bean.XMListBean
+import cn.ryanliu.jycz.common.constant.Constant
 import cn.ryanliu.jycz.databinding.ActivityXmlistBinding
 import cn.ryanliu.jycz.viewmodel.XMListVM
 
@@ -16,6 +17,10 @@ import cn.ryanliu.jycz.viewmodel.XMListVM
  * @Description:箱码列表
  */
 class XMListActivity : BaseActivity<ActivityXmlistBinding, XMListVM>() {
+    private var pageModel: Int = 0
+    private var handtaskid: Int = 0
+    private var pyordercode: String = ""
+
     lateinit var mAdapter: XMListAdapter
     override fun layoutId(): Int = R.layout.activity_xmlist
 
@@ -26,15 +31,22 @@ class XMListActivity : BaseActivity<ActivityXmlistBinding, XMListVM>() {
         }
         mDatabind.inNavBar.tvNavTitle.text = "箱码列表"
 
+        pageModel = intent.getIntExtra("edit", 0)
+        handtaskid = intent.getIntExtra("handtaskid", 0)
+        pyordercode = intent.getStringExtra("pyordercode").toString()
+
+        mViewModel.getBoxcodeList(
+            handtaskid,
+            if (pageModel == Constant.PageModel.XIECHE) {
+                "卸车"
+            } else {
+                "装车"
+            }, pyordercode
+        )
+
         mAdapter = XMListAdapter();
         mDatabind.xmlistRv.adapter = mAdapter
 
-        mAdapter.addData(XMListBean(0, "aslidhakjsbdalskndlaksf"))
-        mAdapter.addData(XMListBean(1, "aslidhakjsbdalskndlaksf"))
-        mAdapter.addData(XMListBean(2, "aslidhakjsbdalskndlaksf"))
-        mAdapter.addData(XMListBean(3, "aslidhakjsbdalskndlaksf"))
-        mAdapter.addData(XMListBean(4, "aslidhakjsbdalskndlaksf"))
-        mAdapter.addData(XMListBean(5, "aslidhakjsbdalskndlaksf"))
 
         onClick();
 
@@ -44,11 +56,26 @@ class XMListActivity : BaseActivity<ActivityXmlistBinding, XMListVM>() {
     }
 
     override fun createObserver() {
+        mViewModel.mData.observe(this) {
+            if (it.isNullOrEmpty()) {
+                mDatabind.loadingLayout.showEmpty()
+            } else {
+                mAdapter.setList(it)
+                if (mAdapter.data.isEmpty()) {
+                    mDatabind.loadingLayout.showEmpty()
+                } else {
+                    mDatabind.loadingLayout.showContent()
+                }
+            }
+        }
     }
 
     companion object {
-        fun launch(context: Context) {
+        fun launch(context: Context, pageModel: Int, handtaskid: Int, pyordercode: String) {
             val intent = Intent(context, XMListActivity::class.java)
+            intent.putExtra("edit", pageModel)
+            intent.putExtra("handtaskid", handtaskid)
+            intent.putExtra("pyordercode", pyordercode)
             context.startActivity(intent)
         }
 

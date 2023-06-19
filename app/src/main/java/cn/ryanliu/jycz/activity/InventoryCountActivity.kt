@@ -36,15 +36,15 @@ class InventoryCountActivity : BaseActivity<ActivityInventoryCountBinding, Inven
 
     private fun onClick() {
         mDatabind.ysxmTv.setOnClickListener {
-            XMListActivity.launch(this)
+//            XMListActivity.launch(this)
         }
 
         mDatabind.xsTv.setOnClickListener {
-            XMListActivity.launch(this)
+//            XMListActivity.launch(this)
         }
 
         mDatabind.khddhTv.setOnClickListener {
-            XMListActivity.launch(this)
+//            XMListActivity.launch(this)
 
         }
 

@@ -15,6 +15,11 @@
             android:id="@+id/in_nav_bar"
             layout="@layout/nav_bar" />
 
+        <cn.ryanliu.jycz.view.LoadingLayout
+            android:id="@+id/loading_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/xmlist_rv"
             android:layout_width="match_parent"
@@ -23,6 +28,6 @@
             android:overScrollMode="never"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-
+        </cn.ryanliu.jycz.view.LoadingLayout>
     </LinearLayout>
 </layout>

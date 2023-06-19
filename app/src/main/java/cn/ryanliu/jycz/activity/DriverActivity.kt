@@ -38,6 +38,10 @@ class DriverActivity : BaseActivity<ActivityDriverBinding, DriverVM>() {
 
         mViewModel.getScanOrders(
             carNum, if (pageModel == Constant.PageModel.XIECHE) {
+                "卸车"
+            } else {
+                "装车"
+            }, if (pageModel == Constant.PageModel.XIECHE) {
                 "卸车任务"
             } else {
                 "装车任务"
@@ -49,11 +53,24 @@ class DriverActivity : BaseActivity<ActivityDriverBinding, DriverVM>() {
 
     private fun onClick() {
         mDatabind.btnTj.setOnClickListener {
-            mViewModel.getScanInCode(hand_task_id, mDatabind.etSmxm.text.toString())
+            mViewModel.getScanInCode(
+                hand_task_id, if (pageModel == Constant.PageModel.XIECHE) {
+                    "卸车"
+                } else {
+                    "装车"
+                }, mDatabind.etSmxm.text.toString()
+            )
         }
         //确认卸车完成
         mDatabind.qrxcwcBtn.setOnClickListener {
-            mViewModel.submitSaveIn(hand_task_id)
+            mViewModel.submitSaveIn(
+                hand_task_id,
+                if (pageModel == Constant.PageModel.XIECHE) {
+                    "卸车"
+                } else {
+                    "装车"
+                },
+            )
         }
     }
 
