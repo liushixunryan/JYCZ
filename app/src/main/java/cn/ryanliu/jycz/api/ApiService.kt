@@ -4,9 +4,8 @@ import cn.ryanliu.jycz.basic.BaseResponse
 import cn.ryanliu.jycz.bean.*
 import cn.ryanliu.jycz.bean.prequest.*
 import com.zwl.common.network.RetrofitManager
-import retrofit2.http.Body
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import okhttp3.MultipartBody
+import retrofit2.http.*
 
 // 1.定义请求接口
 interface ApiService {
@@ -45,6 +44,27 @@ interface ApiService {
     //通过委托单号查询对应的箱码明细/api/APP/get_boxcode_list
     @POST("/api/APP/get_boxcode_list")
     suspend fun getBoxcodeList(@Body request: PBoxcodeList): BaseResponse<MutableList<XMListBean>>
+
+    //入场交接列表
+    @POST("/api/APP/search_task")
+    suspend fun searchTask(@Body request: PsearchTask): BaseResponse<MutableList<EntryHandoverBean>>
+
+    //上传图片
+    @Multipart
+    @POST("/api/APP/upload_photo")
+    suspend fun upload_photo(@Part parts: List<MultipartBody.Part>): BaseResponse<String?>
+
+    //api/APP/confirm_task
+    //完成出场交接
+    @POST("/api/APP/confirm_task")
+    suspend fun confirmTask(@Body request: PconfirmTask): BaseResponse<Any?>
+
+    @Multipart
+    @POST("/api/APP/upload_photo")
+   suspend fun uploadList(
+        @Part parts: List<MultipartBody.Part>
+    ): BaseResponse<Map<String, String>?>
+
     companion object {
         // 4.通过动态代理获取到所定义的接口
         val apiService = RetrofitManager.retrofit.create(ApiService::class.java)

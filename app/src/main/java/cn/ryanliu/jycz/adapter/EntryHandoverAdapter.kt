@@ -1,6 +1,5 @@
 package cn.ryanliu.jycz.adapter
 
-import android.util.Log
 import android.widget.LinearLayout
 import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.bean.EntryHandoverBean
@@ -18,7 +17,10 @@ class EntryHandoverAdapter :
     private var selPosition = -1
 
     override fun convert(holder: BaseViewHolder, item: EntryHandoverBean) {
-        holder.setText(R.id.xcsmxs_tv, item.indentnum)
+        holder.setText(R.id.cph_tv, item.car_number)
+        holder.setText(R.id.xcwcsj_tv, item.order_state_scan_time)
+        holder.setText(R.id.smr_tv, item.scan_user_name)
+        holder.setText(R.id.xcsmxs_tv, item.scan_num.toString())
 
         if (selPosition != holder.bindingAdapterPosition) {
             item.isselect = -1
@@ -39,7 +41,6 @@ class EntryHandoverAdapter :
                 item.isselect = 1
                 selPosition = holder.bindingAdapterPosition
             } else {
-                Log.e("sansuiban", "点击:$holder.bindingAdapterPosition ")
                 selPosition = -1
                 item.isselect = -1
             }

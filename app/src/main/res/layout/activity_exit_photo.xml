@@ -155,6 +155,12 @@
                         android:layout_height="match_parent"
                         android:visibility="gone" />
 
+                    <TextView
+                        android:id="@+id/text1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone" />
+
 
                 </LinearLayout>
 
@@ -197,6 +203,11 @@
                         android:layout_height="match_parent"
                         android:visibility="gone" />
 
+                    <TextView
+                        android:id="@+id/text2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone" />
 
                 </LinearLayout>
 
@@ -238,6 +249,11 @@
                         android:layout_height="match_parent"
                         android:visibility="gone" />
 
+                    <TextView
+                        android:id="@+id/text3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone" />
 
                 </LinearLayout>
 
@@ -288,6 +304,11 @@
                         android:layout_height="match_parent"
                         android:visibility="gone" />
 
+                    <TextView
+                        android:id="@+id/text4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -329,6 +350,11 @@
                         android:layout_height="match_parent"
                         android:visibility="gone" />
 
+                    <TextView
+                        android:id="@+id/text5"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -369,6 +395,11 @@
                         android:layout_height="match_parent"
                         android:visibility="gone" />
 
+                    <TextView
+                        android:id="@+id/text6"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone" />
 
                 </LinearLayout>
 

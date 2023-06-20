@@ -57,5 +57,13 @@ public class Constant {
 
     }
 
+    public static class onINModel {
+        //出场
+        public final static String CHUCHANGJAOJIE = "出场交接";
+        //入场
+        public final static String RUCHANGJIAOJIE = "入场交接";
+
+    }
+
 
 }

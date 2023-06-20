@@ -5,9 +5,12 @@ import android.content.Intent
 import android.util.Log
 import android.view.View
 import cn.ryanliu.jycz.R
+import cn.ryanliu.jycz.adapter.EntryHandoverAdapter
 import cn.ryanliu.jycz.adapter.ExitHandoverAdapter
 import cn.ryanliu.jycz.basic.BaseActivity
+import cn.ryanliu.jycz.bean.EntryHandoverBean
 import cn.ryanliu.jycz.bean.ExitHandoverBean
+import cn.ryanliu.jycz.common.constant.Constant
 import cn.ryanliu.jycz.databinding.ActivityExitHandoverBinding
 import cn.ryanliu.jycz.util.ToastUtilsExt
 import cn.ryanliu.jycz.viewmodel.ExitHandoverVM
@@ -23,9 +26,8 @@ import com.lxj.xpopup.enums.PopupPosition
  */
 
 class ExitHandoverActivity : BaseActivity<ActivityExitHandoverBinding, ExitHandoverVM>() {
-    lateinit var mAdapter: ExitHandoverAdapter
-    lateinit var selectBean: MutableList<ExitHandoverBean>
-
+    lateinit var mAdapter: EntryHandoverAdapter
+    lateinit var selectBean: MutableList<EntryHandoverBean>
 
     var reservationId = 0
     override fun layoutId(): Int = R.layout.activity_exit_handover
@@ -39,24 +41,33 @@ class ExitHandoverActivity : BaseActivity<ActivityExitHandoverBinding, ExitHando
         }
         mDatabind.inNavBar.tvNavTitle.text = "出场交接 - 选择装车任务"
 
-        mAdapter = ExitHandoverAdapter()
+        mDatabind.etYylx.text = "车牌号"
+
+        mAdapter = EntryHandoverAdapter()
         mDatabind.entryhandiverRv.adapter = mAdapter
 
-        var a = ExitHandoverBean(0, "京A96M56", 0)
-        var b = ExitHandoverBean(1, "京AQW322W", 0)
-        var d = ExitHandoverBean(2, "京A226MQW", 0)
-        var c = ExitHandoverBean(3, "京A43QWW", 0)
-        selectBean.add(a)
-        selectBean.add(b)
-        selectBean.add(c)
-        selectBean.add(d)
-
-        mAdapter.setList(selectBean)
 
         onClick();
     }
 
     private fun onClick() {
+        mDatabind.btnSelect.setOnClickListener {
+            mDatabind.loadingLayout.showLoading()
+            mViewModel.searchTask(
+                if (reservationId == 0) {
+                    mDatabind.etGjz.text.toString()
+                } else {
+                    ""
+                },
+                Constant.onINModel.CHUCHANGJAOJIE,
+                if (reservationId == 1) {
+                    mDatabind.etGjz.text.toString()
+                } else {
+                    ""
+                },
+            )
+        }
+
         mDatabind.etYylx.setOnClickListener {
             val isyesorno = listOf("车牌号", "扫描人")
             //创建一个xpopupview
@@ -83,18 +94,26 @@ class ExitHandoverActivity : BaseActivity<ActivityExitHandoverBinding, ExitHando
 
         mDatabind.btnSureselect.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
+                ExitPhotoActivity.launch(
+                    this@ExitHandoverActivity,
+                    Constant.onINModel.CHUCHANGJAOJIE,
+                    null
+                )
                 val isSelect = arrayListOf<Int>()
                 for (i in selectBean.indices) {
                     if (selectBean[i].isselect == 1) {
-                        Log.e("sansuiaban", "onSingleClick: ${selectBean[i].id}")
-                        ExitPhotoActivity.launch(this@ExitHandoverActivity)
+                        ExitPhotoActivity.launch(
+                            this@ExitHandoverActivity,
+                            Constant.onINModel.CHUCHANGJAOJIE,
+                            selectBean[i]
+                        )
                     } else {
                         isSelect.add(i)
                     }
                 }
 
                 if (isSelect.size == selectBean.size) {
-                    ToastUtilsExt.info("您未选中任何车牌号")
+                    ToastUtilsExt.info("您未选中任何一条数据")
                     return
                 }
 
@@ -103,7 +122,39 @@ class ExitHandoverActivity : BaseActivity<ActivityExitHandoverBinding, ExitHando
         })
     }
 
+    override fun onResume() {
+        super.onResume()
+        mDatabind.loadingLayout.showLoading()
+        mViewModel.searchTask(
+            if (reservationId == 0) {
+                mDatabind.etYylx.text.toString()
+            } else {
+                ""
+            },
+            Constant.onINModel.CHUCHANGJAOJIE,
+            if (reservationId == 1) {
+                mDatabind.etYylx.text.toString()
+            } else {
+                ""
+            },
+        )
+    }
+
     override fun createObserver() {
+        mViewModel.mSelectCar.observe(this) {
+            if (it.isNullOrEmpty()) {
+                mDatabind.loadingLayout.showEmpty()
+            } else {
+                mAdapter.setList(it)
+                selectBean = it
+                if (mAdapter.data.isEmpty()) {
+                    mDatabind.loadingLayout.showEmpty()
+                } else {
+                    mDatabind.loadingLayout.showContent()
+                }
+            }
+
+        }
     }
 
     companion object {
