@@ -8,6 +8,7 @@ import cn.ryanliu.jycz.adapter.SelectCarAdapter
 import cn.ryanliu.jycz.adapter.TMBQAdapter
 import cn.ryanliu.jycz.basic.BaseActivity
 import cn.ryanliu.jycz.bean.SelectCarBean
+import cn.ryanliu.jycz.common.constant.Constant
 import cn.ryanliu.jycz.databinding.ActivitySelectCarBinding
 import cn.ryanliu.jycz.util.ToastUtilsExt
 import cn.ryanliu.jycz.viewmodel.SelectCarVM
@@ -18,6 +19,7 @@ import cn.ryanliu.jycz.viewmodel.SelectCarVM
  * @Description:选择车辆
  */
 class SelectCarActivity : BaseActivity<ActivitySelectCarBinding, SelectCarVM>() {
+    private var pageModel: Int = 0
     lateinit var mAdapter: SelectCarAdapter
     var selectBean: MutableList<SelectCarBean>? = null
     override fun layoutId(): Int = R.layout.activity_select_car
@@ -27,6 +29,7 @@ class SelectCarActivity : BaseActivity<ActivitySelectCarBinding, SelectCarVM>() 
             onBackPressed()
         }
         mDatabind.inNavBar.tvNavTitle.text = "选择车辆信息"
+        pageModel = intent.getIntExtra("edit", 0)
 
         mAdapter = SelectCarAdapter()
         mDatabind.rvCarnum.adapter = mAdapter
@@ -36,7 +39,13 @@ class SelectCarActivity : BaseActivity<ActivitySelectCarBinding, SelectCarVM>() 
 
     private fun onClick() {
         mDatabind.btnSelectarea.setOnClickListener {
-            mViewModel.getCarInfoIn1(mDatabind.etKq.text.toString())
+            mViewModel.getCarInfoIn1(
+                mDatabind.etKq.text.toString(), if (pageModel == Constant.PageModel.XIECHE) {
+                    "卸车"
+                } else {
+                    "装车"
+                }
+            )
         }
 
         mDatabind.btnConfirm.setOnClickListener(object : OnSingleClickListener() {
@@ -83,7 +92,13 @@ class SelectCarActivity : BaseActivity<ActivitySelectCarBinding, SelectCarVM>() 
 
     override fun onResume() {
         super.onResume()
-        mViewModel.getCarInfoIn1(mDatabind.etKq.text.toString())
+        mViewModel.getCarInfoIn1(
+            mDatabind.etKq.text.toString(), if (pageModel == Constant.PageModel.XIECHE) {
+                "卸车"
+            } else {
+                "装车"
+            }
+        )
     }
 
     companion object {

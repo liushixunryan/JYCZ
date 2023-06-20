@@ -18,12 +18,12 @@ class SelectCarVM : BaseViewModel() {
     val mSelectCar = MutableLiveData<MutableList<SelectCarBean>?>()
 
 
-    fun getCarInfoIn1(car_number: String? = null) {
+    fun getCarInfoIn1(car_number: String? = null,xzc:String) {
         viewModelScope.launch {
 
             try {
                 showLoading()
-                val response = ApiService.apiService.getCarInfoIn1(PCarInfoIn1(car_number,"卸车"))
+                val response = ApiService.apiService.getCarInfoIn1(PCarInfoIn1(car_number,xzc))
 
                 if (response.isSuccess()) {
                     mSelectCar.postValue(response.data)

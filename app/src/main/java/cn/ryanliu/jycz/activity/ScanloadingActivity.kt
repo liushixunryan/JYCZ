@@ -7,7 +7,9 @@ import android.view.View
 import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.basic.BaseActivity
 import cn.ryanliu.jycz.common.constant.Constant
+import cn.ryanliu.jycz.common.constant.Constant.PageModel
 import cn.ryanliu.jycz.databinding.ActivityScanloadingActivityBinding
+import cn.ryanliu.jycz.util.ToastUtilsExt
 import cn.ryanliu.jycz.viewmodel.ScanLoadingVM
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.AttachPopupView
@@ -30,14 +32,21 @@ class ScanloadingActivity :
             onBackPressed()
         }
         mDatabind.inNavBar.tvNavTitle.text = "扫码装车"
-
+        mDatabind.etYylx.text = "司机预约"
         onClick();
     }
 
     private fun onClick() {
         mDatabind.btnSearchcar.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
+                mViewModel.getCarInfoIn2(mDatabind.etCph.text.toString())
+            }
+        })
+        //选择车辆
+        mDatabind.btnSelectcar.setOnClickListener(object : OnSingleClickListener() {
+            override fun onSingleClick(view: View?) {
                 val intent = Intent(this@ScanloadingActivity, SelectCarActivity::class.java)
+                intent.putExtra("edit",PageModel.ZHUANGCHE)
                 startActivityForResult(intent, SelectCarActivity.REQUEST_CODE_XXCL)
             }
         })
@@ -69,15 +78,15 @@ class ScanloadingActivity :
 
         mDatabind.btnStartscan.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
-//                if (mDatabind.etCph.text.toString().isNullOrEmpty()) {
-//                    ToastUtilsExt.info("您未选择车辆信息")
-//                    return
-//                }
+                if (mDatabind.etCph.text.toString().isNullOrEmpty()) {
+                    ToastUtilsExt.info("您未选择车辆信息")
+                    return
+                }
 
-//                if (mDatabind.etYylx.text.toString().isNullOrEmpty()) {
-//                    ToastUtilsExt.info("您未选择预约类型")
-//                    return
-//                }
+                if (mDatabind.etYylx.text.toString().isNullOrEmpty()) {
+                    ToastUtilsExt.info("您未选择预约类型")
+                    return
+                }
 
                 if (reservationId == 0) {
                     //跳转到司机
@@ -107,6 +116,25 @@ class ScanloadingActivity :
     }
 
     override fun createObserver() {
+        mViewModel.mSelectCar.observe(this) {
+            if (it.isNullOrEmpty()) {
+                mDatabind.driverLl.visibility = View.GONE
+                mDatabind.projectLl.visibility = View.GONE
+                mDatabind.hintLl.visibility = View.VISIBLE
+                mDatabind.hintTv.text = "未搜索到任何车辆信息，点击 “开始扫码卸车” 将按司机预约执行。"
+            } else {
+
+                if (it[0].reservation_type == "项目预约") {
+                    mDatabind.driverLl.visibility = View.GONE
+                    mDatabind.projectLl.visibility = View.VISIBLE
+                    mDatabind.hintLl.visibility = View.GONE
+                } else {
+                    mDatabind.driverLl.visibility = View.VISIBLE
+                    mDatabind.projectLl.visibility = View.GONE
+                    mDatabind.hintLl.visibility = View.GONE
+                }
+            }
+        }
     }
 
     companion object {
