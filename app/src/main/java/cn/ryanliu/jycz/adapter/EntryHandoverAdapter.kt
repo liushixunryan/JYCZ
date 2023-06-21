@@ -22,7 +22,7 @@ class EntryHandoverAdapter :
         holder.setText(R.id.smr_tv, item.scan_user_name)
         holder.setText(R.id.xcsmxs_tv, item.scan_num.toString())
 
-        if (selPosition != holder.bindingAdapterPosition) {
+        if (selPosition != holder.adapterPosition) {
             item.isselect = -1
         } else {
             item.isselect = 1
@@ -39,7 +39,7 @@ class EntryHandoverAdapter :
         holder.getView<LinearLayout>(R.id.vg_ticket1).setOnClickListener {
             if (item.isselect != 1) {
                 item.isselect = 1
-                selPosition = holder.bindingAdapterPosition
+                selPosition = holder.adapterPosition
             } else {
                 selPosition = -1
                 item.isselect = -1

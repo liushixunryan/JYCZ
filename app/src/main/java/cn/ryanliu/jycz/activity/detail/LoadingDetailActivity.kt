@@ -29,7 +29,16 @@ class LoadingDetailActivity : BaseActivity<DetailActivityLoadingBinding, Loading
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        mViewModel.scanFjCode("装车明细")
+    }
+
     override fun createObserver() {
+        mViewModel.mSelect.observe(this) {
+            mDatabind.zrzcsmTv.text = it?.yesterday_num.toString()
+            mDatabind.drzcsmTv.text = it?.today_scan_num.toString()
+        }
     }
 
     companion object {

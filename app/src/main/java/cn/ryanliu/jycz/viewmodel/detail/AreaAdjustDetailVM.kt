@@ -1,5 +1,4 @@
 package cn.ryanliu.jycz.viewmodel.detail
-
 import cn.ryanliu.jycz.basic.BaseViewModel
 
 /**
@@ -8,4 +7,5 @@ import cn.ryanliu.jycz.basic.BaseViewModel
  * @Description:
  */
 class AreaAdjustDetailVM : BaseViewModel() {
+
 }

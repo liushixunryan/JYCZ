@@ -17,7 +17,7 @@ class LoadingListAdapter :
 
 
     override fun convert(holder: BaseViewHolder, item: LoadingListBean) {
-        holder.setText(R.id.ddzt_tv, item.indentnum)
+        holder.setText(R.id.ddzt_tv, item.car_number)
 
         holder.getView<Button>(R.id.btn_all).setOnClickListener {
             SeeXMDetalActivity.launch(context)

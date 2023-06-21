@@ -21,7 +21,7 @@ class ExitHandoverAdapter :
     override fun convert(holder: BaseViewHolder, item: ExitHandoverBean) {
         holder.setText(R.id.xcsmxs_tv, item.indentnum)
 
-        if (selPosition != holder.bindingAdapterPosition) {
+        if (selPosition != holder.adapterPosition) {
             item.isselect = -1
         } else {
             item.isselect = 1
@@ -38,7 +38,7 @@ class ExitHandoverAdapter :
         holder.getView<LinearLayout>(R.id.vg_ticket1).setOnClickListener {
             if (item.isselect != 1) {
                 item.isselect = 1
-                selPosition = holder.bindingAdapterPosition
+                selPosition = holder.adapterPosition
             } else {
                 Log.e("sansuiban", "点击:$holder.bindingAdapterPosition ")
                 selPosition = -1

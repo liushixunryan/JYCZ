@@ -15,6 +15,7 @@ import cn.ryanliu.jycz.bean.SelectAreaBean
 import cn.ryanliu.jycz.bean.SelectListBean
 import cn.ryanliu.jycz.databinding.ActivityAreaSelectBinding
 import cn.ryanliu.jycz.util.ToastUtilsExt
+import cn.ryanliu.jycz.view.GridSpaceItemDecoration
 import cn.ryanliu.jycz.viewmodel.AreaSelectVM
 import com.xql.loading.TipDialog
 
@@ -49,6 +50,7 @@ class AreaSelectActivity : BaseActivity<ActivityAreaSelectBinding, AreaSelectVM>
         bean = ArrayList();
 
         mAdapter = AreaSelectAdapter()
+        mDatabind.rvArea.addItemDecoration(GridSpaceItemDecoration(3, 10, 16))
         mDatabind.rvArea.adapter = mAdapter
 
         mAdapter1 = SelectListAdapter()

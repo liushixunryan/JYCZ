@@ -65,10 +65,9 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_area"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="@dimen/dp_10"
-                android:layout_weight="1"
                 android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="3" />

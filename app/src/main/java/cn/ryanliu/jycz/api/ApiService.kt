@@ -84,7 +84,14 @@ interface ApiService {
     @POST("/api/APP/create_tbox_code_1")
     suspend fun createTboxCode1(@Body request: PcreateTboxCode1): BaseResponse<String>
 
+    //----------------------------明细----------------------------------
+    //卸车明细 / 装车明细 获取当日和昨日统计数据
+    @POST("/api/APP/search_scan_count")
+    suspend fun searchScanCount(@Body request: PsearchScanCount): BaseResponse<searchScanCount>
 
+    //卸车明细 / 装车明细 根据输入的查询条件查询装卸车任务单列表
+    @POST("/api/APP/search_task_list")
+    suspend fun searchTaskList(@Body request: PsearchTaskList): BaseResponse<LoadingListBean>
 
     companion object {
         // 4.通过动态代理获取到所定义的接口

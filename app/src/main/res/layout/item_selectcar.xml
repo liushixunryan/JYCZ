@@ -14,7 +14,6 @@
         android:layout_margin="1dp"
         android:layout_marginBottom="4dp"
         android:gravity="center"
-        android:text="辽A9989"
         android:background="@drawable/bg_select_tv"
         android:textColor="@color/common_text_black"
         android:textSize="12sp" />

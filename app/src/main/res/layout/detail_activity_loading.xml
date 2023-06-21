@@ -335,12 +335,12 @@
                     android:textColor="@color/common_text_black" />
 
                 <TextView
+                    android:id="@+id/drzcsm_tv"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/bg_gray_tv"
                     android:gravity="center"
-                    android:text="1459"
                     android:textColor="@color/common_text_black" />
 
             </LinearLayout>
@@ -360,12 +360,12 @@
                     android:textColor="@color/common_text_black" />
 
                 <TextView
+                    android:id="@+id/zrzcsm_tv"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/bg_gray_tv"
                     android:gravity="center"
-                    android:text="1459"
                     android:textColor="@color/common_text_black" />
 
             </LinearLayout>

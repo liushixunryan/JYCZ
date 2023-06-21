@@ -11,6 +11,7 @@ import cn.ryanliu.jycz.bean.SelectCarBean
 import cn.ryanliu.jycz.common.constant.Constant
 import cn.ryanliu.jycz.databinding.ActivitySelectCarBinding
 import cn.ryanliu.jycz.util.ToastUtilsExt
+import cn.ryanliu.jycz.view.GridSpaceItemDecoration
 import cn.ryanliu.jycz.viewmodel.SelectCarVM
 
 /**
@@ -32,6 +33,7 @@ class SelectCarActivity : BaseActivity<ActivitySelectCarBinding, SelectCarVM>() 
         pageModel = intent.getIntExtra("edit", 0)
 
         mAdapter = SelectCarAdapter()
+        mDatabind.rvCarnum.addItemDecoration(GridSpaceItemDecoration(3, 10, 16))
         mDatabind.rvCarnum.adapter = mAdapter
 
         onClick();

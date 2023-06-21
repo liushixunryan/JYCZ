@@ -9,6 +9,7 @@ import cn.ryanliu.jycz.basic.BaseActivity
 import cn.ryanliu.jycz.bean.SelectAreaBean
 import cn.ryanliu.jycz.databinding.ActivitySelectAreaBinding
 import cn.ryanliu.jycz.util.ToastUtilsExt
+import cn.ryanliu.jycz.view.GridSpaceItemDecoration
 import cn.ryanliu.jycz.viewmodel.SelectAreaVM
 
 class SelectAreaActivity : BaseActivity<ActivitySelectAreaBinding, SelectAreaVM>() {
@@ -29,6 +30,7 @@ class SelectAreaActivity : BaseActivity<ActivitySelectAreaBinding, SelectAreaVM>
         mDatabind.inNavBar.tvNavTitle.text = "选择库区信息"
 
         mAdapter = SelectAreaAdapter()
+        mDatabind.rvArea.addItemDecoration(GridSpaceItemDecoration(3, 10, 16))
         mDatabind.rvArea.adapter = mAdapter
 
         onClick();
@@ -112,6 +114,7 @@ class SelectAreaActivity : BaseActivity<ActivitySelectAreaBinding, SelectAreaVM>
                 if (mAdapter.data.isEmpty()) {
                     mDatabind.loadingLayout.showEmpty()
                 } else {
+                    mAdapter.notifyDataSetChanged()
                     mDatabind.loadingLayout.showContent()
                 }
             }

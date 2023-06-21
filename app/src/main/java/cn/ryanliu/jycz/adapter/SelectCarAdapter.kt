@@ -26,7 +26,7 @@ class SelectCarAdapter : BaseQuickAdapter<SelectCarBean, BaseViewHolder>(R.layou
             holder.setTextColor(R.id.tv_carplant, Color.RED)
         }
 
-        if (selPosition != holder.bindingAdapterPosition) {
+        if (selPosition != holder.adapterPosition) {
             item.isselect = -1
         } else {
             item.isselect = 1
@@ -44,7 +44,7 @@ class SelectCarAdapter : BaseQuickAdapter<SelectCarBean, BaseViewHolder>(R.layou
         holder.getView<TextView>(R.id.tv_carplant).setOnClickListener {
             if (item.isselect != 1) {
                 item.isselect = 1
-                selPosition = holder.bindingAdapterPosition
+                selPosition = holder.adapterPosition
             } else {
                 Log.e("sansuiban", "点击:$holder.bindingAdapterPosition ")
                 selPosition = -1

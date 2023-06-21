@@ -31,6 +31,15 @@ class UnLoadingDetailActivity :
     }
 
     override fun createObserver() {
+        mViewModel.mSelect.observe(this) {
+            mDatabind.zrxcsmTv.text = it?.yesterday_num.toString()
+            mDatabind.drxcsmTv.text = it?.today_scan_num.toString()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mViewModel.scanFjCode("卸车明细")
     }
 
     companion object {

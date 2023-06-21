@@ -33,15 +33,6 @@ class LoadingListActivity : BaseActivity<DetailActivityLoadingListBinding, Loadi
         mAdapter = LoadingListAdapter();
         mDatabind.zcmxRv.adapter = mAdapter
 
-        var a = LoadingListBean(1, "TRD1202305W0100137")
-        var b = LoadingListBean(2, "TRD1202305W0100137")
-        var d = LoadingListBean(3, "TRD1202305W0100137")
-        var c = LoadingListBean(4, "TRD1202305W0100137")
-        selectBean.add(a)
-        selectBean.add(b)
-        selectBean.add(c)
-        selectBean.add(d)
-
         mAdapter.setList(selectBean)
     }
 
