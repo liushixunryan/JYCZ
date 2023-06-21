@@ -17,14 +17,14 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder
  * @Description:
  */
 class AreaSelectAdapter :
-    BaseQuickAdapter<AreaSelectBean, BaseViewHolder>(R.layout.item_selectcar) {
+    BaseQuickAdapter<SelectAreaBean, BaseViewHolder>(R.layout.item_selectcar) {
     //选择的位置(-1则代表默认没有选中)
     private var selPosition = -1
 
 
     @SuppressLint("NotifyDataSetChanged")
-    override fun convert(holder: BaseViewHolder, item: AreaSelectBean) {
-        holder.setText(R.id.tv_carplant, item.areaname)
+    override fun convert(holder: BaseViewHolder, item: SelectAreaBean) {
+        holder.setText(R.id.tv_carplant, item.ware_area_name)
         if (item.isuse == 1) {
             holder.setTextColor(R.id.tv_carplant, Color.RED)
         }

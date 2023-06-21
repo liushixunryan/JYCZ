@@ -11,6 +11,7 @@ import cn.ryanliu.jycz.adapter.SelectListAdapter
 import cn.ryanliu.jycz.adapter.XMListAdapter
 import cn.ryanliu.jycz.basic.BaseActivity
 import cn.ryanliu.jycz.bean.AreaSelectBean
+import cn.ryanliu.jycz.bean.SelectAreaBean
 import cn.ryanliu.jycz.bean.SelectListBean
 import cn.ryanliu.jycz.databinding.ActivityAreaSelectBinding
 import cn.ryanliu.jycz.util.ToastUtilsExt
@@ -30,7 +31,7 @@ class AreaSelectActivity : BaseActivity<ActivityAreaSelectBinding, AreaSelectVM>
 
     lateinit var mAdapter1: SelectListAdapter
 
-    lateinit var selectBean: MutableList<AreaSelectBean>
+    lateinit var selectBean: MutableList<SelectAreaBean>
     lateinit var bean: MutableList<SelectListBean>
 
     override fun layoutId(): Int = R.layout.activity_area_select
@@ -58,20 +59,7 @@ class AreaSelectActivity : BaseActivity<ActivityAreaSelectBinding, AreaSelectVM>
 
     private fun onClick() {
         mDatabind.btnSelectarea.setOnClickListener {
-            var a = AreaSelectBean("A05", 0)
-            var b = AreaSelectBean("A06", 0)
-            var d = AreaSelectBean("A18", 0)
-            var c = AreaSelectBean("D15", 0)
-            var e = AreaSelectBean("D11", 0)
-            var f = AreaSelectBean("D12", 0)
-            var g = AreaSelectBean("D13", 0)
-            selectBean.add(a)
-            selectBean.add(b)
-            selectBean.add(c)
-            selectBean.add(d)
-            selectBean.add(g)
-            selectBean.add(e)
-            selectBean.add(f)
+
 
             mAdapter.setList(selectBean)
         }
@@ -83,7 +71,7 @@ class AreaSelectActivity : BaseActivity<ActivityAreaSelectBinding, AreaSelectVM>
                 val isSelect = arrayListOf<Int>()
                 for (i in selectBean.indices) {
                     if (selectBean[i].isselect == 1) {
-                        bean.add(SelectListBean(i, selectBean[i].areaname.toString()))
+                        bean.add(SelectListBean(i, selectBean[i].ware_area_name.toString()))
                     } else {
                         isSelect.add(i)
                     }
@@ -124,6 +112,19 @@ class AreaSelectActivity : BaseActivity<ActivityAreaSelectBinding, AreaSelectVM>
     }
 
     override fun createObserver() {
+        mViewModel.mSelectArea.observe(this) {
+            if (it.isNullOrEmpty()) {
+                mDatabind.loadingLayout.showEmpty()
+            } else {
+                mAdapter.setList(it)
+                selectBean = it
+                if (mAdapter.data.isEmpty()) {
+                    mDatabind.loadingLayout.showEmpty()
+                } else {
+                    mDatabind.loadingLayout.showContent()
+                }
+            }
+        }
     }
 
     /**
@@ -158,6 +159,11 @@ class AreaSelectActivity : BaseActivity<ActivityAreaSelectBinding, AreaSelectVM>
         if (tipDialog != null && tipDialog!!.isShowing) {
             tipDialog!!.dismiss()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mViewModel.getWareArea(mDatabind.etKq.text.toString(), "卸车")
     }
 
     companion object {
