@@ -63,6 +63,77 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_30"
+                android:layout_marginTop="@dimen/dp_10"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_select_tv"
+                    android:gravity="center"
+                    android:text="整托件数"
+                    android:textSize="@dimen/sp_11"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/zjts_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="2dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/bg_edittext"
+                    android:gravity="center"
+                    android:hint="请输入"
+                    android:inputType="number"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:text="0"
+                    android:textSize="14sp" />
+
+
+                <TextView
+                    android:id="@+id/sctm_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:layout_weight="1"
+                    android:background="@color/bg_green"
+                    android:gravity="center"
+                    android:text="生成托码"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_11"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="托码" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:background="@color/common_bg_gray4" />
+
+            <TextView
+                android:id="@+id/tm_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dp_10"
+                android:gravity="center"
+                android:textColor="@color/common_text_black"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -93,7 +164,6 @@
                         android:layout_marginBottom="16dp"
                         android:background="@drawable/bg_edittext"
                         android:hint="扫描托码"
-                        android:inputType="number"
                         android:lines="1"
                         android:maxLines="1"
                         android:textSize="14sp" />
@@ -133,7 +203,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/dp_10"
                 android:gravity="center"
-                android:text="TLBJ012023041100001Q20"
                 android:textColor="@color/common_red"
                 android:textSize="@dimen/sp_14"
                 android:textStyle="bold" />
@@ -157,7 +226,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/dp_10"
                 android:gravity="center"
-                android:text="河北石家庄市北区--华北区"
                 android:textColor="@color/common_text_black"
                 android:textSize="@dimen/sp_14"
                 android:textStyle="bold" />
@@ -189,12 +257,12 @@
                     android:text="收货人" />
 
                 <TextView
+                    android:id="@+id/shr_tv"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
                     android:layout_weight="1"
                     android:background="@drawable/bg_select_tv"
                     android:gravity="center"
-                    android:text="收货人"
                     android:textColor="@color/common_text_black" />
 
             </LinearLayout>
@@ -212,82 +280,16 @@
                     android:text="收货单位" />
 
                 <TextView
+                    android:id="@+id/shdw_tv"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
                     android:layout_weight="1"
                     android:background="@drawable/bg_select_tv"
                     android:gravity="center"
-                    android:text="收货人"
                     android:textColor="@color/common_text_black" />
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_30"
-                android:layout_marginTop="@dimen/dp_10"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_select_tv"
-                    android:gravity="center"
-                    android:text="整托件数"
-                    android:textSize="@dimen/sp_11"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/zjts_tv"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:background="@drawable/bg_select_tv"
-                    android:gravity="center"
-                    android:text="20"
-                    android:textColor="@color/common_black"
-                    android:textSize="@dimen/sp_11"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/sctm_tv"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/dp_5"
-                    android:layout_weight="1"
-                    android:background="@color/bg_green"
-                    android:gravity="center"
-                    android:text="生成托码"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/sp_11"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/dp_10"
-                android:layout_marginTop="@dimen/dp_10"
-                android:text="托码" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_marginBottom="@dimen/dp_10"
-                android:background="@color/common_bg_gray4" />
-
-            <TextView
-                android:id="@+id/tm_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/dp_10"
-                android:gravity="center"
-                android:text="TLBJ012023041100001Q20"
-                android:textColor="@color/common_text_black"
-                android:textSize="@dimen/sp_14"
-                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -306,7 +308,8 @@
                     android:paddingVertical="0dp"
                     android:text="确认拼托完成"
                     android:textColor="@color/common_white"
-                    android:textSize="15dp" />
+                    android:textSize="15dp"
+                    android:visibility="invisible" />
 
 
                 <Button

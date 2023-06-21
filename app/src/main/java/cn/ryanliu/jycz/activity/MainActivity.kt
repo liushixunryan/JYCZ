@@ -53,7 +53,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainVM>() {
                         }
 
                         2 -> {
-                            PatchworkXMActivity.launch(this@MainActivity)
+                            PatchworkXMActivity.launch(this@MainActivity,"")
                         }
                         3 -> {
                             EngineOilActivity.launch(this@MainActivity)

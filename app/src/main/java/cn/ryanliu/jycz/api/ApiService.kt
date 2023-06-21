@@ -9,6 +9,12 @@ import retrofit2.http.*
 
 // 1.定义请求接口
 interface ApiService {
+    @Multipart
+    @POST("/api/APP/upload_photo")
+    suspend fun uploadList(
+        @Part parts: List<MultipartBody.Part>
+    ): BaseResponse<Map<String, String>?>
+
     @Headers("isToken: false")
     @POST("/api/APP/pda_login")
     suspend fun login(@Body request: LoginRequest): BaseResponse<LoginResponse>
@@ -54,16 +60,31 @@ interface ApiService {
     @POST("/api/APP/upload_photo")
     suspend fun upload_photo(@Part parts: List<MultipartBody.Part>): BaseResponse<String?>
 
-    //api/APP/confirm_task
     //完成出场交接
     @POST("/api/APP/confirm_task")
     suspend fun confirmTask(@Body request: PconfirmTask): BaseResponse<Any?>
 
-    @Multipart
-    @POST("/api/APP/upload_photo")
-   suspend fun uploadList(
-        @Part parts: List<MultipartBody.Part>
-    ): BaseResponse<Map<String, String>?>
+    //分拣码放 / 库位调整 / 库存盘点 扫描
+    @POST("/api/APP/scan_m_code")
+    suspend fun scanMCode(@Body request: PscanMCode): BaseResponse<scanMCode>
+
+    //调整库区
+    @POST("/api/APP/chang_ware_area")
+    suspend fun changWareArea(@Body request: PchangWareArea): BaseResponse<Any?>
+
+    //分拣码放 拆托
+    @POST("/api/APP/do_split_tmp")
+    suspend fun doSplitTmp(@Body request: PdoSplitTmp): BaseResponse<Any?>
+
+    //拼托 扫描、
+    @POST("/api/APP/scan_fj_code")
+    suspend fun scanFjCode(@Body request: PscanFjCode): BaseResponse<scanFjCode>
+
+    //分拣码放 拼托 创建一个托码
+    @POST("/api/APP/create_tbox_code_1")
+    suspend fun createTboxCode1(@Body request: PcreateTboxCode1): BaseResponse<String>
+
+
 
     companion object {
         // 4.通过动态代理获取到所定义的接口

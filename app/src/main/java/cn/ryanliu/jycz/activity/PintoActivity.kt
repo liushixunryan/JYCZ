@@ -9,6 +9,7 @@ import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.basic.BaseActivity
 import cn.ryanliu.jycz.databinding.ActivityPintoBinding
 import cn.ryanliu.jycz.databinding.ActivitySortingStackBinding
+import cn.ryanliu.jycz.util.ToastUtilsExt
 import cn.ryanliu.jycz.viewmodel.PintoVM
 import cn.ryanliu.jycz.viewmodel.SortingStackVM
 
@@ -18,6 +19,9 @@ import cn.ryanliu.jycz.viewmodel.SortingStackVM
  * @Description:拼码
  */
 class PintoActivity : BaseActivity<ActivityPintoBinding, PintoVM>() {
+    var AreaName = ""
+    var AreaNameID = ""
+
     override fun layoutId(): Int = R.layout.activity_pinto
 
     override fun initView() {
@@ -26,22 +30,59 @@ class PintoActivity : BaseActivity<ActivityPintoBinding, PintoVM>() {
             onBackPressed()
         }
         mDatabind.inNavBar.tvNavTitle.text = "分拣码放 - 拼托"
+        AreaName = intent.getStringExtra("AreaName").toString()
+        AreaNameID = intent.getStringExtra("AreaNameID").toString()
+
+        mDatabind.kqTv.text = AreaName
 
         onClick();
     }
 
     private fun onClick() {
+        mDatabind.btnTj.setOnClickListener {
+            if (mDatabind.tmTv.text.toString() == "") {
+                ToastUtilsExt.info("请先生成托码")
+                return@setOnClickListener
+            } else {
+                mViewModel.scanFjCode(
+                    mDatabind.etSmtm.text.toString(),
+                    mDatabind.tmTv.text.toString(),
+                    1,
+                    mDatabind.zjtsTv.text.toString().toInt(),
+                    AreaNameID
+                )
+            }
+        }
+
         mDatabind.bdxmBtn.setOnClickListener {
-            PatchworkXMActivity.launch(this)
+            PatchworkXMActivity.launch(this,"ispt")
         }
 
         mDatabind.cxzdkqTv.setOnClickListener {
             val intent = Intent(this@PintoActivity, SelectAreaActivity::class.java)
             startActivityForResult(intent, SelectAreaActivity.REQUEST_CODE_XXKQ)
         }
+
+        mDatabind.sctmTv.setOnClickListener {
+            if (mDatabind.zjtsTv.text.toString().toInt() > 1) {
+                mViewModel.createTboxCode1(mDatabind.zjtsTv.text.toString().toInt())
+            } else {
+                ToastUtilsExt.info("数量必须大于1")
+            }
+        }
     }
 
     override fun createObserver() {
+        mViewModel.mSelectCar.observe(this) {
+            mDatabind.xmtmhTv.text = it?.box_code
+            mDatabind.mddTv.text = it?.rec_area
+            mDatabind.shrTv.text = it?.rec_man
+            mDatabind.shdwTv.text = it?.rec_unit
+        }
+
+        mViewModel.mtpNum.observe(this) {
+            mDatabind.tmTv.text = it.toString()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -49,13 +90,16 @@ class PintoActivity : BaseActivity<ActivityPintoBinding, PintoVM>() {
         if (RESULT_OK == resultCode) {
             if (SelectAreaActivity.REQUEST_CODE_XXKQ == requestCode) {
                 mDatabind.kqTv.setText(data?.getStringExtra("areaName") ?: "")
+                AreaNameID = data?.getIntExtra("areaId", 0).toString()
             }
         }
     }
 
     companion object {
-        fun launch(context: Context) {
+        fun launch(context: Context, AreaName: String, AreaNameID: String) {
             val intent = Intent(context, PintoActivity::class.java)
+            intent.putExtra("AreaName", AreaName)
+            intent.putExtra("AreaNameID", AreaNameID)
             context.startActivity(intent)
         }
 

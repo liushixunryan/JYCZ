@@ -1,5 +1,6 @@
 package cn.ryanliu.jycz.activity
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -21,7 +22,6 @@ import cn.ryanliu.jycz.viewmodel.ScanBoxTMVM
  */
 class PatchworkXMActivity : BaseActivity<ActivityPatchworkXmactivityBinding, PatchworkXMVM>() {
     lateinit var mAdapter: TMBQAdapter
-    lateinit var mXMAdapter: TMBQAdapter
 
     override fun layoutId(): Int = R.layout.activity_patchwork_xmactivity
 
@@ -32,19 +32,43 @@ class PatchworkXMActivity : BaseActivity<ActivityPatchworkXmactivityBinding, Pat
         }
         mDatabind.inNavBar.tvNavTitle.text = "补打【箱码】标签"
 
+        if (intent.getStringExtra("ispt").toString() != "") {
+            isSearch(false);
+            mDatabind.xmtmhTv.text = intent.getStringExtra("ispt").toString()
+        } else {
+            isSearch(true);
+
+        }
+
         mAdapter = TMBQAdapter();
         mDatabind.tmRv.adapter = mAdapter
 
-        mXMAdapter = TMBQAdapter();
-        mDatabind.dyxmlbRv.adapter = mXMAdapter
+
 
         onClick()
     }
 
+    @SuppressLint("ResourceAsColor")
+    private fun isSearch(isClick: Boolean) {
+        if (!isClick) {
+            mDatabind.btnTj.setBackgroundColor(R.color.Gray9)
+            mDatabind.etZtjs.setText("1")
+        }
+
+        mDatabind.etSmtm.isClickable = isClick
+        mDatabind.etSmtm.isFocusable = isClick
+        mDatabind.btnTj.isClickable = isClick
+        mDatabind.btnTj.isFocusable = isClick
+        mDatabind.etZtjs.isClickable = isClick
+        mDatabind.etZtjs.isFocusable = isClick
+
+    }
+
+
     private fun onClick() {
         mDatabind.btnTj.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
-                mXMAdapter.addData(TMBQBean(1, "dsda111"))
+
             }
 
         })
@@ -70,10 +94,12 @@ class PatchworkXMActivity : BaseActivity<ActivityPatchworkXmactivityBinding, Pat
     }
 
     companion object {
-        fun launch(context: Context) {
+        fun launch(context: Context, ispt: String) {
             val intent = Intent(context, PatchworkXMActivity::class.java)
+            intent.putExtra("ispt", ispt)
             context.startActivity(intent)
         }
+
 
     }
 }

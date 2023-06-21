@@ -36,12 +36,19 @@ class SelectAreaActivity : BaseActivity<ActivitySelectAreaBinding, SelectAreaVM>
 
     private fun onClick() {
         mDatabind.btnSelectarea.setOnClickListener {
-            mViewModel.getWareArea(mDatabind.etKq.text.toString())
+            mViewModel.getWareArea(
+                mDatabind.etKq.text.toString(), if (pageModel == 1) {
+                    "装车"
+                } else {
+                    "卸车"
+                }
+            )
         }
 
         mDatabind.btnConfirm.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
                 if (pageModel == 1) {//首页进来的
+                    AreaAdjustActivity.launch(this@SelectAreaActivity)
                     val isSelect = arrayListOf<Int>()
                     for (i in selectBean.indices) {
                         if (selectBean[i].isselect == 1) {
@@ -83,7 +90,13 @@ class SelectAreaActivity : BaseActivity<ActivitySelectAreaBinding, SelectAreaVM>
 
     override fun onResume() {
         super.onResume()
-        mViewModel.getWareArea()
+        mViewModel.getWareArea(
+            mDatabind.etKq.text.toString(), if (pageModel == 1) {
+                "装车"
+            } else {
+                "卸车"
+            }
+        )
     }
 
     override fun createObserver() {

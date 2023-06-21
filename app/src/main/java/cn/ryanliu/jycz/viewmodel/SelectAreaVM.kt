@@ -18,12 +18,12 @@ import kotlinx.coroutines.launch
 class SelectAreaVM:BaseViewModel() {
     val mSelectArea = MutableLiveData<MutableList<SelectAreaBean>?>()
 
-    fun getWareArea(ware_area_name: String? = null) {
+    fun getWareArea(ware_area_name: String? = null,xzc:String) {
         viewModelScope.launch {
 
             try {
                 showLoading()
-                val response = ApiService.apiService.getWareArea(PWareArea(ware_area_name,"卸车"))
+                val response = ApiService.apiService.getWareArea(PWareArea(ware_area_name,xzc))
 
                 if (response.isSuccess()) {
                     mSelectArea.postValue(response.data)

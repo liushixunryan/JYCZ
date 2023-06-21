@@ -21,7 +21,6 @@ public class TokenInterceptor implements Interceptor {
         Response response = chain.proceed(request);
         //根据和服务端的约定判断token过期
         if (isTokenExpired(response)) {
-//            Toast.makeText(CommonApplication.getInstance(), "请重新登录", Toast.LENGTH_SHORT).show();
             EventBus.getDefault().post(new LogoutEvent(-1, "请重新登录"));
             return response.newBuilder().code(200).build();
         }
