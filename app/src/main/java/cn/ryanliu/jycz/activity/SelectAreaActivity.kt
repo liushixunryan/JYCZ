@@ -48,11 +48,14 @@ class SelectAreaActivity : BaseActivity<ActivitySelectAreaBinding, SelectAreaVM>
         mDatabind.btnConfirm.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
                 if (pageModel == 1) {//首页进来的
-                    AreaAdjustActivity.launch(this@SelectAreaActivity)
                     val isSelect = arrayListOf<Int>()
                     for (i in selectBean.indices) {
                         if (selectBean[i].isselect == 1) {
-                            AreaAdjustActivity.launch(this@SelectAreaActivity)
+                            AreaAdjustActivity.launch(
+                                this@SelectAreaActivity,
+                                selectBean[i].ware_area_name,
+                                selectBean[i].ware_area_id.toString()
+                            )
                         } else {
                             isSelect.add(i)
                         }
