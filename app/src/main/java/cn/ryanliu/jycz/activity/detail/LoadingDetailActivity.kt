@@ -35,7 +35,8 @@ class LoadingDetailActivity : BaseActivity<DetailActivityLoadingBinding, Loading
         }
         mDatabind.inNavBar.tvNavTitle.text = "装车明细"
         mDatabind.etDdzt.text = "全部"
-
+        mDatabind.etZcwcsjd1.setText(TimeUtils.getNowString().substring(0, 11))
+        mDatabind.etZcwcsjd2.setText(TimeUtils.getNowString().substring(0, 11))
 
         onClick()
     }

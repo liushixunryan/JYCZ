@@ -35,6 +35,8 @@ class OrderDetailActivity : BaseActivity<DetailActivityOrderBinding, OrderDetail
 
         mDatabind.etRwlx.text = "全部"
         mDatabind.etDdzt.text = "全部"
+        mDatabind.etDdsj1.setText(TimeUtils.getNowString().substring(0, 11))
+        mDatabind.ddsj2.setText(TimeUtils.getNowString().substring(0, 11))
 
         onclick();
     }

@@ -35,6 +35,9 @@ class UnLoadingDetailActivity :
         mDatabind.inNavBar.tvNavTitle.text = "卸车明细"
         mDatabind.etDdzt.text = "全部"
 
+        mDatabind.etXcwcsjd1.setText(TimeUtils.getNowString().substring(0, 11))
+        mDatabind.etXcwcsjd2.setText(TimeUtils.getNowString().substring(0, 11))
+
         onClick()
     }
 

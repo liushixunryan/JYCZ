@@ -121,6 +121,11 @@ interface ApiService {
     @POST("/api/APP/search_order_boxcode_list")
     suspend fun searchOrderBoxcodeList(@Body request: PsearchOrderBoxcodeList): BaseResponse<MutableList<searchOrderBoxcodeList>>
 
+    //库区调整明细
+    @POST("/api/APP/search_ware_area_change_list")
+    suspend fun searchWareAreaChangeList(@Body request: PsearchWareAreaChangeList): BaseResponse<MutableList<AreajustListBean>>
+
+
     companion object {
         // 4.通过动态代理获取到所定义的接口
         val apiService = RetrofitManager.retrofit.create(ApiService::class.java)

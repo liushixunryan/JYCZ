@@ -15,7 +15,12 @@ class AreaAdjustListAdapter :
 
 
     override fun convert(holder: BaseViewHolder, item: AreajustListBean) {
-        holder.setText(R.id.ddzt_tv, item.indentnum)
+        holder.setText(R.id.xm_tv, item.box_code)
+        holder.setText(R.id.tzsj_tv, item.create_time)
+        holder.setText(R.id.tzr_tv, item.create_userid)
+        holder.setText(R.id.mdd_tv, item.rec_area)
+        holder.setText(R.id.ykq_tv, item.old_ware_area_name)
+        holder.setText(R.id.xkq_tv, item.new_ware_area_name)
 
     }
 }
