@@ -8,6 +8,7 @@ import cn.ryanliu.jycz.bean.ScanOrdersBean
 import cn.ryanliu.jycz.bean.XMListBean
 import cn.ryanliu.jycz.bean.prequest.PBoxcodeList
 import cn.ryanliu.jycz.bean.prequest.PScanOrders
+import cn.ryanliu.jycz.bean.prequest.PsearchInventBoxcodeList
 import cn.ryanliu.jycz.bean.prequest.PsearchOrderBoxcodeList
 import cn.ryanliu.jycz.bean.searchOrderBoxcodeList
 import kotlinx.coroutines.launch
@@ -19,6 +20,7 @@ import kotlinx.coroutines.launch
  */
 class XMListVM : BaseViewModel() {
     val mData = MutableLiveData<MutableList<XMListBean>?>()
+    val mInventData = MutableLiveData<MutableList<XMListBean>?>()
     val mDetailData = MutableLiveData<MutableList<searchOrderBoxcodeList>?>()
 
     fun getBoxcodeList(
@@ -67,6 +69,35 @@ class XMListVM : BaseViewModel() {
 
                 if (response.isSuccess()) {
                     mDetailData.postValue(response.data)
+
+                } else {
+                    showServerErr(response.msg)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                showNetErr(e)
+            } finally {
+                hideLoading()
+            }
+        }
+
+    }
+
+    fun searchInventBoxcodeList(
+        invent_id: Int,
+        oper_flag: String
+    ) {
+        viewModelScope.launch {
+            try {
+                showLoading()
+                val response = ApiService.apiService.searchInventBoxcodeList(
+                    PsearchInventBoxcodeList(
+                        invent_id, oper_flag
+                    )
+                )
+
+                if (response.isSuccess()) {
+                    mInventData.postValue(response.data)
 
                 } else {
                     showServerErr(response.msg)

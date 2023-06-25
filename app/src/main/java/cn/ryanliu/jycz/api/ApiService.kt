@@ -125,6 +125,13 @@ interface ApiService {
     @POST("/api/APP/search_ware_area_change_list")
     suspend fun searchWareAreaChangeList(@Body request: PsearchWareAreaChangeList): BaseResponse<MutableList<AreajustListBean>>
 
+    //盘点明细
+    @POST("/api/APP/search_invent_list")
+    suspend fun searchInventList(@Body request: PsearchInventList): BaseResponse<MutableList<InventoryListBean>>
+
+    @POST("/api/APP/search_invent_boxcode_list")
+    suspend fun searchInventBoxcodeList(@Body request: PsearchInventBoxcodeList): BaseResponse<MutableList<XMListBean>>
+
 
     companion object {
         // 4.通过动态代理获取到所定义的接口

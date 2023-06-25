@@ -24,6 +24,9 @@ class XMListActivity : BaseActivity<ActivityXmlistBinding, XMListVM>() {
 
     private var order_id: Int = 0
 
+    private var invent_id: Int = 0
+    private var invent_String: String = ""
+
     lateinit var mAdapter: XMListAdapter
     lateinit var mDetailAdapter: DetailXMListAdapter
     override fun layoutId(): Int = R.layout.activity_xmlist
@@ -42,6 +45,10 @@ class XMListActivity : BaseActivity<ActivityXmlistBinding, XMListVM>() {
             mDetailAdapter = DetailXMListAdapter();
             mDatabind.xmlistRv.adapter = mDetailAdapter
 
+        } else if (invent_id != 0) {
+            invent_id = intent.getIntExtra("invent_id", 0)
+            invent_String = intent.getStringExtra("invent_String").toString()
+            mViewModel.searchInventBoxcodeList(invent_id, invent_String)
         } else {
             pageModel = intent.getIntExtra("edit", 0)
             handtaskid = intent.getIntExtra("handtaskid", 0)
@@ -60,9 +67,6 @@ class XMListActivity : BaseActivity<ActivityXmlistBinding, XMListVM>() {
             mDatabind.xmlistRv.adapter = mAdapter
 
         }
-
-
-
 
 
         onClick();
@@ -99,9 +103,24 @@ class XMListActivity : BaseActivity<ActivityXmlistBinding, XMListVM>() {
                 }
             }
         }
+
+        //从盘点进来的
+        mViewModel.mInventData.observe(this) {
+            if (it.isNullOrEmpty()) {
+                mDatabind.loadingLayout.showEmpty()
+            } else {
+                mAdapter.setList(it)
+                if (mAdapter.data.isEmpty()) {
+                    mDatabind.loadingLayout.showEmpty()
+                } else {
+                    mDatabind.loadingLayout.showContent()
+                }
+            }
+        }
     }
 
     companion object {
+        //正常
         fun launch(context: Context, pageModel: Int, handtaskid: Int, pyordercode: String) {
             val intent = Intent(context, XMListActivity::class.java)
             intent.putExtra("edit", pageModel)
@@ -110,9 +129,18 @@ class XMListActivity : BaseActivity<ActivityXmlistBinding, XMListVM>() {
             context.startActivity(intent)
         }
 
+        //订单明细进来的
         fun launch(context: Context, order_id: Int) {
             val intent = Intent(context, XMListActivity::class.java)
             intent.putExtra("order_id", order_id)
+            context.startActivity(intent)
+        }
+
+        //盘点明细进来的
+        fun launch(context: Context, invent_id: Int, invent_String: String) {
+            val intent = Intent(context, XMListActivity::class.java)
+            intent.putExtra("invent_id", invent_id)
+            intent.putExtra("invent_String", invent_String)
             context.startActivity(intent)
         }
 

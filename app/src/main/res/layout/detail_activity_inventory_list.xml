@@ -16,13 +16,18 @@
             android:id="@+id/in_nav_bar"
             layout="@layout/nav_bar" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/zcmx_rv"
+        <cn.ryanliu.jycz.view.LoadingLayout
+            android:id="@+id/loading_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:overScrollMode="never"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            android:layout_weight="1">
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/zcmx_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        </cn.ryanliu.jycz.view.LoadingLayout>
     </LinearLayout>
 </layout>

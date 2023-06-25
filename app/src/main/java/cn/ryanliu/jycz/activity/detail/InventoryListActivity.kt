@@ -7,18 +7,18 @@ import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.adapter.InventoryListAdapter
 import cn.ryanliu.jycz.basic.BaseActivity
 import cn.ryanliu.jycz.bean.InventoryListBean
+import cn.ryanliu.jycz.bean.prequest.PsearchInventList
+import cn.ryanliu.jycz.bean.prequest.PsearchWareAreaChangeList
 import cn.ryanliu.jycz.databinding.DetailActivityInventoryListBinding
 import cn.ryanliu.jycz.viewmodel.detail.InventoryListVM
 
 class InventoryListActivity :
     BaseActivity<DetailActivityInventoryListBinding, InventoryListVM>() {
     lateinit var mAdapter: InventoryListAdapter
-
-    lateinit var selectBean: MutableList<InventoryListBean>
+    lateinit var mList: PsearchInventList
     override fun layoutId(): Int = R.layout.detail_activity_inventory_list
 
     override fun initView() {
-        selectBean = ArrayList();
 
         mDatabind.inNavBar.ivNavBack.visibility = View.VISIBLE
         mDatabind.inNavBar.ivNavBack.setOnClickListener {
@@ -28,24 +28,29 @@ class InventoryListActivity :
         mAdapter = InventoryListAdapter();
         mDatabind.zcmxRv.adapter = mAdapter
 
-        var a = InventoryListBean(1, "TRD1202305W0100137")
-        var b = InventoryListBean(2, "TRD1202305W0100137")
-        var d = InventoryListBean(3, "TRD1202305W0100137")
-        var c = InventoryListBean(4, "TRD1202305W0100137")
-        selectBean.add(a)
-        selectBean.add(b)
-        selectBean.add(c)
-        selectBean.add(d)
-
-        mAdapter.setList(selectBean)
+        mList = intent.getSerializableExtra("request") as PsearchInventList
+        mViewModel.searchWareAreaChangeList(mList)
     }
 
     override fun createObserver() {
+        mViewModel.mSelect.observe(this) {
+            if (it.isNullOrEmpty()) {
+                mDatabind.loadingLayout.showEmpty()
+            } else {
+                mAdapter.setList(it)
+                if (mAdapter.data.isEmpty()) {
+                    mDatabind.loadingLayout.showEmpty()
+                } else {
+                    mDatabind.loadingLayout.showContent()
+                }
+            }
+        }
     }
 
     companion object {
-        fun launch(context: Context) {
+        fun launch(context: Context,request: PsearchInventList) {
             val intent = Intent(context, InventoryListActivity::class.java)
+            intent.putExtra("request",request)
             context.startActivity(intent)
         }
 

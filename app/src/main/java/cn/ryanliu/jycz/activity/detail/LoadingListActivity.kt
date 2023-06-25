@@ -51,6 +51,16 @@ class LoadingListActivity : BaseActivity<DetailActivityLoadingListBinding, Loadi
             if (it.isNullOrEmpty()) {
                 mDatabind.loadingLayout.showEmpty()
             } else {
+                if (mDatabind.inNavBar.tvNavTitle.text == "卸车明细") {
+                    for (i in it.indices) {
+                        it[i].mx = "卸车明细"
+                    }
+                } else {
+                    for (i in it.indices) {
+                        it[i].mx = "装车明细"
+                    }
+                }
+
                 mAdapter.setList(it)
                 if (mAdapter.data.isEmpty()) {
                     mDatabind.loadingLayout.showEmpty()

@@ -114,7 +114,6 @@ class SelectAreaActivity : BaseActivity<ActivitySelectAreaBinding, SelectAreaVM>
                 if (mAdapter.data.isEmpty()) {
                     mDatabind.loadingLayout.showEmpty()
                 } else {
-                    mAdapter.notifyDataSetChanged()
                     mDatabind.loadingLayout.showContent()
                 }
             }

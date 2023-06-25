@@ -12,8 +12,6 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder
  */
 class AreaAdjustListAdapter :
     BaseQuickAdapter<AreajustListBean, BaseViewHolder>(R.layout.detail_item_areajust) {
-
-
     override fun convert(holder: BaseViewHolder, item: AreajustListBean) {
         holder.setText(R.id.xm_tv, item.box_code)
         holder.setText(R.id.tzsj_tv, item.create_time)

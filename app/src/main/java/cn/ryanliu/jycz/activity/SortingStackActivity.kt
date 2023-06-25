@@ -53,7 +53,6 @@ class SortingStackActivity : BaseActivity<ActivitySortingStackBinding, SortingSt
 
         mDatabind.cxzdkqTv.setOnClickListener {
             val intent = Intent(this@SortingStackActivity, SelectAreaActivity::class.java)
-            intent.putExtra("edit", 1)
             startActivityForResult(intent, SelectAreaActivity.REQUEST_CODE_XXKQ)
         }
 

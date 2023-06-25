@@ -29,19 +29,7 @@ class LoadingListVM : BaseViewModel() {
                 )
 
                 if (response.isSuccess()) {
-                    if (PsearchTaskList.oper_flag == "卸车明细") {
-                        for (i in response.data!!.indices) {
-                            response.data!![i].mx = "卸车明细"
-                        }
-                    } else {
-                        for (i in response.data!!.indices) {
-                            response.data!![i].mx = "装车明细"
-                        }
-                    }
-
                     mList.postValue(response.data)
-
-
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
