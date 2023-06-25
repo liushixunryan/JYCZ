@@ -103,7 +103,11 @@ interface ApiService {
 
     //卸车明细 / 装车明细 根据输入的查询条件查询装卸车任务单列表
     @POST("/api/APP/search_task_list")
-    suspend fun searchTaskList(@Body request: PsearchTaskList): BaseResponse<LoadingListBean>
+    suspend fun searchTaskList(@Body request: PsearchTaskList): BaseResponse<MutableList<LoadingListBean>>
+
+
+    @POST("/api/APP/search_task_details")
+    suspend fun searchTaskDetails(@Body request: PSubmitSaveIn): BaseResponse<MutableList<SeeXMDetailBean>>
 
     companion object {
         // 4.通过动态代理获取到所定义的接口

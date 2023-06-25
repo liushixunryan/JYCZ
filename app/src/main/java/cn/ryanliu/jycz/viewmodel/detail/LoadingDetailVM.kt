@@ -4,7 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import cn.ryanliu.jycz.api.ApiService
 import cn.ryanliu.jycz.basic.BaseViewModel
+import cn.ryanliu.jycz.bean.LoadingListBean
 import cn.ryanliu.jycz.bean.prequest.PsearchScanCount
+import cn.ryanliu.jycz.bean.prequest.PsearchTaskList
 import cn.ryanliu.jycz.bean.scanFjCode
 import cn.ryanliu.jycz.bean.searchScanCount
 import kotlinx.coroutines.launch
@@ -44,4 +46,6 @@ class LoadingDetailVM : BaseViewModel() {
         }
 
     }
+
+
 }

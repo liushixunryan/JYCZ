@@ -31,7 +31,7 @@
                     android:background="@drawable/bg_gray_tv"
                     android:gravity="center"
                     android:padding="@dimen/dp_12"
-                    android:text="装车完成\n时间段" />
+                    android:text="卸车完成\n时间段" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -46,10 +46,13 @@
                         android:gravity="center">
 
                         <EditText
+                            android:id="@+id/et_xcwcsjd1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="1dp"
                             android:background="@drawable/bg_edittext"
+                            android:clickable="false"
+                            android:focusable="false"
                             android:gravity="center"
                             android:hint="请选择"
                             android:lines="1"
@@ -66,10 +69,13 @@
                         android:gravity="center">
 
                         <EditText
+                            android:id="@+id/et_xcwcsjd2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="1dp"
                             android:background="@drawable/bg_edittext"
+                            android:clickable="false"
+                            android:focusable="false"
                             android:gravity="center"
                             android:hint="请选择"
                             android:inputType="number"
@@ -101,6 +107,7 @@
                     android:gravity="center">
 
                     <EditText
+                        android:id="@+id/et_smr"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="1dp"
@@ -134,6 +141,7 @@
                     android:gravity="center">
 
                     <EditText
+                        android:id="@+id/et_cph"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="1dp"
@@ -167,6 +175,7 @@
                     android:gravity="center">
 
                     <EditText
+                        android:id="@+id/et_sjxm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="1dp"
@@ -200,6 +209,7 @@
                     android:gravity="center">
 
                     <EditText
+                        android:id="@+id/et_tm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="1dp"
@@ -233,6 +243,7 @@
                     android:gravity="center">
 
                     <EditText
+                        android:id="@+id/et_xm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="1dp"
@@ -266,6 +277,7 @@
                     android:gravity="center">
 
                     <EditText
+                        android:id="@+id/et_mdd"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="1dp"

@@ -6,6 +6,6 @@ package cn.ryanliu.jycz.bean.prequest
  * @Description:
  */
 data class PSubmitSaveIn(
-    val hand_task_id: Int,
+    val hand_task_id: String,
     val oper_flag: String
 )

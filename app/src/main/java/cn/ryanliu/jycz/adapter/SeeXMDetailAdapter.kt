@@ -14,9 +14,10 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder
 class SeeXMDetailAdapter :
     BaseQuickAdapter<SeeXMDetailBean, BaseViewHolder>(R.layout.detail_item_seexmdetail) {
 
-
     override fun convert(holder: BaseViewHolder, item: SeeXMDetailBean) {
-        holder.setText(R.id.xm_tv, item.indentnum)
+        holder.setText(R.id.xm_tv, item.scan_code)
+        holder.setText(R.id.smsj_tv, item.scan_time)
+        holder.setText(R.id.mdd_tv, item.rec_area)
 
     }
 }

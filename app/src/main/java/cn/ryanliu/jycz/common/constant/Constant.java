@@ -65,5 +65,15 @@ public class Constant {
 
     }
 
+    public static class TimePattern {
+        public final static String PATTERN1 = "yyyy-MM-dd HH:mm:ss";
+        public final static String PATTERN2 = "yyyy-MM-dd HH:mm";
+        public final static String PATTERN3 = "yyyy-MM-dd";
+        public final static String PATTERN4 = "yyyy-MM";
+        public final static String PATTERN5 = "HH:mm:ss";
+        public final static String PATTERN6 = "yyyy-MM-dd HH";
+    }
+
+
 
 }

@@ -47,9 +47,12 @@
                         android:gravity="center">
 
                         <EditText
+                            android:id="@+id/et_zcwcsjd1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="1dp"
+                            android:clickable="false"
+                            android:focusable="false"
                             android:background="@drawable/bg_edittext"
                             android:gravity="center"
                             android:hint="请选择"
@@ -67,12 +70,15 @@
                         android:gravity="center">
 
                         <EditText
+                            android:id="@+id/et_zcwcsjd2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="1dp"
                             android:background="@drawable/bg_edittext"
                             android:gravity="center"
                             android:hint="请选择"
+                            android:clickable="false"
+                            android:focusable="false"
                             android:inputType="number"
                             android:lines="1"
                             android:maxLines="1"
@@ -102,6 +108,7 @@
                     android:gravity="center">
 
                     <EditText
+                        android:id="@+id/et_smr"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="1dp"
@@ -135,6 +142,7 @@
                     android:gravity="center">
 
                     <EditText
+                        android:id="@+id/et_cph"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="1dp"
@@ -168,6 +176,7 @@
                     android:gravity="center">
 
                     <EditText
+                        android:id="@+id/et_sjxm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="1dp"
@@ -201,6 +210,7 @@
                     android:gravity="center">
 
                     <EditText
+                        android:id="@+id/et_tm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="1dp"
@@ -234,6 +244,7 @@
                     android:gravity="center">
 
                     <EditText
+                        android:id="@+id/et_xm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="1dp"
@@ -267,6 +278,7 @@
                     android:gravity="center">
 
                     <EditText
+                        android:id="@+id/et_mdd"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="1dp"

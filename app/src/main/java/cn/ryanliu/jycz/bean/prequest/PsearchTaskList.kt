@@ -11,4 +11,4 @@ data class PsearchTaskList(
     val rec_area: String,
     val scan_user_id: String,
     val tp_code: String
-)
+) : java.io.Serializable

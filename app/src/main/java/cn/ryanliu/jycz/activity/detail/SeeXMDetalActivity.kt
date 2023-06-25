@@ -13,11 +13,14 @@ import cn.ryanliu.jycz.viewmodel.detail.SeeXMDetailVM
 class SeeXMDetalActivity : BaseActivity<DetailActivitySeeXmdetalBinding, SeeXMDetailVM>() {
     lateinit var mAdapter: SeeXMDetailAdapter
 
+    var handTaskid = ""
     lateinit var selectBean: MutableList<SeeXMDetailBean>
     override fun layoutId(): Int = R.layout.detail_activity_see_xmdetal
 
 
     override fun initView() {
+        handTaskid = intent.getStringExtra("handTaskid").toString()
+
         selectBean = ArrayList();
 
         mDatabind.inNavBar.ivNavBack.visibility = View.VISIBLE
@@ -27,24 +30,27 @@ class SeeXMDetalActivity : BaseActivity<DetailActivitySeeXmdetalBinding, SeeXMDe
         mDatabind.inNavBar.tvNavTitle.text = "箱码明细"
         mAdapter = SeeXMDetailAdapter();
         mDatabind.zcmxRv.adapter = mAdapter
-
-        var a = SeeXMDetailBean(1, "TRD1202305W0100137")
-        var b = SeeXMDetailBean(2, "TRD1202305W0100137")
-        var d = SeeXMDetailBean(3, "TRD1202305W0100137")
-        var c = SeeXMDetailBean(4, "TRD1202305W0100137")
-        selectBean.add(a)
-        selectBean.add(b)
-        selectBean.add(c)
-        selectBean.add(d)
-
-        mAdapter.setList(selectBean)
     }
 
     override fun createObserver() {
+        mViewModel.mSelect.observe(this) {
+            if (it.isNullOrEmpty()) {
+                mDatabind.loadingLayout.showEmpty()
+            } else {
+                mAdapter.setList(it)
+                if (mAdapter.data.isEmpty()) {
+                    mDatabind.loadingLayout.showEmpty()
+                } else {
+                    mDatabind.loadingLayout.showContent()
+                }
+            }
+        }
     }
+
     companion object {
-        fun launch(context: Context) {
+        fun launch(context: Context, handTaskid: String) {
             val intent = Intent(context, SeeXMDetalActivity::class.java)
+            intent.putExtra("handTaskid", handTaskid)
             context.startActivity(intent)
         }
 
