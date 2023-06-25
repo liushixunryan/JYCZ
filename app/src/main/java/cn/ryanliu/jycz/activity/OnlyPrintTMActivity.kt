@@ -8,6 +8,7 @@ import cn.ryanliu.jycz.adapter.TMBQAdapter
 import cn.ryanliu.jycz.basic.BaseActivity
 import cn.ryanliu.jycz.bean.TMBQBean
 import cn.ryanliu.jycz.databinding.ActivityOnlyPrintTmactivityBinding
+import cn.ryanliu.jycz.util.PrintBCCodeType
 import cn.ryanliu.jycz.viewmodel.OnlyPrintTMVM
 
 /**
@@ -36,7 +37,7 @@ class OnlyPrintTMActivity : BaseActivity<ActivityOnlyPrintTmactivityBinding, Onl
     private fun onClick() {
         mDatabind.btnSctm.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
-                mAdapter.addData(TMBQBean(1, "dsda111"))
+                mAdapter.addData(0, TMBQBean(1, "TLBJ012023041100001Q20"))
             }
 
         })
@@ -45,10 +46,13 @@ class OnlyPrintTMActivity : BaseActivity<ActivityOnlyPrintTmactivityBinding, Onl
             finish()
         }
 
-        mAdapter.setOnItemClickListener { adapter, view, position ->
+        mDatabind.btnPrinttm.setOnClickListener(object : OnSingleClickListener() {
+            override fun onSingleClick(view: View?) {
+                PrintBCCodeType.PrintTM("Q: 20", mAdapter.data[0].bqname)
+            }
 
+        })
 
-        }
     }
 
     override fun createObserver() {

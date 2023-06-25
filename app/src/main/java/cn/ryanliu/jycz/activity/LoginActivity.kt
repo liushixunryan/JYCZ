@@ -65,15 +65,18 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginVM>() {
                 //打印托码
 //                PrintBCCodeType.PrintTM()
                 //补打箱码
-                //切纸
-                val printXM = PrintBCCodeType.PrintXM()
-                Log.e("sansuiban", "initView: $printXM")
-                if (printXM == 1) {
-                    //切纸
-                    Print.GotoNextLabel()
-                } else {
-                    ToastUtilsExt.info("打印错误")
-                }
+//                PrintBCCodeType.PrintXM()
+                //机油标签规格查询
+//                PrintBCCodeType.PrintJYBQ()
+
+    //            PrintBCCodeType.Printcs()
+//                Log.e("sansuiban", "initView: $printXM")
+//                if (printXM == 1) {
+//                    //切纸
+//                    Print.GotoNextLabel()
+//                } else {
+//                    ToastUtilsExt.info("打印错误")
+//                }
 
             } catch (e: java.lang.Exception) {
                 Log.e(

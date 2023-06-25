@@ -8,6 +8,7 @@ import cn.ryanliu.jycz.adapter.TMBQAdapter
 import cn.ryanliu.jycz.basic.BaseActivity
 import cn.ryanliu.jycz.bean.TMBQBean
 import cn.ryanliu.jycz.databinding.ActivityScanBoxTmactivityBinding
+import cn.ryanliu.jycz.util.PrintBCCodeType
 import cn.ryanliu.jycz.viewmodel.ScanBoxTMVM
 
 /**
@@ -28,25 +29,36 @@ class ScanBoxTMActivity : BaseActivity<ActivityScanBoxTmactivityBinding, ScanBox
         mDatabind.inNavBar.tvNavTitle.text = "扫箱码后补打【托码】标签"
 
         mAdapter = TMBQAdapter();
-        mDatabind.tmRv.adapter = mAdapter
+        mDatabind.dyxmlbRv.adapter = mAdapter
 
         mXMAdapter = TMBQAdapter();
-        mDatabind.dyxmlbRv.adapter = mXMAdapter
+        mDatabind.tmRv.adapter = mXMAdapter
 
         onClick()
     }
 
     private fun onClick() {
+        var a: MutableList<TMBQBean> = ArrayList();
         mDatabind.btnTj.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
-                mAdapter.addData(TMBQBean(1, "dsda111"))
+                mAdapter.addData(TMBQBean(1, "BOXLBJ01202304110000001"))
             }
 
         })
 
         mDatabind.btnSctm.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
-                mAdapter.addData(TMBQBean(1, "dsda111"))
+                mXMAdapter.setNewInstance(null)
+                a.clear()
+                a.add(TMBQBean(1, "TLBJ012023041100001Q20"))
+                mXMAdapter.setList(a)
+            }
+
+        })
+
+        mDatabind.btnPrinttm.setOnClickListener(object : OnSingleClickListener() {
+            override fun onSingleClick(view: View?) {
+                PrintBCCodeType.PrintTM("Q: 20", mXMAdapter.data[0].bqname)
             }
 
         })
@@ -55,10 +67,7 @@ class ScanBoxTMActivity : BaseActivity<ActivityScanBoxTmactivityBinding, ScanBox
             finish()
         }
 
-        mAdapter.setOnItemClickListener { adapter, view, position ->
 
-
-        }
     }
 
     override fun createObserver() {

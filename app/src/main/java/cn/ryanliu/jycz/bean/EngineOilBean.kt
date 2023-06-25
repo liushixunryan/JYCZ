@@ -6,5 +6,6 @@ package cn.ryanliu.jycz.bean
  * @Description:
  */
 data class EngineOilBean(
-    var txm:String
+    var txm: String,
+    var isselect: Int? = 0,
 )
