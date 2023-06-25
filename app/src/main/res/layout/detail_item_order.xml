@@ -29,9 +29,9 @@
             android:textColor="@color/white" />
 
         <TextView
+            android:id="@+id/rwd_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="卸车任务单"
             android:textColor="@color/white"
             android:textStyle="bold" />
 
@@ -89,7 +89,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/zcwcsj_tv"
+            android:id="@+id/ddsj_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -171,6 +171,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/tv_xcwcsj"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="卸车完成时间："
@@ -185,6 +186,7 @@
             android:textColor="@color/common_text_black" />
 
         <TextView
+            android:id="@+id/tv_xcsmxs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="卸车扫描箱数："
@@ -208,6 +210,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/tv_rcjjsj"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="入场交接时间："

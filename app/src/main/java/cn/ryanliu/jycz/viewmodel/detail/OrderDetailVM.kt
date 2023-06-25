@@ -5,8 +5,6 @@ import androidx.lifecycle.viewModelScope
 import cn.ryanliu.jycz.api.ApiService
 import cn.ryanliu.jycz.basic.BaseViewModel
 import cn.ryanliu.jycz.bean.SearchOrderCount
-import cn.ryanliu.jycz.bean.SeeXMDetailBean
-import cn.ryanliu.jycz.bean.prequest.PSubmitSaveIn
 import cn.ryanliu.jycz.bean.prequest.PsearchScanCount
 import kotlinx.coroutines.launch
 

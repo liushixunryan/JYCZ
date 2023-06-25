@@ -8,6 +8,8 @@ import cn.ryanliu.jycz.bean.ScanOrdersBean
 import cn.ryanliu.jycz.bean.XMListBean
 import cn.ryanliu.jycz.bean.prequest.PBoxcodeList
 import cn.ryanliu.jycz.bean.prequest.PScanOrders
+import cn.ryanliu.jycz.bean.prequest.PsearchOrderBoxcodeList
+import cn.ryanliu.jycz.bean.searchOrderBoxcodeList
 import kotlinx.coroutines.launch
 
 /**
@@ -15,12 +17,13 @@ import kotlinx.coroutines.launch
  * @Date: 2023/6/7
  * @Description:
  */
-class XMListVM:BaseViewModel(){
+class XMListVM : BaseViewModel() {
     val mData = MutableLiveData<MutableList<XMListBean>?>()
+    val mDetailData = MutableLiveData<MutableList<searchOrderBoxcodeList>?>()
 
     fun getBoxcodeList(
         hand_task_id: Int,
-        oper_flag:String,
+        oper_flag: String,
         py_order_code: String
     ) {
         viewModelScope.launch {
@@ -36,6 +39,34 @@ class XMListVM:BaseViewModel(){
 
                 if (response.isSuccess()) {
                     mData.postValue(response.data)
+
+                } else {
+                    showServerErr(response.msg)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                showNetErr(e)
+            } finally {
+                hideLoading()
+            }
+        }
+
+    }
+
+    fun searchOrderBoxcodeList(
+        order_id: Int,
+    ) {
+        viewModelScope.launch {
+            try {
+                showLoading()
+                val response = ApiService.apiService.searchOrderBoxcodeList(
+                    PsearchOrderBoxcodeList(
+                        order_id
+                    )
+                )
+
+                if (response.isSuccess()) {
+                    mDetailData.postValue(response.data)
 
                 } else {
                     showServerErr(response.msg)

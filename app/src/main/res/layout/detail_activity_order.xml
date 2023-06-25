@@ -44,10 +44,13 @@
                         android:gravity="center">
 
                         <EditText
+                            android:id="@+id/et_ddsj1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="1dp"
                             android:background="@drawable/bg_edittext"
+                            android:clickable="false"
+                            android:focusable="false"
                             android:gravity="center"
                             android:hint="请选择"
                             android:lines="1"
@@ -64,10 +67,13 @@
                         android:gravity="center">
 
                         <EditText
+                            android:id="@+id/ddsj2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="1dp"
                             android:background="@drawable/bg_edittext"
+                            android:clickable="false"
+                            android:focusable="false"
                             android:gravity="center"
                             android:hint="请选择"
                             android:inputType="number"
@@ -100,6 +106,7 @@
                     android:gravity="center">
 
                     <EditText
+                        android:id="@+id/et_cph"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="1dp"
@@ -133,6 +140,7 @@
                     android:gravity="center">
 
                     <EditText
+                        android:id="@+id/et_sjxm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="1dp"
@@ -166,6 +174,7 @@
                     android:gravity="center">
 
                     <EditText
+                        android:id="@+id/et_tm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="1dp"
@@ -199,6 +208,7 @@
                     android:gravity="center">
 
                     <EditText
+                        android:id="@+id/et_xm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="1dp"
@@ -232,6 +242,7 @@
                     android:gravity="center">
 
                     <EditText
+                        android:id="@+id/et_mdd"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="1dp"
@@ -333,12 +344,12 @@
                     android:textColor="@color/common_text_black" />
 
                 <TextView
+                    android:id="@+id/drzcsmzxs"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/bg_gray_tv"
                     android:gravity="center"
-                    android:text="1459"
                     android:textColor="@color/common_text_black" />
 
             </LinearLayout>
@@ -358,12 +369,12 @@
                     android:textColor="@color/common_text_black" />
 
                 <TextView
+                    android:id="@+id/drxcsmzxs"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/bg_gray_tv"
                     android:gravity="center"
-                    android:text="1459"
                     android:textColor="@color/common_text_black" />
 
             </LinearLayout>
@@ -383,12 +394,12 @@
                     android:textColor="@color/common_text_black" />
 
                 <TextView
+                    android:id="@+id/zrzcsmzxs"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/bg_gray_tv"
                     android:gravity="center"
-                    android:text="1459"
                     android:textColor="@color/common_text_black" />
 
             </LinearLayout>
@@ -408,12 +419,12 @@
                     android:textColor="@color/common_text_black" />
 
                 <TextView
+                    android:id="@+id/zrxcsmzxs"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/bg_gray_tv"
                     android:gravity="center"
-                    android:text="1459"
                     android:textColor="@color/common_text_black" />
 
             </LinearLayout>

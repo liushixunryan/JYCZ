@@ -7,17 +7,21 @@ import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.adapter.OrderListAdapter
 import cn.ryanliu.jycz.basic.BaseActivity
 import cn.ryanliu.jycz.bean.OrderListBean
+import cn.ryanliu.jycz.bean.prequest.PsearchOrderDetails
 import cn.ryanliu.jycz.databinding.DetailActivityOrderListBinding
 import cn.ryanliu.jycz.viewmodel.detail.OrderListVM
 
 class OrderListActivity : BaseActivity<DetailActivityOrderListBinding, OrderListVM>() {
     lateinit var mAdapter: OrderListAdapter
-
-    lateinit var selectBean: MutableList<OrderListBean>
+    lateinit var PsearchOrderDetails: PsearchOrderDetails
     override fun layoutId(): Int = R.layout.detail_activity_order_list
 
     override fun initView() {
-        selectBean = ArrayList();
+
+        PsearchOrderDetails =
+            intent.getSerializableExtra("PsearchOrderDetails") as PsearchOrderDetails
+
+        mViewModel.searchOrderDetails(PsearchOrderDetails)
 
         mDatabind.inNavBar.ivNavBack.visibility = View.VISIBLE
         mDatabind.inNavBar.ivNavBack.setOnClickListener {
@@ -26,25 +30,27 @@ class OrderListActivity : BaseActivity<DetailActivityOrderListBinding, OrderList
         mDatabind.inNavBar.tvNavTitle.text = "订单明细"
         mAdapter = OrderListAdapter();
         mDatabind.zcmxRv.adapter = mAdapter
-
-        var a = OrderListBean(1, "TRD1202305W0100137")
-        var b = OrderListBean(2, "TRD1202305W0100137")
-        var d = OrderListBean(3, "TRD1202305W0100137")
-        var c = OrderListBean(4, "TRD1202305W0100137")
-        selectBean.add(a)
-        selectBean.add(b)
-        selectBean.add(c)
-        selectBean.add(d)
-
-        mAdapter.setList(selectBean)
     }
 
     override fun createObserver() {
+        mViewModel.mSelect.observe(this) {
+            if (it.isNullOrEmpty()) {
+                mDatabind.loadingLayout.showEmpty()
+            } else {
+                mAdapter.setList(it)
+                if (mAdapter.data.isEmpty()) {
+                    mDatabind.loadingLayout.showEmpty()
+                } else {
+                    mDatabind.loadingLayout.showContent()
+                }
+            }
+        }
     }
 
     companion object {
-        fun launch(context: Context) {
+        fun launch(context: Context, PsearchOrderDetails: PsearchOrderDetails) {
             val intent = Intent(context, OrderListActivity::class.java)
+            intent.putExtra("PsearchOrderDetails", PsearchOrderDetails)
             context.startActivity(intent)
         }
 
