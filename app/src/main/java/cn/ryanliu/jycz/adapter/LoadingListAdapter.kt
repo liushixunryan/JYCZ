@@ -25,7 +25,7 @@ class LoadingListAdapter :
         holder.setText(R.id.smr_tv, item.scan_user_name)
 
         holder.getView<Button>(R.id.btn_all).setOnClickListener {
-            SeeXMDetalActivity.launch(context, item.hand_task_id.toString())
+            SeeXMDetalActivity.launch(context, item.hand_task_id.toString(), item.mx)
         }
 
     }

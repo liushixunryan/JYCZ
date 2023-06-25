@@ -7,12 +7,13 @@ import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.adapter.SeeXMDetailAdapter
 import cn.ryanliu.jycz.basic.BaseActivity
 import cn.ryanliu.jycz.bean.SeeXMDetailBean
+import cn.ryanliu.jycz.common.constant.Constant.PageModel
 import cn.ryanliu.jycz.databinding.DetailActivitySeeXmdetalBinding
 import cn.ryanliu.jycz.viewmodel.detail.SeeXMDetailVM
 
 class SeeXMDetalActivity : BaseActivity<DetailActivitySeeXmdetalBinding, SeeXMDetailVM>() {
     lateinit var mAdapter: SeeXMDetailAdapter
-
+    var pageMode = ""
     var handTaskid = ""
     lateinit var selectBean: MutableList<SeeXMDetailBean>
     override fun layoutId(): Int = R.layout.detail_activity_see_xmdetal
@@ -20,6 +21,9 @@ class SeeXMDetalActivity : BaseActivity<DetailActivitySeeXmdetalBinding, SeeXMDe
 
     override fun initView() {
         handTaskid = intent.getStringExtra("handTaskid").toString()
+        pageMode = intent.getStringExtra("edit").toString()
+
+        mViewModel.scanFjCode(handTaskid, pageMode)
 
         selectBean = ArrayList();
 
@@ -48,9 +52,10 @@ class SeeXMDetalActivity : BaseActivity<DetailActivitySeeXmdetalBinding, SeeXMDe
     }
 
     companion object {
-        fun launch(context: Context, handTaskid: String) {
+        fun launch(context: Context, handTaskid: String, pagemodel: String) {
             val intent = Intent(context, SeeXMDetalActivity::class.java)
             intent.putExtra("handTaskid", handTaskid)
+            intent.putExtra("edit", pagemodel)
             context.startActivity(intent)
         }
 

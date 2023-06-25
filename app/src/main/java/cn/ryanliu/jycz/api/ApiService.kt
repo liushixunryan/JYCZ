@@ -105,9 +105,14 @@ interface ApiService {
     @POST("/api/APP/search_task_list")
     suspend fun searchTaskList(@Body request: PsearchTaskList): BaseResponse<MutableList<LoadingListBean>>
 
-
+    //卸车明细 / 装车明细 获取每个任务单的扫描箱码明细数据
     @POST("/api/APP/search_task_details")
     suspend fun searchTaskDetails(@Body request: PSubmitSaveIn): BaseResponse<MutableList<SeeXMDetailBean>>
+
+    //订单查询，界面加载汇总数据
+    @POST("/api/APP/search_order_count")
+    suspend fun searchOrderCount(@Body request: PsearchScanCount): BaseResponse<SearchOrderCount>
+
 
     companion object {
         // 4.通过动态代理获取到所定义的接口
