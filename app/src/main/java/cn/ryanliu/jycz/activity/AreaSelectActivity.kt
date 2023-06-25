@@ -13,6 +13,7 @@ import cn.ryanliu.jycz.basic.BaseActivity
 import cn.ryanliu.jycz.bean.AreaSelectBean
 import cn.ryanliu.jycz.bean.SelectAreaBean
 import cn.ryanliu.jycz.bean.SelectListBean
+import cn.ryanliu.jycz.bean.prequest.Area
 import cn.ryanliu.jycz.databinding.ActivityAreaSelectBinding
 import cn.ryanliu.jycz.util.ToastUtilsExt
 import cn.ryanliu.jycz.view.GridSpaceItemDecoration
@@ -33,7 +34,7 @@ class AreaSelectActivity : BaseActivity<ActivityAreaSelectBinding, AreaSelectVM>
     lateinit var mAdapter1: SelectListAdapter
 
     lateinit var selectBean: MutableList<SelectAreaBean>
-    lateinit var bean: MutableList<SelectListBean>
+    lateinit var bean: MutableList<Area>
 
     override fun layoutId(): Int = R.layout.activity_area_select
 
@@ -61,9 +62,7 @@ class AreaSelectActivity : BaseActivity<ActivityAreaSelectBinding, AreaSelectVM>
 
     private fun onClick() {
         mDatabind.btnSelectarea.setOnClickListener {
-
-
-            mAdapter.setList(selectBean)
+            mViewModel.getWareArea(mDatabind.etKq.text.toString(), "卸车")
         }
         //添加
         mDatabind.addAreaTv.setOnClickListener(object : OnSingleClickListener() {
@@ -73,7 +72,12 @@ class AreaSelectActivity : BaseActivity<ActivityAreaSelectBinding, AreaSelectVM>
                 val isSelect = arrayListOf<Int>()
                 for (i in selectBean.indices) {
                     if (selectBean[i].isselect == 1) {
-                        bean.add(SelectListBean(i, selectBean[i].ware_area_name.toString()))
+                        bean.add(
+                            Area(
+                                selectBean[i].ware_area_name.toString(),
+                                selectBean[i].ware_area_id
+                            )
+                        )
                     } else {
                         isSelect.add(i)
                     }
@@ -93,8 +97,7 @@ class AreaSelectActivity : BaseActivity<ActivityAreaSelectBinding, AreaSelectVM>
                 showTipDialog("确认是否开始盘点？点击 确认 后将冻结当前库存、同时锁定操作：扫码卸车、入场交接、分拣码放、扫码装车、出场交接、库位调整 等操作。直至确认盘点完成。",
                     "提示",
                     {
-                        InventoryCountActivity.launch(this@AreaSelectActivity)
-
+                        mViewModel.lockAllCancel(bean, 1)
                     },
                     {})
             }
@@ -105,8 +108,7 @@ class AreaSelectActivity : BaseActivity<ActivityAreaSelectBinding, AreaSelectVM>
                 showTipDialog("确认是否开始盘点？点击 确认 后将冻结当前库存、同时锁定操作：扫码卸车、入场交接、分拣码放、扫码装车、出场交接、库位调整 等操作。直至确认盘点完成。",
                     "提示",
                     {
-                        InventoryCountActivity.launch(this@AreaSelectActivity)
-
+                        mViewModel.lockAllCancel(bean, 0)
                     },
                     {})
             }
@@ -126,6 +128,10 @@ class AreaSelectActivity : BaseActivity<ActivityAreaSelectBinding, AreaSelectVM>
                     mDatabind.loadingLayout.showContent()
                 }
             }
+        }
+
+        mViewModel.mSurepd.observe(this) {
+            InventoryCountActivity.launch(this@AreaSelectActivity,it)
         }
     }
 

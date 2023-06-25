@@ -51,12 +51,12 @@
                 android:textColor="@color/common_text_black" />
 
             <TextView
+                android:id="@+id/xtkc_tv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/bg_select_tv"
                 android:gravity="center"
-                android:text="3214"
                 android:textColor="@color/common_text_black" />
 
             <TextView
@@ -70,6 +70,7 @@
                 android:textColor="@color/common_text_black" />
 
             <TextView
+                android:id="@+id/pdkc_tv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

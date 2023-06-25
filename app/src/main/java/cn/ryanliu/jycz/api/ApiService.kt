@@ -84,6 +84,18 @@ interface ApiService {
     @POST("/api/APP/create_tbox_code_1")
     suspend fun createTboxCode1(@Body request: PcreateTboxCode1): BaseResponse<String>
 
+    //库存盘点，冻结所有库存 和 扫描操作
+    @POST("/api/APP/lock_all_cancel")
+    suspend fun lockAllCancel(@Body request: PlockAllCancel): BaseResponse<String?>
+
+    //确认盘点
+    @POST("/api/APP/get_invent_result")
+    suspend fun getInventResult(@Body request: PInventResult): BaseResponse<InventResult?>
+
+    //保存盘点
+    @POST("/api/APP/save_invent")
+    suspend fun saveInvent(@Body request: PInventResult): BaseResponse<Any?>
+
     //----------------------------明细----------------------------------
     //卸车明细 / 装车明细 获取当日和昨日统计数据
     @POST("/api/APP/search_scan_count")
