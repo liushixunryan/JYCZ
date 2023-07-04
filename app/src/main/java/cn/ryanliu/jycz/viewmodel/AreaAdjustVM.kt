@@ -36,7 +36,7 @@ class AreaAdjustVM : BaseViewModel() {
                     mSelectCar.postValue(response.data)
 
                 } else {
-                    showServerErr(response.msg)
+                    mSelectCar.postValue(response.data)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -67,7 +67,7 @@ class AreaAdjustVM : BaseViewModel() {
                     mBackList.postValue("修改成功")
 
                 } else {
-                    showServerErr(response.msg)
+                    mBackList.postValue("失败")
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

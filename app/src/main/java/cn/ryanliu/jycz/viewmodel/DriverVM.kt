@@ -44,7 +44,7 @@ class DriverVM : BaseViewModel() {
                     mData.postValue(response.data)
 
                 } else {
-                    showServerErr(response.msg)
+                    mData.postValue(response.data)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -74,7 +74,7 @@ class DriverVM : BaseViewModel() {
                     mDatacode.postValue(response.data)
 
                 } else {
-                    showServerErr(response.msg)
+                    mDatacode.postValue(response.data)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -103,7 +103,7 @@ class DriverVM : BaseViewModel() {
                     mBackList.postValue("成功")
 
                 } else {
-                    showServerErr(response.msg)
+                    mBackList.postValue("失败")
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

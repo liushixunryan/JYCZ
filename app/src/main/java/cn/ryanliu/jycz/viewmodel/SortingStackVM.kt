@@ -37,7 +37,7 @@ class SortingStackVM : BaseViewModel() {
                     mSelectCar.postValue(response.data)
 
                 } else {
-                    showServerErr(response.msg)
+                    mSelectCar.postValue(response.data)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -68,7 +68,7 @@ class SortingStackVM : BaseViewModel() {
                     mBackList.postValue("修改成功")
 
                 } else {
-                    showServerErr(response.msg)
+                    mBackList.postValue("失败")
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -98,7 +98,7 @@ class SortingStackVM : BaseViewModel() {
                     mBackList.postValue("拆托成功")
 
                 } else {
-                    showServerErr(response.msg)
+                    mBackList.postValue("失败")
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

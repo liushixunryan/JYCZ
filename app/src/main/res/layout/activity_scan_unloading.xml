@@ -521,7 +521,6 @@
                             android:id="@+id/xm_hwsl_tv_"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-
                             android:layout_weight="1"
                             android:text="98"
                             android:textColor="@color/common_text_black"

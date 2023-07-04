@@ -125,10 +125,29 @@ class ScanloadingActivity :
             } else {
 
                 if (it[0].reservation_type == "项目预约") {
+                    mDatabind.xmYqxx.text = it[0].site_name
+                    mDatabind.xmDrivernameTv.text = it[0].driver_name
+                    mDatabind.xmLicencenumTv.text = it[0].car_number
+                    mDatabind.xmRwlxTv.text = it[0].in_report_type
+                    mDatabind.xmHwslTv.text = it[0].goods_num.toString()
+                    mDatabind.ddtimeTv.text = it[0].order_time
+
                     mDatabind.driverLl.visibility = View.GONE
                     mDatabind.projectLl.visibility = View.VISIBLE
                     mDatabind.hintLl.visibility = View.GONE
                 } else {
+                    mDatabind.yqxx.text = it[0].site_name
+                    mDatabind.drivernameTv.text = it[0].driver_name
+                    mDatabind.phonenumTv.text = it[0].phone
+                    mDatabind.licencenumTv.text = it[0].car_number
+                    mDatabind.cartypeTv.text = it[0].car_model
+                    mDatabind.rcbbtypeTv.text = it[0].in_report_type
+                    mDatabind.hwnumTv.text = it[0].goods_num.toString()
+                    mDatabind.yyddtimeTv.text = it[0].maybe_arrive_time
+                    mDatabind.sjrctimeTv.text = it[0].insite_time
+                    mDatabind.hwxxTv.text = it[0].goods_info
+
+
                     mDatabind.driverLl.visibility = View.VISIBLE
                     mDatabind.projectLl.visibility = View.GONE
                     mDatabind.hintLl.visibility = View.GONE

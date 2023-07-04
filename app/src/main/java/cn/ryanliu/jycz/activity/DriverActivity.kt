@@ -41,11 +41,11 @@ class DriverActivity : BaseActivity<ActivityDriverBinding, DriverVM>() {
                 "卸车"
             } else {
                 "装车"
-            }, if (pageModel == Constant.PageModel.XIECHE) {
+            }, "司机预约", if (pageModel == Constant.PageModel.XIECHE) {
                 "卸车任务"
             } else {
                 "装车任务"
-            }, "司机预约"
+            }
         )
 
         onClick()

@@ -29,7 +29,7 @@ class SelectAreaVM:BaseViewModel() {
                     mSelectArea.postValue(response.data)
 
                 } else {
-                    showServerErr(response.msg)
+                    mSelectArea.postValue(response.data)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

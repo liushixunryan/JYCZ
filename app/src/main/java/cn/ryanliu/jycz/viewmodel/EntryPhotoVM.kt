@@ -66,7 +66,7 @@ class EntryPhotoVM : BaseViewModel() {
                     mBackList.postValue("成功")
 
                 } else {
-                    showServerErr(response.msg)
+                    mBackList.postValue("失败")
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

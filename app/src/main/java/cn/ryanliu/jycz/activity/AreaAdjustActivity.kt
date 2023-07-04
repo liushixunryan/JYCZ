@@ -28,7 +28,7 @@ class AreaAdjustActivity : BaseActivity<ActivityAreaAdjustBinding, AreaAdjustVM>
         mDatabind.inNavBar.ivNavBack.setOnClickListener {
             onBackPressed()
         }
-        mDatabind.inNavBar.tvNavTitle.text = "库区调整"
+        mDatabind.inNavBar.tvNavTitle.text = "库位调整"
 
         areaName = intent.getStringExtra("areaName").toString()
         areaId = intent.getStringExtra("areaId").toString()
@@ -40,7 +40,7 @@ class AreaAdjustActivity : BaseActivity<ActivityAreaAdjustBinding, AreaAdjustVM>
 
     private fun onClick() {
         mDatabind.btnTj.setOnClickListener {
-            mViewModel.scanMCode("库区调整", mDatabind.etSmtm.text.toString())
+            mViewModel.scanMCode("库位调整", mDatabind.etSmtm.text.toString())
         }
 
         mDatabind.ysxmTv.setOnClickListener {

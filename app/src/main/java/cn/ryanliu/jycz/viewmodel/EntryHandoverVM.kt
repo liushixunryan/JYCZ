@@ -38,7 +38,7 @@ class EntryHandoverVM : BaseViewModel() {
                     mSelectCar.postValue(response.data)
 
                 } else {
-                    showServerErr(response.msg)
+                    mSelectCar.postValue(response.data)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

@@ -59,7 +59,7 @@ class XMListActivity : BaseActivity<ActivityXmlistBinding, XMListVM>() {
                     "卸车"
                 } else {
                     "装车"
-                }, pyordercode
+                }, pyordercode,"全部"
             )
 
 

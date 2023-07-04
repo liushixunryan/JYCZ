@@ -132,6 +132,26 @@ interface ApiService {
     @POST("/api/APP/search_invent_boxcode_list")
     suspend fun searchInventBoxcodeList(@Body request: PsearchInventBoxcodeList): BaseResponse<MutableList<XMListBean>>
 
+    //-----------------------------打印条码-----------------------------------
+    //单独打印一张托码（针对不可拆托的货物，只要一张托码即可，整托没有具体箱码
+    @POST("/api/APP/create_t_code_1")
+    suspend fun createTCode1(@Body request: PcreateTboxCode1): BaseResponse<String?>
+
+    //扫描整托原有的箱码，补打一张托码（扫描原来的整托上的所有箱码，生成并打印一个托码，系统形成 托码-箱码 对应关系）（针对整托货有箱码，无托码的情况)
+    @POST("/api/APP/create_t_code_2")
+    suspend fun createTCode2(@Body request: MutableList<PcreateTCode2>): BaseResponse<String?>
+
+    //针对货上没有箱码的，单独生成补打一个箱码（有可能是一件货没有箱码，如果是一托货上个别没有箱码，需要先扫描托码，再生成并打印指定数量的箱码，托码与新的箱码形成对应关系)
+    @POST("/api/APP/create_box_code_1")
+    suspend fun createBoxCode1(@Body request: PcreateBoxCode1): BaseResponse<createBoxCode1>
+
+    //获取机油标签厂家信息
+    @POST("/api/APP/get_oil_factory")
+    suspend fun getOilFactory(@Body request: PgetOilFactory): BaseResponse<MutableList<getOilFactory>>
+
+    //根据型号关键字查询机油标签设置信息
+    @POST("/api/APP/search_oil_model")
+    suspend fun searchOilModel(@Body request: PsearchOilModel): BaseResponse<MutableList<searchOilModel>>
 
     companion object {
         // 4.通过动态代理获取到所定义的接口

@@ -26,7 +26,8 @@ class XMListVM : BaseViewModel() {
     fun getBoxcodeList(
         hand_task_id: Int,
         oper_flag: String,
-        py_order_code: String
+        py_order_code: String,
+        button:String
     ) {
         viewModelScope.launch {
             try {
@@ -35,7 +36,8 @@ class XMListVM : BaseViewModel() {
                     PBoxcodeList(
                         hand_task_id,
                         oper_flag,
-                        py_order_code
+                        py_order_code,
+                        button
                     )
                 )
 
@@ -43,7 +45,7 @@ class XMListVM : BaseViewModel() {
                     mData.postValue(response.data)
 
                 } else {
-                    showServerErr(response.msg)
+                    mData.postValue(response.data)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -71,7 +73,7 @@ class XMListVM : BaseViewModel() {
                     mDetailData.postValue(response.data)
 
                 } else {
-                    showServerErr(response.msg)
+                    mDetailData.postValue(response.data)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -100,7 +102,7 @@ class XMListVM : BaseViewModel() {
                     mInventData.postValue(response.data)
 
                 } else {
-                    showServerErr(response.msg)
+                    mInventData.postValue(response.data)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

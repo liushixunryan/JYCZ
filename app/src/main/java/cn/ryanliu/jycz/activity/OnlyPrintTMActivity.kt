@@ -6,6 +6,7 @@ import android.view.View
 import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.adapter.TMBQAdapter
 import cn.ryanliu.jycz.basic.BaseActivity
+import cn.ryanliu.jycz.bean.BoxCode
 import cn.ryanliu.jycz.bean.TMBQBean
 import cn.ryanliu.jycz.databinding.ActivityOnlyPrintTmactivityBinding
 import cn.ryanliu.jycz.util.PrintBCCodeType
@@ -37,7 +38,8 @@ class OnlyPrintTMActivity : BaseActivity<ActivityOnlyPrintTmactivityBinding, Onl
     private fun onClick() {
         mDatabind.btnSctm.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
-                mAdapter.addData(0, TMBQBean(1, "TLBJ012023041100001Q20"))
+                mViewModel.createTCode1(mDatabind.etZtjs.text.toString())
+
             }
 
         })
@@ -48,7 +50,7 @@ class OnlyPrintTMActivity : BaseActivity<ActivityOnlyPrintTmactivityBinding, Onl
 
         mDatabind.btnPrinttm.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
-                PrintBCCodeType.PrintTM("Q: 20", mAdapter.data[0].bqname)
+                PrintBCCodeType.PrintTM("Q: 20", mAdapter.data[0].box_code)
             }
 
         })
@@ -56,6 +58,10 @@ class OnlyPrintTMActivity : BaseActivity<ActivityOnlyPrintTmactivityBinding, Onl
     }
 
     override fun createObserver() {
+        mViewModel.mBackList.observe(this) {
+            mAdapter.setList(null)
+            mAdapter.addData(0, BoxCode(it!!))
+        }
     }
 
     companion object {

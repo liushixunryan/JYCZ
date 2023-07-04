@@ -36,7 +36,7 @@
                     android:layout_margin="2dp"
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/bg_edittext"
-                    android:hint="扫描托码"
+                    android:hint="扫描箱码或托码"
                     android:lines="1"
                     android:maxLines="1"
                     android:textSize="14sp" />

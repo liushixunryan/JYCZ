@@ -181,7 +181,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainVM>() {
         trainList.add(
             HomePDABean(
                 Constant.PDAType.KUQUTIAOZHENG,
-                "库区调整",
+                "库位调整",
                 R.mipmap.kuqutiaozheng
             )
         )

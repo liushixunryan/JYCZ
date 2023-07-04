@@ -5,6 +5,7 @@ import android.content.Intent
 import android.view.View
 import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.basic.BaseActivity
+import cn.ryanliu.jycz.common.constant.Constant
 import cn.ryanliu.jycz.databinding.ActivitySortingStackBinding
 import cn.ryanliu.jycz.util.ToastUtilsExt
 import cn.ryanliu.jycz.viewmodel.SortingStackVM
@@ -38,16 +39,18 @@ class SortingStackActivity : BaseActivity<ActivitySortingStackBinding, SortingSt
         mDatabind.ctBtn.setOnClickListener {
             if (mDatabind.smlxTv.text == "托码") {
                 mViewModel.doSplitTmp(mDatabind.xmtmhTv.text.toString(), "0")
+            }else{
+                ToastUtilsExt.info("类型不是托码")
             }
 
         }
 
         mDatabind.xsTv.setOnClickListener {
-//            XMListActivity.launch(this)
+            XMListActivity.launch(this,1, 0,mDatabind.wtdhTv.text.toString())
         }
 
         mDatabind.wtdhTv.setOnClickListener {
-//            XMListActivity.launch(this)
+            XMListActivity.launch(this,1, 0,mDatabind.wtdhTv.text.toString())
 
         }
 
@@ -57,11 +60,15 @@ class SortingStackActivity : BaseActivity<ActivitySortingStackBinding, SortingSt
         }
 
         mDatabind.ptBtn.setOnClickListener {
-            PintoActivity.launch(
-                this,
-                mDatabind.kqTv.text.toString(),
-                AreaID
-            )
+            if (!mDatabind.xmtmhTv.text.isNullOrEmpty()) {
+                PintoActivity.launch(
+                    this,
+                    mDatabind.kqTv.text.toString(),
+                    AreaID
+                )
+            } else {
+                ToastUtilsExt.info("请先扫码")
+            }
         }
     }
 

@@ -40,11 +40,11 @@ class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
                 "卸车"
             } else {
                 "装车"
-            }, if (pageModel == Constant.PageModel.XIECHE) {
+            }, "项目预约", if (pageModel == Constant.PageModel.XIECHE) {
                 "卸车任务"
             } else {
                 "装车任务"
-            }, "项目预约"
+            }
         )
 
         onClick()

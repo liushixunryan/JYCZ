@@ -39,7 +39,8 @@ class IndentNumVM : BaseViewModel() {
                     mData.postValue(response.data!!.List1)
 
                 } else {
-                    showServerErr(response.msg)
+                    mDataBean.postValue(response.data!!)
+                    mData.postValue(response.data!!.List1)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

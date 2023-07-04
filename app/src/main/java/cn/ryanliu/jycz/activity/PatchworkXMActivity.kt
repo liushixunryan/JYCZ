@@ -31,7 +31,7 @@ class PatchworkXMActivity : BaseActivity<ActivityPatchworkXmactivityBinding, Pat
             onBackPressed()
         }
         mDatabind.inNavBar.tvNavTitle.text = "补打【箱码】标签"
-
+        mDatabind.etZtjs.setText("1")
         if (intent.getStringExtra("ispt").toString() != "") {
             isSearch(false);
             mDatabind.xmtmhTv.text = intent.getStringExtra("ispt").toString()
@@ -52,7 +52,6 @@ class PatchworkXMActivity : BaseActivity<ActivityPatchworkXmactivityBinding, Pat
     private fun isSearch(isClick: Boolean) {
         if (!isClick) {
             mDatabind.btnTj.setBackgroundColor(R.color.Gray9)
-            mDatabind.etZtjs.setText("1")
         }
 
         mDatabind.etSmtm.isClickable = isClick
@@ -68,14 +67,22 @@ class PatchworkXMActivity : BaseActivity<ActivityPatchworkXmactivityBinding, Pat
     private fun onClick() {
         mDatabind.btnTj.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
-
+                mDatabind.xmtmhTv.text = mDatabind.etSmtm.text
             }
 
         })
 
         mDatabind.btnScxm.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
-                mAdapter.addData(TMBQBean(1, "dsda111"))
+
+                mDatabind
+
+                mViewModel.createTCode2(
+                    mDatabind.etZtjs.text.toString().toInt(),
+                    mDatabind.xmtmhTv.text.toString()
+                )
+
+
             }
 
         })
@@ -91,6 +98,10 @@ class PatchworkXMActivity : BaseActivity<ActivityPatchworkXmactivityBinding, Pat
     }
 
     override fun createObserver() {
+        mViewModel.mBackList.observe(this) {
+            mAdapter.setList(it!!.box_code_list)
+        }
+
     }
 
     companion object {

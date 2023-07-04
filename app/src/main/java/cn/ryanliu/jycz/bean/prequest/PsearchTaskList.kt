@@ -5,7 +5,7 @@ data class PsearchTaskList(
     val car_number: String,
     val driver_name: String,
     val oper_flag: String,
-    val order_state_in_scan: String,
+    val order_state_scan: String,
     val order_state_scan_time1: String,
     val order_state_scan_time2: String,
     val rec_area: String,

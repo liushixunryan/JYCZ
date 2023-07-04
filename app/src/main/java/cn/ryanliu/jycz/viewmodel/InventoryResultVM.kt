@@ -31,7 +31,7 @@ class InventoryResultVM : BaseViewModel() {
                     mBackList.postValue("保存成功")
 
                 } else {
-                    showServerErr(response.msg)
+                    mBackList.postValue("失败")
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

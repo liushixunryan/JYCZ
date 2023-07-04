@@ -94,10 +94,15 @@ class AreaSelectActivity : BaseActivity<ActivityAreaSelectBinding, AreaSelectVM>
         //选择的盘点
         mDatabind.btnSelectpd.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
+                if (mAdapter1.data.isEmpty()) {
+                    ToastUtilsExt.info("您未选中区域")
+                    return
+                }
+
                 showTipDialog("确认是否开始盘点？点击 确认 后将冻结当前库存、同时锁定操作：扫码卸车、入场交接、分拣码放、扫码装车、出场交接、库位调整 等操作。直至确认盘点完成。",
                     "提示",
                     {
-                        mViewModel.lockAllCancel(bean, 1)
+                        mViewModel.lockAllCancel(bean, "指定区域")
                     },
                     {})
             }
@@ -108,7 +113,7 @@ class AreaSelectActivity : BaseActivity<ActivityAreaSelectBinding, AreaSelectVM>
                 showTipDialog("确认是否开始盘点？点击 确认 后将冻结当前库存、同时锁定操作：扫码卸车、入场交接、分拣码放、扫码装车、出场交接、库位调整 等操作。直至确认盘点完成。",
                     "提示",
                     {
-                        mViewModel.lockAllCancel(bean, 0)
+                        mViewModel.lockAllCancel(bean, "全库")
                     },
                     {})
             }
@@ -131,7 +136,11 @@ class AreaSelectActivity : BaseActivity<ActivityAreaSelectBinding, AreaSelectVM>
         }
 
         mViewModel.mSurepd.observe(this) {
-            InventoryCountActivity.launch(this@AreaSelectActivity,it)
+            if (it.toString() == "创建盘点任务单失败") {
+
+            } else {
+                InventoryCountActivity.launch(this@AreaSelectActivity, it)
+            }
         }
     }
 

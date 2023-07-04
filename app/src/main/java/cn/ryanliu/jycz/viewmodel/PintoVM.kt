@@ -60,7 +60,7 @@ class PintoVM : BaseViewModel() {
                 showLoading()
                 val response = ApiService.apiService.createTboxCode1(
                     PcreateTboxCode1(
-                        tp_num
+                        tp_num.toString()
                     )
                 )
 
@@ -68,7 +68,7 @@ class PintoVM : BaseViewModel() {
                     mtpNum.postValue(response.data)
 
                 } else {
-                    showServerErr(response.msg)
+                    mtpNum.postValue(response.data)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

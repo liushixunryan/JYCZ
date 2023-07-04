@@ -30,7 +30,7 @@ class AreaSelectVM : BaseViewModel() {
                     mSelectArea.postValue(response.data)
 
                 } else {
-                    showServerErr(response.msg)
+                    mSelectArea.postValue(response.data)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -44,7 +44,7 @@ class AreaSelectVM : BaseViewModel() {
 
     fun lockAllCancel(
         area_list: List<Area>,
-        lock_type: Int
+        lock_type: String
     ) {
         viewModelScope.launch {
 
@@ -57,7 +57,7 @@ class AreaSelectVM : BaseViewModel() {
                     mSurepd.postValue(response.data)
 
                 } else {
-                    showServerErr(response.msg)
+                    mSurepd.postValue(response.data)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
