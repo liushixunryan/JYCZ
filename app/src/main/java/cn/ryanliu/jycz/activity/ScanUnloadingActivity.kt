@@ -147,7 +147,7 @@ class ScanUnloadingActivity : BaseActivity<ActivityScanUnloadingBinding, ScanUnl
                     mDatabind.xmHwslTv.text = it[0].goods_num.toString()
                     mDatabind.ddtimeTv.text = it[0].order_time
                     mDatabind.etYylx.text = "项目预约"
-                    reservationId = 0
+                    reservationId = 1
 
                     mDatabind.driverLl.visibility = View.GONE
                     mDatabind.projectLl.visibility = View.VISIBLE
@@ -163,7 +163,7 @@ class ScanUnloadingActivity : BaseActivity<ActivityScanUnloadingBinding, ScanUnl
                     mDatabind.yyddtimeTv.text = it[0].maybe_arrive_time
                     mDatabind.sjrctimeTv.text = it[0].insite_time
                     mDatabind.hwxxTv.text = it[0].goods_info
-                    reservationId = 1
+                    reservationId = 0
                     mDatabind.etYylx.text = "司机预约"
 
                     mDatabind.driverLl.visibility = View.VISIBLE

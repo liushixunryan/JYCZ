@@ -133,7 +133,7 @@ class ScanloadingActivity :
                     mDatabind.xmHwslTv.text = it[0].goods_num.toString()
                     mDatabind.ddtimeTv.text = it[0].order_time
                     mDatabind.etYylx.text = "项目预约"
-                    reservationId = 0
+                    reservationId = 1
                     mDatabind.driverLl.visibility = View.GONE
                     mDatabind.projectLl.visibility = View.VISIBLE
                     mDatabind.hintLl.visibility = View.GONE
@@ -149,7 +149,7 @@ class ScanloadingActivity :
                     mDatabind.sjrctimeTv.text = it[0].insite_time
                     mDatabind.hwxxTv.text = it[0].goods_info
                     mDatabind.etYylx.text = "司机预约"
-                    reservationId = 1
+                    reservationId = 0
 
                     mDatabind.driverLl.visibility = View.VISIBLE
                     mDatabind.projectLl.visibility = View.GONE
