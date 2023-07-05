@@ -26,7 +26,7 @@ object PrintBCCodeType {
     fun PrintXM(code: String): Int {
         return Print.PrintBarCode(
             Print.BC_CODE128,
-            "BOXLBJ01202304110000001", 2, 10, 2, 1
+            "$code", 2, 10, 2, 1
         )
     }
 

@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.adapter.TMBQAdapter
@@ -12,8 +13,11 @@ import cn.ryanliu.jycz.basic.BaseActivity
 import cn.ryanliu.jycz.bean.TMBQBean
 import cn.ryanliu.jycz.databinding.ActivityPatchworkXmactivityBinding
 import cn.ryanliu.jycz.databinding.ActivityScanBoxTmactivityBinding
+import cn.ryanliu.jycz.util.PrintBCCodeType
+import cn.ryanliu.jycz.util.ToastUtilsExt
 import cn.ryanliu.jycz.viewmodel.PatchworkXMVM
 import cn.ryanliu.jycz.viewmodel.ScanBoxTMVM
+import print.Print
 
 /**
  * @Author: lsx
@@ -74,9 +78,6 @@ class PatchworkXMActivity : BaseActivity<ActivityPatchworkXmactivityBinding, Pat
 
         mDatabind.btnScxm.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
-
-                mDatabind
-
                 mViewModel.createTCode2(
                     mDatabind.etZtjs.text.toString().toInt(),
                     mDatabind.xmtmhTv.text.toString()
@@ -86,15 +87,34 @@ class PatchworkXMActivity : BaseActivity<ActivityPatchworkXmactivityBinding, Pat
             }
 
         })
+        mDatabind.btnPrinttm.setOnClickListener(object : OnSingleClickListener() {
+            override fun onSingleClick(view: View?) {
+                try {
+                    for (i in mAdapter.data.indices) {
+                        val printTM = PrintBCCodeType.PrintXM(mAdapter.data[i].box_code)
+                        if (printTM == 1) {
+                            //切纸
+                            Print.GotoNextLabel()
+                        } else {
+                            ToastUtilsExt.info("打印错误")
+                        }
+                    }
+                } catch (e: java.lang.Exception) {
+                    Log.e(
+                        "SDKSample",
+                        java.lang.StringBuilder("Activity_Main --> onClickWIFI ").append(e.message)
+                            .toString()
+                    )
+                }
+
+
+            }
+        })
 
         mDatabind.btnClose.setOnClickListener {
             finish()
         }
 
-        mAdapter.setOnItemClickListener { adapter, view, position ->
-
-
-        }
     }
 
     override fun createObserver() {

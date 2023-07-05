@@ -1,6 +1,7 @@
 package cn.ryanliu.jycz.activity
 
 import android.Manifest
+import android.Manifest.permission.*
 import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.Context
@@ -17,8 +18,8 @@ import cn.ryanliu.jycz.activity.booth.BTActivity
 import cn.ryanliu.jycz.basic.BaseActivity
 import cn.ryanliu.jycz.common.constant.Constant
 import cn.ryanliu.jycz.databinding.ActivityLoginBinding
+import cn.ryanliu.jycz.util.DialogUtil
 import cn.ryanliu.jycz.util.MmkvHelper
-import cn.ryanliu.jycz.util.PrintBCCodeType
 import cn.ryanliu.jycz.util.PublicAction
 import cn.ryanliu.jycz.util.ToastUtilsExt
 import cn.ryanliu.jycz.viewmodel.LoginVM
@@ -55,6 +56,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginVM>() {
 
     @SuppressLint("SetTextI18n")
     override fun initView() {
+        Requestspermissions()
         mDatabind.etMobile.setText(MmkvHelper.getInstance().getString(Constant.MmKv_KEY.user))
         mDatabind.etPassword.setText(MmkvHelper.getInstance().getString(Constant.MmKv_KEY.psd))
         MmkvHelper.getInstance().getString(Constant.MmKv_KEY.TOKEN)
@@ -68,30 +70,30 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginVM>() {
 
 
         mDatabind.bluetooeh.setOnClickListener {
-            try {
-                //打印托码
-//                PrintBCCodeType.PrintTM()
-                //补打箱码
-//                PrintBCCodeType.PrintXM()
-                //机油标签规格查询
-//                PrintBCCodeType.PrintJYBQ()
-
-                //            PrintBCCodeType.Printcs()
-//                Log.e("sansuiban", "initView: $printXM")
-//                if (printXM == 1) {
-//                    //切纸
-//                    Print.GotoNextLabel()
-//                } else {
-//                    ToastUtilsExt.info("打印错误")
-//                }
-
-            } catch (e: java.lang.Exception) {
-                Log.e(
-                    "SDKSample",
-                    java.lang.StringBuilder("Activity_Main --> onClickWIFI ").append(e.message)
-                        .toString()
-                )
-            }
+//            try {
+//                //打印托码
+////                PrintBCCodeType.PrintTM()
+//                //补打箱码
+////                PrintBCCodeType.PrintXM()
+//                //机油标签规格查询
+////                PrintBCCodeType.PrintJYBQ()
+//
+//                //            PrintBCCodeType.Printcs()
+////                Log.e("sansuiban", "initView: $printXM")
+////                if (printXM == 1) {
+////                    //切纸
+////                    Print.GotoNextLabel()
+////                } else {
+////                    ToastUtilsExt.info("打印错误")
+////                }
+//
+//            } catch (e: java.lang.Exception) {
+//                Log.e(
+//                    "SDKSample",
+//                    java.lang.StringBuilder("Activity_Main --> onClickWIFI ").append(e.message)
+//                        .toString()
+//                )
+//            }
         }
 
 
@@ -220,6 +222,33 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginVM>() {
         }.start()
     }
 
+
+    /**
+     * 权限申请
+     */
+    @SuppressLint("WrongConstant")
+    private fun Requestspermissions() {
+        //获取蓝牙动态权限
+        val rxPermissions = RxPermissions(this)
+        rxPermissions.request(
+            WRITE_EXTERNAL_STORAGE, ACCESS_COARSE_LOCATION,
+            READ_EXTERNAL_STORAGE, CAMERA,
+            BLUETOOTH_ADMIN,
+            BLUETOOTH,
+            BLUETOOTH_SCAN,
+            BLUETOOTH_CONNECT
+        ).subscribe {
+            if (it) {
+                DialogUtil.showNotifyDialog(
+                    this@LoginActivity, "权限申请", "程序运行需要存储权限，请到应用设置中开启。", "确定"
+                ) {
+                    finish()
+                }
+            } else {
+                finish()
+            }
+        }
+    }
 
     companion object {
         fun launch(context: Context) {

@@ -1,11 +1,15 @@
 package cn.ryanliu.jycz.activity
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import cn.ryanliu.jycz.R
+import cn.ryanliu.jycz.activity.booth.BTActivity
 import cn.ryanliu.jycz.activity.detail.*
 import cn.ryanliu.jycz.adapter.HomeCARAdapter
 import cn.ryanliu.jycz.adapter.HomePDAAdapter
@@ -20,12 +24,33 @@ import cn.ryanliu.jycz.view.GridSpaceItemDecoration
 import cn.ryanliu.jycz.viewmodel.MainVM
 import cn.ryanliu.jycz.viewmodel.ScanLoadingVM
 import cn.ryanliu.jycz.viewmodel.detail.AreaAdjustDetailVM
+import com.tbruyelle.rxpermissions.RxPermissions
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import print.Print
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainVM>() {
     lateinit var mPdaAdapter: HomePDAAdapter
     lateinit var mCarAdapter: HomeCARAdapter
+
+    var isconnect = false
+
+
+    private fun connectionBluetooth() {
+        //获取蓝牙动态权限
+        val rxPermissions = RxPermissions(this)
+        rxPermissions.request(
+            Manifest.permission.BLUETOOTH_ADMIN,
+            Manifest.permission.BLUETOOTH,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ).subscribe {
+            if (true) {
+                val intent = Intent(this, BTActivity::class.java)
+                intent.putExtra("TAG", 0)
+                startActivityForResult(intent, 0)
+            }
+        }
+    }
 
     override fun layoutId(): Int = R.layout.activity_main
 
@@ -39,27 +64,32 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainVM>() {
         mDatabind.sjTv.text = MmkvHelper.getInstance().getString(Constant.MmKv_KEY.PHONE)
         mDatabind.dayinjiImg.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
-                DialogUtil.showSelectDialog(
-                    this@MainActivity,
-                    "条码打印",
-                    arrayOf("仅打印一个【托码】标签", "扫箱码后补打【托码】标签", "补打【箱码】标签", "打印机油标签")
-                ) { position, text ->
-                    when (position) {
-                        0 -> {
-                            OnlyPrintTMActivity.launch(this@MainActivity)
-                        }
-                        1 -> {
-                            ScanBoxTMActivity.launch(this@MainActivity)
-                        }
+                if (isconnect) {
+                    DialogUtil.showSelectDialog(
+                        this@MainActivity,
+                        "条码打印",
+                        arrayOf("仅打印一个【托码】标签", "扫箱码后补打【托码】标签", "补打【箱码】标签", "打印机油标签")
+                    ) { position, text ->
+                        when (position) {
+                            0 -> {
+                                OnlyPrintTMActivity.launch(this@MainActivity)
+                            }
+                            1 -> {
+                                ScanBoxTMActivity.launch(this@MainActivity)
+                            }
 
-                        2 -> {
-                            PatchworkXMActivity.launch(this@MainActivity,"")
-                        }
-                        3 -> {
-                            EngineOilActivity.launch(this@MainActivity)
+                            2 -> {
+                                PatchworkXMActivity.launch(this@MainActivity, "")
+                            }
+                            3 -> {
+                                EngineOilActivity.launch(this@MainActivity)
+                            }
                         }
                     }
+                } else {
+                    connectionBluetooth()
                 }
+
             }
 
         })
@@ -245,6 +275,53 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainVM>() {
 
     override fun createObserver() {
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        try {
+            val strIsConnected: String?
+            when (resultCode) {
+                RESULT_CANCELED -> {
+                    connectBT(data!!.getStringExtra("SelectedBDAddress"))
+                }
+            }
+        } catch (e: Exception) {
+            Log.e(
+                "SDKSample", StringBuilder("Activity_Main --> onActivityResult ")
+                    .append(e.message).toString()
+            )
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    //连接蓝牙
+    private fun connectBT(BTmac: String?) {
+        if (TextUtils.isEmpty(BTmac)) return
+        val progressDialog = ProgressDialog(this)
+        progressDialog.setMessage("connect")
+        progressDialog.show()
+        object : Thread() {
+            override fun run() {
+                super.run()
+                try {
+                    val result = Print.PortOpen(context, "Bluetooth,$BTmac")
+                    runOnUiThread {
+                        if (result == 0) {
+                            isconnect = true
+                            ToastUtilsExt.info("连接成功")
+
+                        } else {
+                            ToastUtilsExt.info("连接失败" + result)
+                        }
+
+                    }
+                    progressDialog.dismiss()
+                } catch (e: Exception) {
+                    progressDialog.dismiss()
+                }
+            }
+        }.start()
+    }
+
 
     companion object {
         fun launch(context: Context) {

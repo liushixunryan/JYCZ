@@ -20,6 +20,7 @@ import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.AttachPopupView
 import com.lxj.xpopup.enums.PopupAnimation
 import com.lxj.xpopup.enums.PopupPosition
+import print.Print
 
 /**
  * @Author: lsx
@@ -54,24 +55,43 @@ class EngineOilActivity : BaseActivity<ActivityEngineOilBinding, EngineOilVM>() 
         }
 
         mDatabind.btnPrinttm.setOnClickListener {
-            val isSelect = arrayListOf<Int>()
-            for (i in selectBean!!.indices) {
-                if (selectBean!![i].isselect == 1) {
-                    PrintBCCodeType.PrintJYBQ(
-                        selectBean!![i].`package`,
-                        selectBean!![i].bar_code,
-                        selectBean!![i].label_model,
-                        selectBean!![i].brand_name
-                    )
-                } else {
-                    isSelect.add(i)
+            try {
+                val isSelect = arrayListOf<Int>()
+                for (i in selectBean!!.indices) {
+                    if (selectBean!![i].isselect == 1) {
+                        val printTM = PrintBCCodeType.PrintJYBQ(
+                            selectBean!![i].`package`,
+                            selectBean!![i].bar_code,
+                            selectBean!![i].label_model,
+                            selectBean!![i].brand_name
+                        )
+
+                        if (printTM == 1) {
+                            //切纸
+                            Print.GotoNextLabel()
+                        } else {
+                            ToastUtilsExt.info("打印错误")
+                        }
+                    } else {
+                        isSelect.add(i)
+                    }
                 }
+
+                if (isSelect.size == selectBean!!.size) {
+                    ToastUtilsExt.info("您未选中任何数据")
+                    return@setOnClickListener
+                }
+
+
+            } catch (e: java.lang.Exception) {
+                Log.e(
+                    "SDKSample",
+                    java.lang.StringBuilder("Activity_Main --> onClickWIFI ").append(e.message)
+                        .toString()
+                )
             }
 
-            if (isSelect.size == selectBean!!.size) {
-                ToastUtilsExt.info("您未选中任何数据")
-                return@setOnClickListener
-            }
+
         }
 
         mDatabind.btnClose.setOnClickListener {

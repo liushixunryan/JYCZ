@@ -2,6 +2,7 @@ package cn.ryanliu.jycz.activity
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.View
 import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.adapter.TMBQAdapter
@@ -10,7 +11,9 @@ import cn.ryanliu.jycz.bean.BoxCode
 import cn.ryanliu.jycz.bean.TMBQBean
 import cn.ryanliu.jycz.databinding.ActivityOnlyPrintTmactivityBinding
 import cn.ryanliu.jycz.util.PrintBCCodeType
+import cn.ryanliu.jycz.util.ToastUtilsExt
 import cn.ryanliu.jycz.viewmodel.OnlyPrintTMVM
+import print.Print
 
 /**
  * @Author: lsx
@@ -50,7 +53,24 @@ class OnlyPrintTMActivity : BaseActivity<ActivityOnlyPrintTmactivityBinding, Onl
 
         mDatabind.btnPrinttm.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
-                PrintBCCodeType.PrintTM("Q: 20", mAdapter.data[0].box_code)
+                try {
+                    val printTM = PrintBCCodeType.PrintTM("Q: 20", mAdapter.data[0].box_code)
+                    if (printTM == 1) {
+                        //切纸
+                        Print.GotoNextLabel()
+                    } else {
+                        ToastUtilsExt.info("打印错误")
+                    }
+
+                } catch (e: java.lang.Exception) {
+                    Log.e(
+                        "SDKSample",
+                        java.lang.StringBuilder("Activity_Main --> onClickWIFI ").append(e.message)
+                            .toString()
+                    )
+                }
+
+
             }
 
         })

@@ -13,7 +13,9 @@ import cn.ryanliu.jycz.bean.TMBQBean
 import cn.ryanliu.jycz.bean.prequest.PcreateTCode2
 import cn.ryanliu.jycz.databinding.ActivityScanBoxTmactivityBinding
 import cn.ryanliu.jycz.util.PrintBCCodeType
+import cn.ryanliu.jycz.util.ToastUtilsExt
 import cn.ryanliu.jycz.viewmodel.ScanBoxTMVM
+import print.Print
 
 /**
  * @Author: lsx
@@ -64,7 +66,23 @@ class ScanBoxTMActivity : BaseActivity<ActivityScanBoxTmactivityBinding, ScanBox
 
         mDatabind.btnPrinttm.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
-                PrintBCCodeType.PrintTM("Q: 20", mXMAdapter.data[0].box_code)
+                try {
+                    val printTM =  PrintBCCodeType.PrintTM("Q: 20", mXMAdapter.data[0].box_code)
+                    if (printTM == 1) {
+                        //切纸
+                        Print.GotoNextLabel()
+                    } else {
+                        ToastUtilsExt.info("打印错误")
+                    }
+
+                } catch (e: java.lang.Exception) {
+                    Log.e(
+                        "SDKSample",
+                        java.lang.StringBuilder("Activity_Main --> onClickWIFI ").append(e.message)
+                            .toString()
+                    )
+                }
+
             }
 
         })

@@ -7,6 +7,7 @@ import com.loper7.date_time_picker.DateTimeConfig
 import com.loper7.date_time_picker.dialog.CardDatePickerDialog
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.enums.PopupPosition
+import com.lxj.xpopup.interfaces.OnConfirmListener
 import com.lxj.xpopup.interfaces.OnSelectListener
 import java.util.*
 
@@ -25,6 +26,22 @@ object DialogUtil {
                 listener?.onSelect(position, text)
             } //                        .bindLayout(R.layout.my_custom_attach_popup) //自定义布局
             .show()
+    }
+
+    @JvmStatic
+    fun showNotifyDialog(
+        context: Context,
+        title: String?,
+        content: String?,
+        confirmBtnText: String?,
+        listener: OnConfirmListener? = null
+    ) {
+        val popupView = XPopup.Builder(context).isDestroyOnDismiss(true).asConfirm(
+            title, content, null, confirmBtnText, {
+                listener?.onConfirm()
+            }, null, true
+        )
+        popupView.show()
     }
 
     fun showBottomSelectDialog(
@@ -88,7 +105,7 @@ object DialogUtil {
         val dialogBuilder =
             CardDatePickerDialog.builder(context).setTitle(title).setDisplayType(displayList)
                 .setBackGroundModel(CardDatePickerDialog.CARD).showBackNow(false)
-                .setWrapSelectorWheel(displayList,true)
+                .setWrapSelectorWheel(displayList, true)
                 .setTouchHideable(true)
                 .showDateLabel(true)
                 .showFocusDateInfo(false).setOnChoose("选择") {
