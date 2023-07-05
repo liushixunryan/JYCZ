@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace 'cn.ryanliu.jycz'
+    namespace 'cn.ryanliu.jycz.loagding'
     compileSdk 32
 
 

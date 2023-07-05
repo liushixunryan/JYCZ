@@ -12,7 +12,8 @@ import androidx.annotation.NonNull;
 
 import com.wang.avi.AVLoadingIndicatorView;
 
-import cn.ryanliu.jycz.R;
+import cn.ryanliu.jycz.loagding.R;
+
 
 public class LoadingDialog extends Dialog implements View.OnClickListener{
     private AVLoadingIndicatorView avi;

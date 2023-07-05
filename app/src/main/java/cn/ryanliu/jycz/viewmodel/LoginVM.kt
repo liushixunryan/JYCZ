@@ -61,7 +61,7 @@ class LoginVM : BaseViewModel() {
                     loginResponseLV.postValue(response.data)
 
                 } else {
-                    loginResponseLV.postValue(response.data)
+
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

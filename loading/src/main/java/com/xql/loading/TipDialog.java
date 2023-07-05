@@ -11,7 +11,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import cn.ryanliu.jycz.R;
+import cn.ryanliu.jycz.loagding.R;
+
 
 /**
  * 标题：提示窗

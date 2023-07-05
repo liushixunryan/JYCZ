@@ -111,6 +111,7 @@ class ScanloadingActivity :
         if (RESULT_OK == resultCode) {
             if (SelectCarActivity.REQUEST_CODE_XXCL == requestCode) {
                 mDatabind.etCph.setText(data?.getStringExtra("carNum") ?: "")
+                mViewModel.getCarInfoIn2(mDatabind.etCph.text.toString())
             }
         }
     }
@@ -131,7 +132,8 @@ class ScanloadingActivity :
                     mDatabind.xmRwlxTv.text = it[0].in_report_type
                     mDatabind.xmHwslTv.text = it[0].goods_num.toString()
                     mDatabind.ddtimeTv.text = it[0].order_time
-
+                    mDatabind.etYylx.text = "项目预约"
+                    reservationId = 0
                     mDatabind.driverLl.visibility = View.GONE
                     mDatabind.projectLl.visibility = View.VISIBLE
                     mDatabind.hintLl.visibility = View.GONE
@@ -146,7 +148,8 @@ class ScanloadingActivity :
                     mDatabind.yyddtimeTv.text = it[0].maybe_arrive_time
                     mDatabind.sjrctimeTv.text = it[0].insite_time
                     mDatabind.hwxxTv.text = it[0].goods_info
-
+                    mDatabind.etYylx.text = "司机预约"
+                    reservationId = 1
 
                     mDatabind.driverLl.visibility = View.VISIBLE
                     mDatabind.projectLl.visibility = View.GONE

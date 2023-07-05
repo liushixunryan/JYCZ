@@ -15,7 +15,9 @@ import android.widget.Toast
 import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.activity.booth.BTActivity
 import cn.ryanliu.jycz.basic.BaseActivity
+import cn.ryanliu.jycz.common.constant.Constant
 import cn.ryanliu.jycz.databinding.ActivityLoginBinding
+import cn.ryanliu.jycz.util.MmkvHelper
 import cn.ryanliu.jycz.util.PrintBCCodeType
 import cn.ryanliu.jycz.util.PublicAction
 import cn.ryanliu.jycz.util.ToastUtilsExt
@@ -53,11 +55,16 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginVM>() {
 
     @SuppressLint("SetTextI18n")
     override fun initView() {
+        mDatabind.etMobile.setText(MmkvHelper.getInstance().getString(Constant.MmKv_KEY.user))
+        mDatabind.etPassword.setText(MmkvHelper.getInstance().getString(Constant.MmKv_KEY.psd))
+        MmkvHelper.getInstance().getString(Constant.MmKv_KEY.TOKEN)
+
         PAct = PublicAction(context)
         mDatabind.versionnum.text = "版本号：v${AppUtils.getAppVersionName()}"
         mDatabind.versionnum.setOnClickListener {
             connectionBluetooth()
         }
+
 
 
         mDatabind.bluetooeh.setOnClickListener {
@@ -69,7 +76,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginVM>() {
                 //机油标签规格查询
 //                PrintBCCodeType.PrintJYBQ()
 
-    //            PrintBCCodeType.Printcs()
+                //            PrintBCCodeType.Printcs()
 //                Log.e("sansuiban", "initView: $printXM")
 //                if (printXM == 1) {
 //                    //切纸
@@ -161,7 +168,13 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginVM>() {
 
     override fun createObserver() {
         mViewModel.loginResponseLV.observe(this) {
+            MmkvHelper.getInstance()
+                .putString(Constant.MmKv_KEY.user, mDatabind.etMobile.text.toString() ?: "")
+            MmkvHelper.getInstance()
+                .putString(Constant.MmKv_KEY.psd, mDatabind.etPassword.text.toString() ?: "")
+
             MainActivity.launch(this)
+            finish()
         }
 
     }
