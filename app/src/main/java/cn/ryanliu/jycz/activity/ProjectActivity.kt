@@ -18,6 +18,7 @@ import cn.ryanliu.jycz.viewmodel.ProjectVM
  */
 class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
     var carNum = ""
+    var areaId = ""
     private var pageModel: Int = 0
     private var hand_task_id: Int = 0
     override fun layoutId(): Int = R.layout.activity_project
@@ -27,13 +28,14 @@ class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
         mDatabind.inNavBar.ivNavBack.setOnClickListener {
             onBackPressed()
         }
-        mDatabind.inNavBar.tvNavTitle.text = "扫码卸货"
+        mDatabind.inNavBar.tvNavTitle.text = "扫码卸车"
 
         mDatabind.inNavBar.tvNavCenter.visibility = View.VISIBLE
         mDatabind.inNavBar.tvNavRight.visibility = View.VISIBLE
 
         pageModel = intent.getIntExtra("edit", 0)
         carNum = intent.getStringExtra("carnumber").toString()
+        areaId = intent.getStringExtra("areaid").toString()
 
         mViewModel.getScanOrders(
             carNum, if (pageModel == Constant.PageModel.XIECHE) {
@@ -76,7 +78,7 @@ class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
                     "卸车"
                 } else {
                     "装车"
-                }, mDatabind.etSmxm.text.toString()
+                }, mDatabind.etSmxm.text.toString(),carNum,"项目预约",areaId
             )
         }
 
@@ -134,10 +136,11 @@ class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
     }
 
     companion object {
-        fun launch(context: Context, carnumber: String, pageModel: Int) {
+        fun launch(context: Context, carnumber: String, pageModel: Int,areaid:String) {
             val intent = Intent(context, ProjectActivity::class.java)
             intent.putExtra("carnumber", carnumber)
             intent.putExtra("edit", pageModel)
+            intent.putExtra("areaid", areaid)
             context.startActivity(intent)
         }
 

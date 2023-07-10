@@ -239,13 +239,13 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginVM>() {
             BLUETOOTH_CONNECT
         ).subscribe {
             if (it) {
+
+            } else {
                 DialogUtil.showNotifyDialog(
                     this@LoginActivity, "权限申请", "程序运行需要存储权限，请到应用设置中开启。", "确定"
                 ) {
                     finish()
                 }
-            } else {
-                finish()
             }
         }
     }

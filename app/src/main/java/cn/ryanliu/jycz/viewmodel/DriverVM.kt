@@ -24,7 +24,7 @@ class DriverVM : BaseViewModel() {
     val mBackList = MutableLiveData<String>()
 
     fun getScanOrders(
-        car_number: String,xzc:String,
+        car_number: String, xzc: String,
         reservation_type: String,
         task_type: String
     ) {
@@ -57,8 +57,10 @@ class DriverVM : BaseViewModel() {
     }
 
     fun getScanInCode(
-        hand_task_id: Int, xzc:String,
-        scan_code: String
+        hand_task_id: Int, xzc: String,
+        scan_code: String, car_number: String,
+        reservation_type: String,
+        ware_area: String
     ) {
         viewModelScope.launch {
             try {
@@ -67,6 +69,9 @@ class DriverVM : BaseViewModel() {
                     PScanInCode(
                         hand_task_id, xzc,
                         scan_code,
+                        car_number,
+                        reservation_type,
+                        ware_area
                     )
                 )
 
@@ -87,7 +92,7 @@ class DriverVM : BaseViewModel() {
     }
 
     fun submitSaveIn(
-        hand_task_id: Int,xzc:String
+        hand_task_id: Int, xzc: String
     ) {
         viewModelScope.launch {
             try {

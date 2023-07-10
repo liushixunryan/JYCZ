@@ -59,7 +59,9 @@ class ProjectVM:BaseViewModel() {
 
     fun getScanInCode(
         hand_task_id: Int,  xzc:String,
-        scan_code: String
+        scan_code: String, car_number: String,
+        reservation_type: String,
+        ware_area: String
     ) {
         viewModelScope.launch {
             try {
@@ -68,6 +70,9 @@ class ProjectVM:BaseViewModel() {
                     PScanInCode(
                         hand_task_id, xzc,
                         scan_code,
+                        car_number,
+                        reservation_type,
+                        ware_area
                     )
                 )
 

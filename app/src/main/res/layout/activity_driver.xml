@@ -161,7 +161,7 @@
                         android:layout_marginBottom="16dp"
                         android:background="@drawable/bg_edittext"
                         android:hint="扫描箱码或托码号"
-                        android:inputType="number"
+                        android:inputType="text"
                         android:lines="1"
                         android:maxLines="1"
                         android:textSize="14sp" />

@@ -24,6 +24,7 @@ import com.lxj.xpopup.enums.PopupPosition
 class ScanloadingActivity :
     BaseActivity<ActivityScanloadingActivityBinding, ScanLoadingVM>() {
     var reservationId = 0
+    var mareaID = ""
     override fun layoutId(): Int = R.layout.activity_scanloading_activity
 
     override fun initView() {
@@ -46,7 +47,7 @@ class ScanloadingActivity :
         mDatabind.btnSelectcar.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
                 val intent = Intent(this@ScanloadingActivity, SelectCarActivity::class.java)
-                intent.putExtra("edit",PageModel.ZHUANGCHE)
+                intent.putExtra("edit", PageModel.ZHUANGCHE)
                 startActivityForResult(intent, SelectCarActivity.REQUEST_CODE_XXCL)
             }
         })
@@ -92,14 +93,15 @@ class ScanloadingActivity :
                     //跳转到司机
                     DriverActivity.launch(
                         this@ScanloadingActivity, mDatabind.etCph.text.toString(),
-                        Constant.PageModel.ZHUANGCHE
+                        Constant.PageModel.ZHUANGCHE,
+                        mareaID
                     )
                 } else if (reservationId == 1) {
                     //跳转到项目
                     ProjectActivity.launch(
                         this@ScanloadingActivity,
                         mDatabind.etCph.text.toString(),
-                        Constant.PageModel.ZHUANGCHE
+                        Constant.PageModel.ZHUANGCHE, mareaID
                     )
                 }
             }
@@ -112,6 +114,7 @@ class ScanloadingActivity :
             if (SelectCarActivity.REQUEST_CODE_XXCL == requestCode) {
                 mDatabind.etCph.setText(data?.getStringExtra("carNum") ?: "")
                 mViewModel.getCarInfoIn2(mDatabind.etCph.text.toString())
+                mareaID = data?.getStringExtra("areaId") ?: ""
             }
         }
     }

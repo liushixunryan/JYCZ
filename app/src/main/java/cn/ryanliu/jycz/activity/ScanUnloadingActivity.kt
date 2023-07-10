@@ -22,6 +22,7 @@ import com.lxj.xpopup.enums.PopupPosition
  */
 class ScanUnloadingActivity : BaseActivity<ActivityScanUnloadingBinding, ScanUnloadingVM>() {
     var reservationId = 0
+    var mareaID = ""
     override fun layoutId(): Int = R.layout.activity_scan_unloading
 
     override fun initView() {
@@ -29,7 +30,7 @@ class ScanUnloadingActivity : BaseActivity<ActivityScanUnloadingBinding, ScanUnl
         mDatabind.inNavBar.ivNavBack.setOnClickListener {
             onBackPressed()
         }
-        mDatabind.inNavBar.tvNavTitle.text = "扫码卸货"
+        mDatabind.inNavBar.tvNavTitle.text = "扫码卸车"
 
         mDatabind.etYylx.text = "司机预约"
 
@@ -103,14 +104,14 @@ class ScanUnloadingActivity : BaseActivity<ActivityScanUnloadingBinding, ScanUnl
                     DriverActivity.launch(
                         this@ScanUnloadingActivity,
                         mDatabind.etCph.text.toString(),
-                        Constant.PageModel.XIECHE
-                    )
+                        Constant.PageModel.XIECHE,
+                        mareaID)
                 } else if (reservationId == 1) {
                     //跳转到项目
                     ProjectActivity.launch(
                         this@ScanUnloadingActivity,
                         mDatabind.etCph.text.toString(),
-                        Constant.PageModel.XIECHE
+                        Constant.PageModel.XIECHE,mareaID
                     )
                 }
             }
@@ -126,6 +127,7 @@ class ScanUnloadingActivity : BaseActivity<ActivityScanUnloadingBinding, ScanUnl
             }
             if (SelectAreaActivity.REQUEST_CODE_XXKQ == requestCode) {
                 mDatabind.etKq.setText(data?.getStringExtra("areaName") ?: "")
+                mareaID = data?.getStringExtra("areaId") ?: ""
             }
         }
     }

@@ -18,6 +18,7 @@ import cn.ryanliu.jycz.viewmodel.ProjectVM
 
 class DriverActivity : BaseActivity<ActivityDriverBinding, DriverVM>() {
     var carNum = ""
+    var areaId = ""
     private var pageModel: Int = 0
     private var hand_task_id: Int = 0
 
@@ -28,13 +29,14 @@ class DriverActivity : BaseActivity<ActivityDriverBinding, DriverVM>() {
         mDatabind.inNavBar.ivNavBack.setOnClickListener {
             onBackPressed()
         }
-        mDatabind.inNavBar.tvNavTitle.text = "扫码卸货"
+        mDatabind.inNavBar.tvNavTitle.text = "扫码卸车"
 
         mDatabind.inNavBar.tvNavCenter.visibility = View.VISIBLE
         mDatabind.inNavBar.tvNavRight.visibility = View.VISIBLE
 
         pageModel = intent.getIntExtra("edit", 0)
         carNum = intent.getStringExtra("carnumber").toString()
+        areaId = intent.getStringExtra("areaid").toString()
 
         mViewModel.getScanOrders(
             carNum, if (pageModel == Constant.PageModel.XIECHE) {
@@ -58,7 +60,7 @@ class DriverActivity : BaseActivity<ActivityDriverBinding, DriverVM>() {
                     "卸车"
                 } else {
                     "装车"
-                }, mDatabind.etSmxm.text.toString()
+                }, mDatabind.etSmxm.text.toString(), carNum, "司机预约", areaId
             )
         }
         //确认卸车完成
@@ -110,10 +112,11 @@ class DriverActivity : BaseActivity<ActivityDriverBinding, DriverVM>() {
     }
 
     companion object {
-        fun launch(context: Context, carnumber: String, pageModel: Int) {
+        fun launch(context: Context, carnumber: String, pageModel: Int, areaid: String) {
             val intent = Intent(context, DriverActivity::class.java)
             intent.putExtra("carnumber", carnumber)
             intent.putExtra("edit", pageModel)
+            intent.putExtra("areaid", areaid)
             context.startActivity(intent)
         }
 
