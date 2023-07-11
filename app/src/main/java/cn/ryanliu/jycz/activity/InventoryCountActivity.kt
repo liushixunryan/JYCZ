@@ -3,7 +3,9 @@ package cn.ryanliu.jycz.activity
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.basic.BaseActivity
 import cn.ryanliu.jycz.databinding.ActivityInventoryCountBinding
@@ -40,6 +42,16 @@ class InventoryCountActivity : BaseActivity<ActivityInventoryCountBinding, Inven
     private fun onClick() {
         mDatabind.btnTj.setOnClickListener {
             mViewModel.scanMCode("库存盘点", mDatabind.etSmtm.text.toString())
+        }
+        mDatabind.etSmtm.setOnEditorActionListener { textView, actionId, keyEvent ->
+            if (actionId == EditorInfo.IME_ACTION_DONE
+                || (keyEvent != null && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)
+            ) {
+                mViewModel.scanMCode("库存盘点", mDatabind.etSmtm.text.toString())
+                return@setOnEditorActionListener true
+            }
+
+            return@setOnEditorActionListener false
         }
 
         mDatabind.ysxmTv.setOnClickListener {

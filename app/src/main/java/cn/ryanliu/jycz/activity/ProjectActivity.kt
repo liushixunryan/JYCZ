@@ -3,7 +3,9 @@ package cn.ryanliu.jycz.activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.basic.BaseActivity
 import cn.ryanliu.jycz.common.constant.Constant
@@ -19,6 +21,7 @@ import cn.ryanliu.jycz.viewmodel.ProjectVM
 class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
     var carNum = ""
     var areaId = ""
+    var areaName = ""
     private var pageModel: Int = 0
     private var hand_task_id: Int = 0
     override fun layoutId(): Int = R.layout.activity_project
@@ -36,6 +39,8 @@ class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
         pageModel = intent.getIntExtra("edit", 0)
         carNum = intent.getStringExtra("carnumber").toString()
         areaId = intent.getStringExtra("areaid").toString()
+        areaName = intent.getStringExtra("areaname").toString()
+
 
         mViewModel.getScanOrders(
             carNum, if (pageModel == Constant.PageModel.XIECHE) {
@@ -52,25 +57,51 @@ class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
         onClick()
     }
 
+    var order_id = ""
     private fun onClick() {
         //点击订单数量
         mDatabind.indentNumTv.setOnClickListener {
-            IndentNumActivity.launch(this@ProjectActivity, Constant.PageModel.XIECHE, hand_task_id)
+            IndentNumActivity.launch(this@ProjectActivity, Constant.PageModel.XIECHE, hand_task_id,carNum)
         }
         //如果是托码就能点击
         mDatabind.xsTv.setOnClickListener {
-            if (mDatabind.xmtmhTv.text == "托码") {
+            if (mDatabind.smlxTv.text.toString() == "托码") {
                 XMListActivity.launch(
                     this,
-                    pageModel,
-                    hand_task_id,
-                    mDatabind.wtdhTv.text.toString()
+                    order_id.toInt()
                 )
+            }else{
+                ToastUtilsExt.info("只有托码可以查看详情")
             }
         }
         mDatabind.wtdhTv.setOnClickListener {
-            XMListActivity.launch(this, pageModel, hand_task_id, mDatabind.wtdhTv.text.toString())
+            if (mDatabind.smlxTv.text.toString() == "托码") {
+                XMListActivity.launch(
+                    this,
+                    order_id.toInt()
+                )
+            }else{
+                ToastUtilsExt.info("只有托码可以查看详情")
+            }
+
         }
+        mDatabind.etSmxm.setOnEditorActionListener { textView, actionId, keyEvent ->
+            if (actionId == EditorInfo.IME_ACTION_DONE
+                || (keyEvent != null && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)
+            ) {
+                mViewModel.getScanInCode(
+                    hand_task_id, if (pageModel == Constant.PageModel.XIECHE) {
+                        "卸车"
+                    } else {
+                        "装车"
+                    }, mDatabind.etSmxm.text.toString(), carNum, "项目预约", areaId
+                )
+                return@setOnEditorActionListener true
+            }
+
+            return@setOnEditorActionListener false
+        }
+
         //点击提交
         mDatabind.btnTj.setOnClickListener {
             mViewModel.getScanInCode(
@@ -78,7 +109,7 @@ class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
                     "卸车"
                 } else {
                     "装车"
-                }, mDatabind.etSmxm.text.toString(),carNum,"项目预约",areaId
+                }, mDatabind.etSmxm.text.toString(), carNum, "项目预约", areaId
             )
         }
 
@@ -99,7 +130,7 @@ class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
         mViewModel.mData.observe(this) {
             if (it.toString() != "null") {
                 mDatabind.inNavBar.tvNavCenter.text = "扫描箱数：${it?.yes_scan_num}"
-                mDatabind.inNavBar.tvNavRight.text = "库区：${it?.ware_area_name}"
+                mDatabind.inNavBar.tvNavRight.text = "库区：${areaName}"
 
                 mDatabind.carDataTv.text = "${it?.car_number}    项目预约数量：${it?.reservation_num}"
                 mDatabind.indentNumTv.text = "${it?.order_num}"
@@ -112,15 +143,16 @@ class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
         }
 
         mViewModel.mDatacode.observe(this) {
+            order_id = it?.order_id.toString()
             mDatabind.iswarnTv.text = it?.scan_tips
             if (it?.scan_tips == "正常") {
                 mDatabind.iswarnImg.setImageResource(R.mipmap.suc)
-                mDatabind.iswarnTv.setTextColor(Color.alpha(R.color.common_text_black))
+                mDatabind.iswarnTv.setTextColor(Color.parseColor("#333333"))
             } else {
                 mDatabind.iswarnImg.setImageResource(R.mipmap.warn)
-                mDatabind.iswarnTv.setTextColor(Color.alpha(R.color.common_red))
+                mDatabind.iswarnTv.setTextColor(Color.parseColor("#FF0000"))
             }
-
+            mDatabind.etSmxm.setText("")
             mDatabind.xmtmhTv.text = it?.scan_code.toString()
             mDatabind.mddTv.text = it?.rec_area.toString()
             mDatabind.smlxTv.text = it?.scan_type.toString()
@@ -136,11 +168,18 @@ class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
     }
 
     companion object {
-        fun launch(context: Context, carnumber: String, pageModel: Int,areaid:String) {
+        fun launch(
+            context: Context,
+            carnumber: String,
+            pageModel: Int,
+            areaid: String,
+            areaname: String
+        ) {
             val intent = Intent(context, ProjectActivity::class.java)
             intent.putExtra("carnumber", carnumber)
             intent.putExtra("edit", pageModel)
             intent.putExtra("areaid", areaid)
+            intent.putExtra("areaname", areaname)
             context.startActivity(intent)
         }
 

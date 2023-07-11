@@ -242,7 +242,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginVM>() {
 
             } else {
                 DialogUtil.showNotifyDialog(
-                    this@LoginActivity, "权限申请", "程序运行需要存储权限，请到应用设置中开启。", "确定"
+                    this@LoginActivity, "权限申请", "程序运行需要权限，请到应用设置中开启。", "确定"
                 ) {
                     finish()
                 }

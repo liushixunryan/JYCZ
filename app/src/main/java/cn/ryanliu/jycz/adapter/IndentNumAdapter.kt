@@ -41,10 +41,10 @@ class IndentNumAdapter : BaseQuickAdapter<List1, BaseViewHolder>(R.layout.item_i
     }
 
     override fun convert(holder: BaseViewHolder, item: List1) {
-        holder.setText(R.id.wtdh_tv, item.py_order_code)
-        holder.setText(R.id.xs_tv, item.goods_num)
-        holder.setText(R.id.ddmdd_tv, item.rec_area)
-        holder.setText(R.id.ddzt_tv, item.order_state_in_scan)
+        holder.setText(R.id.wtdh_tv, item.py_order_code.toString())
+        holder.setText(R.id.xs_tv, item.goods_num.toString())
+        holder.setText(R.id.ddmdd_tv, item.rec_area.toString())
+        holder.setText(R.id.ddzt_tv, item.order_state_scan)
 
         holder.setText(R.id.btn_read, "已扫(${item.yes_scan_num})")
         holder.setText(R.id.btn_unall, "未扫(${item.no_scan_num})")

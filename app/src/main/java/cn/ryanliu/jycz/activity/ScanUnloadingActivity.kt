@@ -105,13 +105,13 @@ class ScanUnloadingActivity : BaseActivity<ActivityScanUnloadingBinding, ScanUnl
                         this@ScanUnloadingActivity,
                         mDatabind.etCph.text.toString(),
                         Constant.PageModel.XIECHE,
-                        mareaID)
+                        mareaID,mDatabind.etKq.text.toString())
                 } else if (reservationId == 1) {
                     //跳转到项目
                     ProjectActivity.launch(
                         this@ScanUnloadingActivity,
                         mDatabind.etCph.text.toString(),
-                        Constant.PageModel.XIECHE,mareaID
+                        Constant.PageModel.XIECHE,mareaID,mDatabind.etKq.text.toString()
                     )
                 }
             }

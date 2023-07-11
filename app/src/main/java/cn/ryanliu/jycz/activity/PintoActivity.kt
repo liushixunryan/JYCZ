@@ -4,9 +4,12 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.basic.BaseActivity
+import cn.ryanliu.jycz.common.constant.Constant
 import cn.ryanliu.jycz.databinding.ActivityPintoBinding
 import cn.ryanliu.jycz.databinding.ActivitySortingStackBinding
 import cn.ryanliu.jycz.util.ToastUtilsExt
@@ -39,6 +42,28 @@ class PintoActivity : BaseActivity<ActivityPintoBinding, PintoVM>() {
     }
 
     private fun onClick() {
+        mDatabind.etSmtm.setOnEditorActionListener { textView, actionId, keyEvent ->
+            if (actionId == EditorInfo.IME_ACTION_DONE
+                || (keyEvent != null && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)
+            ) {
+                if (mDatabind.tmTv.text.toString() == "") {
+                    ToastUtilsExt.info("请先生成托码")
+                    return@setOnEditorActionListener false
+                } else {
+                    mViewModel.scanFjCode(
+                        mDatabind.etSmtm.text.toString(),
+                        mDatabind.tmTv.text.toString(),
+                        1,
+                        mDatabind.zjtsTv.text.toString().toInt(),
+                        AreaNameID
+                    )
+                }
+                return@setOnEditorActionListener true
+            }
+
+            return@setOnEditorActionListener false
+        }
+
         mDatabind.btnTj.setOnClickListener {
             if (mDatabind.tmTv.text.toString() == "") {
                 ToastUtilsExt.info("请先生成托码")

@@ -6,8 +6,10 @@ package cn.ryanliu.jycz.bean
  * @Description:
  */
 data class ScanInCodeBean(
+
     val hand_task_id: Int,
     val no_scan_num: Int,
+    val order_id: Int,
     val py_order_code: String,
     val rec_area: String,
     val scan_code: String,

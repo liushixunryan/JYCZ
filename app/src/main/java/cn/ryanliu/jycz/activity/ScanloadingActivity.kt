@@ -94,14 +94,14 @@ class ScanloadingActivity :
                     DriverActivity.launch(
                         this@ScanloadingActivity, mDatabind.etCph.text.toString(),
                         Constant.PageModel.ZHUANGCHE,
-                        mareaID
+                        mareaID,""
                     )
                 } else if (reservationId == 1) {
                     //跳转到项目
                     ProjectActivity.launch(
                         this@ScanloadingActivity,
                         mDatabind.etCph.text.toString(),
-                        Constant.PageModel.ZHUANGCHE, mareaID
+                        Constant.PageModel.ZHUANGCHE, mareaID,""
                     )
                 }
             }

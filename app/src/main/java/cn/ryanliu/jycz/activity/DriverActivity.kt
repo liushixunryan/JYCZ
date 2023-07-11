@@ -6,7 +6,9 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.basic.BaseActivity
 import cn.ryanliu.jycz.common.constant.Constant
@@ -19,6 +21,7 @@ import cn.ryanliu.jycz.viewmodel.ProjectVM
 class DriverActivity : BaseActivity<ActivityDriverBinding, DriverVM>() {
     var carNum = ""
     var areaId = ""
+    var areaName = ""
     private var pageModel: Int = 0
     private var hand_task_id: Int = 0
 
@@ -37,6 +40,7 @@ class DriverActivity : BaseActivity<ActivityDriverBinding, DriverVM>() {
         pageModel = intent.getIntExtra("edit", 0)
         carNum = intent.getStringExtra("carnumber").toString()
         areaId = intent.getStringExtra("areaid").toString()
+        areaName = intent.getStringExtra("areaname").toString()
 
         mViewModel.getScanOrders(
             carNum, if (pageModel == Constant.PageModel.XIECHE) {
@@ -54,6 +58,23 @@ class DriverActivity : BaseActivity<ActivityDriverBinding, DriverVM>() {
     }
 
     private fun onClick() {
+        mDatabind.etSmxm.setOnEditorActionListener { textView, actionId, keyEvent ->
+            if (actionId == EditorInfo.IME_ACTION_DONE
+                || (keyEvent != null && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)
+            ) {
+                mViewModel.getScanInCode(
+                    hand_task_id, if (pageModel == Constant.PageModel.XIECHE) {
+                        "卸车"
+                    } else {
+                        "装车"
+                    }, mDatabind.etSmxm.text.toString(), carNum, "司机预约", areaId
+                )
+                return@setOnEditorActionListener true
+            }
+
+            return@setOnEditorActionListener false
+        }
+
         mDatabind.btnTj.setOnClickListener {
             mViewModel.getScanInCode(
                 hand_task_id, if (pageModel == Constant.PageModel.XIECHE) {
@@ -81,7 +102,7 @@ class DriverActivity : BaseActivity<ActivityDriverBinding, DriverVM>() {
         mViewModel.mData.observe(this) {
             if (it.toString() != "null") {
                 mDatabind.inNavBar.tvNavCenter.text = "扫描箱数：${it?.yes_scan_num}"
-                mDatabind.inNavBar.tvNavRight.text = "库区：${it?.ware_area_name}"
+                mDatabind.inNavBar.tvNavRight.text = "库区：${areaName}"
 
                 mDatabind.carDataTv.text = "${it?.car_number}    项目预约数量：${it?.reservation_num}"
                 mDatabind.ddslTv.text = "1"
@@ -96,12 +117,12 @@ class DriverActivity : BaseActivity<ActivityDriverBinding, DriverVM>() {
             mDatabind.iswarnTv.text = it?.scan_tips
             if (it?.scan_tips == "正常") {
                 mDatabind.iswarnImg.setImageResource(R.mipmap.suc)
-                mDatabind.iswarnTv.setTextColor(Color.alpha(R.color.common_text_black))
+                mDatabind.iswarnTv.setTextColor(Color.parseColor("#333333"))
             } else {
                 mDatabind.iswarnImg.setImageResource(R.mipmap.warn)
-                mDatabind.iswarnTv.setTextColor(Color.alpha(R.color.common_red))
+                mDatabind.iswarnTv.setTextColor(Color.parseColor("#FF0000"))
             }
-
+            mDatabind.etSmxm.setText("")
             mDatabind.xmtmhTv.text = it?.scan_code.toString()
         }
 
@@ -112,11 +133,12 @@ class DriverActivity : BaseActivity<ActivityDriverBinding, DriverVM>() {
     }
 
     companion object {
-        fun launch(context: Context, carnumber: String, pageModel: Int, areaid: String) {
+        fun launch(context: Context, carnumber: String, pageModel: Int, areaid: String,areaname: String) {
             val intent = Intent(context, DriverActivity::class.java)
             intent.putExtra("carnumber", carnumber)
             intent.putExtra("edit", pageModel)
             intent.putExtra("areaid", areaid)
+            intent.putExtra("areaname", areaname)
             context.startActivity(intent)
         }
 

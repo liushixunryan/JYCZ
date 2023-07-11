@@ -21,7 +21,8 @@ class IndentNumVM : BaseViewModel() {
     fun searchCarOrders(
         hand_task_id: Int,
         oper_flag: String,
-        search_type: String
+        search_type: String,
+        car:String
     ) {
         viewModelScope.launch {
             try {
@@ -30,7 +31,7 @@ class IndentNumVM : BaseViewModel() {
                     PCarOrders(
                         hand_task_id,
                         oper_flag,
-                        search_type
+                        search_type,car
                     )
                 )
 

@@ -26,6 +26,7 @@ import cn.ryanliu.jycz.viewmodel.IndentNumVM
 class IndentNumActivity : BaseActivity<ActivityIndentNumBinding, IndentNumVM>() {
     private var pageModel: Int = 0
     private var handtaskid: Int = 0
+    private var carnumber: String = ""
 
     lateinit var mAdapter: IndentNumAdapter
     override fun layoutId(): Int = R.layout.activity_indent_num
@@ -39,6 +40,7 @@ class IndentNumActivity : BaseActivity<ActivityIndentNumBinding, IndentNumVM>() 
 
         pageModel = intent.getIntExtra("edit", 0)
         handtaskid = intent.getIntExtra("handtaskid", 0)
+        carnumber = intent.getStringExtra("carNumber").toString()
 
         //默认全部订单
         mViewModel.searchCarOrders(
@@ -47,7 +49,8 @@ class IndentNumActivity : BaseActivity<ActivityIndentNumBinding, IndentNumVM>() 
                 "卸车"
             } else {
                 "装车"
-            }, "全部订单"
+            }, "全部",
+            carnumber
         )
 
         mAdapter = IndentNumAdapter();
@@ -65,7 +68,7 @@ class IndentNumActivity : BaseActivity<ActivityIndentNumBinding, IndentNumVM>() 
                     "卸车"
                 } else {
                     "装车"
-                }, "全部订单"
+                }, "全部", carnumber
             )
         }
 
@@ -76,7 +79,7 @@ class IndentNumActivity : BaseActivity<ActivityIndentNumBinding, IndentNumVM>() 
                     "卸车"
                 } else {
                     "装车"
-                }, "只看未扫"
+                }, "只看未扫", carnumber
             )
         }
 
@@ -87,20 +90,29 @@ class IndentNumActivity : BaseActivity<ActivityIndentNumBinding, IndentNumVM>() 
                     "卸车"
                 } else {
                     "装车"
-                }, "只看已扫"
+                }, "只看已扫", carnumber
             )
         }
 
         mAdapter.setOnAllDeviceProcureClickListener {
-            XMListActivity.launch(this@IndentNumActivity, pageModel, handtaskid, it.py_order_code)
+            XMListActivity.launch(
+                this,
+                it.order_id
+            )
         }
 
         mAdapter.setOnReadDeviceProcureClickListener {
-            XMListActivity.launch(this@IndentNumActivity, pageModel, handtaskid, it.py_order_code)
+            XMListActivity.launch(
+                this,
+                it.order_id
+            )
 
         }
         mAdapter.setOnUnreadDeviceProcureClickListener {
-            XMListActivity.launch(this@IndentNumActivity, pageModel, handtaskid, it.py_order_code)
+            XMListActivity.launch(
+                this,
+                it.order_id
+            )
 
         }
     }
@@ -121,23 +133,20 @@ class IndentNumActivity : BaseActivity<ActivityIndentNumBinding, IndentNumVM>() 
         }
 
         mViewModel.mDataBean.observe(this) {
-            if (it.toString() != "null") {
-                mDatabind.loadingLayout.showEmpty()
-            } else {
-                mDatabind.ddslTv.text = it.order_num.toString()
-                mDatabind.zxsTv.text = it.goods_num.toString()
-                mDatabind.ysmzxsTv.text = it.yes_scan_num.toString()
-                mDatabind.wsxsTv.text = it.no_scan_num.toString()
-            }
+            mDatabind.ddslTv.text = it.order_num.toString()
+            mDatabind.zxsTv.text = it.goods_num.toString()
+            mDatabind.ysmzxsTv.text = it.yes_scan_num.toString()
+            mDatabind.wsxsTv.text = it.no_scan_num.toString()
 
         }
     }
 
     companion object {
-        fun launch(context: Context, pageModel: Int, handtaskid: Int) {
+        fun launch(context: Context, pageModel: Int, handtaskid: Int, carNumber: String) {
             val intent = Intent(context, IndentNumActivity::class.java)
             intent.putExtra("edit", pageModel)
             intent.putExtra("handtaskid", handtaskid)
+            intent.putExtra("carNumber", carNumber)
             context.startActivity(intent)
         }
 

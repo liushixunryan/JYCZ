@@ -6,6 +6,7 @@ import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import android.os.Process
+import androidx.multidex.MultiDex
 import cn.ryanliu.jycz.util.AppManager
 import com.tencent.mmkv.MMKV
 
@@ -38,6 +39,7 @@ open class BaseApplication : Application(){
         setApplication(this)
         val rootDir = MMKV.initialize(this)
         println("mmkv root: $rootDir")
+        MultiDex.install(this)
 
 
     }
