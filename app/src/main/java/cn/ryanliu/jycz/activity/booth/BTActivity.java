@@ -28,14 +28,15 @@ import java.util.List;
 import cn.ryanliu.jycz.R;
 import cn.ryanliu.jycz.bean.PrintBT;
 import cn.ryanliu.jycz.util.Bluetooth;
+import cn.ryanliu.jycz.view.LoadingLayout;
 
 public class BTActivity extends Activity {
 
+    private LoadingLayout loadingLayout;
     private RecyclerView recyHistory;
     private SwipeRefreshLayout swipeRefresh;
-    private   RelativeLayout activityBt;
+    private RelativeLayout activityBt;
     private Context mContext;
-    private ListView list_bt;
     public BluetoothAdapter myBluetoothAdapter;
     private Intent intent;
     private BaseQuickAdapter<PrintBT, BaseViewHolder> baseQuickAdapter;
@@ -43,6 +44,7 @@ public class BTActivity extends Activity {
     private List<PrintBT> list;
     private int tag;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +52,7 @@ public class BTActivity extends Activity {
         mContext = getApplicationContext();
 
         recyHistory = findViewById(R.id.recy_history);
+        loadingLayout = findViewById(R.id.loading_layout);
         swipeRefresh = findViewById(R.id.swipe_refresh);
         activityBt = findViewById(R.id.activity_bt);
 
@@ -97,23 +100,26 @@ public class BTActivity extends Activity {
                 finish();
             }
         });
-        swipeRefresh.setColorSchemeResources(R.color.colorPrimary );
+        swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 initBT();
-                if (swipeRefresh.isRefreshing())
+                if (swipeRefresh.isRefreshing()) {
+                    loadingLayout.showLoading();
                     swipeRefresh.setRefreshing(false);
+                }
+
             }
         });
     }
 
     private void initBT() {
-        Log.d("TAG", "initBT:");
         list.clear();
         baseQuickAdapter.notifyDataSetChanged();
         bluetooth.doDiscovery();
         bluetooth.getData(new Bluetooth.toData() {
+
             @Override
             public void succeed(String BTname, String BTmac) {
                 for (PrintBT printBT : list) {
@@ -127,7 +133,20 @@ public class BTActivity extends Activity {
                 printBT.setBTname(BTname);
                 printBT.setBTmac(BTmac);
                 list.add(printBT);
+
+                loadingLayout.showContent();
+
+
                 baseQuickAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void end(String end) {
+                if (list.size() > 0) {
+                    loadingLayout.showContent();
+                } else {
+                    loadingLayout.showEmpty();
+                }
             }
         });
     }

@@ -90,14 +90,22 @@ public class Bluetooth {
 
     public interface toData {
         public void succeed(String BTname, String BTmac);
+        public void end(String end);
+    }
+
+    public interface toEnd {
+
     }
 
     @SuppressLint("MissingPermission")
     public void disReceiver() {
-        if (mReceiver != null && context != null)
+        if (mReceiver != null && context != null){
             context.unregisterReceiver(mReceiver);
-        if (mBluetoothAdapter.isDiscovering())
+        }
+        if (mBluetoothAdapter.isDiscovering()){
             mBluetoothAdapter.cancelDiscovery();
+        }
+
     }
 
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
@@ -132,6 +140,9 @@ public class Bluetooth {
                     break;
                 case BluetoothAdapter.ACTION_DISCOVERY_FINISHED:
                     Log.d("Print", "搜索完成");
+                    if (mTodata != null) {
+                        mTodata.end("搜索完成");
+                    }
                     break;
             }
         }
