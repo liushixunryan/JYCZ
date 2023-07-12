@@ -25,9 +25,11 @@ class DriverActivity : BaseActivity<ActivityDriverBinding, DriverVM>() {
     private var pageModel: Int = 0
     private var hand_task_id: Int = 0
 
+    var smxs: Int = 0
     override fun layoutId(): Int = R.layout.activity_driver
 
     override fun initView() {
+        mDatabind.inNavBar.tvNavCenter.text = "扫描箱数：${smxs}"
         mDatabind.inNavBar.ivNavBack.visibility = View.VISIBLE
         mDatabind.inNavBar.ivNavBack.setOnClickListener {
             onBackPressed()
@@ -101,7 +103,6 @@ class DriverActivity : BaseActivity<ActivityDriverBinding, DriverVM>() {
     override fun createObserver() {
         mViewModel.mData.observe(this) {
             if (it.toString() != "null") {
-                mDatabind.inNavBar.tvNavCenter.text = "扫描箱数：${it?.yes_scan_num}"
                 mDatabind.inNavBar.tvNavRight.text = "库区：${areaName}"
 
                 mDatabind.carDataTv.text = "${it?.car_number}    项目预约数量：${it?.reservation_num}"
@@ -114,6 +115,8 @@ class DriverActivity : BaseActivity<ActivityDriverBinding, DriverVM>() {
         }
 
         mViewModel.mDatacode.observe(this) {
+            smxs = smxs + it?.tp_num!!
+            mDatabind.inNavBar.tvNavCenter.text = "扫描箱数：${smxs}"
             mDatabind.iswarnTv.text = it?.scan_tips
             if (it?.scan_tips == "正常") {
                 mDatabind.iswarnImg.setImageResource(R.mipmap.suc)
@@ -124,6 +127,9 @@ class DriverActivity : BaseActivity<ActivityDriverBinding, DriverVM>() {
             }
             mDatabind.etSmxm.setText("")
             mDatabind.xmtmhTv.text = it?.scan_code.toString()
+
+            mDatabind.yszxsTv.text = "${it?.yes_scan_num}"
+
         }
 
         mViewModel.mBackList.observe(this) {
@@ -133,7 +139,13 @@ class DriverActivity : BaseActivity<ActivityDriverBinding, DriverVM>() {
     }
 
     companion object {
-        fun launch(context: Context, carnumber: String, pageModel: Int, areaid: String,areaname: String) {
+        fun launch(
+            context: Context,
+            carnumber: String,
+            pageModel: Int,
+            areaid: String,
+            areaname: String
+        ) {
             val intent = Intent(context, DriverActivity::class.java)
             intent.putExtra("carnumber", carnumber)
             intent.putExtra("edit", pageModel)

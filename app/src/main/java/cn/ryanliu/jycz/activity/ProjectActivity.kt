@@ -22,11 +22,14 @@ class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
     var carNum = ""
     var areaId = ""
     var areaName = ""
+    var smxs: Int = 0
     private var pageModel: Int = 0
     private var hand_task_id: Int = 0
     override fun layoutId(): Int = R.layout.activity_project
 
     override fun initView() {
+
+        mDatabind.inNavBar.tvNavCenter.text = "扫描箱数：${smxs}"
         mDatabind.inNavBar.ivNavBack.visibility = View.VISIBLE
         mDatabind.inNavBar.ivNavBack.setOnClickListener {
             onBackPressed()
@@ -59,9 +62,18 @@ class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
 
     var order_id = ""
     private fun onClick() {
+        mDatabind.bdtmbqBtn.setOnClickListener {
+            PatchworkXMActivity.launch(this, mDatabind.xmtmhTv.text.toString())
+        }
+
         //点击订单数量
         mDatabind.indentNumTv.setOnClickListener {
-            IndentNumActivity.launch(this@ProjectActivity, Constant.PageModel.XIECHE, hand_task_id,carNum)
+            IndentNumActivity.launch(
+                this@ProjectActivity,
+                Constant.PageModel.XIECHE,
+                hand_task_id,
+                carNum
+            )
         }
         //如果是托码就能点击
         mDatabind.xsTv.setOnClickListener {
@@ -70,20 +82,15 @@ class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
                     this,
                     order_id.toInt()
                 )
-            }else{
+            } else {
                 ToastUtilsExt.info("只有托码可以查看详情")
             }
         }
         mDatabind.wtdhTv.setOnClickListener {
-            if (mDatabind.smlxTv.text.toString() == "托码") {
-                XMListActivity.launch(
-                    this,
-                    order_id.toInt()
-                )
-            }else{
-                ToastUtilsExt.info("只有托码可以查看详情")
-            }
-
+            XMListActivity.launch(
+                this,
+                order_id.toInt()
+            )
         }
         mDatabind.etSmxm.setOnEditorActionListener { textView, actionId, keyEvent ->
             if (actionId == EditorInfo.IME_ACTION_DONE
@@ -129,7 +136,6 @@ class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
     override fun createObserver() {
         mViewModel.mData.observe(this) {
             if (it.toString() != "null") {
-                mDatabind.inNavBar.tvNavCenter.text = "扫描箱数：${it?.yes_scan_num}"
                 mDatabind.inNavBar.tvNavRight.text = "库区：${areaName}"
 
                 mDatabind.carDataTv.text = "${it?.car_number}    项目预约数量：${it?.reservation_num}"
@@ -143,6 +149,8 @@ class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
         }
 
         mViewModel.mDatacode.observe(this) {
+            smxs = smxs + it?.tp_num!!
+            mDatabind.inNavBar.tvNavCenter.text = "扫描箱数：${smxs}"
             order_id = it?.order_id.toString()
             mDatabind.iswarnTv.text = it?.scan_tips
             if (it?.scan_tips == "正常") {
@@ -158,6 +166,9 @@ class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
             mDatabind.smlxTv.text = it?.scan_type.toString()
             mDatabind.xsTv.text = it?.tp_num.toString()
             mDatabind.wtdhTv.text = it?.py_order_code.toString()
+
+            mDatabind.yszxsTv.text = "${it?.yes_scan_num}"
+            mDatabind.wsxsTv.text = "${it?.no_scan_num}"
 
         }
 
