@@ -175,7 +175,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginVM>() {
             MmkvHelper.getInstance()
                 .putString(Constant.MmKv_KEY.psd, mDatabind.etPassword.text.toString() ?: "")
 
-            MainActivity.launch(this)
+            MainActivity.launchClear(this)
             finish()
         }
 

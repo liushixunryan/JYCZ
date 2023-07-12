@@ -17,9 +17,9 @@ class XMListAdapter : BaseQuickAdapter<XMListBean, BaseViewHolder>(R.layout.item
     override fun convert(holder: BaseViewHolder, item: XMListBean) {
         holder.setText(R.id.tv_tmbq, item.scan_code)
         if (item.color_flag == 0) {
-            holder.setTextColor(R.id.tv_tmbq, Color.alpha(R.color.common_text_black))
+            holder.setTextColor(R.id.tv_tmbq, Color.parseColor("#333333"))
         } else {
-            holder.setTextColor(R.id.tv_tmbq,Color.alpha(R.color.common_red))
+            holder.setTextColor(R.id.tv_tmbq,Color.parseColor("#FF0000"))
         }
 
     }

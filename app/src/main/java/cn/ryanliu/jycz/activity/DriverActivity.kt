@@ -134,7 +134,7 @@ class DriverActivity : BaseActivity<ActivityDriverBinding, DriverVM>() {
 
         mViewModel.mBackList.observe(this) {
             ToastUtilsExt.info("提交成功")
-            onBackPressed()
+            MainActivity.launchClear(this)
         }
     }
 

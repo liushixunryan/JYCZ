@@ -59,7 +59,7 @@ class InventoryResultActivity : BaseActivity<ActivityInventoryResultBinding, Inv
     override fun createObserver() {
         mViewModel.mBackList.observe(this) {
             ToastUtilsExt.info("保存成功")
-            MainActivity.launch(this)
+            MainActivity.launchClear(this)
         }
     }
 

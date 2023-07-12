@@ -21,7 +21,7 @@
 
     <color name="common_text_theme">#007FFF</color>
     <color name="common_text_normal">#333</color>
-    <color name="common_text_black">#333</color>
+    <color name="common_text_black">#333333</color>
     <color name="common_text_gray">#999</color>
     <color name="common_text_gray_dark">#666</color>
     <color name="common_text_yellow">#E3BD19</color>

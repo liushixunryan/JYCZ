@@ -174,7 +174,7 @@ class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
 
         mViewModel.mBackList.observe(this) {
             ToastUtilsExt.info("提交成功")
-            onBackPressed()
+            MainActivity.launchClear(this)
         }
     }
 

@@ -95,25 +95,15 @@ class IndentNumActivity : BaseActivity<ActivityIndentNumBinding, IndentNumVM>() 
         }
 
         mAdapter.setOnAllDeviceProcureClickListener {
-            XMListActivity.launch(
-                this,
-                it.order_id
-            )
+            XMListActivity.launch(this@IndentNumActivity, pageModel, handtaskid, it.order_id.toString())
         }
 
         mAdapter.setOnReadDeviceProcureClickListener {
-            XMListActivity.launch(
-                this,
-                it.order_id
-            )
+            XMListActivity.launch(this@IndentNumActivity, pageModel, handtaskid, it.order_id.toString())
 
         }
         mAdapter.setOnUnreadDeviceProcureClickListener {
-            XMListActivity.launch(
-                this,
-                it.order_id
-            )
-
+            XMListActivity.launch(this@IndentNumActivity, pageModel, handtaskid, it.order_id.toString())
         }
     }
 
