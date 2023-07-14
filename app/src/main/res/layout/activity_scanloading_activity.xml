@@ -47,7 +47,6 @@
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/bg_edittext"
                     android:hint="请输入车牌号"
-                    android:inputType="number"
                     android:lines="1"
                     android:maxLines="1"
                     android:textSize="14sp" />
@@ -606,7 +605,7 @@
             android:layout_marginBottom="@dimen/dp_10"
             android:background="@drawable/shape_blue_r32"
             android:paddingVertical="0dp"
-            android:text="开始扫码卸车"
+            android:text="开始扫码装车"
             android:textColor="@color/common_white"
             android:textSize="18dp" />
 

@@ -54,17 +54,8 @@ class ExitHandoverActivity : BaseActivity<ActivityExitHandoverBinding, ExitHando
         mDatabind.btnSelect.setOnClickListener {
             mDatabind.loadingLayout.showLoading()
             mViewModel.searchTask(
-                if (reservationId == 0) {
-                    mDatabind.etGjz.text.toString()
-                } else {
-                    ""
-                },
                 Constant.onINModel.CHUCHANGJAOJIE,
-                if (reservationId == 1) {
-                    mDatabind.etGjz.text.toString()
-                } else {
-                    ""
-                },
+                mDatabind.etGjz.text.toString(), mDatabind.etYylx.text.toString()
             )
         }
 
@@ -94,11 +85,6 @@ class ExitHandoverActivity : BaseActivity<ActivityExitHandoverBinding, ExitHando
 
         mDatabind.btnSureselect.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
-                ExitPhotoActivity.launch(
-                    this@ExitHandoverActivity,
-                    Constant.onINModel.CHUCHANGJAOJIE,
-                    null
-                )
                 val isSelect = arrayListOf<Int>()
                 for (i in selectBean.indices) {
                     if (selectBean[i].isselect == 1) {
@@ -126,17 +112,8 @@ class ExitHandoverActivity : BaseActivity<ActivityExitHandoverBinding, ExitHando
         super.onResume()
         mDatabind.loadingLayout.showLoading()
         mViewModel.searchTask(
-            if (reservationId == 0) {
-                mDatabind.etYylx.text.toString()
-            } else {
-                ""
-            },
             Constant.onINModel.CHUCHANGJAOJIE,
-            if (reservationId == 1) {
-                mDatabind.etYylx.text.toString()
-            } else {
-                ""
-            },
+            mDatabind.etGjz.text.toString(), mDatabind.etYylx.text.toString()
         )
     }
 

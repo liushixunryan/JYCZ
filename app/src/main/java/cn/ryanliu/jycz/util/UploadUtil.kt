@@ -18,7 +18,13 @@ object UploadUtil {
                 .setType(MultipartBody.FORM)
                 .build();
             val res = ApiService.apiService.upload_photo(multipartBody1.parts)
-            return res.data
+            if (res.isSuccess()){
+                return res.data
+            }else{
+                ToastUtilsExt.info(res.msg)
+                return ""
+            }
+
         } catch (e: Exception) {
             e.printStackTrace()
             ToastUtilsExt.info("上传出错")

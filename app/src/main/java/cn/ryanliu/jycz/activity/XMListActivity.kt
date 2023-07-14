@@ -21,6 +21,7 @@ class XMListActivity : BaseActivity<ActivityXmlistBinding, XMListVM>() {
     private var pageModel: Int = 0
     private var handtaskid: Int = 0
     private var pyordercode: String = ""
+    private var scanTag: String = ""
 
     private var order_id: Int = 0
 
@@ -53,13 +54,14 @@ class XMListActivity : BaseActivity<ActivityXmlistBinding, XMListVM>() {
             pageModel = intent.getIntExtra("edit", 0)
             handtaskid = intent.getIntExtra("handtaskid", 0)
             pyordercode = intent.getStringExtra("pyordercode").toString()
+            scanTag = intent.getStringExtra("scan_tag").toString()
 
             mViewModel.getBoxcodeList(
                 handtaskid, if (pageModel == Constant.PageModel.XIECHE) {
                     "卸车"
                 } else {
                     "装车"
-                }, pyordercode,"全部"
+                }, pyordercode,scanTag
             )
 
 
@@ -121,11 +123,12 @@ class XMListActivity : BaseActivity<ActivityXmlistBinding, XMListVM>() {
 
     companion object {
         //正常
-        fun launch(context: Context, pageModel: Int, handtaskid: Int, pyordercode: String) {
+        fun launch(context: Context, pageModel: Int, handtaskid: Int, pyordercode: String,scan_tag:String) {
             val intent = Intent(context, XMListActivity::class.java)
             intent.putExtra("edit", pageModel)
             intent.putExtra("handtaskid", handtaskid)
             intent.putExtra("pyordercode", pyordercode)
+            intent.putExtra("scan_tag", scan_tag)
             context.startActivity(intent)
         }
 

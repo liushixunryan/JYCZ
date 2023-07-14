@@ -16,8 +16,8 @@ class LoadingListAdapter :
     BaseQuickAdapter<LoadingListBean, BaseViewHolder>(R.layout.detail_item_loading) {
 
     override fun convert(holder: BaseViewHolder, item: LoadingListBean) {
-        holder.setText(R.id.ddzt_tv, item.order_state_in_scan)
-        holder.setText(R.id.smzxs_tv, item.scan_num)
+        holder.setText(R.id.ddzt_tv, item.order_state_scan)
+        holder.setText(R.id.smzxs_tv, item.scan_num.toString())
         holder.setText(R.id.zcwcsj_tv, item.order_state_scan_time)
         holder.setText(R.id.ccjjsj_tv, item.order_state_scan_hand_time)
         holder.setText(R.id.cph_tv, item.car_number)

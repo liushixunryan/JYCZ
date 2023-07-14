@@ -95,15 +95,15 @@ class IndentNumActivity : BaseActivity<ActivityIndentNumBinding, IndentNumVM>() 
         }
 
         mAdapter.setOnAllDeviceProcureClickListener {
-            XMListActivity.launch(this@IndentNumActivity, pageModel, handtaskid, it.order_id.toString())
+            XMListActivity.launch(this@IndentNumActivity, pageModel, handtaskid, it.order_id.toString(),"全部")
         }
 
         mAdapter.setOnReadDeviceProcureClickListener {
-            XMListActivity.launch(this@IndentNumActivity, pageModel, handtaskid, it.order_id.toString())
+            XMListActivity.launch(this@IndentNumActivity, pageModel, handtaskid, it.order_id.toString(),"已扫")
 
         }
         mAdapter.setOnUnreadDeviceProcureClickListener {
-            XMListActivity.launch(this@IndentNumActivity, pageModel, handtaskid, it.order_id.toString())
+            XMListActivity.launch(this@IndentNumActivity, pageModel, handtaskid, it.order_id.toString(),"未扫")
         }
     }
 

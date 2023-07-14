@@ -34,20 +34,21 @@
 
                 <TextView
                     android:id="@+id/cph_tv"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/common_text_black" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_20"
                     android:text="卸车完成时间："
                     android:textColor="@color/common_text_black"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/xcwcsj_tv"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/common_text_black" />
 
@@ -68,20 +69,21 @@
 
                 <TextView
                     android:id="@+id/smr_tv"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/common_text_black" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_20"
                     android:text="卸车扫描箱数："
                     android:textColor="@color/common_text_black"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/xcsmxs_tv"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/common_text_black" />
 

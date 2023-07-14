@@ -57,11 +57,11 @@ class SortingStackActivity : BaseActivity<ActivitySortingStackBinding, SortingSt
         }
 
         mDatabind.xsTv.setOnClickListener {
-            XMListActivity.launch(this,1, 0,mDatabind.wtdhTv.text.toString())
+            XMListActivity.launch(this,1, 0,mDatabind.wtdhTv.text.toString(),"全部")
         }
 
         mDatabind.wtdhTv.setOnClickListener {
-            XMListActivity.launch(this,1, 0,mDatabind.wtdhTv.text.toString())
+            XMListActivity.launch(this,1, 0,mDatabind.wtdhTv.text.toString(),"全部")
 
         }
 

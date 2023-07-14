@@ -24,8 +24,15 @@ class EntryPhotoVM : BaseViewModel() {
         viewModelScope.launch {
             try {
                 val upload = UploadUtil.upload(file)
-                mIndex.postValue(index)
-                mUrl.postValue(upload.toString())
+                if (upload.isNullOrEmpty()) {
+                    mIndex.postValue(7)
+                    mUrl.postValue("失败")
+                } else {
+                    mIndex.postValue(index)
+                    mUrl.postValue(upload.toString())
+                }
+
+
             } catch (e: Exception) {
                 e.printStackTrace()
                 showNetErr(e)

@@ -34,12 +34,18 @@ class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
         mDatabind.inNavBar.ivNavBack.setOnClickListener {
             onBackPressed()
         }
-        mDatabind.inNavBar.tvNavTitle.text = "扫码卸车"
-
-        mDatabind.inNavBar.tvNavCenter.visibility = View.VISIBLE
-        mDatabind.inNavBar.tvNavRight.visibility = View.VISIBLE
-
         pageModel = intent.getIntExtra("edit", 0)
+        if (pageModel == Constant.PageModel.XIECHE){
+            mDatabind.inNavBar.tvNavTitle.text = "扫码卸车"
+            mDatabind.inNavBar.tvNavCenter.visibility = View.VISIBLE
+            mDatabind.inNavBar.tvNavRight.visibility = View.VISIBLE
+        }else{
+            mDatabind.inNavBar.tvNavTitle.text = "扫码装车"
+            mDatabind.inNavBar.tvNavCenter.visibility = View.VISIBLE
+            mDatabind.inNavBar.tvNavRight.visibility = View.GONE
+            mDatabind.qrxcwcBtn.text = "确认装车完成"
+        }
+
         carNum = intent.getStringExtra("carnumber").toString()
         areaId = intent.getStringExtra("areaid").toString()
         areaName = intent.getStringExtra("areaname").toString()

@@ -22,7 +22,7 @@
                 android:layout_marginRight="@dimen/dp_3"
                 android:background="@color/bg_green"
                 android:padding="@dimen/dp_10"
-                android:text="已扫箱码(15)"
+                android:text="已扫箱码(0)"
                 android:textColor="@color/white" />
 
             <LinearLayout
@@ -55,7 +55,7 @@
                             android:layout_marginBottom="16dp"
                             android:background="@drawable/bg_edittext"
                             android:hint="扫描托码"
-                            android:inputType="number"
+                            android:inputType="text"
                             android:lines="1"
                             android:maxLines="1"
                             android:textSize="14sp" />

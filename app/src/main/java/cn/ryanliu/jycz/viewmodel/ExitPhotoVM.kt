@@ -14,7 +14,7 @@ import java.io.File
  * @Date: 2023/6/7
  * @Description:
  */
-class ExitPhotoVM:BaseViewModel() {
+class ExitPhotoVM : BaseViewModel() {
     //返回
     val mUrl = MutableLiveData<String>()
     val mBackList = MutableLiveData<String>()
@@ -24,8 +24,14 @@ class ExitPhotoVM:BaseViewModel() {
         viewModelScope.launch {
             try {
                 val upload = UploadUtil.upload(file)
-                mIndex.postValue(index)
-                mUrl.postValue(upload.toString())
+                if (upload.isNullOrEmpty()) {
+                    mIndex.postValue(7)
+                    mUrl.postValue("失败")
+                } else {
+                    mIndex.postValue(index)
+                    mUrl.postValue(upload.toString())
+                }
+
             } catch (e: Exception) {
                 e.printStackTrace()
                 showNetErr(e)
@@ -63,10 +69,10 @@ class ExitPhotoVM:BaseViewModel() {
                 )
 
                 if (response.isSuccess()) {
-                    mBackList.postValue("成功")
+                    mBackList.postValue(response.msg.toString())
 
                 } else {
-                    mBackList.postValue("失败")
+                    mBackList.postValue(response.msg.toString())
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

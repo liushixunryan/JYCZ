@@ -57,7 +57,7 @@ class AreaSelectVM : BaseViewModel() {
                     mSurepd.postValue(response.data)
 
                 } else {
-                    mSurepd.postValue(response.data)
+                    mSurepd.postValue(response.msg)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

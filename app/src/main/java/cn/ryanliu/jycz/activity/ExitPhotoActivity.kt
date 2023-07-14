@@ -8,6 +8,7 @@ import cn.ryanliu.jycz.basic.BaseActivity
 import cn.ryanliu.jycz.bean.EntryHandoverBean
 import cn.ryanliu.jycz.databinding.ActivityExitPhotoBinding
 import cn.ryanliu.jycz.util.GlideEngine
+import cn.ryanliu.jycz.util.ToastUtilsExt
 import cn.ryanliu.jycz.viewmodel.ExitPhotoVM
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -16,6 +17,7 @@ import com.luck.picture.lib.config.PictureMimeType
 import com.luck.picture.lib.config.SelectMimeType
 import com.luck.picture.lib.entity.LocalMedia
 import com.luck.picture.lib.interfaces.OnResultCallbackListener
+import com.xql.loading.LoadingDialog
 import java.io.File
 
 /**
@@ -26,6 +28,9 @@ import java.io.File
 class ExitPhotoActivity : BaseActivity<ActivityExitPhotoBinding, ExitPhotoVM>() {
     private var crc: String = ""
     private var entyyHandover: EntryHandoverBean? = null
+
+    // 提示窗对象
+    private var loadingDialog: LoadingDialog? = null
     override fun layoutId(): Int = R.layout.activity_exit_photo
 
     override fun initView() {
@@ -37,8 +42,8 @@ class ExitPhotoActivity : BaseActivity<ActivityExitPhotoBinding, ExitPhotoVM>() 
         mDatabind.inNavBar.tvNavTitle.text = "出场交接 - 拍照上传交接单"
 
         crc = intent.getStringExtra("edit").toString()
-        //没数据 TODO：先暂时注释
-//        entyyHandover = intent.getSerializableExtra("entyyHandover") as EntryHandoverBean
+
+        entyyHandover = intent.getSerializableExtra("entyyHandover") as EntryHandoverBean
 
         if (entyyHandover != null) {
             mDatabind.cphTv.text = entyyHandover!!.car_number
@@ -74,10 +79,17 @@ class ExitPhotoActivity : BaseActivity<ActivityExitPhotoBinding, ExitPhotoVM>() 
                 .setImageEngine(GlideEngine.createGlideEngine())
                 .forResult(object : OnResultCallbackListener<LocalMedia?> {
                     override fun onResult(result: java.util.ArrayList<LocalMedia?>) {
-                        mViewModel.upload(File(result[0]!!.realPath), 1)
+                        if (result[0]!!.size > 200000) {
+                            mViewModel.upload(File(result[0]!!.realPath), 1)
+                            showLoading()
+                        } else {
+                            ToastUtilsExt.info("文件不能大于2MB")
+                        }
                     }
 
-                    override fun onCancel() {}
+                    override fun onCancel() {
+                        hideLoading()
+                    }
                 })
         }
         mDatabind.uploadimg2.setOnClickListener {
@@ -88,10 +100,17 @@ class ExitPhotoActivity : BaseActivity<ActivityExitPhotoBinding, ExitPhotoVM>() 
                 .setImageEngine(GlideEngine.createGlideEngine())
                 .forResult(object : OnResultCallbackListener<LocalMedia?> {
                     override fun onResult(result: java.util.ArrayList<LocalMedia?>) {
-                        mViewModel.upload(File(result[0]!!.realPath), 2)
+                        if (result[0]!!.size > 200000) {
+                            mViewModel.upload(File(result[0]!!.realPath), 2)
+                            showLoading()
+                        } else {
+                            ToastUtilsExt.info("文件不能大于2MB")
+                        }
                     }
 
-                    override fun onCancel() {}
+                    override fun onCancel() {
+                        hideLoading()
+                    }
                 })
         }
         mDatabind.uploadimg3.setOnClickListener {
@@ -102,10 +121,17 @@ class ExitPhotoActivity : BaseActivity<ActivityExitPhotoBinding, ExitPhotoVM>() 
                 .setImageEngine(GlideEngine.createGlideEngine())
                 .forResult(object : OnResultCallbackListener<LocalMedia?> {
                     override fun onResult(result: java.util.ArrayList<LocalMedia?>) {
-                        mViewModel.upload(File(result[0]!!.realPath), 3)
+                        if (result[0]!!.size > 200000) {
+                            mViewModel.upload(File(result[0]!!.realPath), 3)
+                            showLoading()
+                        } else {
+                            ToastUtilsExt.info("文件不能大于2MB")
+                        }
                     }
 
-                    override fun onCancel() {}
+                    override fun onCancel() {
+                        hideLoading()
+                    }
                 })
         }
         mDatabind.uploadimg4.setOnClickListener {
@@ -116,10 +142,17 @@ class ExitPhotoActivity : BaseActivity<ActivityExitPhotoBinding, ExitPhotoVM>() 
                 .setImageEngine(GlideEngine.createGlideEngine())
                 .forResult(object : OnResultCallbackListener<LocalMedia?> {
                     override fun onResult(result: java.util.ArrayList<LocalMedia?>) {
-                        mViewModel.upload(File(result[0]!!.realPath), 4)
+                        if (result[0]!!.size > 200000) {
+                            mViewModel.upload(File(result[0]!!.realPath), 4)
+                            showLoading()
+                        } else {
+                            ToastUtilsExt.info("文件不能大于2MB")
+                        }
                     }
 
-                    override fun onCancel() {}
+                    override fun onCancel() {
+                        hideLoading()
+                    }
                 })
         }
         mDatabind.uploadimg5.setOnClickListener {
@@ -130,10 +163,17 @@ class ExitPhotoActivity : BaseActivity<ActivityExitPhotoBinding, ExitPhotoVM>() 
                 .setImageEngine(GlideEngine.createGlideEngine())
                 .forResult(object : OnResultCallbackListener<LocalMedia?> {
                     override fun onResult(result: java.util.ArrayList<LocalMedia?>) {
-                        mViewModel.upload(File(result[0]!!.realPath), 5)
+                        if (result[0]!!.size > 200000) {
+                            mViewModel.upload(File(result[0]!!.realPath), 5)
+                            showLoading()
+                        } else {
+                            ToastUtilsExt.info("文件不能大于2MB")
+                        }
                     }
 
-                    override fun onCancel() {}
+                    override fun onCancel() {
+                        hideLoading()
+                    }
                 })
         }
         mDatabind.uploadimg6.setOnClickListener {
@@ -144,10 +184,17 @@ class ExitPhotoActivity : BaseActivity<ActivityExitPhotoBinding, ExitPhotoVM>() 
                 .setImageEngine(GlideEngine.createGlideEngine())
                 .forResult(object : OnResultCallbackListener<LocalMedia?> {
                     override fun onResult(result: java.util.ArrayList<LocalMedia?>) {
-                        mViewModel.upload(File(result[0]!!.realPath), 6)
+                        if (result[0]!!.size > 200000) {
+                            mViewModel.upload(File(result[0]!!.realPath), 6)
+                            showLoading()
+                        } else {
+                            ToastUtilsExt.info("文件不能大于2MB")
+                        }
                     }
 
-                    override fun onCancel() {}
+                    override fun onCancel() {
+                        hideLoading()
+                    }
                 })
         }
 
@@ -195,6 +242,7 @@ class ExitPhotoActivity : BaseActivity<ActivityExitPhotoBinding, ExitPhotoVM>() 
 
     override fun createObserver() {
         mViewModel.mBackList.observe(this) {
+            ToastUtilsExt.info(it)
             onBackPressed()
         }
 
@@ -212,6 +260,8 @@ class ExitPhotoActivity : BaseActivity<ActivityExitPhotoBinding, ExitPhotoVM>() 
                             .placeholder(R.color.app_color_f6)
                             .diskCacheStrategy(DiskCacheStrategy.NONE)
                             .into(mDatabind.img1)
+                        hideLoading()
+
                     }
                     2 -> {
                         mDatabind.img2.visibility = View.VISIBLE
@@ -224,6 +274,8 @@ class ExitPhotoActivity : BaseActivity<ActivityExitPhotoBinding, ExitPhotoVM>() 
                             .placeholder(R.color.app_color_f6)
                             .diskCacheStrategy(DiskCacheStrategy.NONE)
                             .into(mDatabind.img2)
+                        hideLoading()
+
                     }
                     3 -> {
                         mDatabind.img3.visibility = View.VISIBLE
@@ -236,6 +288,8 @@ class ExitPhotoActivity : BaseActivity<ActivityExitPhotoBinding, ExitPhotoVM>() 
                             .placeholder(R.color.app_color_f6)
                             .diskCacheStrategy(DiskCacheStrategy.NONE)
                             .into(mDatabind.img3)
+                        hideLoading()
+
                     }
                     4 -> {
                         mDatabind.img4.visibility = View.VISIBLE
@@ -248,6 +302,8 @@ class ExitPhotoActivity : BaseActivity<ActivityExitPhotoBinding, ExitPhotoVM>() 
                             .placeholder(R.color.app_color_f6)
                             .diskCacheStrategy(DiskCacheStrategy.NONE)
                             .into(mDatabind.img4)
+                        hideLoading()
+
                     }
                     5 -> {
                         mDatabind.img5.visibility = View.VISIBLE
@@ -260,8 +316,10 @@ class ExitPhotoActivity : BaseActivity<ActivityExitPhotoBinding, ExitPhotoVM>() 
                             .placeholder(R.color.app_color_f6)
                             .diskCacheStrategy(DiskCacheStrategy.NONE)
                             .into(mDatabind.img5)
+                        hideLoading()
+
                     }
-                    else -> {
+                    6 -> {
                         mDatabind.img6.visibility = View.VISIBLE
                         mDatabind.text6.text = url
                         mDatabind.uploadimg6.visibility = View.GONE
@@ -272,6 +330,10 @@ class ExitPhotoActivity : BaseActivity<ActivityExitPhotoBinding, ExitPhotoVM>() 
                             .placeholder(R.color.app_color_f6)
                             .diskCacheStrategy(DiskCacheStrategy.NONE)
                             .into(mDatabind.img6)
+                        hideLoading()
+                    }
+                    else -> {
+                        hideLoading()
                     }
                 }
 
@@ -320,6 +382,30 @@ class ExitPhotoActivity : BaseActivity<ActivityExitPhotoBinding, ExitPhotoVM>() 
         }
     }
 
+    /**
+     * 初始化各种Dialog
+     */
+    private fun initDialog() {
+        if (loadingDialog == null) {
+            loadingDialog = LoadingDialog(this)
+        }
+    }
+
+    /**
+     * 显示等待Dialog
+     */
+    fun showLoading() {
+        if (loadingDialog != null && !loadingDialog!!.isShowing()) loadingDialog!!.show()
+    }
+
+    /**
+     * 隐藏等待Dialog
+     */
+    fun hideLoading() {
+        if (loadingDialog != null && loadingDialog!!.isShowing()) {
+            loadingDialog!!.dismiss()
+        }
+    }
 
     companion object {
         fun launch(context: Context, crc: String, entyyHandover: EntryHandoverBean?) {

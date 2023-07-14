@@ -12,7 +12,7 @@ android {
         applicationId "cn.ryanliu.jycz"
         minSdk 21
         targetSdk 32
-        versionCode 4
+        versionCode 5
         versionName "1.0"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -49,7 +49,7 @@ android {
 }
 
 dependencies {
-    implementation'androidx.multidex:multidex:2.0.1'
+    implementation 'androidx.multidex:multidex:2.0.1'
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation files('libs/Android_Print_SDK_ESC_V1.18.jar')
     implementation 'androidx.core:core-ktx:1.7.0'

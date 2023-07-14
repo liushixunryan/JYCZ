@@ -33,7 +33,7 @@ class OrderListAdapter :
 
         holder.setText(R.id.wtdh_tv, item.py_order_code)
         holder.setText(R.id.rwd_tv, item.task_type)
-        holder.setText(R.id.ddzt_tv, item.order_state_in_scan)
+        holder.setText(R.id.ddzt_tv, item.order_state_scan)
         holder.setText(R.id.ddzxs_tv, item.order_num)
         holder.setText(R.id.ddsj_tv, item.order_time)
         holder.setText(R.id.mdd_tv, item.rec_area)

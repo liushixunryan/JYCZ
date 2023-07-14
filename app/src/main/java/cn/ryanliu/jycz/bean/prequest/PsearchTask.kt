@@ -9,7 +9,8 @@ import cn.ryanliu.jycz.util.MmkvHelper
  * @Description:
  */
 data class PsearchTask(
-    val car_number: String? = null,
-    val oper_flag: String? = null,
-    val scan_user_name: String? = null,
+    var oper_flag: String?,
+    var srh_key_value: String?,
+    var srh_type: String?
+
 )

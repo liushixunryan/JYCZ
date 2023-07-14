@@ -18,9 +18,9 @@ class EntryHandoverVM : BaseViewModel() {
 
 
     fun searchTask(
-        car_number: String? = null,
         oper_flag: String? = null,
-        scan_user_name: String? = null
+        srh_key_value: String? = null,
+        srh_type: String? = null
     ) {
         viewModelScope.launch {
 
@@ -28,9 +28,9 @@ class EntryHandoverVM : BaseViewModel() {
                 showLoading()
                 val response = ApiService.apiService.searchTask(
                     PsearchTask(
-                        car_number,
                         oper_flag,
-                        scan_user_name
+                        srh_key_value,
+                        srh_type
                     )
                 )
 
