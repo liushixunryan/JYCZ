@@ -69,7 +69,6 @@
             android:id="@+id/ddzxs_tv"
             android:layout_width="55dp"
             android:layout_height="wrap_content"
-            android:text="793"
             android:textColor="@color/common_text_black" />
 
 
@@ -112,7 +111,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/ccjjsj_tv"
+            android:id="@+id/mdd_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -197,7 +196,6 @@
             android:id="@+id/xxsmxs_tv"
             android:layout_width="55dp"
             android:layout_height="wrap_content"
-            android:text="793"
             android:textColor="@color/common_text_black" />
 
 
@@ -255,10 +253,9 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/sjxm_tv"
+            android:id="@+id/ddzxss_tv"
             android:layout_width="55dp"
             android:layout_height="wrap_content"
-            android:text="793"
             android:textColor="@color/common_text_black" />
 
 
@@ -295,7 +292,6 @@
             android:id="@+id/kq_tv"
             android:layout_width="55dp"
             android:layout_height="wrap_content"
-            android:text="793"
             android:textColor="@color/common_text_black" />
 
 
