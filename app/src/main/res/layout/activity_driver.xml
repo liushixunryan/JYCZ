@@ -151,9 +151,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
                     android:background="@drawable/xui_config_bg_edittext">
 
                     <EditText
+                        android:gravity="center"
                         android:id="@+id/et_smxm"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
@@ -170,6 +173,7 @@
 
 
                 <TextView
+
                     android:id="@+id/btn_tj"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -177,6 +181,7 @@
                     android:background="#008080"
                     android:gravity="center"
                     android:text="添加"
+                    android:visibility="gone"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp_13" />
 

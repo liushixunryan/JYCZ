@@ -4,6 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.media.AudioManager
 import android.media.SoundPool
+import android.text.InputType
+import android.text.Selection
+import android.text.Spannable
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
@@ -30,6 +33,20 @@ class InventoryCountActivity : BaseActivity<ActivityInventoryCountBinding, Inven
     override fun layoutId(): Int = R.layout.activity_inventory_count
 
     override fun initView() {
+        mDatabind.etSmtm.setOnTouchListener(View.OnTouchListener { v, event ->
+            val inType: Int = mDatabind.etSmtm.getInputType()
+            mDatabind.etSmtm.setInputType(InputType.TYPE_NULL)
+            mDatabind.etSmtm.onTouchEvent(event)
+            mDatabind.etSmtm.setInputType(inType)
+            val text: CharSequence = mDatabind.etSmtm.getText()
+            if (text is Spannable) {
+                val spanText = text as Spannable
+                Selection.setSelection(spanText, text.length)
+            }
+            true
+        })
+        mDatabind.etSmtm.requestFocus();
+
         mSoundPool = SoundPool(3, AudioManager.STREAM_SYSTEM, 5);
         mSoundPool = SoundPool(3, AudioManager.STREAM_SYSTEM, 5);
         mSoundPool = SoundPool(3, AudioManager.STREAM_SYSTEM, 5);
@@ -56,12 +73,14 @@ class InventoryCountActivity : BaseActivity<ActivityInventoryCountBinding, Inven
     private fun onClick() {
         mDatabind.btnTj.setOnClickListener {
             mViewModel.scanMCode("库存盘点", mDatabind.etSmtm.text.toString())
+            mDatabind.etSmtm.setText("")
         }
         mDatabind.etSmtm.setOnEditorActionListener { textView, actionId, keyEvent ->
             if (actionId == EditorInfo.IME_ACTION_DONE
                 || (keyEvent != null && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)
             ) {
                 mViewModel.scanMCode("库存盘点", mDatabind.etSmtm.text.toString())
+                mDatabind.etSmtm.setText("")
                 return@setOnEditorActionListener true
             }
 

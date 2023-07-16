@@ -49,6 +49,7 @@
 
                         <EditText
                             android:id="@+id/et_smtm"
+                            android:gravity="center"
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
                             android:layout_margin="2dp"
@@ -63,6 +64,7 @@
 
 
                     <TextView
+                        android:visibility="gone"
                         android:id="@+id/btn_tj"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"

@@ -59,7 +59,7 @@ public class Bluetooth {
             }
             registerBroadcast();
             rxPermissions = new RxPermissions((Activity) context);
-            rxPermissions.request(Manifest.permission.BLUETOOTH_ADMIN,
+            rxPermissions.request(Manifest.permission.BLUETOOTH_ADMIN,Manifest.permission.BLUETOOTH_SCAN,Manifest.permission.BLUETOOTH_CONNECT,
                     Manifest.permission.BLUETOOTH,
                     Manifest.permission.ACCESS_FINE_LOCATION).subscribe(new Action1<Boolean>() {
                 @SuppressLint("MissingPermission")

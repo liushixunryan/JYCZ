@@ -3,14 +3,20 @@ package cn.ryanliu.jycz.activity
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.text.InputType
+import android.text.Selection
+import android.text.Spannable
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.adapter.TMBQAdapter
 import cn.ryanliu.jycz.basic.BaseActivity
 import cn.ryanliu.jycz.bean.BoxCode
 import cn.ryanliu.jycz.bean.TMBQBean
 import cn.ryanliu.jycz.bean.prequest.PcreateTCode2
+import cn.ryanliu.jycz.common.constant.Constant
 import cn.ryanliu.jycz.databinding.ActivityScanBoxTmactivityBinding
 import cn.ryanliu.jycz.util.PrintBCCodeType
 import cn.ryanliu.jycz.util.ToastUtilsExt
@@ -28,6 +34,20 @@ class ScanBoxTMActivity : BaseActivity<ActivityScanBoxTmactivityBinding, ScanBox
     override fun layoutId(): Int = R.layout.activity_scan_box_tmactivity
 
     override fun initView() {
+        mDatabind.etSmxm.setOnTouchListener(View.OnTouchListener { v, event ->
+            val inType: Int = mDatabind.etSmxm.getInputType()
+            mDatabind.etSmxm.setInputType(InputType.TYPE_NULL)
+            mDatabind.etSmxm.onTouchEvent(event)
+            mDatabind.etSmxm.setInputType(inType)
+            val text: CharSequence = mDatabind.etSmxm.getText()
+            if (text is Spannable) {
+                val spanText = text as Spannable
+                Selection.setSelection(spanText, text.length)
+            }
+            true
+        })
+        mDatabind.etSmxm.requestFocus();
+
         mDatabind.inNavBar.ivNavBack.visibility = View.VISIBLE
         mDatabind.inNavBar.ivNavBack.setOnClickListener {
             onBackPressed()
@@ -45,15 +65,30 @@ class ScanBoxTMActivity : BaseActivity<ActivityScanBoxTmactivityBinding, ScanBox
 
     private fun onClick() {
         var p: MutableList<PcreateTCode2> = ArrayList();
-        mDatabind.btnTj.setOnClickListener(object : OnSingleClickListener() {
-            @SuppressLint("SetTextI18n")
-            override fun onSingleClick(view: View?) {
+
+        mDatabind.etSmxm.setOnEditorActionListener { textView, actionId, keyEvent ->
+            if (actionId == EditorInfo.IME_ACTION_DONE
+                || (keyEvent != null && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)
+            ) {
                 mAdapter.addData(BoxCode(mDatabind.etSmxm.text.toString()))
                 p.add(PcreateTCode2(mDatabind.etSmxm.text.toString()))
                 mDatabind.etZtjs.setText("${mAdapter.data.size}")
+
+                mDatabind.etSmxm.setText("")
+                return@setOnEditorActionListener true
+            }
+
+            return@setOnEditorActionListener false
+        }
+
+        mDatabind.btnTj.setOnClickListener(object : OnSingleClickListener() {
+            @SuppressLint("SetTextI18n")
+            override fun onSingleClick(view: View?) {
+
             }
 
         })
+
 
         mDatabind.btnSctm.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {

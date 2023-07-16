@@ -17,6 +17,7 @@ import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.activity.booth.BTActivity
 import cn.ryanliu.jycz.basic.BaseActivity
 import cn.ryanliu.jycz.common.constant.Constant
+import cn.ryanliu.jycz.common.constant.Constant.MmKv_KEY
 import cn.ryanliu.jycz.databinding.ActivityLoginBinding
 import cn.ryanliu.jycz.util.DialogUtil
 import cn.ryanliu.jycz.util.MmkvHelper
@@ -69,35 +70,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginVM>() {
 
 
 
-        mDatabind.bluetooeh.setOnClickListener {
-//            try {
-//                //打印托码
-////                PrintBCCodeType.PrintTM()
-//                //补打箱码
-////                PrintBCCodeType.PrintXM()
-//                //机油标签规格查询
-////                PrintBCCodeType.PrintJYBQ()
-//
-//                //            PrintBCCodeType.Printcs()
-////                Log.e("sansuiban", "initView: $printXM")
-////                if (printXM == 1) {
-////                    //切纸
-////                    Print.GotoNextLabel()
-////                } else {
-////                    ToastUtilsExt.info("打印错误")
-////                }
-//
-//            } catch (e: java.lang.Exception) {
-//                Log.e(
-//                    "SDKSample",
-//                    java.lang.StringBuilder("Activity_Main --> onClickWIFI ").append(e.message)
-//                        .toString()
-//                )
-//            }
-        }
-
-
-
         screenHeight = this.resources.displayMetrics.heightPixels //获取屏幕高度
         keyHeight = screenHeight / 3 //弹起高度为屏幕高度的1/3
 
@@ -136,6 +108,22 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginVM>() {
         })
 
         mDatabind.btnLogin.setOnClickListener {
+            try {
+                val result = Print.PortOpen(
+                    context,
+                    "Bluetooth,${MmkvHelper.getInstance().getString(MmKv_KEY.BTmac)}"
+                )
+                runOnUiThread {
+                    if (result == 0) {
+                        MmkvHelper.getInstance()
+                            .putBoolean(Constant.MmKv_KEY.ISCONNECT, true)
+                    } else {
+                        MmkvHelper.getInstance().putBoolean(Constant.MmKv_KEY.ISCONNECT, false)
+                    }
+                }
+            } catch (e: Exception) {
+            }
+
             KeyboardUtils.hideSoftInput(this)
             if (mDatabind.etMobile.text.isEmpty()) {
                 ToastUtilsExt.info("请输入用户名")
@@ -186,6 +174,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginVM>() {
             val strIsConnected: String?
             when (resultCode) {
                 RESULT_CANCELED -> {
+                    MmkvHelper.getInstance()
+                        .putString(MmKv_KEY.BTmac, data!!.getStringExtra("SelectedBDAddress"))
                     connectBT(data!!.getStringExtra("SelectedBDAddress"))
                 }
             }
@@ -210,9 +200,13 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginVM>() {
                 try {
                     val result = Print.PortOpen(context, "Bluetooth,$BTmac")
                     runOnUiThread {
-                        if (result == 0) mDatabind.bluetooeh.setText("连接成功") else mDatabind.bluetooeh.setText(
-                            "连接失败" + result
-                        )
+                        if (result == 0) {
+                            MmkvHelper.getInstance()
+                                .putBoolean(Constant.MmKv_KEY.ISCONNECT, true)
+                        } else {
+                            MmkvHelper.getInstance()
+                                .putBoolean(Constant.MmKv_KEY.ISCONNECT, false)
+                        }
                     }
                     progressDialog.dismiss()
                 } catch (e: Exception) {

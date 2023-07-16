@@ -17,5 +17,6 @@ data class ScanInCodeBean(
     val scan_type: String,
     val tp_num: Int,
     val yes_scan_num: Int,
-    val voice_flag: Int
+    val voice_flag: Int,
+    val fact_scan_ok_count: Int
 )

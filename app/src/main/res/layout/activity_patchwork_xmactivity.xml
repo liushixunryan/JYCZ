@@ -38,6 +38,7 @@
                     android:background="@drawable/bg_edittext"
                     android:hint="扫描托码"
                     android:lines="1"
+                    android:gravity="center"
                     android:maxLines="1"
                     android:inputType="text"
                     android:textSize="@dimen/sp_14" />
@@ -53,6 +54,7 @@
                 android:background="#008080"
                 android:gravity="center"
                 android:text="添加"
+                android:visibility="gone"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp_16" />
 

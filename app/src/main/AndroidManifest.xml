@@ -63,12 +63,12 @@
 
         <activity
             android:name=".activity.booth.BTActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false" />
 
 
         <activity
             android:name=".activity.detail.InventoryListActivity"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -83,6 +83,7 @@
         </activity>
         <activity
             android:name=".activity.detail.AreaAdjustListActivity"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -90,6 +91,7 @@
         </activity>
         <activity
             android:name=".activity.detail.AreaAdjustDetailActivity"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -97,6 +99,7 @@
         </activity>
         <activity
             android:name=".activity.detail.OrderListActivity"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -104,6 +107,7 @@
         </activity>
         <activity
             android:name=".activity.detail.OrderDetailActivity"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -111,6 +115,7 @@
         </activity>
         <activity
             android:name=".activity.detail.UnLoadingDetailActivity"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -118,6 +123,7 @@
         </activity>
         <activity
             android:name=".activity.detail.SeeXMDetalActivity"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -125,6 +131,7 @@
         </activity>
         <activity
             android:name=".activity.detail.LoadingListActivity"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -132,6 +139,7 @@
         </activity>
         <activity
             android:name=".activity.detail.LoadingDetailActivity"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -139,6 +147,7 @@
         </activity>
         <activity
             android:name=".activity.InventoryResultActivity"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -153,6 +162,7 @@
         </activity>
         <activity
             android:name=".activity.InventoryCountActivity"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -160,6 +170,7 @@
         </activity>
         <activity
             android:name=".activity.AreaAdjustActivity"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -167,6 +178,7 @@
         </activity>
         <activity
             android:name=".activity.ExitPhotoActivity"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -174,6 +186,7 @@
         </activity>
         <activity
             android:name=".activity.ExitHandoverActivity"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -181,6 +194,7 @@
         </activity>
         <activity
             android:name=".activity.ScanloadingActivity"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -188,6 +202,7 @@
         </activity>
         <activity
             android:name=".activity.PintoActivity"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -195,6 +210,7 @@
         </activity>
         <activity
             android:name=".activity.SortingStackActivity"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -202,6 +218,7 @@
         </activity>
         <activity
             android:name=".activity.PhotoSeeActivity"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -209,6 +226,7 @@
         </activity>
         <activity
             android:name=".activity.EntryPhotoActivity"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -216,6 +234,7 @@
         </activity>
         <activity
             android:name=".activity.EntryHandoverActivity"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -223,6 +242,7 @@
         </activity>
         <activity
             android:name=".activity.XMListActivity"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -230,6 +250,7 @@
         </activity>
         <activity
             android:name=".activity.IndentNumActivity"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -237,6 +258,7 @@
         </activity>
         <activity
             android:name=".activity.DriverActivity"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -244,6 +266,7 @@
         </activity>
         <activity
             android:name=".activity.ProjectActivity"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -251,6 +274,7 @@
         </activity>
         <activity
             android:name=".activity.SelectAreaActivity"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -258,6 +282,7 @@
         </activity>
         <activity
             android:name=".activity.SelectCarActivity"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -265,6 +290,7 @@
         </activity>
         <activity
             android:name=".activity.ScanUnloadingActivity"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -272,6 +298,7 @@
         </activity>
         <activity
             android:name=".activity.EngineOilActivity"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -279,6 +306,7 @@
         </activity>
         <activity
             android:name=".activity.PatchworkXMActivity"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -286,6 +314,7 @@
         </activity>
         <activity
             android:name=".activity.ScanBoxTMActivity"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -293,6 +322,7 @@
         </activity>
         <activity
             android:name=".activity.OnlyPrintTMActivity"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

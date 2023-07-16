@@ -587,7 +587,7 @@
 
             <cn.ryanliu.jycz.view.MaterialSpinner
                 android:id="@+id/et_yylx"
-                style="@style/Material.SpinnerStyle"
+                style="@style/Material.graySpinnerStyle"
                 android:layout_width="0dp"
                 android:layout_height="38dp"
                 android:layout_weight="1"

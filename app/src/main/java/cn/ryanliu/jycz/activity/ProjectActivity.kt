@@ -1,19 +1,34 @@
 package cn.ryanliu.jycz.activity
 
+import android.Manifest
+import android.annotation.SuppressLint
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.media.AudioManager
 import android.media.SoundPool
+import android.text.InputType
+import android.text.Selection
+import android.text.Spannable
+import android.text.TextUtils
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
+import android.view.View.OnTouchListener
 import android.view.inputmethod.EditorInfo
 import cn.ryanliu.jycz.R
+import cn.ryanliu.jycz.activity.booth.BTActivity
 import cn.ryanliu.jycz.basic.BaseActivity
 import cn.ryanliu.jycz.common.constant.Constant
 import cn.ryanliu.jycz.databinding.ActivityProjectBinding
+import cn.ryanliu.jycz.util.DialogUtil
+import cn.ryanliu.jycz.util.MmkvHelper
 import cn.ryanliu.jycz.util.ToastUtilsExt
 import cn.ryanliu.jycz.viewmodel.ProjectVM
+import com.tbruyelle.rxpermissions.RxPermissions
+import print.Print
+
 
 /**
  * @Author: lsx
@@ -27,13 +42,27 @@ class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
     var smxs: Int = 0
     private var pageModel: Int = 0
     private var hand_task_id: Int = 0
-
+    var isconnect = false
     private lateinit var mSoundPool: SoundPool
     private val soundID = HashMap<Int, Int>()
 
     override fun layoutId(): Int = R.layout.activity_project
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun initView() {
+        mDatabind.etSmxm.setOnTouchListener(OnTouchListener { v, event ->
+            val inType: Int = mDatabind.etSmxm.getInputType()
+            mDatabind.etSmxm.setInputType(InputType.TYPE_NULL)
+            mDatabind.etSmxm.onTouchEvent(event)
+            mDatabind.etSmxm.setInputType(inType)
+            val text: CharSequence = mDatabind.etSmxm.getText()
+            if (text is Spannable) {
+                val spanText = text as Spannable
+                Selection.setSelection(spanText, text.length)
+            }
+            true
+        })
+        mDatabind.etSmxm.requestFocus();
 
         mSoundPool = SoundPool(3, AudioManager.STREAM_SYSTEM, 5);
         mSoundPool = SoundPool(3, AudioManager.STREAM_SYSTEM, 5);
@@ -84,7 +113,32 @@ class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
     var order_id = ""
     private fun onClick() {
         mDatabind.bdtmbqBtn.setOnClickListener {
-            PatchworkXMActivity.launch(this, mDatabind.xmtmhTv.text.toString())
+            isconnect = MmkvHelper.getInstance().getBoolean(Constant.MmKv_KEY.ISCONNECT)
+            if (isconnect) {
+                DialogUtil.showSelectDialog(
+                    this,
+                    "条码打印",
+                    arrayOf("仅打印一个【托码】标签", "扫箱码后补打【托码】标签", "补打【箱码】标签", "打印机油标签")
+                ) { position, text ->
+                    when (position) {
+                        0 -> {
+                            OnlyPrintTMActivity.launch(this)
+                        }
+                        1 -> {
+                            ScanBoxTMActivity.launch(this)
+                        }
+
+                        2 -> {
+                            PatchworkXMActivity.launch(this, "")
+                        }
+                        3 -> {
+                            EngineOilActivity.launch(this)
+                        }
+                    }
+                }
+            } else {
+                connectionBluetooth()
+            }
         }
 
         //点击订单数量
@@ -124,6 +178,7 @@ class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
                         "装车"
                     }, mDatabind.etSmxm.text.toString(), carNum, "项目预约", areaId
                 )
+                mDatabind.etSmxm.setText("")
                 return@setOnEditorActionListener true
             }
 
@@ -139,6 +194,7 @@ class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
                     "装车"
                 }, mDatabind.etSmxm.text.toString(), carNum, "项目预约", areaId
             )
+            mDatabind.etSmxm.setText("")
         }
 
         //确认卸车完成
@@ -191,7 +247,7 @@ class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
                 }
 
 
-                smxs = smxs + it?.tp_num!!
+                smxs = smxs + it?.fact_scan_ok_count!!
                 mDatabind.inNavBar.tvNavCenter.text = "扫描箱数：${smxs}"
                 order_id = it?.order_id.toString()
                 mDatabind.iswarnTv.text = it?.scan_tips
@@ -202,7 +258,6 @@ class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
                     mDatabind.iswarnImg.setImageResource(R.mipmap.warn)
                     mDatabind.iswarnTv.setTextColor(Color.parseColor("#FF0000"))
                 }
-                mDatabind.etSmxm.setText("")
                 mDatabind.xmtmhTv.text = it?.scan_code.toString()
                 mDatabind.mddTv.text = it?.rec_area.toString()
                 mDatabind.smlxTv.text = it?.scan_type.toString()
@@ -219,6 +274,81 @@ class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
                 MainActivity.launchClear(this)
             }
         }
+    }
+
+    private fun connectionBluetooth() {
+        //获取蓝牙动态权限
+        val rxPermissions = RxPermissions(this)
+        rxPermissions.request(
+            Manifest.permission.BLUETOOTH_ADMIN,
+            Manifest.permission.BLUETOOTH,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ).subscribe {
+            if (true) {
+                val intent = Intent(this, BTActivity::class.java)
+                intent.putExtra("TAG", 0)
+                startActivityForResult(intent, 0)
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        try {
+            val strIsConnected: String?
+            when (resultCode) {
+                RESULT_CANCELED -> {
+                    MmkvHelper.getInstance().putString(
+                        Constant.MmKv_KEY.BTmac,
+                        data!!.getStringExtra("SelectedBDAddress")
+                    )
+                    connectBT(data!!.getStringExtra("SelectedBDAddress"))
+                }
+            }
+        } catch (e: Exception) {
+            Log.e(
+                "SDKSample", StringBuilder("Activity_Main --> onActivityResult ")
+                    .append(e.message).toString()
+            )
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    //连接蓝牙
+    private fun connectBT(BTmac: String?) {
+        if (TextUtils.isEmpty(BTmac)) return
+        val progressDialog = ProgressDialog(this)
+        progressDialog.setMessage("connect")
+        progressDialog.show()
+        object : Thread() {
+            override fun run() {
+                super.run()
+                try {
+                    val result = Print.PortOpen(context, "Bluetooth,$BTmac")
+                    runOnUiThread {
+                        if (result == 0) {
+                            MmkvHelper.getInstance().putBoolean(Constant.MmKv_KEY.ISCONNECT, true)
+                            MmkvHelper.getInstance()
+                                .putBoolean(Constant.MmKv_KEY.ISCONNECT, true)
+                            ToastUtilsExt.info("连接成功")
+                            val setJustification = Print.SetJustification(2)
+                            if (setJustification != -1) {
+
+                            } else {
+                                ToastUtilsExt.info("打印机设置失败")
+                            }
+
+                        } else {
+                            MmkvHelper.getInstance().putBoolean(Constant.MmKv_KEY.ISCONNECT, false)
+                            ToastUtilsExt.info("连接失败" + result)
+                        }
+
+                    }
+                    progressDialog.dismiss()
+                } catch (e: Exception) {
+                    progressDialog.dismiss()
+                }
+            }
+        }.start()
     }
 
     companion object {

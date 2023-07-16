@@ -4,6 +4,9 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.InputType
+import android.text.Selection
+import android.text.Spannable
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -28,6 +31,19 @@ class PintoActivity : BaseActivity<ActivityPintoBinding, PintoVM>() {
     override fun layoutId(): Int = R.layout.activity_pinto
 
     override fun initView() {
+        mDatabind.etSmtm.setOnTouchListener(View.OnTouchListener { v, event ->
+            val inType: Int = mDatabind.etSmtm.getInputType()
+            mDatabind.etSmtm.setInputType(InputType.TYPE_NULL)
+            mDatabind.etSmtm.onTouchEvent(event)
+            mDatabind.etSmtm.setInputType(inType)
+            val text: CharSequence = mDatabind.etSmtm.getText()
+            if (text is Spannable) {
+                val spanText = text as Spannable
+                Selection.setSelection(spanText, text.length)
+            }
+            true
+        })
+        mDatabind.etSmtm.requestFocus();
         mDatabind.inNavBar.ivNavBack.visibility = View.VISIBLE
         mDatabind.inNavBar.ivNavBack.setOnClickListener {
             onBackPressed()
@@ -57,6 +73,7 @@ class PintoActivity : BaseActivity<ActivityPintoBinding, PintoVM>() {
                         mDatabind.zjtsTv.text.toString().toInt(),
                         AreaNameID
                     )
+                    mDatabind.etSmtm.setText("")
                 }
                 return@setOnEditorActionListener true
             }

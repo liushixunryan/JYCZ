@@ -8,6 +8,9 @@ import android.media.AudioManager
 import android.media.SoundPool
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.InputType
+import android.text.Selection
+import android.text.Spannable
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -34,6 +37,20 @@ class DriverActivity : BaseActivity<ActivityDriverBinding, DriverVM>() {
     override fun layoutId(): Int = R.layout.activity_driver
 
     override fun initView() {
+        mDatabind.etSmxm.setOnTouchListener(View.OnTouchListener { v, event ->
+            val inType: Int = mDatabind.etSmxm.getInputType()
+            mDatabind.etSmxm.setInputType(InputType.TYPE_NULL)
+            mDatabind.etSmxm.onTouchEvent(event)
+            mDatabind.etSmxm.setInputType(inType)
+            val text: CharSequence = mDatabind.etSmxm.getText()
+            if (text is Spannable) {
+                val spanText = text as Spannable
+                Selection.setSelection(spanText, text.length)
+            }
+            true
+        })
+        mDatabind.etSmxm.requestFocus();
+
         mSoundPool = SoundPool(3, AudioManager.STREAM_SYSTEM, 5);
         mSoundPool = SoundPool(3, AudioManager.STREAM_SYSTEM, 5);
         mSoundPool = SoundPool(3, AudioManager.STREAM_SYSTEM, 5);
@@ -94,6 +111,7 @@ class DriverActivity : BaseActivity<ActivityDriverBinding, DriverVM>() {
                         "装车"
                     }, mDatabind.etSmxm.text.toString(), carNum, "司机预约", areaId
                 )
+                mDatabind.etSmxm.setText("")
                 return@setOnEditorActionListener true
             }
 
@@ -108,6 +126,7 @@ class DriverActivity : BaseActivity<ActivityDriverBinding, DriverVM>() {
                     "装车"
                 }, mDatabind.etSmxm.text.toString(), carNum, "司机预约", areaId
             )
+            mDatabind.etSmxm.setText("")
         }
         //确认卸车完成
         mDatabind.qrxcwcBtn.setOnClickListener {
@@ -157,7 +176,7 @@ class DriverActivity : BaseActivity<ActivityDriverBinding, DriverVM>() {
                     }
                 }
 
-                smxs = smxs + it?.tp_num!!
+                smxs = smxs + it?.fact_scan_ok_count!!
                 mDatabind.inNavBar.tvNavCenter.text = "扫描箱数：${smxs}"
                 mDatabind.iswarnTv.text = it?.scan_tips
                 if (it?.scan_tips == "正常") {

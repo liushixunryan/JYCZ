@@ -1,24 +1,23 @@
 package cn.ryanliu.jycz.activity
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
+import android.text.InputType
+import android.text.Selection
+import android.text.Spannable
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.adapter.TMBQAdapter
 import cn.ryanliu.jycz.basic.BaseActivity
-import cn.ryanliu.jycz.bean.TMBQBean
 import cn.ryanliu.jycz.bean.prequest.Boxcode
 import cn.ryanliu.jycz.bean.prequest.Pcreategeneralboxcode
 import cn.ryanliu.jycz.databinding.ActivityPatchworkXmactivityBinding
-import cn.ryanliu.jycz.databinding.ActivityScanBoxTmactivityBinding
 import cn.ryanliu.jycz.util.PrintBCCodeType
 import cn.ryanliu.jycz.util.ToastUtilsExt
 import cn.ryanliu.jycz.viewmodel.PatchworkXMVM
-import cn.ryanliu.jycz.viewmodel.ScanBoxTMVM
 import print.Print
 
 /**
@@ -35,19 +34,27 @@ class PatchworkXMActivity : BaseActivity<ActivityPatchworkXmactivityBinding, Pat
     override fun layoutId(): Int = R.layout.activity_patchwork_xmactivity
 
     override fun initView() {
+        mDatabind.etSmtm.setOnTouchListener(View.OnTouchListener { v, event ->
+            val inType: Int = mDatabind.etSmtm.getInputType()
+            mDatabind.etSmtm.setInputType(InputType.TYPE_NULL)
+            mDatabind.etSmtm.onTouchEvent(event)
+            mDatabind.etSmtm.setInputType(inType)
+            val text: CharSequence = mDatabind.etSmtm.getText()
+            if (text is Spannable) {
+                val spanText = text as Spannable
+                Selection.setSelection(spanText, text.length)
+            }
+            true
+        })
+        mDatabind.etSmtm.requestFocus();
+
         mDatabind.inNavBar.ivNavBack.visibility = View.VISIBLE
         mDatabind.inNavBar.ivNavBack.setOnClickListener {
             onBackPressed()
         }
         mDatabind.inNavBar.tvNavTitle.text = "补打【箱码】标签"
         mDatabind.etZtjs.setText("1")
-        if (intent.getStringExtra("ispt").toString() != "") {
-            isSearch(false);
-            mDatabind.xmtmhTv.text = intent.getStringExtra("ispt").toString()
-        } else {
-            isSearch(true);
 
-        }
 
         mAdapter = TMBQAdapter();
         mDatabind.tmRv.adapter = mAdapter
@@ -57,23 +64,20 @@ class PatchworkXMActivity : BaseActivity<ActivityPatchworkXmactivityBinding, Pat
         onClick()
     }
 
-    @SuppressLint("ResourceAsColor")
-    private fun isSearch(isClick: Boolean) {
-        if (!isClick) {
-            mDatabind.btnTj.setBackgroundColor(R.color.Gray9)
-        }
-
-        mDatabind.etSmtm.isClickable = isClick
-        mDatabind.etSmtm.isFocusable = isClick
-        mDatabind.btnTj.isClickable = isClick
-        mDatabind.btnTj.isFocusable = isClick
-        mDatabind.etZtjs.isClickable = isClick
-        mDatabind.etZtjs.isFocusable = isClick
-
-    }
-
 
     private fun onClick() {
+        mDatabind.etSmtm.setOnEditorActionListener { textView, actionId, keyEvent ->
+            if (actionId == EditorInfo.IME_ACTION_DONE
+                || (keyEvent != null && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)
+            ) {
+                mDatabind.xmtmhTv.text = mDatabind.etSmtm.text
+                mDatabind.etSmtm.setText("")
+                return@setOnEditorActionListener true
+            }
+
+            return@setOnEditorActionListener false
+        }
+
         mDatabind.btnTj.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
                 mDatabind.xmtmhTv.text = mDatabind.etSmtm.text

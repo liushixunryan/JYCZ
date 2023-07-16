@@ -63,6 +63,18 @@
         <item name="ms_dropdown_bg">@drawable/ms_drop_down_bg_radius</item>
     </style>
 
+    <style name="Material.graySpinnerStyle" parent="@style/Widget.AppCompat.Spinner">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:textSize">@dimen/sp_14</item>
+        <item name="android:textColor">@color/common_text_black</item>
+        <item name="ms_dropdown_height">wrap_content</item>
+        <item name="ms_text_color">@color/common_text_black</item>
+        <item name="ms_background_selector">@drawable/xui_config_bg_gray_edittext</item>
+        <item name="ms_dropdown_bg">@drawable/ms_drop_down_bg_radius</item>
+    </style>
+
+
     <style name="pop_window_anim_style" parent="android:Animation">
         <item name="android:windowEnterAnimation">@drawable/pop_show_anim</item>
         <item name="android:windowExitAnimation">@drawable/pop_hidden_anim</item>

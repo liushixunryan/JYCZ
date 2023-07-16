@@ -59,29 +59,29 @@ class ScanUnloadingActivity : BaseActivity<ActivityScanUnloadingBinding, ScanUnl
             }
         })
 
-        mDatabind.etYylx.setOnClickListener {
-            val isyesorno = listOf("司机预约", "项目预约")
-            //创建一个xpopupview
-            val attachPopupView: AttachPopupView = XPopup.Builder(context)
-                .hasShadowBg(false)
-                .popupAnimation(PopupAnimation.ScrollAlphaFromBottom)
-                .popupWidth(mDatabind.etYylx.width ?: 0)
-                .isCenterHorizontal(true) //是否与目标水平居中对齐
-                .popupPosition(PopupPosition.Top) //手动指定弹窗的位置
-                .atView(it) // 依附于所点击的View，内部会自动判断在上方或者下方显示
-                .asAttachList(
-                    isyesorno.toTypedArray(),
-                    intArrayOf(),
-                    { position, text ->
-                        Log.e("sansuiban", "onCreate: ${position},${text}")
-                        mDatabind.etYylx.text = text
-                        reservationId = position
-                    },
-                    0,
-                    0 /*, Gravity.LEFT*/
-                )
-            attachPopupView.show()
-        }
+//        mDatabind.etYylx.setOnClickListener {
+//            val isyesorno = listOf("司机预约", "项目预约")
+//            //创建一个xpopupview
+//            val attachPopupView: AttachPopupView = XPopup.Builder(context)
+//                .hasShadowBg(false)
+//                .popupAnimation(PopupAnimation.ScrollAlphaFromBottom)
+//                .popupWidth(mDatabind.etYylx.width ?: 0)
+//                .isCenterHorizontal(true) //是否与目标水平居中对齐
+//                .popupPosition(PopupPosition.Top) //手动指定弹窗的位置
+//                .atView(it) // 依附于所点击的View，内部会自动判断在上方或者下方显示
+//                .asAttachList(
+//                    isyesorno.toTypedArray(),
+//                    intArrayOf(),
+//                    { position, text ->
+//                        Log.e("sansuiban", "onCreate: ${position},${text}")
+//                        mDatabind.etYylx.text = text
+//                        reservationId = position
+//                    },
+//                    0,
+//                    0 /*, Gravity.LEFT*/
+//                )
+//            attachPopupView.show()
+//        }
 
         mDatabind.btnStartscan.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {

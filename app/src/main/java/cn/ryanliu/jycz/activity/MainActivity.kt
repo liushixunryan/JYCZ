@@ -18,6 +18,7 @@ import cn.ryanliu.jycz.basic.BaseApplication
 import cn.ryanliu.jycz.bean.HomeCARBean
 import cn.ryanliu.jycz.bean.HomePDABean
 import cn.ryanliu.jycz.common.constant.Constant
+import cn.ryanliu.jycz.common.constant.Constant.MmKv_KEY
 import cn.ryanliu.jycz.databinding.ActivityMainBinding
 import cn.ryanliu.jycz.util.*
 import cn.ryanliu.jycz.view.GridSpaceItemDecoration
@@ -64,6 +65,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainVM>() {
         mDatabind.sjTv.text = MmkvHelper.getInstance().getString(Constant.MmKv_KEY.PHONE)
         mDatabind.dayinjiImg.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
+                isconnect = MmkvHelper.getInstance().getBoolean(MmKv_KEY.ISCONNECT)
                 if (isconnect) {
                     DialogUtil.showSelectDialog(
                         this@MainActivity,
@@ -281,6 +283,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainVM>() {
             val strIsConnected: String?
             when (resultCode) {
                 RESULT_CANCELED -> {
+                    MmkvHelper.getInstance().putString(MmKv_KEY.BTmac,data!!.getStringExtra("SelectedBDAddress"))
+
                     connectBT(data!!.getStringExtra("SelectedBDAddress"))
                 }
             }
@@ -306,16 +310,18 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainVM>() {
                     val result = Print.PortOpen(context, "Bluetooth,$BTmac")
                     runOnUiThread {
                         if (result == 0) {
-                            isconnect = true
+                            MmkvHelper.getInstance().putBoolean(MmKv_KEY.ISCONNECT, true)
+
                             ToastUtilsExt.info("连接成功")
                             val setJustification = Print.SetJustification(2)
-                            if (setJustification != -1){
+                            if (setJustification != -1) {
 
-                            }else{
+                            } else {
                                 ToastUtilsExt.info("打印机设置失败")
                             }
 
                         } else {
+                            MmkvHelper.getInstance().putBoolean(MmKv_KEY.ISCONNECT, false)
                             ToastUtilsExt.info("连接失败" + result)
                         }
 

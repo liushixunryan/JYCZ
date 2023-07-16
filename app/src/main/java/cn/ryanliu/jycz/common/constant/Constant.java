@@ -53,6 +53,10 @@ public class Constant {
 
 
         public static final String PANDIAN = "pandian";
+        public static final String ISCONNECT = "ISCONNECT";
+        public static final String BTmac = "BTmac";
+
+
 
 
     }
