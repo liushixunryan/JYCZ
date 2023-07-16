@@ -71,9 +71,14 @@ class SortingStackActivity : BaseActivity<ActivitySortingStackBinding, SortingSt
             if (actionId == EditorInfo.IME_ACTION_DONE
                 || (keyEvent != null && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)
             ) {
-                mViewModel.scanMCode("分拣码放", mDatabind.etSmtm.text.toString())
-                mDatabind.etSmtm.setText("")
-                return@setOnEditorActionListener true
+                if (!mDatabind.etSmtm.text.toString().isNullOrEmpty()) {
+                    mViewModel.scanMCode("分拣码放", mDatabind.etSmtm.text.toString())
+                    mDatabind.etSmtm.setText("")
+                    return@setOnEditorActionListener true
+                } else {
+                    ToastUtilsExt.info("暂无数据")
+                }
+
             }
 
             return@setOnEditorActionListener false

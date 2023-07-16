@@ -14,6 +14,7 @@ import android.view.inputmethod.EditorInfo
 import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.basic.BaseActivity
 import cn.ryanliu.jycz.databinding.ActivityInventoryCountBinding
+import cn.ryanliu.jycz.util.ToastUtilsExt
 import cn.ryanliu.jycz.util.UserUtil
 import cn.ryanliu.jycz.viewmodel.InventoryCountVM
 import com.xql.loading.TipDialog
@@ -79,9 +80,14 @@ class InventoryCountActivity : BaseActivity<ActivityInventoryCountBinding, Inven
             if (actionId == EditorInfo.IME_ACTION_DONE
                 || (keyEvent != null && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)
             ) {
-                mViewModel.scanMCode("库存盘点", mDatabind.etSmtm.text.toString())
-                mDatabind.etSmtm.setText("")
-                return@setOnEditorActionListener true
+                if (!mDatabind.etSmtm.text.toString().isNullOrEmpty()) {
+                    mViewModel.scanMCode("库存盘点", mDatabind.etSmtm.text.toString())
+                    mDatabind.etSmtm.setText("")
+                    return@setOnEditorActionListener true
+                }else{
+                    ToastUtilsExt.info("暂无数据")
+                }
+
             }
 
             return@setOnEditorActionListener false

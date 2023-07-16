@@ -9,6 +9,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -59,28 +60,54 @@ public class Bluetooth {
             }
             registerBroadcast();
             rxPermissions = new RxPermissions((Activity) context);
-            rxPermissions.request(Manifest.permission.BLUETOOTH_ADMIN,Manifest.permission.BLUETOOTH_SCAN,Manifest.permission.BLUETOOTH_CONNECT,
-                    Manifest.permission.BLUETOOTH,
-                    Manifest.permission.ACCESS_FINE_LOCATION).subscribe(new Action1<Boolean>() {
-                @SuppressLint("MissingPermission")
-                @Override
-                public void call(Boolean aBoolean) {
-                    if (aBoolean) {
-                        if (null == mBluetoothAdapter) {
-                            mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                rxPermissions.request(Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH_SCAN, Manifest.permission.BLUETOOTH_CONNECT,
+                        Manifest.permission.BLUETOOTH,
+                        Manifest.permission.ACCESS_FINE_LOCATION).subscribe(new Action1<Boolean>() {
+                    @SuppressLint("MissingPermission")
+                    @Override
+                    public void call(Boolean aBoolean) {
+                        if (aBoolean) {
+                            if (null == mBluetoothAdapter) {
+                                mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+                            }
+                            if (!mBluetoothAdapter.isEnabled()) {
+                                mBluetoothAdapter.enable();
+                            }
+                            if (mBluetoothAdapter.isDiscovering()) {
+                                mBluetoothAdapter.cancelDiscovery();
+                            }
+                            mBluetoothAdapter.startDiscovery();
+                        } else {
+                            Utility.show(context, "蓝牙权限获取失败");
                         }
-                        if (!mBluetoothAdapter.isEnabled()) {
-                            mBluetoothAdapter.enable();
-                        }
-                        if (mBluetoothAdapter.isDiscovering()) {
-                            mBluetoothAdapter.cancelDiscovery();
-                        }
-                        mBluetoothAdapter.startDiscovery();
-                    } else {
-                        Utility.show(context, "no bluetooth permission");
                     }
-                }
-            });
+                });
+            } else {
+                rxPermissions.request(Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH,
+                        Manifest.permission.ACCESS_FINE_LOCATION).subscribe(new Action1<Boolean>() {
+                    @SuppressLint("MissingPermission")
+                    @Override
+                    public void call(Boolean aBoolean) {
+                        if (aBoolean) {
+                            if (null == mBluetoothAdapter) {
+                                mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+                            }
+                            if (!mBluetoothAdapter.isEnabled()) {
+                                mBluetoothAdapter.enable();
+                            }
+                            if (mBluetoothAdapter.isDiscovering()) {
+                                mBluetoothAdapter.cancelDiscovery();
+                            }
+                            mBluetoothAdapter.startDiscovery();
+                        } else {
+                            Utility.show(context, "蓝牙权限获取失败");
+                        }
+                    }
+                });
+            }
+
+
         }
     }
 
@@ -90,6 +117,7 @@ public class Bluetooth {
 
     public interface toData {
         public void succeed(String BTname, String BTmac);
+
         public void end(String end);
     }
 
@@ -99,10 +127,10 @@ public class Bluetooth {
 
     @SuppressLint("MissingPermission")
     public void disReceiver() {
-        if (mReceiver != null && context != null){
+        if (mReceiver != null && context != null) {
             context.unregisterReceiver(mReceiver);
         }
-        if (mBluetoothAdapter.isDiscovering()){
+        if (mBluetoothAdapter.isDiscovering()) {
             mBluetoothAdapter.cancelDiscovery();
         }
 

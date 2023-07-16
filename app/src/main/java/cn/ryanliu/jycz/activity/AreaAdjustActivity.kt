@@ -75,9 +75,14 @@ class AreaAdjustActivity : BaseActivity<ActivityAreaAdjustBinding, AreaAdjustVM>
             if (actionId == EditorInfo.IME_ACTION_DONE
                 || (keyEvent != null && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)
             ) {
-                mViewModel.scanMCode("库位调整", mDatabind.etSmtm.text.toString())
-                mDatabind.etSmtm.setText("")
-                return@setOnEditorActionListener true
+                if (!mDatabind.etSmtm.text.toString().isNullOrEmpty()) {
+                    mViewModel.scanMCode("库位调整", mDatabind.etSmtm.text.toString())
+                    mDatabind.etSmtm.setText("")
+                    return@setOnEditorActionListener true
+                } else {
+                    ToastUtilsExt.info("暂无数据")
+                }
+
             }
 
             return@setOnEditorActionListener false
@@ -146,7 +151,7 @@ class AreaAdjustActivity : BaseActivity<ActivityAreaAdjustBinding, AreaAdjustVM>
 
     override fun createObserver() {
         mViewModel.mSelectCar.observe(this) {
-            if (it!=null) {
+            if (it != null) {
                 when (it!!.voice_flag) {
                     0 -> {
                         mSoundPool.play(soundID[0]!!, 1F, 1F, 0, 0, 1F);

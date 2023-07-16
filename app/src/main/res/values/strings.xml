@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">集运场站管理系统</string>
+    <string name="app_name">场站系统</string>
     <string name="activity_main_originalsize">原大小：</string>
     <string name="activity_main_minifront">小字体:</string>
     <string name="activity_main_heightsize">倍高:</string>

@@ -104,15 +104,20 @@ class DriverActivity : BaseActivity<ActivityDriverBinding, DriverVM>() {
             if (actionId == EditorInfo.IME_ACTION_DONE
                 || (keyEvent != null && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)
             ) {
-                mViewModel.getScanInCode(
-                    hand_task_id, if (pageModel == Constant.PageModel.XIECHE) {
-                        "卸车"
-                    } else {
-                        "装车"
-                    }, mDatabind.etSmxm.text.toString(), carNum, "司机预约", areaId
-                )
-                mDatabind.etSmxm.setText("")
-                return@setOnEditorActionListener true
+                if (!mDatabind.etSmxm.text.toString().isNullOrEmpty()){
+                    mViewModel.getScanInCode(
+                        hand_task_id, if (pageModel == Constant.PageModel.XIECHE) {
+                            "卸车"
+                        } else {
+                            "装车"
+                        }, mDatabind.etSmxm.text.toString(), carNum, "司机预约", areaId
+                    )
+                    mDatabind.etSmxm.setText("")
+                    return@setOnEditorActionListener true
+                }else{
+                    ToastUtilsExt.info("暂无数据")
+                }
+
             }
 
             return@setOnEditorActionListener false
