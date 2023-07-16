@@ -43,7 +43,7 @@
         <LinearLayout
             android:id="@+id/ll_user_name"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="60dp"
             android:background="@drawable/shape_gray2_r8"
@@ -51,8 +51,8 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
                 android:src="@mipmap/monitor_ic_login_user" />
@@ -67,13 +67,13 @@
                 android:inputType="textVisiblePassword"
                 android:maxLength="20"
                 android:singleLine="true"
-                android:textColor="@color/Gray9"
+                android:textColor="@color/common_text_black"
                 android:textColorHint="@color/Gray9"
-                android:textSize="14dp" />
+                android:textSize="18dp" />
 
             <ImageView
                 android:id="@+id/iv_clean_phone"
-                android:layout_width="40dp"
+                android:layout_width="50dp"
                 android:layout_height="fill_parent"
                 android:scaleType="centerInside"
                 android:src="@mipmap/ic_clear"
@@ -85,7 +85,7 @@
         <LinearLayout
             android:id="@+id/ll_pwd"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_below="@+id/ll_user_name"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="25dp"
@@ -94,8 +94,8 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
                 android:src="@mipmap/monitor_ic_login_passwords" />
@@ -110,13 +110,13 @@
                 android:inputType="textPassword"
                 android:maxLength="16"
                 android:singleLine="true"
-                android:textColor="@color/Gray9"
+                android:textColor="@color/common_text_black"
                 android:textColorHint="@color/Gray9"
-                android:textSize="14dp" />
+                android:textSize="18dp" />
 
             <ImageView
                 android:id="@+id/clean_password"
-                android:layout_width="40dp"
+                android:layout_width="50dp"
                 android:layout_height="fill_parent"
                 android:scaleType="centerInside"
                 android:src="@mipmap/ic_clear"
@@ -125,7 +125,7 @@
 
             <ImageView
                 android:id="@+id/iv_show_pwd"
-                android:layout_width="40dp"
+                android:layout_width="50dp"
                 android:layout_height="fill_parent"
                 android:scaleType="centerInside"
                 android:src="@mipmap/pass_gone" />

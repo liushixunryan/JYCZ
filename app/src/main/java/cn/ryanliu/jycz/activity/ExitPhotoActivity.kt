@@ -74,7 +74,6 @@ class ExitPhotoActivity : BaseActivity<ActivityExitPhotoBinding, ExitPhotoVM>() 
         mDatabind.uploadimg1.setOnClickListener {
             PictureSelector.create(this)
                 .openGallery(SelectMimeType.ofImage()).setMaxSelectNum(1)
-                .setCameraImageFormat(PictureMimeType.ofPNG())
                 .setQueryOnlyMimeType("image/jpeg", "image/png", "image/jpg")
                 .setImageEngine(GlideEngine.createGlideEngine())
                 .forResult(object : OnResultCallbackListener<LocalMedia?> {
@@ -93,7 +92,6 @@ class ExitPhotoActivity : BaseActivity<ActivityExitPhotoBinding, ExitPhotoVM>() 
         mDatabind.uploadimg2.setOnClickListener {
             PictureSelector.create(this)
                 .openGallery(SelectMimeType.ofImage()).setMaxSelectNum(1)
-                .setCameraImageFormat(PictureMimeType.ofPNG())
                 .setQueryOnlyMimeType("image/jpeg", "image/png", "image/jpg")
                 .setImageEngine(GlideEngine.createGlideEngine())
                 .forResult(object : OnResultCallbackListener<LocalMedia?> {
@@ -112,7 +110,6 @@ class ExitPhotoActivity : BaseActivity<ActivityExitPhotoBinding, ExitPhotoVM>() 
         mDatabind.uploadimg3.setOnClickListener {
             PictureSelector.create(this)
                 .openGallery(SelectMimeType.ofImage()).setMaxSelectNum(1)
-                .setCameraImageFormat(PictureMimeType.ofPNG())
                 .setQueryOnlyMimeType("image/jpeg", "image/png", "image/jpg")
                 .setImageEngine(GlideEngine.createGlideEngine())
                 .forResult(object : OnResultCallbackListener<LocalMedia?> {
@@ -131,7 +128,6 @@ class ExitPhotoActivity : BaseActivity<ActivityExitPhotoBinding, ExitPhotoVM>() 
         mDatabind.uploadimg4.setOnClickListener {
             PictureSelector.create(this)
                 .openGallery(SelectMimeType.ofImage()).setMaxSelectNum(1)
-                .setCameraImageFormat(PictureMimeType.ofPNG())
                 .setQueryOnlyMimeType("image/jpeg", "image/png", "image/jpg")
                 .setImageEngine(GlideEngine.createGlideEngine())
                 .forResult(object : OnResultCallbackListener<LocalMedia?> {
@@ -150,7 +146,6 @@ class ExitPhotoActivity : BaseActivity<ActivityExitPhotoBinding, ExitPhotoVM>() 
         mDatabind.uploadimg5.setOnClickListener {
             PictureSelector.create(this)
                 .openGallery(SelectMimeType.ofImage()).setMaxSelectNum(1)
-                .setCameraImageFormat(PictureMimeType.ofPNG())
                 .setQueryOnlyMimeType("image/jpeg", "image/png", "image/jpg")
                 .setImageEngine(GlideEngine.createGlideEngine())
                 .forResult(object : OnResultCallbackListener<LocalMedia?> {
@@ -169,7 +164,6 @@ class ExitPhotoActivity : BaseActivity<ActivityExitPhotoBinding, ExitPhotoVM>() 
         mDatabind.uploadimg6.setOnClickListener {
             PictureSelector.create(this)
                 .openGallery(SelectMimeType.ofImage()).setMaxSelectNum(1)
-                .setCameraImageFormat(PictureMimeType.ofPNG())
                 .setQueryOnlyMimeType("image/jpeg", "image/png", "image/jpg")
                 .setImageEngine(GlideEngine.createGlideEngine())
                 .forResult(object : OnResultCallbackListener<LocalMedia?> {

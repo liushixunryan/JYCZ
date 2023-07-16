@@ -76,11 +76,15 @@ class AreaAdjustActivity : BaseActivity<ActivityAreaAdjustBinding, AreaAdjustVM>
                 || (keyEvent != null && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)
             ) {
                 if (!mDatabind.etSmtm.text.toString().isNullOrEmpty()) {
+                    mDatabind.etSmtm.setFocusable(true);
+                    mDatabind.etSmtm.setFocusableInTouchMode(true);
+                    mDatabind.etSmtm.requestFocus();
+
                     mViewModel.scanMCode("库位调整", mDatabind.etSmtm.text.toString())
                     mDatabind.etSmtm.setText("")
                     return@setOnEditorActionListener true
                 } else {
-                    
+
                 }
 
             }

@@ -80,8 +80,17 @@ dependencies {
     api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.11'
     implementation 'com.geyifeng.immersionbar:immersionbar:3.2.2'
     api 'com.github.li-xiaojun:XPopup:2.9.18'
-    // PictureSelector basic (Necessary)
     implementation 'io.github.lucksiege:pictureselector:v3.11.1'
+
+    // PictureSelector 基础 (必须)
+    implementation 'io.github.lucksiege:pictureselector:v3.11.1'
+//    // image compress library (Not necessary)
+//    implementation 'io.github.lucksiege:compress:v3.11.1'
+//    // uCrop library (Not necessary)
+//    implementation 'io.github.lucksiege:ucrop:v3.11.1'
+//    // simple camerax library (Not necessary)
+//    implementation 'io.github.lucksiege:camerax:v3.11.1'
+
     //动态权限
 //    api 'com.yanzhenjie:permission:2.0.3'
     implementation 'androidx.databinding:databinding-runtime:7.1.3'

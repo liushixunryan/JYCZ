@@ -154,6 +154,9 @@ public class BTActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        bluetooth.disReceiver();
+        if (bluetooth != null){
+            bluetooth.disReceiver();
+        }
+
     }
 }

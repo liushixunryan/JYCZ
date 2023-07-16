@@ -70,6 +70,9 @@ class PatchworkXMActivity : BaseActivity<ActivityPatchworkXmactivityBinding, Pat
             if (actionId == EditorInfo.IME_ACTION_DONE
                 || (keyEvent != null && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)
             ) {
+                mDatabind.etSmtm.setFocusable(true);
+                mDatabind.etSmtm.setFocusableInTouchMode(true);
+                mDatabind.etSmtm.requestFocus();
                 mDatabind.xmtmhTv.text = mDatabind.etSmtm.text
                 mDatabind.etSmtm.setText("")
                 return@setOnEditorActionListener true

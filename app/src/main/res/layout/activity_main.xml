@@ -54,6 +54,7 @@
 
 
                         <TextView
+                            android:textSize="@dimen/sp_14"
                             android:id="@+id/zz_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

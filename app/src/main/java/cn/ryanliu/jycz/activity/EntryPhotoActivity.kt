@@ -7,8 +7,8 @@ import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.basic.BaseActivity
 import cn.ryanliu.jycz.bean.EntryHandoverBean
 import cn.ryanliu.jycz.databinding.ActivityEntryPhotoBinding
+import cn.ryanliu.jycz.util.DialogUtil
 import cn.ryanliu.jycz.util.GlideEngine
-import cn.ryanliu.jycz.util.ToastUtilsExt
 import cn.ryanliu.jycz.viewmodel.EntryPhotoVM
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -72,28 +72,24 @@ class EntryPhotoActivity : BaseActivity<ActivityEntryPhotoBinding, EntryPhotoVM>
         }
 
         mDatabind.uploadimg1.setOnClickListener {
+
             PictureSelector.create(this)
                 .openGallery(SelectMimeType.ofImage()).setMaxSelectNum(1)
-                .setCameraImageFormat(PictureMimeType.ofPNG())
-                .setQueryOnlyMimeType("image/jpeg", "image/png", "image/jpg")
                 .setImageEngine(GlideEngine.createGlideEngine())
+                .setQueryOnlyMimeType("image/jpeg", "image/png", "image/jpg")
                 .forResult(object : OnResultCallbackListener<LocalMedia?> {
-                    override fun onResult(result: java.util.ArrayList<LocalMedia?>) {
-
-                        mViewModel.upload(File(result[0]!!.realPath), 1)
+                    override fun onResult(result: ArrayList<LocalMedia?>?) {
+                        mViewModel.upload(File(result!![0]!!.realPath), 1)
                         showLoading()
-
                     }
 
-                    override fun onCancel() {
-                        hideLoading()
-                    }
+                    override fun onCancel() {}
                 })
+
         }
         mDatabind.uploadimg2.setOnClickListener {
             PictureSelector.create(this)
                 .openGallery(SelectMimeType.ofImage()).setMaxSelectNum(1)
-                .setCameraImageFormat(PictureMimeType.ofPNG())
                 .setQueryOnlyMimeType("image/jpeg", "image/png", "image/jpg")
                 .setImageEngine(GlideEngine.createGlideEngine())
                 .forResult(object : OnResultCallbackListener<LocalMedia?> {
@@ -112,7 +108,6 @@ class EntryPhotoActivity : BaseActivity<ActivityEntryPhotoBinding, EntryPhotoVM>
         mDatabind.uploadimg3.setOnClickListener {
             PictureSelector.create(this)
                 .openGallery(SelectMimeType.ofImage()).setMaxSelectNum(1)
-                .setCameraImageFormat(PictureMimeType.ofPNG())
                 .setQueryOnlyMimeType("image/jpeg", "image/png", "image/jpg")
                 .setImageEngine(GlideEngine.createGlideEngine())
                 .forResult(object : OnResultCallbackListener<LocalMedia?> {
@@ -131,7 +126,6 @@ class EntryPhotoActivity : BaseActivity<ActivityEntryPhotoBinding, EntryPhotoVM>
         mDatabind.uploadimg4.setOnClickListener {
             PictureSelector.create(this)
                 .openGallery(SelectMimeType.ofImage()).setMaxSelectNum(1)
-                .setCameraImageFormat(PictureMimeType.ofPNG())
                 .setQueryOnlyMimeType("image/jpeg", "image/png", "image/jpg")
                 .setImageEngine(GlideEngine.createGlideEngine())
                 .forResult(object : OnResultCallbackListener<LocalMedia?> {
@@ -150,7 +144,6 @@ class EntryPhotoActivity : BaseActivity<ActivityEntryPhotoBinding, EntryPhotoVM>
         mDatabind.uploadimg5.setOnClickListener {
             PictureSelector.create(this)
                 .openGallery(SelectMimeType.ofImage()).setMaxSelectNum(1)
-                .setCameraImageFormat(PictureMimeType.ofPNG())
                 .setQueryOnlyMimeType("image/jpeg", "image/png", "image/jpg")
                 .setImageEngine(GlideEngine.createGlideEngine())
                 .forResult(object : OnResultCallbackListener<LocalMedia?> {
@@ -169,7 +162,6 @@ class EntryPhotoActivity : BaseActivity<ActivityEntryPhotoBinding, EntryPhotoVM>
         mDatabind.uploadimg6.setOnClickListener {
             PictureSelector.create(this)
                 .openGallery(SelectMimeType.ofImage()).setMaxSelectNum(1)
-                .setCameraImageFormat(PictureMimeType.ofPNG())
                 .setQueryOnlyMimeType("image/jpeg", "image/png", "image/jpg")
                 .setImageEngine(GlideEngine.createGlideEngine())
                 .forResult(object : OnResultCallbackListener<LocalMedia?> {

@@ -172,6 +172,10 @@ class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
                 || (keyEvent != null && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)
             ) {
                 if (!mDatabind.etSmxm.text.toString().isNullOrEmpty()) {
+                    mDatabind.etSmxm.setFocusable(true);
+                    mDatabind.etSmxm.setFocusableInTouchMode(true);
+                    mDatabind.etSmxm.requestFocus();
+
                     mViewModel.getScanInCode(
                         hand_task_id, if (pageModel == Constant.PageModel.XIECHE) {
                             "卸车"
@@ -180,9 +184,10 @@ class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
                         }, mDatabind.etSmxm.text.toString(), carNum, "项目预约", areaId
                     )
                     mDatabind.etSmxm.setText("")
+
                     return@setOnEditorActionListener true
                 } else {
-                    
+
                 }
 
             }
@@ -232,8 +237,7 @@ class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
 
         mViewModel.mDatacode.observe(this) {
             if (it != null) {
-
-                when (it!!.voice_flag) {
+                when (it.voice_flag) {
                     0 -> {
                         mSoundPool.play(soundID[0]!!, 1F, 1F, 0, 0, 1F);
                     }
@@ -252,25 +256,25 @@ class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
                 }
 
 
-                smxs = smxs + it?.fact_scan_ok_count!!
+                smxs = smxs + it.fact_scan_ok_count!!
                 mDatabind.inNavBar.tvNavCenter.text = "扫描箱数：${smxs}"
-                order_id = it?.order_id.toString()
-                mDatabind.iswarnTv.text = it?.scan_tips
-                if (it?.scan_tips == "正常") {
+                order_id = it.order_id.toString()
+                mDatabind.iswarnTv.text = it.scan_tips
+                if (it.scan_tips == "正常") {
                     mDatabind.iswarnImg.setImageResource(R.mipmap.suc)
                     mDatabind.iswarnTv.setTextColor(Color.parseColor("#333333"))
                 } else {
                     mDatabind.iswarnImg.setImageResource(R.mipmap.warn)
                     mDatabind.iswarnTv.setTextColor(Color.parseColor("#FF0000"))
                 }
-                mDatabind.xmtmhTv.text = it?.scan_code.toString()
-                mDatabind.mddTv.text = it?.rec_area.toString()
-                mDatabind.smlxTv.text = it?.scan_type.toString()
-                mDatabind.xsTv.text = it?.tp_num.toString()
-                mDatabind.wtdhTv.text = it?.py_order_code.toString()
+                mDatabind.xmtmhTv.text = it.scan_code.toString()
+                mDatabind.mddTv.text = it.rec_area.toString()
+                mDatabind.smlxTv.text = it.scan_type.toString()
+                mDatabind.xsTv.text = it.tp_num.toString()
+                mDatabind.wtdhTv.text = it.py_order_code.toString()
 
-                mDatabind.yszxsTv.text = "${it?.yes_scan_num}"
-                mDatabind.wsxsTv.text = "${it?.no_scan_num}"
+                mDatabind.yszxsTv.text = "${it.yes_scan_num}"
+                mDatabind.wsxsTv.text = "${it.no_scan_num}"
 
             }
 

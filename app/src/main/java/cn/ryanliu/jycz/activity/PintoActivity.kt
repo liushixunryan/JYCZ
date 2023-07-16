@@ -66,6 +66,9 @@ class PintoActivity : BaseActivity<ActivityPintoBinding, PintoVM>() {
                     ToastUtilsExt.info("请先生成托码")
                     return@setOnEditorActionListener false
                 } else {
+                    mDatabind.etSmtm.setFocusable(true);
+                    mDatabind.etSmtm.setFocusableInTouchMode(true);
+                    mDatabind.etSmtm.requestFocus();
                     mViewModel.scanFjCode(
                         mDatabind.etSmtm.text.toString(),
                         mDatabind.tmTv.text.toString(),

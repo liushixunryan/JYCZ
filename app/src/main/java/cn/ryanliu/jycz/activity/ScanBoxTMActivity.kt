@@ -70,6 +70,9 @@ class ScanBoxTMActivity : BaseActivity<ActivityScanBoxTmactivityBinding, ScanBox
             if (actionId == EditorInfo.IME_ACTION_DONE
                 || (keyEvent != null && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)
             ) {
+                mDatabind.etSmxm.setFocusable(true);
+                mDatabind.etSmxm.setFocusableInTouchMode(true);
+                mDatabind.etSmxm.requestFocus();
                 mAdapter.addData(BoxCode(mDatabind.etSmxm.text.toString()))
                 p.add(PcreateTCode2(mDatabind.etSmxm.text.toString()))
                 mDatabind.etZtjs.setText("${mAdapter.data.size}")

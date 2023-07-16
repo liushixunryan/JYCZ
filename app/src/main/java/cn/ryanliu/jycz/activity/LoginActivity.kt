@@ -26,6 +26,7 @@ import cn.ryanliu.jycz.util.ToastUtilsExt
 import cn.ryanliu.jycz.viewmodel.LoginVM
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.KeyboardUtils
+import com.tbruyelle.rxpermissions.Permission
 import com.tbruyelle.rxpermissions.RxPermissions
 import print.Print
 
@@ -44,7 +45,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginVM>() {
         rxPermissions.request(
             Manifest.permission.BLUETOOTH_ADMIN,
             Manifest.permission.BLUETOOTH,
-            Manifest.permission.ACCESS_FINE_LOCATION
+            Manifest.permission.ACCESS_FINE_LOCATION,  Manifest.permission.MANAGE_EXTERNAL_STORAGE
         ).subscribe {
             if (true) {
                 val intent = Intent(this, BTActivity::class.java)
