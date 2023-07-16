@@ -182,7 +182,7 @@ class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
                     mDatabind.etSmxm.setText("")
                     return@setOnEditorActionListener true
                 } else {
-                    ToastUtilsExt.info("暂无数据")
+                    
                 }
 
             }

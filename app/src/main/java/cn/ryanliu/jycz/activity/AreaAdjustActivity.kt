@@ -80,7 +80,7 @@ class AreaAdjustActivity : BaseActivity<ActivityAreaAdjustBinding, AreaAdjustVM>
                     mDatabind.etSmtm.setText("")
                     return@setOnEditorActionListener true
                 } else {
-                    ToastUtilsExt.info("暂无数据")
+                    
                 }
 
             }

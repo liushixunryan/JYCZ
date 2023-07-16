@@ -76,7 +76,7 @@ class SortingStackActivity : BaseActivity<ActivitySortingStackBinding, SortingSt
                     mDatabind.etSmtm.setText("")
                     return@setOnEditorActionListener true
                 } else {
-                    ToastUtilsExt.info("暂无数据")
+                    
                 }
 
             }

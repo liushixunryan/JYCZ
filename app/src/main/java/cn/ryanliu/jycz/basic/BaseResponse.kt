@@ -13,8 +13,8 @@ open class BaseResponse<T>(
         if (code == 1) {
             return true
         } else {
-            if (!msg.isNullOrEmpty())
-                ToastUtilsExt.info(msg)
+//            if (!msg.isNullOrEmpty())
+//                ToastUtilsExt.info(msg)
         }
         return false
     }

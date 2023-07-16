@@ -85,7 +85,7 @@ class InventoryCountActivity : BaseActivity<ActivityInventoryCountBinding, Inven
                     mDatabind.etSmtm.setText("")
                     return@setOnEditorActionListener true
                 }else{
-                    ToastUtilsExt.info("暂无数据")
+                    
                 }
 
             }
