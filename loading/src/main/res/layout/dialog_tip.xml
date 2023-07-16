@@ -39,7 +39,7 @@
                 android:gravity="center"
                 android:text="asdfasdfasdf"
                 android:textColor="@color/defalut_text"
-                android:textSize="14sp" />
+                android:textSize="@dimen/sp_14" />
 
             <View
                 android:layout_width="match_parent"
@@ -60,7 +60,7 @@
                     android:gravity="center"
                     android:text="取消"
                     android:textColor="@color/defalut_text"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/sp_14" />
 
                 <View
                     android:id="@+id/line_view"
@@ -76,7 +76,7 @@
                     android:gravity="center"
                     android:text="确定"
                     android:textColor="@color/blue_bg"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/sp_14" />
 
             </LinearLayout>
         </LinearLayout>

@@ -130,7 +130,7 @@
         <attr name="ddm_underlineHeight" format="dimension" />
         <!--半透明遮罩颜色, 默认#88888888-->
         <attr name="ddm_maskColor" format="color" />
-        <!--菜单文字的字体大小，默认14sp-->
+        <!--菜单文字的字体大小，默认@dimen/sp_14-->
         <attr name="ddm_menuTextSize" format="dimension" />
         <!--菜单文字水平padding，默认5dp-->
         <attr name="ddm_menuTextPaddingHorizontal" format="dimension" />
@@ -164,7 +164,7 @@
 
 
     <declare-styleable name="TabControlView">
-        <!--文字字体的大小，默认14sp-->
+        <!--文字字体的大小，默认@dimen/sp_14-->
         <attr name="tcv_textSize" format="dimension" />
         <!--没选中的文字颜色，默认#299EE3-->
         <attr name="tcv_unselectedTextColor" format="reference" />

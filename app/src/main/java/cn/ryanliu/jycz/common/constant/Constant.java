@@ -50,6 +50,11 @@ public class Constant {
         public static final String SITE_ID = "siteid";
         public static final String SITE_CODE = "sitecode";
         public static final String SITE_NAME = "sitename";
+
+
+        public static final String PANDIAN = "pandian";
+
+
     }
     public static class PageModel {
         //装车

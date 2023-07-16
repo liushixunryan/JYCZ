@@ -9,6 +9,9 @@ import cn.ryanliu.jycz.adapter.TMBQAdapter
 import cn.ryanliu.jycz.basic.BaseActivity
 import cn.ryanliu.jycz.bean.BoxCode
 import cn.ryanliu.jycz.bean.TMBQBean
+import cn.ryanliu.jycz.bean.creategeneralboxcode
+import cn.ryanliu.jycz.bean.prequest.Boxcode
+import cn.ryanliu.jycz.bean.prequest.Pcreategeneralboxcode
 import cn.ryanliu.jycz.databinding.ActivityOnlyPrintTmactivityBinding
 import cn.ryanliu.jycz.util.PrintBCCodeType
 import cn.ryanliu.jycz.util.ToastUtilsExt
@@ -21,8 +24,10 @@ import print.Print
  * @Description:仅仅打印托码标签
  */
 class OnlyPrintTMActivity : BaseActivity<ActivityOnlyPrintTmactivityBinding, OnlyPrintTMVM>() {
-
     lateinit var mAdapter: TMBQAdapter
+    lateinit var list: Pcreategeneralboxcode
+    lateinit var boxlist: MutableList<Boxcode>
+
     override fun layoutId(): Int = R.layout.activity_only_print_tmactivity
 
     override fun initView() {
@@ -41,8 +46,16 @@ class OnlyPrintTMActivity : BaseActivity<ActivityOnlyPrintTmactivityBinding, Onl
     private fun onClick() {
         mDatabind.btnSctm.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
-                mViewModel.createTCode1(mDatabind.etZtjs.text.toString())
+                if (mDatabind.etZtjs.text.toString()
+                        .isNullOrEmpty()
+                ) {
+                    ToastUtilsExt.info("您必须输入大于0的数字")
+                } else {
+                    if (mDatabind.etZtjs.text.toString().toInt() > 0) {
+                        mViewModel.createTCode1(mDatabind.etZtjs.text.toString())
 
+                    }
+                }
             }
 
         })
@@ -53,24 +66,18 @@ class OnlyPrintTMActivity : BaseActivity<ActivityOnlyPrintTmactivityBinding, Onl
 
         mDatabind.btnPrinttm.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
-                try {
-                    val printTM = PrintBCCodeType.PrintTM("Q: 20", mAdapter.data[0].box_code)
-                    if (printTM == 1) {
-                        //切纸
-                        Print.GotoNextLabel()
-                    } else {
-                        ToastUtilsExt.info("打印错误")
-                    }
+                if (mAdapter.data != null) {
+                    boxlist = ArrayList()
+                    boxlist.add(Boxcode(mAdapter.data[0].box_code))
 
-                } catch (e: java.lang.Exception) {
-                    Log.e(
-                        "SDKSample",
-                        java.lang.StringBuilder("Activity_Main --> onClickWIFI ").append(e.message)
-                            .toString()
+                    list = Pcreategeneralboxcode(boxlist)
+
+                    mViewModel.creategeneraltpcode(
+                        mAdapter.data[0].box_code,
+                        mDatabind.etZtjs.text.toString().toInt()
                     )
+
                 }
-
-
             }
 
         })
@@ -81,6 +88,26 @@ class OnlyPrintTMActivity : BaseActivity<ActivityOnlyPrintTmactivityBinding, Onl
         mViewModel.mBackList.observe(this) {
             mAdapter.setList(null)
             mAdapter.addData(0, BoxCode(it!!))
+        }
+
+        mViewModel.mCode.observe(this) {
+            try {
+
+                val printTM = PrintBCCodeType.PrintTM(it!!.img_data)
+                if (printTM != -1) {
+                    //切纸
+                    Print.GotoNextLabel()
+                } else {
+                    ToastUtilsExt.info("打印错误")
+                }
+
+            } catch (e: java.lang.Exception) {
+                Log.e(
+                    "SDKSample",
+                    java.lang.StringBuilder("Activity_Main --> onClickWIFI ").append(e.message)
+                        .toString()
+                )
+            }
         }
     }
 

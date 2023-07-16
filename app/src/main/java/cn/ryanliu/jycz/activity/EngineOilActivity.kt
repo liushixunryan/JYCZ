@@ -59,19 +59,13 @@ class EngineOilActivity : BaseActivity<ActivityEngineOilBinding, EngineOilVM>() 
                 val isSelect = arrayListOf<Int>()
                 for (i in selectBean!!.indices) {
                     if (selectBean!![i].isselect == 1) {
-                        val printTM = PrintBCCodeType.PrintJYBQ(
-                            selectBean!![i].`package`,
+                        mViewModel.createoillabel(
                             selectBean!![i].bar_code,
                             selectBean!![i].label_model,
-                            selectBean!![i].brand_name
+                            selectBean!![i].brand_name,
+                            1
                         )
 
-                        if (printTM == 1) {
-                            //切纸
-                            Print.GotoNextLabel()
-                        } else {
-                            ToastUtilsExt.info("打印错误")
-                        }
                     } else {
                         isSelect.add(i)
                     }
@@ -101,6 +95,20 @@ class EngineOilActivity : BaseActivity<ActivityEngineOilBinding, EngineOilVM>() 
 
     lateinit var bean: List<getOilFactory>
     override fun createObserver() {
+        mViewModel.mCode.observe(this) {
+            val printTM = PrintBCCodeType.PrintJYBQ(
+                it.img_data
+            )
+
+            if (printTM != -1) {
+                //切纸
+                Print.GotoNextLabel()
+            } else {
+                ToastUtilsExt.info("打印错误")
+            }
+        }
+
+
         mViewModel.mOilList.observe(this) {
             bean = it!!
             val array = bean.map { it.brand_name }.toTypedArray()

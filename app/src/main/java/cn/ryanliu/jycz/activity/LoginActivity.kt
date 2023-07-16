@@ -234,9 +234,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginVM>() {
             WRITE_EXTERNAL_STORAGE, ACCESS_COARSE_LOCATION,
             READ_EXTERNAL_STORAGE, CAMERA,
             BLUETOOTH_ADMIN,
-            BLUETOOTH,
-            BLUETOOTH_SCAN,
-            BLUETOOTH_CONNECT
+            BLUETOOTH
         ).subscribe {
             if (it) {
 

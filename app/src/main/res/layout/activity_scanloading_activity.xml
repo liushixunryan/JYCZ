@@ -49,7 +49,7 @@
                     android:hint="请输入车牌号"
                     android:lines="1"
                     android:maxLines="1"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/sp_14" />
 
             </LinearLayout>
 

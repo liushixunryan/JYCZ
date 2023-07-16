@@ -55,7 +55,7 @@
     <style name="Material.SpinnerStyle" parent="@style/Widget.AppCompat.Spinner">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">35dp</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">@dimen/sp_14</item>
         <item name="android:textColor">@color/common_text_black</item>
         <item name="ms_dropdown_height">wrap_content</item>
         <item name="ms_text_color">@color/common_text_black</item>
@@ -71,7 +71,7 @@
     <style name="EditSpinner" parent="EditText">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">36dp</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">@dimen/sp_14</item>
         <item name="android:textColor">@color/common_text_black</item>
         <item name="android:background">@drawable/xui_config_bg_edittext</item>
     </style>

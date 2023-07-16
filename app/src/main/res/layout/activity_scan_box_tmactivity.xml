@@ -37,10 +37,9 @@
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/bg_edittext"
                     android:hint="扫描箱码"
-                    android:inputType="number"
                     android:lines="1"
                     android:maxLines="1"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/sp_14" />
 
             </LinearLayout>
 
@@ -63,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_10"
             android:gravity="center"
-            android:text="当前扫描的托码" />
+            android:text="当前扫描的箱码" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/dyxmlb_rv"
@@ -104,7 +103,7 @@
                     android:inputType="number"
                     android:lines="1"
                     android:maxLines="1"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/sp_14" />
 
             </LinearLayout>
 

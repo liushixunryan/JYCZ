@@ -2,6 +2,8 @@ package cn.ryanliu.jycz.activity
 
 import android.content.Context
 import android.content.Intent
+import android.media.AudioManager
+import android.media.SoundPool
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -24,10 +26,19 @@ class AreaAdjustActivity : BaseActivity<ActivityAreaAdjustBinding, AreaAdjustVM>
     var areaId = ""
     var yAreaID = ""
     var ysxm = 0
-
+    private lateinit var mSoundPool: SoundPool
+    private val soundID = HashMap<Int, Int>()
     override fun layoutId(): Int = R.layout.activity_area_adjust
 
     override fun initView() {
+        mSoundPool = SoundPool(3, AudioManager.STREAM_SYSTEM, 5);
+        mSoundPool = SoundPool(3, AudioManager.STREAM_SYSTEM, 5);
+        mSoundPool = SoundPool(3, AudioManager.STREAM_SYSTEM, 5);
+        soundID[0] = mSoundPool.load(this, R.raw.scan_0, 1);
+        soundID[1] = mSoundPool.load(this, R.raw.error_1, 1);
+        soundID[2] = mSoundPool.load(this, R.raw.repeat_2, 1);
+        soundID[3] = mSoundPool.load(this, R.raw.complete_3, 1);
+
         mDatabind.inNavBar.ivNavBack.visibility = View.VISIBLE
         mDatabind.inNavBar.ivNavBack.setOnClickListener {
             onBackPressed()
@@ -117,23 +128,42 @@ class AreaAdjustActivity : BaseActivity<ActivityAreaAdjustBinding, AreaAdjustVM>
 
     override fun createObserver() {
         mViewModel.mSelectCar.observe(this) {
-            if (it == null) {
-                mDatabind.xmtmhTv.text = mDatabind.etSmtm.text.toString()
-            } else {
-                ysxm = ysxm + it.tp_num
-                mDatabind.ysxmTv.text = "已扫箱码(${ysxm})"
+            if (it!=null) {
+                when (it!!.voice_flag) {
+                    0 -> {
+                        mSoundPool.play(soundID[0]!!, 1F, 1F, 0, 0, 1F);
+                    }
+                    1 -> {
+                        mSoundPool.play(soundID[1]!!, 1F, 1F, 0, 0, 1F);
+                    }
+                    2 -> {
+                        mSoundPool.play(soundID[2]!!, 1F, 1F, 0, 0, 1F);
+                    }
+                    3 -> {
+                        mSoundPool.play(soundID[3]!!, 1F, 1F, 0, 0, 1F);
+                    }
+                    else -> {
 
-                mDatabind.xmtmhTv.text = it.scan_code
-                mDatabind.mddTv.text = it.rec_area
-                mDatabind.shrTv.text = it.rec_man
-                mDatabind.shdwTv.text = it.rec_unit
-                mDatabind.smlxTv.text = it.scan_type
-                mDatabind.xsTv.text = it.tp_num.toString()
-                mDatabind.khddhTv.text = it.py_order_code
-                mDatabind.ykqTv.text = it.ware_area_name
-                yAreaID = it.ware_area.toString()
+                    }
+                }
+
+                if (it == null) {
+                    mDatabind.xmtmhTv.text = mDatabind.etSmtm.text.toString()
+                } else {
+                    ysxm = ysxm + it.tp_num
+                    mDatabind.ysxmTv.text = "已扫箱码(${ysxm})"
+
+                    mDatabind.xmtmhTv.text = it.scan_code
+                    mDatabind.mddTv.text = it.rec_area
+                    mDatabind.shrTv.text = it.rec_man
+                    mDatabind.shdwTv.text = it.rec_unit
+                    mDatabind.smlxTv.text = it.scan_type
+                    mDatabind.xsTv.text = it.tp_num.toString()
+                    mDatabind.khddhTv.text = it.py_order_code
+                    mDatabind.ykqTv.text = it.ware_area_name
+                    yAreaID = it.ware_area.toString()
+                }
             }
-
         }
     }
 

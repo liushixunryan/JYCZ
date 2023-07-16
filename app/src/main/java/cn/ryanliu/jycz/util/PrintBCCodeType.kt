@@ -1,6 +1,14 @@
 package cn.ryanliu.jycz.util
 
+import android.R
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Base64
+import android.util.Log
+import cn.ryanliu.jycz.util.ResUtils.getResources
 import print.Print
+import print.Print.PrintBitmap
+
 
 /**
  * @Author: lsx
@@ -8,55 +16,64 @@ import print.Print
  * @Description:
  */
 object PrintBCCodeType {
-
     //仅打印一个【托码】标签/扫箱码后补打【托码】标签
     @Throws(java.lang.Exception::class)
-    fun PrintTM(qtext: String, code: String): Int {
+    fun PrintTM(detail: String): Int {
+        //data:image/png;base64,
         Print.PrintText(
-            "\n\n${qtext}\n", 2, 0, 0
+            "\n\n\n\n"
         )
-        return Print.PrintBarCode(
-            Print.BC_CODE128,
-            "${code}", 2, 10, 2, 1
-        )
+        return PrintBitmap(getBase64("$detail"), 0, 50)
     }
 
     //补打箱码
     @Throws(java.lang.Exception::class)
     fun PrintXM(code: String): Int {
-        return Print.PrintBarCode(
-            Print.BC_CODE128,
-            "$code", 2, 10, 2, 1
+        Print.PrintText(
+            "\n\n\n\n"
         )
+        return PrintBitmap(getBase64("$code"), 0, 50)
     }
 
     // 机油标签规格查询
     @Throws(java.lang.Exception::class)
-    fun PrintJYBQ(Q: String, code: String, xh: String, mc: String): Int {
+    fun PrintJYBQ(code: String): Int {
         Print.PrintText(
-            "\n\nQ: $Q\n", 2, 0, 0
+            "\n\n\n\n"
         )
 
-        Print.PrintBarCode(
-            Print.BC_CODE128,
-            "$code", 2, 10, 2, 1
-        )
-        Print.PrintText(
-            "\n型号: $xh\n", 0, 0, 0
-        )
 
-        return Print.PrintText(
-            "\n名称: $mc\n", 0, 0, 0
-        )
+        return PrintBitmap(getBase64("$code"), 0, 50)
     }
 
-    @Throws(java.lang.Exception::class)
-    fun Printcs(): Int {
+    fun stringToUnicode(string: String): String? {
+        val unicode = StringBuffer()
+        for (i in 0 until string.length) {
+            // 取出每一个字符
+            val c = string[i]
+            // 转换为unicode
+            //"\\u只是代号，请根据具体所需添加相应的符号"
+            unicode.append("\\u" + Integer.toHexString(c.code))
+        }
+        Log.d("sansuiban", "stringToUnicode: $unicode")
+        return unicode.toString()
+    }
 
-        return Print.PrintBarCode(
-            Print.BC_CODE128,
-            "{BS/N:{C\u000c\u0022\u0038\u004e{A3", 2, 10, 2, 1
-        )
+    //文件转bitmap
+    fun openImage(path: String): Bitmap? {
+        return BitmapFactory.decodeFile(path)
+    }
+
+    //资源文件转bitmap
+    fun getResoures(path: Int): Bitmap? {
+        return BitmapFactory.decodeResource(getResources(), path)
+    }
+
+    //base64转bitmap
+    fun getBase64(base64: String): Bitmap? {
+        val decode = Base64.decode(base64, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decode, 0, decode.size);
+
     }
 
 

@@ -153,6 +153,18 @@ interface ApiService {
     @POST("/api/APP/search_oil_model")
     suspend fun searchOilModel(@Body request: PsearchOilModel): BaseResponse<MutableList<searchOilModel>>
 
+    //生成箱码标签
+    @POST("/api/APP/create_general_boxcode")
+    suspend fun create_general_boxcode(@Body request: Pcreategeneralboxcode): BaseResponse<MutableList<creategeneralboxcode>>
+
+    //生成托码标签
+    @POST("/api/APP/create_general_tpcode")
+    suspend fun create_general_tpcode(@Body request: Pcreategeneraltpcode): BaseResponse<creategeneraltpcode>
+
+    //生成机油标签
+    @POST("/api/APP/create_oil_label")
+    suspend fun create_oil_label(@Body request: Pcreateoillabel): BaseResponse<createoillabel>
+
     companion object {
         // 4.通过动态代理获取到所定义的接口
         val apiService = RetrofitManager.retrofit.create(ApiService::class.java)

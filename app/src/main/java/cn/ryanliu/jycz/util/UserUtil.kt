@@ -9,6 +9,9 @@ object UserUtil {
     @Volatile
     var sToken: String? = null
 
+    @Volatile
+    var spandian: String? = null
+
     @JvmStatic
     fun getUserToken(): String? {
         if (sToken == null) {
@@ -22,5 +25,21 @@ object UserUtil {
         sToken = token
         MmkvHelper.getInstance().putString(Constant.MmKv_KEY.TOKEN, token ?: "")
     }
+
+
+    @JvmStatic
+    fun setPanDian(pandian: String?) {
+        spandian = pandian
+        MmkvHelper.getInstance().putString(Constant.MmKv_KEY.PANDIAN, pandian ?: "")
+    }
+
+    @JvmStatic
+    fun getPanDian(): String? {
+        if (spandian == null) {
+            spandian = MmkvHelper.getInstance().getString(Constant.MmKv_KEY.PANDIAN)
+        }
+        return spandian
+    }
+
 
 }

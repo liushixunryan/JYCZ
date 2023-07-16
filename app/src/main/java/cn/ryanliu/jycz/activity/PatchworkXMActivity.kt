@@ -11,6 +11,8 @@ import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.adapter.TMBQAdapter
 import cn.ryanliu.jycz.basic.BaseActivity
 import cn.ryanliu.jycz.bean.TMBQBean
+import cn.ryanliu.jycz.bean.prequest.Boxcode
+import cn.ryanliu.jycz.bean.prequest.Pcreategeneralboxcode
 import cn.ryanliu.jycz.databinding.ActivityPatchworkXmactivityBinding
 import cn.ryanliu.jycz.databinding.ActivityScanBoxTmactivityBinding
 import cn.ryanliu.jycz.util.PrintBCCodeType
@@ -26,6 +28,9 @@ import print.Print
  */
 class PatchworkXMActivity : BaseActivity<ActivityPatchworkXmactivityBinding, PatchworkXMVM>() {
     lateinit var mAdapter: TMBQAdapter
+
+    lateinit var list: Pcreategeneralboxcode
+    lateinit var boxlist: MutableList<Boxcode>
 
     override fun layoutId(): Int = R.layout.activity_patchwork_xmactivity
 
@@ -83,31 +88,26 @@ class PatchworkXMActivity : BaseActivity<ActivityPatchworkXmactivityBinding, Pat
                     mDatabind.xmtmhTv.text.toString()
                 )
 
-
             }
 
         })
         mDatabind.btnPrinttm.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
-                try {
+                if (!mAdapter.data.isNullOrEmpty()) {
+                    boxlist = ArrayList()
                     for (i in mAdapter.data.indices) {
-                        val printTM = PrintBCCodeType.PrintXM(mAdapter.data[i].box_code)
-                        if (printTM == 1) {
-                            //切纸
-                            Print.GotoNextLabel()
-                        } else {
-                            ToastUtilsExt.info("打印错误")
-                        }
+                        boxlist.add(Boxcode(mAdapter.data[i].box_code))
                     }
-                } catch (e: java.lang.Exception) {
-                    Log.e(
-                        "SDKSample",
-                        java.lang.StringBuilder("Activity_Main --> onClickWIFI ").append(e.message)
-                            .toString()
+
+
+                    list = Pcreategeneralboxcode(boxlist)
+
+                    mViewModel.creategeneralboxcode(
+                        list
                     )
+                } else {
+                    ToastUtilsExt.info("暂无箱码信息")
                 }
-
-
             }
         })
 
@@ -119,7 +119,29 @@ class PatchworkXMActivity : BaseActivity<ActivityPatchworkXmactivityBinding, Pat
 
     override fun createObserver() {
         mViewModel.mBackList.observe(this) {
-            mAdapter.setList(it!!.box_code_list)
+            if (it != null) {
+                mAdapter.setList(it.box_code_list)
+            }
+        }
+
+        mViewModel.mCode.observe(this) {
+            try {
+                for (i in mAdapter.data.indices) {
+                    val printTM = PrintBCCodeType.PrintXM(it[i].img_data)
+                    if (printTM != -1) {
+                        //切纸
+                        Print.GotoNextLabel()
+                    } else {
+                        ToastUtilsExt.info("打印错误")
+                    }
+                }
+            } catch (e: java.lang.Exception) {
+                Log.e(
+                    "SDKSample",
+                    java.lang.StringBuilder("Activity_Main --> onClickWIFI ").append(e.message)
+                        .toString()
+                )
+            }
         }
 
     }

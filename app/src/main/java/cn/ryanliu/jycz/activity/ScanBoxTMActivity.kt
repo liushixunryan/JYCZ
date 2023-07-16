@@ -48,10 +48,8 @@ class ScanBoxTMActivity : BaseActivity<ActivityScanBoxTmactivityBinding, ScanBox
         mDatabind.btnTj.setOnClickListener(object : OnSingleClickListener() {
             @SuppressLint("SetTextI18n")
             override fun onSingleClick(view: View?) {
-                mAdapter.addData(BoxCode("BOXLBJ0120230411000000${mAdapter.data.size}"))
-                p.add(PcreateTCode2("BOXLBJ0120230411000000${mAdapter.data.size}"))
-                Log.e("sansuiban", "onSingleClick: ${mAdapter.data.size}")
-                var s = mAdapter.data.size
+                mAdapter.addData(BoxCode(mDatabind.etSmxm.text.toString()))
+                p.add(PcreateTCode2(mDatabind.etSmxm.text.toString()))
                 mDatabind.etZtjs.setText("${mAdapter.data.size}")
             }
 
@@ -66,22 +64,25 @@ class ScanBoxTMActivity : BaseActivity<ActivityScanBoxTmactivityBinding, ScanBox
 
         mDatabind.btnPrinttm.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
-                try {
-                    val printTM =  PrintBCCodeType.PrintTM("Q: 20", mXMAdapter.data[0].box_code)
-                    if (printTM == 1) {
-                        //切纸
-                        Print.GotoNextLabel()
+                if (mDatabind.etZtjs.text.toString().isNullOrEmpty()) {
+                    ToastUtilsExt.info("整件托数不能为空")
+                } else {
+                    if (mDatabind.etZtjs.text.toString().toInt() > 0) {
+                        if (!mXMAdapter.data.isEmpty()) {
+                            mViewModel.creategeneraltpcode(
+                                mXMAdapter.data[0].box_code,
+                                mDatabind.etZtjs.text.toString().toInt()
+                            )
+                        } else {
+                            ToastUtilsExt.info("托码不能为空")
+                        }
+
                     } else {
-                        ToastUtilsExt.info("打印错误")
+                        ToastUtilsExt.info("整件托数不能需要大于0")
                     }
 
-                } catch (e: java.lang.Exception) {
-                    Log.e(
-                        "SDKSample",
-                        java.lang.StringBuilder("Activity_Main --> onClickWIFI ").append(e.message)
-                            .toString()
-                    )
                 }
+
 
             }
 
@@ -101,6 +102,26 @@ class ScanBoxTMActivity : BaseActivity<ActivityScanBoxTmactivityBinding, ScanBox
             a.clear()
             a.add(BoxCode(it.toString()))
             mXMAdapter.setList(a)
+        }
+
+        mViewModel.mCode.observe(this) {
+            try {
+
+                val printTM = PrintBCCodeType.PrintTM(it!!.img_data)
+                if (printTM != -1) {
+                    //切纸
+                    Print.GotoNextLabel()
+                } else {
+                    ToastUtilsExt.info("打印错误")
+                }
+
+            } catch (e: java.lang.Exception) {
+                Log.e(
+                    "SDKSample",
+                    java.lang.StringBuilder("Activity_Main --> onClickWIFI ").append(e.message)
+                        .toString()
+                )
+            }
         }
     }
 

@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.media.AudioManager
+import android.media.SoundPool
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
@@ -26,9 +28,20 @@ class DriverActivity : BaseActivity<ActivityDriverBinding, DriverVM>() {
     private var hand_task_id: Int = 0
 
     var smxs: Int = 0
+
+    private lateinit var mSoundPool: SoundPool
+    private val soundID = HashMap<Int, Int>()
     override fun layoutId(): Int = R.layout.activity_driver
 
     override fun initView() {
+        mSoundPool = SoundPool(3, AudioManager.STREAM_SYSTEM, 5);
+        mSoundPool = SoundPool(3, AudioManager.STREAM_SYSTEM, 5);
+        mSoundPool = SoundPool(3, AudioManager.STREAM_SYSTEM, 5);
+        soundID[0] = mSoundPool.load(this, R.raw.scan_0, 1);
+        soundID[1] = mSoundPool.load(this, R.raw.error_1, 1);
+        soundID[2] = mSoundPool.load(this, R.raw.repeat_2, 1);
+        soundID[3] = mSoundPool.load(this, R.raw.complete_3, 1);
+
         mDatabind.inNavBar.tvNavCenter.text = "扫描箱数：${smxs}"
         mDatabind.inNavBar.ivNavBack.visibility = View.VISIBLE
         mDatabind.inNavBar.ivNavBack.setOnClickListener {
@@ -36,11 +49,11 @@ class DriverActivity : BaseActivity<ActivityDriverBinding, DriverVM>() {
         }
 
         pageModel = intent.getIntExtra("edit", 0)
-        if (pageModel == Constant.PageModel.XIECHE){
+        if (pageModel == Constant.PageModel.XIECHE) {
             mDatabind.inNavBar.tvNavTitle.text = "扫码卸车"
             mDatabind.inNavBar.tvNavCenter.visibility = View.VISIBLE
             mDatabind.inNavBar.tvNavRight.visibility = View.VISIBLE
-        }else{
+        } else {
             mDatabind.inNavBar.tvNavTitle.text = "扫码装车"
             mDatabind.inNavBar.tvNavCenter.visibility = View.VISIBLE
             mDatabind.inNavBar.tvNavRight.visibility = View.GONE
@@ -125,26 +138,46 @@ class DriverActivity : BaseActivity<ActivityDriverBinding, DriverVM>() {
         }
 
         mViewModel.mDatacode.observe(this) {
-            smxs = smxs + it?.tp_num!!
-            mDatabind.inNavBar.tvNavCenter.text = "扫描箱数：${smxs}"
-            mDatabind.iswarnTv.text = it?.scan_tips
-            if (it?.scan_tips == "正常") {
-                mDatabind.iswarnImg.setImageResource(R.mipmap.suc)
-                mDatabind.iswarnTv.setTextColor(Color.parseColor("#333333"))
-            } else {
-                mDatabind.iswarnImg.setImageResource(R.mipmap.warn)
-                mDatabind.iswarnTv.setTextColor(Color.parseColor("#FF0000"))
+            if (it != null) {
+                when (it!!.voice_flag) {
+                    0 -> {
+                        mSoundPool.play(soundID[0]!!, 1F, 1F, 0, 0, 1F);
+                    }
+                    1 -> {
+                        mSoundPool.play(soundID[1]!!, 1F, 1F, 0, 0, 1F);
+                    }
+                    2 -> {
+                        mSoundPool.play(soundID[2]!!, 1F, 1F, 0, 0, 1F);
+                    }
+                    3 -> {
+                        mSoundPool.play(soundID[3]!!, 1F, 1F, 0, 0, 1F);
+                    }
+                    else -> {
+
+                    }
+                }
+
+                smxs = smxs + it?.tp_num!!
+                mDatabind.inNavBar.tvNavCenter.text = "扫描箱数：${smxs}"
+                mDatabind.iswarnTv.text = it?.scan_tips
+                if (it?.scan_tips == "正常") {
+                    mDatabind.iswarnImg.setImageResource(R.mipmap.suc)
+                    mDatabind.iswarnTv.setTextColor(Color.parseColor("#333333"))
+                } else {
+                    mDatabind.iswarnImg.setImageResource(R.mipmap.warn)
+                    mDatabind.iswarnTv.setTextColor(Color.parseColor("#FF0000"))
+                }
+                mDatabind.etSmxm.setText("")
+                mDatabind.xmtmhTv.text = it?.scan_code.toString()
+
+                mDatabind.yszxsTv.text = "${it?.yes_scan_num}"
+
             }
-            mDatabind.etSmxm.setText("")
-            mDatabind.xmtmhTv.text = it?.scan_code.toString()
 
-            mDatabind.yszxsTv.text = "${it?.yes_scan_num}"
-
-        }
-
-        mViewModel.mBackList.observe(this) {
-            ToastUtilsExt.info("提交成功")
-            MainActivity.launchClear(this)
+            mViewModel.mBackList.observe(this) {
+                ToastUtilsExt.info("提交成功")
+                MainActivity.launchClear(this)
+            }
         }
     }
 

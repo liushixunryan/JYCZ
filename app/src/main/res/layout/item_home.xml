@@ -20,7 +20,7 @@
         android:layout_marginBottom="4dp"
         android:text="吊装"
         android:textColor="@color/common_text_black"
-        android:textSize="12sp" />
+        android:textSize="@dimen/sp_12" />
 
 
 </LinearLayout>

@@ -57,7 +57,7 @@
                             android:hint="请选择"
                             android:lines="1"
                             android:maxLines="1"
-                            android:textSize="12sp" />
+                            android:textSize="@dimen/sp_12" />
 
                     </LinearLayout>
 
@@ -81,7 +81,7 @@
                             android:inputType="number"
                             android:lines="1"
                             android:maxLines="1"
-                            android:textSize="12sp" />
+                            android:textSize="@dimen/sp_12" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -116,7 +116,7 @@
                         android:hint="请输入"
                         android:lines="1"
                         android:maxLines="1"
-                        android:textSize="12sp" />
+                        android:textSize="@dimen/sp_12" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -150,7 +150,7 @@
                         android:hint="请输入"
                         android:lines="1"
                         android:maxLines="1"
-                        android:textSize="12sp" />
+                        android:textSize="@dimen/sp_12" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -184,7 +184,7 @@
                         android:hint="请输入"
                         android:lines="1"
                         android:maxLines="1"
-                        android:textSize="12sp" />
+                        android:textSize="@dimen/sp_12" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -218,7 +218,7 @@
                         android:hint="请输入"
                         android:lines="1"
                         android:maxLines="1"
-                        android:textSize="12sp" />
+                        android:textSize="@dimen/sp_12" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -252,7 +252,7 @@
                         android:hint="请输入"
                         android:lines="1"
                         android:maxLines="1"
-                        android:textSize="12sp" />
+                        android:textSize="@dimen/sp_12" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -286,7 +286,7 @@
                         android:hint="请输入"
                         android:lines="1"
                         android:maxLines="1"
-                        android:textSize="12sp" />
+                        android:textSize="@dimen/sp_12" />
                 </LinearLayout>
             </LinearLayout>
 

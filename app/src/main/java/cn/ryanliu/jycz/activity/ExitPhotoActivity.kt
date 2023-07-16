@@ -79,12 +79,10 @@ class ExitPhotoActivity : BaseActivity<ActivityExitPhotoBinding, ExitPhotoVM>() 
                 .setImageEngine(GlideEngine.createGlideEngine())
                 .forResult(object : OnResultCallbackListener<LocalMedia?> {
                     override fun onResult(result: java.util.ArrayList<LocalMedia?>) {
-                        if (result[0]!!.size > 200000) {
-                            mViewModel.upload(File(result[0]!!.realPath), 1)
-                            showLoading()
-                        } else {
-                            ToastUtilsExt.info("文件不能大于2MB")
-                        }
+
+                        mViewModel.upload(File(result[0]!!.realPath), 1)
+                        showLoading()
+
                     }
 
                     override fun onCancel() {
@@ -100,12 +98,10 @@ class ExitPhotoActivity : BaseActivity<ActivityExitPhotoBinding, ExitPhotoVM>() 
                 .setImageEngine(GlideEngine.createGlideEngine())
                 .forResult(object : OnResultCallbackListener<LocalMedia?> {
                     override fun onResult(result: java.util.ArrayList<LocalMedia?>) {
-                        if (result[0]!!.size > 200000) {
-                            mViewModel.upload(File(result[0]!!.realPath), 2)
-                            showLoading()
-                        } else {
-                            ToastUtilsExt.info("文件不能大于2MB")
-                        }
+
+                        mViewModel.upload(File(result[0]!!.realPath), 2)
+                        showLoading()
+
                     }
 
                     override fun onCancel() {
@@ -121,12 +117,10 @@ class ExitPhotoActivity : BaseActivity<ActivityExitPhotoBinding, ExitPhotoVM>() 
                 .setImageEngine(GlideEngine.createGlideEngine())
                 .forResult(object : OnResultCallbackListener<LocalMedia?> {
                     override fun onResult(result: java.util.ArrayList<LocalMedia?>) {
-                        if (result[0]!!.size > 200000) {
-                            mViewModel.upload(File(result[0]!!.realPath), 3)
-                            showLoading()
-                        } else {
-                            ToastUtilsExt.info("文件不能大于2MB")
-                        }
+
+                        mViewModel.upload(File(result[0]!!.realPath), 3)
+                        showLoading()
+
                     }
 
                     override fun onCancel() {
@@ -142,12 +136,10 @@ class ExitPhotoActivity : BaseActivity<ActivityExitPhotoBinding, ExitPhotoVM>() 
                 .setImageEngine(GlideEngine.createGlideEngine())
                 .forResult(object : OnResultCallbackListener<LocalMedia?> {
                     override fun onResult(result: java.util.ArrayList<LocalMedia?>) {
-                        if (result[0]!!.size > 200000) {
-                            mViewModel.upload(File(result[0]!!.realPath), 4)
-                            showLoading()
-                        } else {
-                            ToastUtilsExt.info("文件不能大于2MB")
-                        }
+
+                        mViewModel.upload(File(result[0]!!.realPath), 4)
+                        showLoading()
+
                     }
 
                     override fun onCancel() {
@@ -163,12 +155,10 @@ class ExitPhotoActivity : BaseActivity<ActivityExitPhotoBinding, ExitPhotoVM>() 
                 .setImageEngine(GlideEngine.createGlideEngine())
                 .forResult(object : OnResultCallbackListener<LocalMedia?> {
                     override fun onResult(result: java.util.ArrayList<LocalMedia?>) {
-                        if (result[0]!!.size > 200000) {
-                            mViewModel.upload(File(result[0]!!.realPath), 5)
-                            showLoading()
-                        } else {
-                            ToastUtilsExt.info("文件不能大于2MB")
-                        }
+
+                        mViewModel.upload(File(result[0]!!.realPath), 5)
+                        showLoading()
+
                     }
 
                     override fun onCancel() {
@@ -184,12 +174,10 @@ class ExitPhotoActivity : BaseActivity<ActivityExitPhotoBinding, ExitPhotoVM>() 
                 .setImageEngine(GlideEngine.createGlideEngine())
                 .forResult(object : OnResultCallbackListener<LocalMedia?> {
                     override fun onResult(result: java.util.ArrayList<LocalMedia?>) {
-                        if (result[0]!!.size > 200000) {
-                            mViewModel.upload(File(result[0]!!.realPath), 6)
-                            showLoading()
-                        } else {
-                            ToastUtilsExt.info("文件不能大于2MB")
-                        }
+
+                        mViewModel.upload(File(result[0]!!.realPath), 6)
+                        showLoading()
+
                     }
 
                     override fun onCancel() {

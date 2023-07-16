@@ -16,6 +16,7 @@ import cn.ryanliu.jycz.bean.SelectListBean
 import cn.ryanliu.jycz.bean.prequest.Area
 import cn.ryanliu.jycz.databinding.ActivityAreaSelectBinding
 import cn.ryanliu.jycz.util.ToastUtilsExt
+import cn.ryanliu.jycz.util.UserUtil
 import cn.ryanliu.jycz.view.GridSpaceItemDecoration
 import cn.ryanliu.jycz.viewmodel.AreaSelectVM
 import com.xql.loading.TipDialog
@@ -99,7 +100,7 @@ class AreaSelectActivity : BaseActivity<ActivityAreaSelectBinding, AreaSelectVM>
                     return
                 }
 
-                showTipDialog("确认是否开始盘点？点击 确认 后将冻结当前库存、同时锁定操作：扫码卸车、入场交接、分拣码放、扫码装车、出场交接、库位调整 等操作。直至确认盘点完成。",
+                showTipDialog("确认是否开始盘点？",
                     "提示",
                     {
                         mViewModel.lockAllCancel(bean, "指定区域")
@@ -110,10 +111,12 @@ class AreaSelectActivity : BaseActivity<ActivityAreaSelectBinding, AreaSelectVM>
 
         mDatabind.btnQkpd.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
-                showTipDialog("确认是否开始盘点？点击 确认 后将冻结当前库存、同时锁定操作：扫码卸车、入场交接、分拣码放、扫码装车、出场交接、库位调整 等操作。直至确认盘点完成。",
+//                点击 确认 后将冻结当前库存、同时锁定操作：扫码卸车、入场交接、分拣码放、扫码装车、出场交接、库位调整 等操作。直至确认盘点完成。
+                showTipDialog("确认是否开始盘点？",
                     "提示",
                     {
                         mViewModel.lockAllCancel(bean, "全库")
+                        UserUtil.setPanDian("aaa")
                     },
                     {})
             }

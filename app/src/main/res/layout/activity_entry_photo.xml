@@ -421,7 +421,7 @@
             android:layout_marginBottom="@dimen/dp_10"
             android:background="@drawable/shape_blue_r32"
             android:paddingVertical="0dp"
-            android:text="完成交接车辆出场"
+            android:text="完成交接车辆入场"
             android:textColor="@color/common_white"
             android:textSize="18dp" />
 

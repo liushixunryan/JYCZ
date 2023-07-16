@@ -39,7 +39,7 @@
                     android:hint="扫描箱码或托码"
                     android:lines="1"
                     android:maxLines="1"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/sp_14" />
 
             </LinearLayout>
 

@@ -308,6 +308,12 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainVM>() {
                         if (result == 0) {
                             isconnect = true
                             ToastUtilsExt.info("连接成功")
+                            val setJustification = Print.SetJustification(2)
+                            if (setJustification != -1){
+
+                            }else{
+                                ToastUtilsExt.info("打印机设置失败")
+                            }
 
                         } else {
                             ToastUtilsExt.info("连接失败" + result)

@@ -14,7 +14,7 @@
         android:background="@drawable/ll_sel"
         android:gravity="center"
         android:textColor="@color/common_text_black"
-        android:textSize="14sp" />
+        android:textSize="@dimen/sp_14" />
 
 
 </LinearLayout>
