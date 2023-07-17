@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import cn.ryanliu.jycz.api.ApiService
 import cn.ryanliu.jycz.basic.BaseViewModel
 import cn.ryanliu.jycz.bean.SelectAreaBean
+import cn.ryanliu.jycz.bean.lockAllCancel
 import cn.ryanliu.jycz.bean.prequest.Area
 import cn.ryanliu.jycz.bean.prequest.PWareArea
 import cn.ryanliu.jycz.bean.prequest.PlockAllCancel
@@ -17,7 +18,7 @@ import kotlinx.coroutines.launch
  */
 class AreaSelectVM : BaseViewModel() {
     val mSelectArea = MutableLiveData<MutableList<SelectAreaBean>?>()
-    val mSurepd = MutableLiveData<String?>()
+    val mSurepd = MutableLiveData<lockAllCancel?>()
 
     fun getWareArea(ware_area_name: String? = null, xzc: String) {
         viewModelScope.launch {
@@ -57,7 +58,7 @@ class AreaSelectVM : BaseViewModel() {
                     mSurepd.postValue(response.data)
 
                 } else {
-                    mSurepd.postValue(response.msg)
+//                    mSurepd.postValue(response.msg)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

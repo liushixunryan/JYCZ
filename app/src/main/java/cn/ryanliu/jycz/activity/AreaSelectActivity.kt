@@ -116,7 +116,6 @@ class AreaSelectActivity : BaseActivity<ActivityAreaSelectBinding, AreaSelectVM>
                     "提示",
                     {
                         mViewModel.lockAllCancel(bean, "全库")
-                        UserUtil.setPanDian("aaa")
                     },
                     {})
             }
@@ -140,7 +139,6 @@ class AreaSelectActivity : BaseActivity<ActivityAreaSelectBinding, AreaSelectVM>
 
         mViewModel.mSurepd.observe(this) {
             if (it.toString() == "创建盘点任务单失败") {
-
             } else {
                 InventoryCountActivity.launch(this@AreaSelectActivity, it)
             }

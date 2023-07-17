@@ -11,5 +11,6 @@ data class scanMCode(
     val tp_num: Int,
     val ware_area: Int,
     val voice_flag: Int,
+    val order_id: Int,
     val ware_area_name: String
 )

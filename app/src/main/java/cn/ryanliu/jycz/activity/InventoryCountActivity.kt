@@ -13,6 +13,8 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.basic.BaseActivity
+import cn.ryanliu.jycz.bean.lockAllCancel
+import cn.ryanliu.jycz.common.constant.Constant
 import cn.ryanliu.jycz.databinding.ActivityInventoryCountBinding
 import cn.ryanliu.jycz.util.ToastUtilsExt
 import cn.ryanliu.jycz.util.UserUtil
@@ -27,8 +29,8 @@ import com.xql.loading.TipDialog
 class InventoryCountActivity : BaseActivity<ActivityInventoryCountBinding, InventoryCountVM>() {
     // 提示窗对象
     private var tipDialog: TipDialog? = null
-    private var invent_id: String = ""
-
+    private lateinit var invent_id: lockAllCancel
+    var ysxm = 0
     private lateinit var mSoundPool: SoundPool
     private val soundID = HashMap<Int, Int>()
     override fun layoutId(): Int = R.layout.activity_inventory_count
@@ -56,7 +58,7 @@ class InventoryCountActivity : BaseActivity<ActivityInventoryCountBinding, Inven
         soundID[2] = mSoundPool.load(this, R.raw.repeat_2, 1);
         soundID[3] = mSoundPool.load(this, R.raw.complete_3, 1);
 
-        invent_id = intent.getStringExtra("invent_id").toString()
+        invent_id = intent.getSerializableExtra("invent_id") as lockAllCancel
 
         initDialog();
 
@@ -73,7 +75,11 @@ class InventoryCountActivity : BaseActivity<ActivityInventoryCountBinding, Inven
 
     private fun onClick() {
         mDatabind.btnTj.setOnClickListener {
-            mViewModel.scanMCode("库存盘点", mDatabind.etSmtm.text.toString())
+            mViewModel.scanMCode(
+                "库存盘点",
+                mDatabind.etSmtm.text.toString(),
+                invent_id.invent_id.toString()
+            )
             mDatabind.etSmtm.setText("")
         }
         mDatabind.etSmtm.setOnEditorActionListener { textView, actionId, keyEvent ->
@@ -84,11 +90,15 @@ class InventoryCountActivity : BaseActivity<ActivityInventoryCountBinding, Inven
                     mDatabind.etSmtm.setFocusable(true);
                     mDatabind.etSmtm.setFocusableInTouchMode(true);
                     mDatabind.etSmtm.requestFocus();
-                    mViewModel.scanMCode("库存盘点", mDatabind.etSmtm.text.toString())
+                    mViewModel.scanMCode(
+                        "库存盘点",
+                        mDatabind.etSmtm.text.toString(),
+                        invent_id.invent_id.toString()
+                    )
                     mDatabind.etSmtm.setText("")
                     return@setOnEditorActionListener true
-                }else{
-                    
+                } else {
+
                 }
 
             }
@@ -97,20 +107,35 @@ class InventoryCountActivity : BaseActivity<ActivityInventoryCountBinding, Inven
         }
 
         mDatabind.ysxmTv.setOnClickListener {
-//            XMListActivity.launch(this)
+            if (mDatabind.ysxmTv.text.toString() == "已扫箱码(0)") {
+                ToastUtilsExt.info("您未扫描任何箱码")
+            } else {
+                XMListActivity.launch(this, 0, handtaskid, pyordercode, "全部")
+            }
+
         }
 
         mDatabind.xsTv.setOnClickListener {
-//            XMListActivity.launch(this)
+            if (mDatabind.xsTv.text.isNullOrEmpty()) {
+                ToastUtilsExt.info("没有数据")
+            } else {
+                XMListActivity.launch(this, 0, handtaskid, pyordercode, "全部")
+            }
+
         }
 
         mDatabind.khddhTv.setOnClickListener {
-//            XMListActivity.launch(this)
+            if (mDatabind.khddhTv.text.isNullOrEmpty()) {
+                ToastUtilsExt.info("没有数据")
+            } else {
+                XMListActivity.launch(this, 0, handtaskid, pyordercode, "全部")
+            }
+
 
         }
 
         mDatabind.qrpdwnBtn.setOnClickListener {
-            mViewModel.getInventResult(invent_id)
+            mViewModel.getInventResult(invent_id.invent_id.toString())
         }
         mDatabind.qxbcpdBtn.setOnClickListener {
             showTipDialog("确认取消盘点？", {
@@ -153,6 +178,9 @@ class InventoryCountActivity : BaseActivity<ActivityInventoryCountBinding, Inven
         }
     }
 
+    var handtaskid: Int = 0
+    var pyordercode = ""
+
     override fun createObserver() {
         mViewModel.mSelectCar.observe(this) {
             if (it != null) {
@@ -173,26 +201,30 @@ class InventoryCountActivity : BaseActivity<ActivityInventoryCountBinding, Inven
 
                     }
                 }
+                pyordercode = it.order_id.toString()
+                handtaskid = it.tp_num
 
-                mDatabind.xmtmhTv.text = it?.scan_code
-                mDatabind.mddTv.text = it?.rec_area
-                mDatabind.shrTv.text = it?.rec_man
-                mDatabind.shdwTv.text = it?.rec_unit
-                mDatabind.smlxTv.text = it?.scan_type
-                mDatabind.xsTv.text = it?.tp_num.toString()
-                mDatabind.khddhTv.text = it?.py_order_code
+                ysxm = ysxm + it.tp_num
+                mDatabind.ysxmTv.text = "已扫箱码(${ysxm})"
+                mDatabind.xmtmhTv.text = it.scan_code
+                mDatabind.mddTv.text = it.rec_area
+                mDatabind.shrTv.text = it.rec_man
+                mDatabind.shdwTv.text = it.rec_unit
+                mDatabind.smlxTv.text = it.scan_type
+                mDatabind.xsTv.text = it.tp_num.toString()
+                mDatabind.khddhTv.text = it.py_order_code
             }
 
             mViewModel.mInventResult.observe(this) {
                 if (it != null) {
-                    InventoryResultActivity.launch(this, it, invent_id)
+                    InventoryResultActivity.launch(this, it, invent_id.invent_id.toString())
                 }
             }
         }
     }
 
     companion object {
-        fun launch(context: Context, invent_id: String?) {
+        fun launch(context: Context, invent_id: lockAllCancel?) {
             val intent = Intent(context, InventoryCountActivity::class.java)
             intent.putExtra("invent_id", invent_id)
             context.startActivity(intent)

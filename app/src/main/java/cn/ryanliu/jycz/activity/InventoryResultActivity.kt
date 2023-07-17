@@ -8,6 +8,7 @@ import cn.ryanliu.jycz.adapter.XMListAdapter
 import cn.ryanliu.jycz.basic.BaseActivity
 import cn.ryanliu.jycz.bean.InventResult
 import cn.ryanliu.jycz.bean.XMListBean
+import cn.ryanliu.jycz.bean.lockAllCancel
 import cn.ryanliu.jycz.databinding.ActivityInventoryCountBinding
 import cn.ryanliu.jycz.databinding.ActivityInventoryResultBinding
 import cn.ryanliu.jycz.util.ToastUtilsExt
@@ -21,6 +22,7 @@ import cn.ryanliu.jycz.viewmodel.InventoryResultVM
 class InventoryResultActivity : BaseActivity<ActivityInventoryResultBinding, InventoryResultVM>() {
     lateinit var mAdapter: XMListAdapter
     private var invent_id: String = ""
+    private lateinit var lockAllCancel: lockAllCancel
     lateinit var inventResult: InventResult
 
     override fun layoutId(): Int = R.layout.activity_inventory_result
@@ -48,7 +50,7 @@ class InventoryResultActivity : BaseActivity<ActivityInventoryResultBinding, Inv
 
     private fun onClick() {
         mDatabind.jxpdBtn.setOnClickListener {
-            InventoryCountActivity.launch(this, invent_id)
+            InventoryCountActivity.launch(this, lockAllCancel(invent_id.toInt()))
         }
 
         mDatabind.bcpdBtn.setOnClickListener {

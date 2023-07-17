@@ -86,7 +86,7 @@ interface ApiService {
 
     //库存盘点，冻结所有库存 和 扫描操作
     @POST("/api/APP/lock_all_cancel")
-    suspend fun lockAllCancel(@Body request: PlockAllCancel): BaseResponse<String?>
+    suspend fun lockAllCancel(@Body request: PlockAllCancel): BaseResponse<lockAllCancel?>
 
     //确认盘点
     @POST("/api/APP/get_invent_result")

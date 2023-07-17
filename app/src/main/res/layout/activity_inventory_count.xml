@@ -22,7 +22,7 @@
                 android:layout_marginRight="@dimen/dp_3"
                 android:background="@color/bg_green"
                 android:padding="@dimen/dp_10"
-                android:text="已扫箱码(15)"
+                android:text="已扫箱码(0)"
                 android:textColor="@color/white" />
 
             <LinearLayout
@@ -49,13 +49,13 @@
 
                         <EditText
                             android:id="@+id/et_smtm"
-                            android:gravity="center"
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
                             android:layout_margin="2dp"
                             android:layout_marginBottom="16dp"
                             android:background="@drawable/bg_edittext"
-                            android:hint="扫描托码"
+                            android:gravity="center"
+                            android:hint="扫描箱码或托码"
                             android:lines="1"
                             android:maxLines="1"
                             android:textSize="@dimen/sp_14" />
@@ -64,7 +64,6 @@
 
 
                     <TextView
-                        android:visibility="gone"
                         android:id="@+id/btn_tj"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -73,7 +72,8 @@
                         android:gravity="center"
                         android:text="添加"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/sp_16" />
+                        android:textSize="@dimen/sp_16"
+                        android:visibility="gone" />
 
                 </LinearLayout>
 
@@ -82,7 +82,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dp_10"
                     android:layout_marginTop="@dimen/dp_10"
-                    android:text="当前扫描条码(箱码)" />
+                    android:text="当前扫描条码" />
 
                 <View
                     android:layout_width="match_parent"

@@ -22,7 +22,8 @@ class InventoryCountVM : BaseViewModel() {
 
     fun scanMCode(
         oper_flag: String?,
-        scan_code: String?
+        scan_code: String?,
+        invent_id:String?
     ) {
         viewModelScope.launch {
 
@@ -30,7 +31,7 @@ class InventoryCountVM : BaseViewModel() {
                 showLoading()
                 val response = ApiService.apiService.scanMCode(
                     PscanMCode(
-                        oper_flag, scan_code
+                        oper_flag, scan_code,invent_id
                     )
                 )
 
