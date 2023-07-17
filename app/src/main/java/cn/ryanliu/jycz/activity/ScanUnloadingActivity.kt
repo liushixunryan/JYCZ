@@ -127,7 +127,7 @@ class ScanUnloadingActivity : BaseActivity<ActivityScanUnloadingBinding, ScanUnl
             }
             if (SelectAreaActivity.REQUEST_CODE_XXKQ == requestCode) {
                 mDatabind.etKq.setText(data?.getStringExtra("areaName") ?: "")
-                mareaID = data?.getStringExtra("areaId") ?: ""
+                mareaID = data?.getIntExtra("areaId",0).toString()
             }
         }
     }

@@ -1,5 +1,7 @@
 package cn.ryanliu.jycz.activity
 
+import android.Manifest
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.media.AudioManager
@@ -7,15 +9,23 @@ import android.media.SoundPool
 import android.text.InputType
 import android.text.Selection
 import android.text.Spannable
+import android.text.TextUtils
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import androidx.appcompat.app.AppCompatActivity
 import cn.ryanliu.jycz.R
+import cn.ryanliu.jycz.activity.booth.BTActivity
 import cn.ryanliu.jycz.basic.BaseActivity
 import cn.ryanliu.jycz.common.constant.Constant
 import cn.ryanliu.jycz.databinding.ActivitySortingStackBinding
+import cn.ryanliu.jycz.util.DialogUtil
+import cn.ryanliu.jycz.util.MmkvHelper
 import cn.ryanliu.jycz.util.ToastUtilsExt
 import cn.ryanliu.jycz.viewmodel.SortingStackVM
+import com.tbruyelle.rxpermissions.RxPermissions
+import print.Print
 
 /**
  * @Author: lsx
@@ -23,7 +33,25 @@ import cn.ryanliu.jycz.viewmodel.SortingStackVM
  * @Description:分拣码放
  */
 class SortingStackActivity : BaseActivity<ActivitySortingStackBinding, SortingStackVM>() {
-    var AreaID = ""
+    var AreaID: Int = 0
+    var isconnect = false
+
+
+    private fun connectionBluetooth() {
+        //获取蓝牙动态权限
+        val rxPermissions = RxPermissions(this)
+        rxPermissions.request(
+            Manifest.permission.BLUETOOTH_ADMIN,
+            Manifest.permission.BLUETOOTH,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ).subscribe {
+            if (true) {
+                val intent = Intent(this, BTActivity::class.java)
+                intent.putExtra("TAG", 0)
+                startActivityForResult(intent, 0)
+            }
+        }
+    }
 
 
     private lateinit var mSoundPool: SoundPool
@@ -80,7 +108,7 @@ class SortingStackActivity : BaseActivity<ActivitySortingStackBinding, SortingSt
                     mDatabind.etSmtm.setText("")
                     return@setOnEditorActionListener true
                 } else {
-                    
+
                 }
 
             }
@@ -90,7 +118,7 @@ class SortingStackActivity : BaseActivity<ActivitySortingStackBinding, SortingSt
         //点击托码
         mDatabind.ctBtn.setOnClickListener {
             if (mDatabind.smlxTv.text == "托码") {
-                mViewModel.doSplitTmp(mDatabind.xmtmhTv.text.toString(), "0")
+                mViewModel.doSplitTmp(mDatabind.xmtmhTv.text.toString(), "拆托")
             } else {
                 ToastUtilsExt.info("类型不是托码")
             }
@@ -116,11 +144,41 @@ class SortingStackActivity : BaseActivity<ActivitySortingStackBinding, SortingSt
                 PintoActivity.launch(
                     this,
                     mDatabind.kqTv.text.toString(),
-                    AreaID
+                    AreaID.toString()
                 )
             } else {
                 ToastUtilsExt.info("请先扫码")
             }
+        }
+
+        mDatabind.dybqBtn.setOnClickListener {
+            isconnect = MmkvHelper.getInstance().getBoolean(Constant.MmKv_KEY.ISCONNECT)
+            if (isconnect) {
+                DialogUtil.showSelectDialog(
+                    this,
+                    "条码打印",
+                    arrayOf("仅打印一个【托码】标签", "扫箱码后补打【托码】标签", "补打【箱码】标签", "打印机油标签")
+                ) { position, text ->
+                    when (position) {
+                        0 -> {
+                            OnlyPrintTMActivity.launch(this)
+                        }
+                        1 -> {
+                            ScanBoxTMActivity.launch(this)
+                        }
+
+                        2 -> {
+                            PatchworkXMActivity.launch(this, "")
+                        }
+                        3 -> {
+                            EngineOilActivity.launch(this)
+                        }
+                    }
+                }
+            } else {
+                connectionBluetooth()
+            }
+            
         }
     }
 
@@ -145,15 +203,15 @@ class SortingStackActivity : BaseActivity<ActivitySortingStackBinding, SortingSt
                     }
                 }
 
-                mDatabind.xmtmhTv.text = it?.scan_code
-                mDatabind.mddTv.text = it?.rec_area
-                mDatabind.shrTv.text = it?.rec_man
-                mDatabind.shdwTv.text = it?.rec_unit
-                mDatabind.smlxTv.text = it?.scan_type
-                mDatabind.xsTv.text = it?.tp_num.toString()
-                mDatabind.wtdhTv.text = it?.py_order_code
-                mDatabind.kqTv.text = it?.ware_area_name
-                AreaID = it?.ware_area.toString()
+                mDatabind.xmtmhTv.text = it.scan_code
+                mDatabind.mddTv.text = it.rec_area
+                mDatabind.shrTv.text = it.rec_man
+                mDatabind.shdwTv.text = it.rec_unit
+                mDatabind.smlxTv.text = it.scan_type
+                mDatabind.xsTv.text = it.tp_num.toString()
+                mDatabind.wtdhTv.text = it.py_order_code
+                mDatabind.kqTv.text = it.ware_area_name
+                AreaID = it.ware_area
             }
 
             mViewModel.mBackList.observe(this) {
@@ -169,18 +227,75 @@ class SortingStackActivity : BaseActivity<ActivitySortingStackBinding, SortingSt
     var areaName = ""
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        try {
+            val strIsConnected: String?
+            when (resultCode) {
+                AppCompatActivity.RESULT_CANCELED -> {
+                    MmkvHelper.getInstance().putString(
+                        Constant.MmKv_KEY.BTmac,
+                        data!!.getStringExtra("SelectedBDAddress")
+                    )
+
+                    connectBT(data!!.getStringExtra("SelectedBDAddress"))
+                }
+            }
+        } catch (e: Exception) {
+            Log.e(
+                "SDKSample", StringBuilder("Activity_Main --> onActivityResult ")
+                    .append(e.message).toString()
+            )
+        }
         if (RESULT_OK == resultCode) {
             if (SelectAreaActivity.REQUEST_CODE_XXKQ == requestCode) {
                 mViewModel.changWareArea(
                     "分拣码放",
                     mDatabind.xmtmhTv.text.toString(),
-                    (data?.getStringExtra("areaName") ?: "")
+                    (data?.getIntExtra("areaId", 0).toString())
                 )
                 areaName = data?.getStringExtra("areaName") ?: ""
-                AreaID = data?.getIntExtra("areaId", 0).toString()
+                AreaID = data?.getIntExtra("areaId", 0)!!
             }
         }
     }
+
+
+    //连接蓝牙
+    private fun connectBT(BTmac: String?) {
+        if (TextUtils.isEmpty(BTmac)) return
+        val progressDialog = ProgressDialog(this)
+        progressDialog.setMessage("connect")
+        progressDialog.show()
+        object : Thread() {
+            override fun run() {
+                super.run()
+                try {
+                    val result = Print.PortOpen(context, "Bluetooth,$BTmac")
+                    runOnUiThread {
+                        if (result == 0) {
+                            MmkvHelper.getInstance().putBoolean(Constant.MmKv_KEY.ISCONNECT, true)
+
+                            ToastUtilsExt.info("连接成功")
+                            val setJustification = Print.SetJustification(2)
+                            if (setJustification != -1) {
+
+                            } else {
+                                ToastUtilsExt.info("打印机设置失败")
+                            }
+
+                        } else {
+                            MmkvHelper.getInstance().putBoolean(Constant.MmKv_KEY.ISCONNECT, false)
+                            ToastUtilsExt.info("连接失败" + result)
+                        }
+
+                    }
+                    progressDialog.dismiss()
+                } catch (e: Exception) {
+                    progressDialog.dismiss()
+                }
+            }
+        }.start()
+    }
+
 
     companion object {
         fun launch(context: Context) {

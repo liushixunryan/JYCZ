@@ -75,7 +75,7 @@ class SelectAreaActivity : BaseActivity<ActivitySelectAreaBinding, SelectAreaVM>
                             val intent =
                                 Intent(this@SelectAreaActivity, SelectCarActivity::class.java)
                             intent.putExtra("areaName", selectBean[i].ware_area_name)
-                            intent.putExtra("areaId", selectBean[i].ware_area_id.toString())
+                            intent.putExtra("areaId", selectBean[i].ware_area_id)
                             setResult(RESULT_OK, intent);
                             finish()
                         } else {

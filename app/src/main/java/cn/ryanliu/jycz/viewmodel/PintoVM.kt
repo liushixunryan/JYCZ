@@ -23,7 +23,7 @@ class PintoVM : BaseViewModel() {
     fun scanFjCode(
         box_code: String,
         new_tp_code: String,
-        oper_type: Int,
+        oper_type: String,
         tp_num: Int,
         ware_area: String
     ) {

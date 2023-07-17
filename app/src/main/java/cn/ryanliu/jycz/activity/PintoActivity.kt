@@ -1,5 +1,7 @@
 package cn.ryanliu.jycz.activity
 
+import android.Manifest
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,17 +9,24 @@ import android.os.Bundle
 import android.text.InputType
 import android.text.Selection
 import android.text.Spannable
+import android.text.TextUtils
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import cn.ryanliu.jycz.R
+import cn.ryanliu.jycz.activity.booth.BTActivity
 import cn.ryanliu.jycz.basic.BaseActivity
 import cn.ryanliu.jycz.common.constant.Constant
 import cn.ryanliu.jycz.databinding.ActivityPintoBinding
 import cn.ryanliu.jycz.databinding.ActivitySortingStackBinding
+import cn.ryanliu.jycz.util.DialogUtil
+import cn.ryanliu.jycz.util.MmkvHelper
 import cn.ryanliu.jycz.util.ToastUtilsExt
 import cn.ryanliu.jycz.viewmodel.PintoVM
 import cn.ryanliu.jycz.viewmodel.SortingStackVM
+import com.tbruyelle.rxpermissions.RxPermissions
+import print.Print
 
 /**
  * @Author: lsx
@@ -27,6 +36,24 @@ import cn.ryanliu.jycz.viewmodel.SortingStackVM
 class PintoActivity : BaseActivity<ActivityPintoBinding, PintoVM>() {
     var AreaName = ""
     var AreaNameID = ""
+    var isconnect = false
+
+
+    private fun connectionBluetooth() {
+        //获取蓝牙动态权限
+        val rxPermissions = RxPermissions(this)
+        rxPermissions.request(
+            Manifest.permission.BLUETOOTH_ADMIN,
+            Manifest.permission.BLUETOOTH,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ).subscribe {
+            if (true) {
+                val intent = Intent(this, BTActivity::class.java)
+                intent.putExtra("TAG", 0)
+                startActivityForResult(intent, 0)
+            }
+        }
+    }
 
     override fun layoutId(): Int = R.layout.activity_pinto
 
@@ -72,7 +99,7 @@ class PintoActivity : BaseActivity<ActivityPintoBinding, PintoVM>() {
                     mViewModel.scanFjCode(
                         mDatabind.etSmtm.text.toString(),
                         mDatabind.tmTv.text.toString(),
-                        1,
+                        "拼托",
                         mDatabind.zjtsTv.text.toString().toInt(),
                         AreaNameID
                     )
@@ -92,7 +119,7 @@ class PintoActivity : BaseActivity<ActivityPintoBinding, PintoVM>() {
                 mViewModel.scanFjCode(
                     mDatabind.etSmtm.text.toString(),
                     mDatabind.tmTv.text.toString(),
-                    1,
+                    "拼托",
                     mDatabind.zjtsTv.text.toString().toInt(),
                     AreaNameID
                 )
@@ -100,8 +127,15 @@ class PintoActivity : BaseActivity<ActivityPintoBinding, PintoVM>() {
         }
 
         mDatabind.bdxmBtn.setOnClickListener {
-            PatchworkXMActivity.launch(this,"ispt")
+            isconnect = MmkvHelper.getInstance().getBoolean(Constant.MmKv_KEY.ISCONNECT)
+            if (isconnect) {
+                PatchworkXMActivity.launch(this, "ispt")
+            } else {
+                connectionBluetooth()
+            }
+
         }
+        
 
         mDatabind.cxzdkqTv.setOnClickListener {
             val intent = Intent(this@PintoActivity, SelectAreaActivity::class.java)
@@ -133,11 +167,66 @@ class PintoActivity : BaseActivity<ActivityPintoBinding, PintoVM>() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (RESULT_OK == resultCode) {
+            try {
+                when (resultCode) {
+                    RESULT_CANCELED -> {
+                        MmkvHelper.getInstance().putString(
+                            Constant.MmKv_KEY.BTmac,
+                            data!!.getStringExtra("SelectedBDAddress")
+                        )
+
+                        connectBT(data!!.getStringExtra("SelectedBDAddress"))
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e(
+                    "SDKSample", StringBuilder("Activity_Main --> onActivityResult ")
+                        .append(e.message).toString()
+                )
+            }
+
             if (SelectAreaActivity.REQUEST_CODE_XXKQ == requestCode) {
                 mDatabind.kqTv.setText(data?.getStringExtra("areaName") ?: "")
                 AreaNameID = data?.getIntExtra("areaId", 0).toString()
             }
         }
+    }
+
+    //连接蓝牙
+    private fun connectBT(BTmac: String?) {
+        if (TextUtils.isEmpty(BTmac)) return
+        val progressDialog = ProgressDialog(this)
+        progressDialog.setMessage("connect")
+        progressDialog.show()
+        object : Thread() {
+            override fun run() {
+                super.run()
+                try {
+                    val result = Print.PortOpen(context, "Bluetooth,$BTmac")
+                    runOnUiThread {
+                        if (result == 0) {
+                            MmkvHelper.getInstance().putBoolean(Constant.MmKv_KEY.ISCONNECT, true)
+
+                            ToastUtilsExt.info("连接成功")
+                            val setJustification = Print.SetJustification(2)
+                            if (setJustification != -1) {
+
+                            } else {
+                                ToastUtilsExt.info("打印机设置失败")
+                            }
+
+                        } else {
+                            MmkvHelper.getInstance().putBoolean(Constant.MmKv_KEY.ISCONNECT, false)
+                            ToastUtilsExt.info("连接失败" + result)
+                        }
+
+                    }
+                    progressDialog.dismiss()
+                } catch (e: Exception) {
+                    progressDialog.dismiss()
+                }
+            }
+        }.start()
     }
 
     companion object {

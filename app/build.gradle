@@ -1,8 +1,16 @@
+import java.text.SimpleDateFormat
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
 }
 apply plugin: 'kotlin-kapt'
+
+def appName = "场站系统"
+
+static def packageTime() {
+    return new SimpleDateFormat("yyyy-MM-dd").format(new Date())
+}
 
 android {
     namespace 'cn.ryanliu.jycz'
@@ -12,7 +20,7 @@ android {
         applicationId "cn.ryanliu.jycz"
         minSdk 21
         targetSdk 32
-        versionCode 11
+        versionCode 13
         versionName "1.0.0"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -44,6 +52,24 @@ android {
             keyPassword "123456"
             storeFile file('../allapp.jks')
             storePassword "123456"
+        }
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "${appName}-${packageTime()}.apk"
+        }
+        def outputFilePath = "${rootDir.absolutePath}/apk"
+        File outputFile = new File(outputFilePath)
+        variant.assemble.doLast {
+            copy {
+                variant.outputs.all { file ->
+                    copy {
+                        from file.outputFile
+                        into outputFile
+                    }
+                }
+            }
         }
     }
 }
