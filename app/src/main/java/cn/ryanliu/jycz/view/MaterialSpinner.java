@@ -116,7 +116,7 @@ public class MaterialSpinner extends AppCompatTextView {
 
         mDropDownOffset = ThemeUtils.resolveDimension(getContext(), R.attr.ms_dropdown_offset);
 
-        setGravity(Gravity.CENTER_VERTICAL | Gravity.START);
+        setGravity(Gravity.CENTER);
         setClickable(true);
         setPaddingRelative(left, top, right, bottom);
         setBackgroundResource(R.drawable.ms_background_selector);

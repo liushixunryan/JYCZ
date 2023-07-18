@@ -44,7 +44,7 @@ class LoadingDetailActivity : BaseActivity<DetailActivityLoadingBinding, Loading
     private fun onClick() {
         mDatabind.btnSelect.setOnClickListener {
             LoadingListActivity.launch(
-                this, Constant.PageModel.XIECHE, PsearchTaskList(
+                this, Constant.PageModel.ZHUANGCHE, PsearchTaskList(
                     mDatabind.etXm.text.toString(),
                     mDatabind.etCph.text.toString(),
                     mDatabind.etSjxm.text.toString(),

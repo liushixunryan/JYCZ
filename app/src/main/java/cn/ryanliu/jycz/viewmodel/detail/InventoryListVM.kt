@@ -31,7 +31,8 @@ class InventoryListVM : BaseViewModel() {
 
                 if (response.isSuccess()) {
                     mSelect.postValue(response.data)
-
+                }else{
+                    mSelect.postValue(response.data)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

@@ -132,6 +132,10 @@ interface ApiService {
     @POST("/api/APP/search_invent_boxcode_list")
     suspend fun searchInventBoxcodeList(@Body request: PsearchInventBoxcodeList): BaseResponse<MutableList<XMListBean>>
 
+    //取消盘点
+    @POST("/api/APP/cancel_invent")
+    suspend fun cancel_inventory(@Body request: Pcancel_inventory): BaseResponse<Any>
+
     //-----------------------------打印条码-----------------------------------
     //单独打印一张托码（针对不可拆托的货物，只要一张托码即可，整托没有具体箱码
     @POST("/api/APP/create_t_code_1")

@@ -34,9 +34,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:layout_margin="2dp"
-                    android:gravity="center"
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/bg_edittext"
+                    android:gravity="center"
                     android:hint="扫描箱码或托码"
                     android:lines="1"
                     android:maxLines="1"
@@ -52,10 +52,10 @@
                 android:layout_weight="1"
                 android:background="#008080"
                 android:gravity="center"
-                android:visibility="gone"
                 android:text="添加"
                 android:textColor="@color/white"
-                android:textSize="@dimen/sp_16" />
+                android:textSize="@dimen/sp_16"
+                android:visibility="gone" />
 
         </LinearLayout>
 
@@ -63,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_10"
-            android:text="当前扫描条码(箱码/托码号)" />
+            android:text="当前扫描条码" />
 
         <View
             android:layout_width="match_parent"
@@ -266,7 +266,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/dp_5"
-                android:layout_weight="1"
+                android:layout_weight="1.5"
                 android:background="@color/bg_green"
                 android:gravity="center"
                 android:text="重新指定库区"
@@ -278,7 +278,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_40"
+            android:layout_height="@dimen/dp_48"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="@dimen/dp_10"
             android:orientation="horizontal">
@@ -286,38 +286,38 @@
             <Button
                 android:id="@+id/ct_btn"
                 android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_marginHorizontal="20dp"
+                android:layout_height="45dp"
+                android:layout_marginHorizontal="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/shape_blue_r32"
                 android:paddingVertical="0dp"
                 android:text="拆托"
                 android:textColor="@color/common_white"
-                android:textSize="15dp" />
+                android:textSize="18dp" />
 
             <Button
                 android:id="@+id/pt_btn"
                 android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_marginHorizontal="20dp"
+                android:layout_height="45dp"
+                android:layout_marginHorizontal="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/shape_blue_r32"
                 android:paddingVertical="0dp"
                 android:text="拼托"
                 android:textColor="@color/common_white"
-                android:textSize="15dp" />
+                android:textSize="18dp" />
 
             <Button
                 android:id="@+id/dybq_btn"
                 android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_marginHorizontal="20dp"
+                android:layout_height="45dp"
+                android:layout_marginHorizontal="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/shape_blue_r32"
                 android:paddingVertical="0dp"
                 android:text="打印标签"
                 android:textColor="@color/common_white"
-                android:textSize="15dp" />
+                android:textSize="18dp" />
 
         </LinearLayout>
 

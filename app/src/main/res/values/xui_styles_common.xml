@@ -53,9 +53,10 @@
 
 
     <style name="Material.SpinnerStyle" parent="@style/Widget.AppCompat.Spinner">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">35dp</item>
-        <item name="android:textSize">@dimen/sp_14</item>
+        <item name="android:textSize">@dimen/sp_12</item>
+        <item name="android:gravity">center</item>
         <item name="android:textColor">@color/common_text_black</item>
         <item name="ms_dropdown_height">wrap_content</item>
         <item name="ms_text_color">@color/common_text_black</item>
@@ -64,9 +65,10 @@
     </style>
 
     <style name="Material.graySpinnerStyle" parent="@style/Widget.AppCompat.Spinner">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">35dp</item>
-        <item name="android:textSize">@dimen/sp_14</item>
+        <item name="android:textSize">@dimen/sp_12</item>
+        <item name="android:gravity">center</item>
         <item name="android:textColor">@color/common_text_black</item>
         <item name="ms_dropdown_height">wrap_content</item>
         <item name="ms_text_color">@color/common_text_black</item>

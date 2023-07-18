@@ -1,9 +1,13 @@
 package cn.ryanliu.jycz.activity
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.media.AudioManager
+import android.media.SoundPool
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
@@ -26,6 +30,7 @@ import cn.ryanliu.jycz.util.ToastUtilsExt
 import cn.ryanliu.jycz.viewmodel.PintoVM
 import cn.ryanliu.jycz.viewmodel.SortingStackVM
 import com.tbruyelle.rxpermissions.RxPermissions
+import com.xql.loading.TipDialog
 import print.Print
 
 /**
@@ -38,6 +43,10 @@ class PintoActivity : BaseActivity<ActivityPintoBinding, PintoVM>() {
     var AreaNameID = ""
     var isconnect = false
 
+    // 提示窗对象
+    private var tipDialog: TipDialog? = null
+    private lateinit var mSoundPool: SoundPool
+    private val soundID = HashMap<Int, Int>()
 
     private fun connectionBluetooth() {
         //获取蓝牙动态权限
@@ -57,7 +66,18 @@ class PintoActivity : BaseActivity<ActivityPintoBinding, PintoVM>() {
 
     override fun layoutId(): Int = R.layout.activity_pinto
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun initView() {
+        initDialog();
+
+        mSoundPool = SoundPool(3, AudioManager.STREAM_SYSTEM, 5);
+        mSoundPool = SoundPool(3, AudioManager.STREAM_SYSTEM, 5);
+        mSoundPool = SoundPool(3, AudioManager.STREAM_SYSTEM, 5);
+        soundID[0] = mSoundPool.load(this, R.raw.scan_0, 1);
+        soundID[1] = mSoundPool.load(this, R.raw.error_1, 1);
+        soundID[2] = mSoundPool.load(this, R.raw.repeat_2, 1);
+        soundID[3] = mSoundPool.load(this, R.raw.complete_3, 1);
+
         mDatabind.etSmtm.setOnTouchListener(View.OnTouchListener { v, event ->
             val inType: Int = mDatabind.etSmtm.getInputType()
             mDatabind.etSmtm.setInputType(InputType.TYPE_NULL)
@@ -71,6 +91,7 @@ class PintoActivity : BaseActivity<ActivityPintoBinding, PintoVM>() {
             true
         })
         mDatabind.etSmtm.requestFocus();
+
         mDatabind.inNavBar.ivNavBack.visibility = View.VISIBLE
         mDatabind.inNavBar.ivNavBack.setOnClickListener {
             onBackPressed()
@@ -135,7 +156,7 @@ class PintoActivity : BaseActivity<ActivityPintoBinding, PintoVM>() {
             }
 
         }
-        
+
 
         mDatabind.cxzdkqTv.setOnClickListener {
             val intent = Intent(this@PintoActivity, SelectAreaActivity::class.java)
@@ -153,14 +174,57 @@ class PintoActivity : BaseActivity<ActivityPintoBinding, PintoVM>() {
 
     override fun createObserver() {
         mViewModel.mSelectCar.observe(this) {
-            mDatabind.xmtmhTv.text = it?.box_code
-            mDatabind.mddTv.text = it?.rec_area
-            mDatabind.shrTv.text = it?.rec_man
-            mDatabind.shdwTv.text = it?.rec_unit
+            when (it!!.voice_flag) {
+                0 -> {
+//                    SPD9202307W01G000122
+//                    SPD9202307W01G000125
+//                    SPD9202307W01G000126
+                    mSoundPool.play(soundID[0]!!, 1F, 1F, 0, 0, 1F);
+                }
+                1 -> {
+                    mSoundPool.play(soundID[1]!!, 1F, 1F, 0, 0, 1F);
+                }
+                2 -> {
+                    mSoundPool.play(soundID[2]!!, 1F, 1F, 0, 0, 1F);
+                }
+                3 -> {
+                    mSoundPool.play(soundID[3]!!, 1F, 1F, 0, 0, 1F);
+                    showTipDialog(
+                        "拼托扫描完成",
+                        "提示"
+                    ) {
+                        onBackPressed()
+                    }
+                }
+                else -> {
+
+                }
+            }
+
+            mDatabind.xmtmhTv.text = it.box_code
+            mDatabind.mddTv.text = it.rec_area
+            mDatabind.shrTv.text = it.rec_man
+            mDatabind.shdwTv.text = it.rec_unit
+
+
+            mDatabind.etSmtm.setFocusable(true);
+            mDatabind.etSmtm.setFocusableInTouchMode(true);
+            mDatabind.etSmtm.requestFocus();
         }
 
         mViewModel.mtpNum.observe(this) {
             mDatabind.tmTv.text = it.toString()
+
+            mDatabind.cxzdkqTv.setBackgroundColor(Color.parseColor("#CCCCCC"))
+            mDatabind.cxzdkqTv.isEnabled = false
+            mDatabind.zjtsTv.setBackgroundColor(Color.parseColor("#CCCCCC"))
+            mDatabind.zjtsTv.isEnabled = false
+            mDatabind.sctmTv.setBackgroundColor(Color.parseColor("#CCCCCC"))
+            mDatabind.sctmTv.isEnabled = false
+
+            mDatabind.etSmtm.setFocusable(true);
+            mDatabind.etSmtm.setFocusableInTouchMode(true);
+            mDatabind.etSmtm.requestFocus();
         }
     }
 
@@ -227,6 +291,38 @@ class PintoActivity : BaseActivity<ActivityPintoBinding, PintoVM>() {
                 }
             }
         }.start()
+    }
+
+    /**
+     * 初始化各种Dialog
+     */
+    private fun initDialog() {
+        if (tipDialog == null) {
+            tipDialog = TipDialog(this)
+        }
+    }
+
+    /**
+     * 显示提示类型Dialog
+     */
+    fun showTipDialog(
+        msg: String,
+        title: String,
+        subbtn: TipDialog.SubmitListener?
+    ): TipDialog? {
+        if (tipDialog != null && !tipDialog!!.isShowing) {
+            tipDialog!!.setMessage(msg).isShowCancel(false).setSubmitListener(subbtn).show()
+        }
+        return tipDialog
+    }
+
+    /**
+     * 隐藏提示类型Dialog
+     */
+    fun hideTipDialog() {
+        if (tipDialog != null && tipDialog!!.isShowing) {
+            tipDialog!!.dismiss()
+        }
     }
 
     companion object {

@@ -4,5 +4,6 @@ data class scanFjCode(
     val box_code: String,
     val rec_area: String,
     val rec_man: String,
-    val rec_unit: String
+    val rec_unit: String,
+    val voice_flag: Int
 )

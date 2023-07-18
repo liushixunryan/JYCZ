@@ -140,6 +140,7 @@ class InventoryCountActivity : BaseActivity<ActivityInventoryCountBinding, Inven
         mDatabind.qxbcpdBtn.setOnClickListener {
             showTipDialog("确认取消盘点？", {
                 UserUtil.setPanDian("")
+                mViewModel.cancelInventory(invent_id.invent_id.toString())
 
             }, {})
         }
@@ -182,6 +183,9 @@ class InventoryCountActivity : BaseActivity<ActivityInventoryCountBinding, Inven
     var pyordercode = ""
 
     override fun createObserver() {
+        mViewModel.mcancelpd.observe(this) {
+            MainActivity.launchClear(this@InventoryCountActivity)
+        }
         mViewModel.mSelectCar.observe(this) {
             if (it != null) {
                 when (it!!.voice_flag) {

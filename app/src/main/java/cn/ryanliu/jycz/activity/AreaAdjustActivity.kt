@@ -80,7 +80,7 @@ class AreaAdjustActivity : BaseActivity<ActivityAreaAdjustBinding, AreaAdjustVM>
                     mDatabind.etSmtm.setFocusableInTouchMode(true);
                     mDatabind.etSmtm.requestFocus();
 
-                    mViewModel.scanMCode("库位调整", mDatabind.etSmtm.text.toString())
+                    mViewModel.scanMCode("库位调整", mDatabind.etSmtm.text.toString(),areaId.toInt())
                     mDatabind.etSmtm.setText("")
                     return@setOnEditorActionListener true
                 } else {
@@ -93,7 +93,7 @@ class AreaAdjustActivity : BaseActivity<ActivityAreaAdjustBinding, AreaAdjustVM>
         }
 
         mDatabind.btnTj.setOnClickListener {
-            mViewModel.scanMCode("库位调整", mDatabind.etSmtm.text.toString())
+            mViewModel.scanMCode("库位调整", mDatabind.etSmtm.text.toString(),areaId.toInt())
         }
 
         mDatabind.ysxmTv.setOnClickListener {
@@ -140,15 +140,14 @@ class AreaAdjustActivity : BaseActivity<ActivityAreaAdjustBinding, AreaAdjustVM>
         }
 
         mDatabind.btnQrtz.setOnClickListener {
-            if (mDatabind.xmtmhTv.text.toString() == "") {
-                ToastUtilsExt.info("扫描条码不能为空")
-            } else {
-                mViewModel.changWareArea(
-                    "库位调整",
-                    mDatabind.xmtmhTv.text.toString(),
-                    areaId
-                )
-            }
+
+                ToastUtilsExt.info("调整成功")
+                onBackPressed()
+//                mViewModel.changWareArea(
+//                    "库位调整",
+//                    mDatabind.xmtmhTv.text.toString(),
+//                    areaId
+//                )
 
         }
     }

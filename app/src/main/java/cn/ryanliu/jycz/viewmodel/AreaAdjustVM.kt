@@ -20,7 +20,8 @@ class AreaAdjustVM : BaseViewModel() {
 
     fun scanMCode(
         oper_flag: String?,
-        scan_code: String?
+        scan_code: String?,
+        ware_area: Int,
     ) {
         viewModelScope.launch {
 
@@ -28,7 +29,7 @@ class AreaAdjustVM : BaseViewModel() {
                 showLoading()
                 val response = ApiService.apiService.scanMCode(
                     PscanMCode(
-                        oper_flag, scan_code
+                        oper_flag, scan_code,"",ware_area
                     )
                 )
 

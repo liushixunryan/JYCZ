@@ -8,6 +8,7 @@ import cn.ryanliu.jycz.bean.prequest.PchangWareArea
 import cn.ryanliu.jycz.bean.prequest.PdoSplitTmp
 import cn.ryanliu.jycz.bean.prequest.PscanMCode
 import cn.ryanliu.jycz.bean.scanMCode
+import cn.ryanliu.jycz.util.ToastUtilsExt
 import kotlinx.coroutines.launch
 
 /**
@@ -18,6 +19,7 @@ import kotlinx.coroutines.launch
 class SortingStackVM : BaseViewModel() {
     val mSelectCar = MutableLiveData<scanMCode?>()
     val mBackList = MutableLiveData<String>()
+    val mctList = MutableLiveData<String>()
 
     fun scanMCode(
         oper_flag: String?,
@@ -35,7 +37,6 @@ class SortingStackVM : BaseViewModel() {
 
                 if (response.isSuccess()) {
                     mSelectCar.postValue(response.data)
-
                 } else {
                     mSelectCar.postValue(response.data)
                 }
@@ -68,7 +69,8 @@ class SortingStackVM : BaseViewModel() {
                     mBackList.postValue("修改成功")
 
                 } else {
-                    mBackList.postValue("失败")
+                    ToastUtilsExt.info(response.msg.toString())
+                    mBackList.postValue(response.msg.toString())
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -95,10 +97,11 @@ class SortingStackVM : BaseViewModel() {
                     )
                 )
                 if (response.isSuccess()) {
-                    mBackList.postValue("拆托成功")
+                    mctList.postValue("拆托成功")
 
                 } else {
-                    mBackList.postValue("失败")
+                    ToastUtilsExt.info(response.msg.toString())
+                    mctList.postValue(response.msg.toString())
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

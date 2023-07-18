@@ -30,6 +30,8 @@ class LoadingListVM : BaseViewModel() {
 
                 if (response.isSuccess()) {
                     mList.postValue(response.data)
+                }else{
+                    mList.postValue(response.data)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

@@ -25,6 +25,7 @@ import cn.ryanliu.jycz.util.MmkvHelper
 import cn.ryanliu.jycz.util.ToastUtilsExt
 import cn.ryanliu.jycz.viewmodel.SortingStackVM
 import com.tbruyelle.rxpermissions.RxPermissions
+import com.xql.loading.TipDialog
 import print.Print
 
 /**
@@ -36,7 +37,8 @@ class SortingStackActivity : BaseActivity<ActivitySortingStackBinding, SortingSt
     var AreaID: Int = 0
     var isconnect = false
 
-
+    // 提示窗对象
+    private var tipDialog: TipDialog? = null
     private fun connectionBluetooth() {
         //获取蓝牙动态权限
         val rxPermissions = RxPermissions(this)
@@ -73,6 +75,7 @@ class SortingStackActivity : BaseActivity<ActivitySortingStackBinding, SortingSt
         })
         mDatabind.etSmtm.requestFocus();
 
+        initDialog();
         mSoundPool = SoundPool(3, AudioManager.STREAM_SYSTEM, 5);
         mSoundPool = SoundPool(3, AudioManager.STREAM_SYSTEM, 5);
         mSoundPool = SoundPool(3, AudioManager.STREAM_SYSTEM, 5);
@@ -117,10 +120,17 @@ class SortingStackActivity : BaseActivity<ActivitySortingStackBinding, SortingSt
         }
         //点击托码
         mDatabind.ctBtn.setOnClickListener {
-            if (mDatabind.smlxTv.text == "托码") {
-                mViewModel.doSplitTmp(mDatabind.xmtmhTv.text.toString(), "拆托")
+            if (mDatabind.smlxTv.text.toString() == "托码") {
+                showTipDialog("确认拆托操作？",
+                    "提示",
+                    {
+                        mViewModel.doSplitTmp(mDatabind.xmtmhTv.text.toString(), "拆托")
+                    },
+                    {})
+
+
             } else {
-                ToastUtilsExt.info("类型不是托码")
+                ToastUtilsExt.info("只允许对托码进行操作")
             }
 
         }
@@ -178,7 +188,7 @@ class SortingStackActivity : BaseActivity<ActivitySortingStackBinding, SortingSt
             } else {
                 connectionBluetooth()
             }
-            
+
         }
     }
 
@@ -213,15 +223,19 @@ class SortingStackActivity : BaseActivity<ActivitySortingStackBinding, SortingSt
                 mDatabind.kqTv.text = it.ware_area_name
                 AreaID = it.ware_area
             }
-
-            mViewModel.mBackList.observe(this) {
-                if (it == "拆托成功") {
-                    ToastUtilsExt.info("拆托成功")
-                } else {
-                    mDatabind.kqTv.setText(areaName)
-                }
+        }
+        mViewModel.mctList.observe(this) {
+            if (it == "拆托成功") {
+                ToastUtilsExt.info("拆托成功")
             }
         }
+        mViewModel.mBackList.observe(this) {
+            if (it == "修改成功") {
+                mDatabind.kqTv.setText(areaName)
+                ToastUtilsExt.info("库区变更成功")
+            }
+        }
+
     }
 
     var areaName = ""
@@ -296,6 +310,39 @@ class SortingStackActivity : BaseActivity<ActivitySortingStackBinding, SortingSt
         }.start()
     }
 
+    /**
+     * 初始化各种Dialog
+     */
+    private fun initDialog() {
+        if (tipDialog == null) {
+            tipDialog = TipDialog(this)
+        }
+    }
+
+    /**
+     * 显示提示类型Dialog
+     */
+    fun showTipDialog(
+        msg: String,
+        title: String,
+        subbtn: TipDialog.SubmitListener?,
+        canbtn: TipDialog.CancelListener
+    ): TipDialog? {
+        if (tipDialog != null && !tipDialog!!.isShowing) {
+            tipDialog!!.setMessage(msg).isShowCancel(true).setSubmitListener(subbtn)
+                .setCancelListener(canbtn).show()
+        }
+        return tipDialog
+    }
+
+    /**
+     * 隐藏提示类型Dialog
+     */
+    fun hideTipDialog() {
+        if (tipDialog != null && tipDialog!!.isShowing) {
+            tipDialog!!.dismiss()
+        }
+    }
 
     companion object {
         fun launch(context: Context) {

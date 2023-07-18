@@ -20,5 +20,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "JYCZ"
 include ':app'
-include ':libBase'
 include ':loading'

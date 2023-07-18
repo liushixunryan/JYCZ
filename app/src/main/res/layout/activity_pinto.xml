@@ -53,7 +53,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/dp_5"
-                    android:layout_weight="1"
+                    android:layout_weight="1.5"
                     android:background="@color/bg_green"
                     android:gravity="center"
                     android:text="重新指定库区"
@@ -101,7 +101,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/dp_5"
-                    android:layout_weight="1"
+                    android:layout_weight="1.5"
                     android:background="@color/bg_green"
                     android:gravity="center"
                     android:text="生成托码"
@@ -164,7 +164,7 @@
                         android:gravity="center"
                         android:layout_marginBottom="16dp"
                         android:background="@drawable/bg_edittext"
-                        android:hint="扫描托码"
+                        android:hint="扫描箱码"
                         android:lines="1"
                         android:maxLines="1"
                         android:textSize="@dimen/sp_14" />
@@ -295,7 +295,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_40"
+                android:layout_height="@dimen/dp_48"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="@dimen/dp_10"
                 android:orientation="horizontal">
@@ -317,14 +317,14 @@
                 <Button
                     android:id="@+id/bdxm_btn"
                     android:layout_width="0dp"
-                    android:layout_height="30dp"
+                    android:layout_height="45dp"
                     android:layout_marginHorizontal="20dp"
                     android:layout_weight="1"
                     android:background="@drawable/shape_blue_r32"
                     android:paddingVertical="0dp"
                     android:text="补打箱码"
                     android:textColor="@color/common_white"
-                    android:textSize="15dp" />
+                    android:textSize="18dp" />
 
             </LinearLayout>
 

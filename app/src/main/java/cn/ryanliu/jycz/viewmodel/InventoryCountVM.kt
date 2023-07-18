@@ -5,7 +5,9 @@ import androidx.lifecycle.viewModelScope
 import cn.ryanliu.jycz.api.ApiService
 import cn.ryanliu.jycz.basic.BaseViewModel
 import cn.ryanliu.jycz.bean.InventResult
+import cn.ryanliu.jycz.bean.cancel_inventory
 import cn.ryanliu.jycz.bean.prequest.PInventResult
+import cn.ryanliu.jycz.bean.prequest.Pcancel_inventory
 import cn.ryanliu.jycz.bean.prequest.PscanMCode
 import cn.ryanliu.jycz.bean.scanMCode
 import kotlinx.coroutines.launch
@@ -19,11 +21,12 @@ class InventoryCountVM : BaseViewModel() {
     val mSelectCar = MutableLiveData<scanMCode?>()
     val mInventResult = MutableLiveData<InventResult?>()
     val mBackList = MutableLiveData<String>()
+    val mcancelpd = MutableLiveData<String>()
 
     fun scanMCode(
         oper_flag: String?,
         scan_code: String?,
-        invent_id:String?
+        invent_id: String
     ) {
         viewModelScope.launch {
 
@@ -31,7 +34,7 @@ class InventoryCountVM : BaseViewModel() {
                 showLoading()
                 val response = ApiService.apiService.scanMCode(
                     PscanMCode(
-                        oper_flag, scan_code,invent_id
+                        oper_flag, scan_code, invent_id,
                     )
                 )
 
@@ -70,6 +73,35 @@ class InventoryCountVM : BaseViewModel() {
 
                 } else {
                     mInventResult.postValue(response.data)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                showNetErr(e)
+            } finally {
+                hideLoading()
+            }
+        }
+
+    }
+
+    fun cancelInventory(
+        invent_id: String
+    ) {
+        viewModelScope.launch {
+
+            try {
+                showLoading()
+                val response = ApiService.apiService.cancel_inventory(
+                    Pcancel_inventory(
+                        invent_id
+                    )
+                )
+
+                if (response.isSuccess()) {
+                    mcancelpd.postValue("成功")
+
+                } else {
+//                    mcancelpd.postValue(response.data)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
