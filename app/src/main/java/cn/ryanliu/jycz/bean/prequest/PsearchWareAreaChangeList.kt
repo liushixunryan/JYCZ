@@ -9,5 +9,5 @@ data class PsearchWareAreaChangeList(
     val box_code: String,
     val create_time1: String,
     val create_time2: String,
-    val create_userid: String
+    val create_user: String
 ) : java.io.Serializable

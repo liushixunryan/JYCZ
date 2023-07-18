@@ -29,7 +29,7 @@ class InventoryDetailActivity :
         mDatabind.inNavBar.ivNavBack.setOnClickListener {
             onBackPressed()
         }
-        mDatabind.inNavBar.tvNavTitle.text = "盘点明细"
+        mDatabind.inNavBar.tvNavTitle.text = "盘点查询"
 
         mDatabind.tzsjTv1.setText(TimeUtils.getNowString().substring(0, 11))
         mDatabind.tzsjTv2.setText(TimeUtils.getNowString().substring(0, 11))

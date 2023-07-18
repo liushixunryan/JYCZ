@@ -24,7 +24,7 @@ class InventoryListActivity :
         mDatabind.inNavBar.ivNavBack.setOnClickListener {
             onBackPressed()
         }
-        mDatabind.inNavBar.tvNavTitle.text = "库区调整明细"
+        mDatabind.inNavBar.tvNavTitle.text = "盘点明细"
         mAdapter = InventoryListAdapter();
         mDatabind.zcmxRv.adapter = mAdapter
 

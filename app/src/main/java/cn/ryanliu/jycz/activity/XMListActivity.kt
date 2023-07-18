@@ -38,7 +38,7 @@ class XMListActivity : BaseActivity<ActivityXmlistBinding, XMListVM>() {
             onBackPressed()
         }
         mDatabind.inNavBar.tvNavTitle.text = "箱码列表"
-
+        invent_id = intent.getIntExtra("invent_id", 0)
         order_id = intent.getIntExtra("order_id", 0)
         if (order_id != 0) {
             mViewModel.searchOrderBoxcodeList(order_id)
@@ -47,7 +47,7 @@ class XMListActivity : BaseActivity<ActivityXmlistBinding, XMListVM>() {
             mDatabind.xmlistRv.adapter = mDetailAdapter
 
         } else if (invent_id != 0) {
-            invent_id = intent.getIntExtra("invent_id", 0)
+
             invent_String = intent.getStringExtra("invent_String").toString()
             mViewModel.searchInventBoxcodeList(invent_id, invent_String)
         } else {
@@ -61,16 +61,15 @@ class XMListActivity : BaseActivity<ActivityXmlistBinding, XMListVM>() {
                     "卸车"
                 } else {
                     "装车"
-                }, pyordercode,scanTag
+                }, pyordercode, scanTag
             )
-
-
-            mAdapter = XMListAdapter();
-            mDatabind.xmlistRv.adapter = mAdapter
 
         }
 
 
+
+        mAdapter = XMListAdapter();
+        mDatabind.xmlistRv.adapter = mAdapter
         onClick();
 
     }
@@ -123,7 +122,13 @@ class XMListActivity : BaseActivity<ActivityXmlistBinding, XMListVM>() {
 
     companion object {
         //正常
-        fun launch(context: Context, pageModel: Int, handtaskid: Int, pyordercode: String,scan_tag:String) {
+        fun launch(
+            context: Context,
+            pageModel: Int,
+            handtaskid: Int,
+            pyordercode: String,
+            scan_tag: String
+        ) {
             val intent = Intent(context, XMListActivity::class.java)
             intent.putExtra("edit", pageModel)
             intent.putExtra("handtaskid", handtaskid)
