@@ -52,7 +52,7 @@ class PintoVM : BaseViewModel() {
     }
 
     fun createTboxCode1(
-        tp_num: Int,
+        tp_num: Int
     ) {
         viewModelScope.launch {
 
@@ -60,7 +60,7 @@ class PintoVM : BaseViewModel() {
                 showLoading()
                 val response = ApiService.apiService.createTboxCode1(
                     PcreateTboxCode1(
-                        tp_num.toString()
+                        tp_num.toString(),""
                     )
                 )
 

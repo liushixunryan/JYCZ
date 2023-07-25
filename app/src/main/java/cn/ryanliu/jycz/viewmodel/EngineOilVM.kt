@@ -6,6 +6,7 @@ import cn.ryanliu.jycz.api.ApiService
 import cn.ryanliu.jycz.basic.BaseViewModel
 import cn.ryanliu.jycz.bean.createoillabel
 import cn.ryanliu.jycz.bean.getOilFactory
+import cn.ryanliu.jycz.bean.getProjectList
 import cn.ryanliu.jycz.bean.prequest.PcreateTboxCode1
 import cn.ryanliu.jycz.bean.prequest.Pcreateoillabel
 import cn.ryanliu.jycz.bean.prequest.PgetOilFactory
@@ -22,6 +23,32 @@ class EngineOilVM : BaseViewModel() {
     val mOilList = MutableLiveData<MutableList<getOilFactory>?>()
     val mList = MutableLiveData<MutableList<searchOilModel>?>()
     val mCode = MutableLiveData<createoillabel>()
+    val mSelect = MutableLiveData<MutableList<getProjectList>?>()
+
+
+    fun getProjectList() {
+        viewModelScope.launch {
+
+            try {
+                showLoading()
+                val response = ApiService.apiService.getProjectList(
+                    PgetOilFactory()
+                )
+                if (response.isSuccess()) {
+                    mSelect.postValue(response.data!!)
+
+                } else {
+//                    mCode.postValue(response.data!!)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                showNetErr(e)
+            } finally {
+                hideLoading()
+            }
+        }
+
+    }
     fun getOilFactory(
     ) {
         viewModelScope.launch {
@@ -50,7 +77,7 @@ class EngineOilVM : BaseViewModel() {
 
     fun searchOilModel(
         label_model: String?,
-        brand_name: String?
+        brand_name: String?,project_id: String
     ) {
         viewModelScope.launch {
 
@@ -58,7 +85,7 @@ class EngineOilVM : BaseViewModel() {
                 showLoading()
                 val response = ApiService.apiService.searchOilModel(
                     PsearchOilModel(
-                        label_model, brand_name
+                        label_model, brand_name,project_id
                     )
                 )
                 if (response.isSuccess()) {

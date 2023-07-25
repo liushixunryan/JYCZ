@@ -8,10 +8,7 @@ import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.adapter.EngineOilAdapter
 import cn.ryanliu.jycz.adapter.TMBQAdapter
 import cn.ryanliu.jycz.basic.BaseActivity
-import cn.ryanliu.jycz.bean.SelectCarBean
-import cn.ryanliu.jycz.bean.TMBQBean
-import cn.ryanliu.jycz.bean.getOilFactory
-import cn.ryanliu.jycz.bean.searchOilModel
+import cn.ryanliu.jycz.bean.*
 import cn.ryanliu.jycz.databinding.ActivityEngineOilBinding
 import cn.ryanliu.jycz.util.PrintBCCodeType
 import cn.ryanliu.jycz.util.ToastUtilsExt
@@ -31,9 +28,13 @@ class EngineOilActivity : BaseActivity<ActivityEngineOilBinding, EngineOilVM>() 
     lateinit var mAdapter: EngineOilAdapter
 
     var selectBean: MutableList<searchOilModel>? = null
+
+    lateinit var bean1: List<getProjectList>
+    var xmmcid: Int = -1
     override fun layoutId(): Int = R.layout.activity_engine_oil
 
     override fun initView() {
+        mViewModel.getProjectList()
         mViewModel.getOilFactory()
         mDatabind.loadingLayout.showEmpty()
 
@@ -50,7 +51,8 @@ class EngineOilActivity : BaseActivity<ActivityEngineOilBinding, EngineOilVM>() 
         mDatabind.btnCx.setOnClickListener {
             mViewModel.searchOilModel(
                 mDatabind.etCj.text.toString(),
-                mDatabind.etZtjs.text.toString()
+                mDatabind.etZtjs.text.toString(),
+                xmmcid.toString()
             )
         }
 
@@ -95,6 +97,43 @@ class EngineOilActivity : BaseActivity<ActivityEngineOilBinding, EngineOilVM>() 
 
     lateinit var bean: List<getOilFactory>
     override fun createObserver() {
+        mViewModel.mSelect.observe(this) {
+            if (it.isNullOrEmpty()){
+                ToastUtilsExt.info("暂无项目信息")
+                return@observe
+            }
+            bean1 = it!!
+            val array = bean1.map { it.project_name }.toTypedArray()
+            mDatabind.etXmmc.text = it[0].project_name
+            xmmcid = it[0].project_id
+            mDatabind.etXmmc.setOnClickListener { v ->
+                //创建一个xpopupview
+                val attachPopupView: AttachPopupView = XPopup.Builder(context)
+                    .hasShadowBg(false)
+                    .popupAnimation(PopupAnimation.ScrollAlphaFromTop)
+                    .popupWidth(mDatabind.etXmmc.width ?: 0)
+                    .isCenterHorizontal(true) //是否与目标水平居中对齐
+                    .popupPosition(PopupPosition.Bottom) //手动指定弹窗的位置
+                    .atView(v) // 依附于所点击的View，内部会自动判断在上方或者下方显示
+                    .asAttachList(
+                        array,
+                        intArrayOf(),
+                        { position, text ->
+                            mDatabind.etXmmc.text = text
+                            for (i in bean1!!.indices) {
+                                if (text == bean1[i].project_name) {
+                                    xmmcid = bean1[i].project_id
+                                }
+                            }
+                        },
+                        0,
+                        0 /*, Gravity.LEFT*/
+                    )
+                attachPopupView.show()
+            }
+        }
+
+
         mViewModel.mCode.observe(this) {
             val printTM = PrintBCCodeType.PrintJYBQ(
                 it.img_data

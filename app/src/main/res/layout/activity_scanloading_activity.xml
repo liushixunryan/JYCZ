@@ -45,8 +45,11 @@
                     android:layout_height="35dp"
                     android:layout_margin="2dp"
                     android:layout_marginBottom="16dp"
-                    android:background="@drawable/bg_edittext"
-                    android:hint="请输入车牌号"
+                    android:background="@drawable/bg_gray_edittext"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:gravity="center"
+                    android:hint="请选择车牌号"
                     android:lines="1"
                     android:maxLines="1"
                     android:textSize="@dimen/sp_14" />
@@ -64,7 +67,8 @@
                 android:gravity="center"
                 android:text="按车搜索"
                 android:textColor="@color/white"
-                android:textSize="@dimen/sp_12" />
+                android:textSize="@dimen/sp_12"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/btn_selectcar"

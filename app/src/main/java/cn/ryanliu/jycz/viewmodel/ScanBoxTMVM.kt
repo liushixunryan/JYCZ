@@ -5,8 +5,10 @@ import androidx.lifecycle.viewModelScope
 import cn.ryanliu.jycz.api.ApiService
 import cn.ryanliu.jycz.basic.BaseViewModel
 import cn.ryanliu.jycz.bean.creategeneraltpcode
+import cn.ryanliu.jycz.bean.getProjectList
 import cn.ryanliu.jycz.bean.prequest.PcreateTCode2
 import cn.ryanliu.jycz.bean.prequest.Pcreategeneraltpcode
+import cn.ryanliu.jycz.bean.prequest.PgetOilFactory
 import kotlinx.coroutines.launch
 
 /**
@@ -17,7 +19,32 @@ import kotlinx.coroutines.launch
 class ScanBoxTMVM : BaseViewModel() {
     val mBackList = MutableLiveData<String?>()
     val mCode = MutableLiveData<creategeneraltpcode>()
+    val mSelect = MutableLiveData<MutableList<getProjectList>?>()
 
+
+    fun getProjectList() {
+        viewModelScope.launch {
+
+            try {
+                showLoading()
+                val response = ApiService.apiService.getProjectList(
+                    PgetOilFactory()
+                )
+                if (response.isSuccess()) {
+                    mSelect.postValue(response.data!!)
+
+                } else {
+//                    mCode.postValue(response.data!!)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                showNetErr(e)
+            } finally {
+                hideLoading()
+            }
+        }
+
+    }
     fun createTCode2(
         list: MutableList<PcreateTCode2>
     ) {

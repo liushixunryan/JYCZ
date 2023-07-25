@@ -137,6 +137,11 @@ interface ApiService {
     suspend fun cancel_inventory(@Body request: Pcancel_inventory): BaseResponse<Any>
 
     //-----------------------------打印条码-----------------------------------
+    //PgetOilFactory
+    //获取任务
+    @POST("/api/APP/get_project_list")
+    suspend fun getProjectList(@Body request: PgetOilFactory): BaseResponse<MutableList<getProjectList>?>
+
     //单独打印一张托码（针对不可拆托的货物，只要一张托码即可，整托没有具体箱码
     @POST("/api/APP/create_t_code_1")
     suspend fun createTCode1(@Body request: PcreateTboxCode1): BaseResponse<String?>
