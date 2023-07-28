@@ -20,7 +20,7 @@ android {
         applicationId "cn.ryanliu.jycz"
         minSdk 21
         targetSdk 32
-        versionCode 19
+        versionCode 18
         versionName "1.0.0"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

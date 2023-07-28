@@ -245,14 +245,14 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainVM>() {
             HomeCARBean(
                 Constant.CARType.ZHUANGCHEMINGXI,
                 "装车明细",
-                R.mipmap.zhuangchemningxi
+                R.mipmap.zhuangchemingxi
             )
         )
         trainList.add(
             HomeCARBean(
                 Constant.CARType.ZHUANGXIECHEHUZONG,
                 "订单查询",
-                R.mipmap.zhuangxiechehuizong
+                R.mipmap.dingdanchaxun
             )
         )
         trainList.add(

@@ -18,6 +18,7 @@ import java.io.File
  * @Description:
  */
 open class BaseApplication : Application(){
+    private var mContext: Context? = null
     companion object {
         lateinit var sInstance: BaseApplication
         @JvmField
@@ -36,35 +37,20 @@ open class BaseApplication : Application(){
             return sInstance
         }
     }
+
+    //全局contenxt
+    open fun getMediaTApplication(): Context? {
+        return mContext
+    }
+
     override fun onCreate() {
         super.onCreate()
+        //全局contenxt
+        mContext = applicationContext
         setApplication(this)
         val rootDir = MMKV.initialize(this)
         println("mmkv root: $rootDir")
         MultiDex.install(this)
-
-        /**
-         * 设置全局Log
-         */
-        val config = LogUtils.getConfig() //获取 log 配置
-
-        config.isLogSwitch = true //获取log总开关
-        config.setConsoleSwitch(true) // 设置 log 控制台开关
-        config.globalTag = "gulu" //设置全局tag
-        config.isLogHeadSwitch = true //设置头部信息开关
-        config.isLog2FileSwitch = true //设置设置文件开关
-        val file = File("/sdcard/1112")
-        config.setDir(file) //设置文件存储目录
-
-        config.filePrefix = "ryanliu" //设置文件前缀
-        config.setBorderSwitch(true) //设置边框开关
-        config.saveDays = 3 //设置可保留天数
-        LogUtils.getLogFiles() //获取所有日志
-        LogUtils.file(file);  //log 到文件
-        LogUtils.getCurrentLogFilePath() //获取当前日志文件路径
-
-        LogUtils.e(LogUtils.getCurrentLogFilePath())
-
     }
 
     /**

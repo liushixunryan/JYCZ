@@ -19,14 +19,10 @@ import cn.ryanliu.jycz.basic.BaseActivity
 import cn.ryanliu.jycz.common.constant.Constant
 import cn.ryanliu.jycz.common.constant.Constant.MmKv_KEY
 import cn.ryanliu.jycz.databinding.ActivityLoginBinding
-import cn.ryanliu.jycz.util.DialogUtil
-import cn.ryanliu.jycz.util.MmkvHelper
-import cn.ryanliu.jycz.util.PublicAction
-import cn.ryanliu.jycz.util.ToastUtilsExt
+import cn.ryanliu.jycz.util.*
 import cn.ryanliu.jycz.viewmodel.LoginVM
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.KeyboardUtils
-import com.tbruyelle.rxpermissions.Permission
 import com.tbruyelle.rxpermissions.RxPermissions
 import print.Print
 
@@ -223,6 +219,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginVM>() {
      */
     @SuppressLint("WrongConstant")
     private fun Requestspermissions() {
+
         //获取蓝牙动态权限
         val rxPermissions = RxPermissions(this)
         rxPermissions.request(
@@ -232,7 +229,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginVM>() {
             BLUETOOTH
         ).subscribe {
             if (it) {
-
+                LogUtils.getInstance().init()
             } else {
                 DialogUtil.showNotifyDialog(
                     this@LoginActivity, "权限申请", "程序运行需要权限，请到应用设置中开启。", "确定"
