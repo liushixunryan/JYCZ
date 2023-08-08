@@ -1,5 +1,6 @@
 package cn.ryanliu.jycz.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import cn.ryanliu.jycz.api.ApiService
@@ -9,8 +10,19 @@ import cn.ryanliu.jycz.bean.prequest.LoginRequest
 import cn.ryanliu.jycz.common.constant.Constant
 import cn.ryanliu.jycz.util.MmkvHelper
 import cn.ryanliu.jycz.util.UserUtil
+import cn.ryanliu.jycz.util.okHttpUtil
 import com.blankj.utilcode.util.EncryptUtils
 import kotlinx.coroutines.launch
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.Response
+import org.xml.sax.ContentHandler
+import org.xml.sax.InputSource
+import org.xmlpull.v1.XmlPullParser
+import org.xmlpull.v1.XmlPullParserFactory
+import java.io.IOException
+import java.io.StringReader
+import javax.xml.parsers.SAXParserFactory
 
 /**
  * @Author: lsx
@@ -19,6 +31,7 @@ import kotlinx.coroutines.launch
  */
 class LoginVM : BaseViewModel() {
     val loginResponseLV = MutableLiveData<LoginResponse?>()
+    val updateApp = MutableLiveData<String?>()
     fun login(name: String, password: String) {
         viewModelScope.launch {
 
@@ -72,4 +85,34 @@ class LoginVM : BaseViewModel() {
         }
 
     }
+
+
+    fun updateAppfun() {
+        viewModelScope.launch {
+            try {
+                okHttpUtil.getOkhttpRequest(
+                    "https://jys.caacpl.com:33250/appver.xml",
+                    object : Callback {
+                        override fun onFailure(call: Call, e: IOException) {
+                            Log.e("sansuiban", "onFailure: $e")
+                        }
+
+                        @Throws(IOException::class)
+                        override fun onResponse(call: Call, response: Response) {
+                            val query = response.body.string()
+                            Log.e(TAG, "onResponse: ${query}", )
+                            updateApp.postValue(query)
+                        }
+                    })
+            } catch (e: Exception) {
+                e.printStackTrace()
+                showNetErr(e)
+            } finally {
+                hideLoading()
+            }
+        }
+
+    }
+
+
 }

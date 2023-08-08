@@ -24,7 +24,17 @@ import cn.ryanliu.jycz.viewmodel.LoginVM
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.KeyboardUtils
 import com.tbruyelle.rxpermissions.RxPermissions
+import constant.UiType.PLENTIFUL
+import listener.Md5CheckResultListener
+import listener.UpdateDownloadListener
+import model.UiConfig
+import model.UpdateConfig
+import org.xmlpull.v1.XmlPullParser
+import org.xmlpull.v1.XmlPullParserFactory
 import print.Print
+import update.UpdateAppUtils.getInstance
+import java.io.StringReader
+
 
 class LoginActivity : BaseActivity<ActivityLoginBinding, LoginVM>() {
     //打印测试类
@@ -41,7 +51,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginVM>() {
         rxPermissions.request(
             Manifest.permission.BLUETOOTH_ADMIN,
             Manifest.permission.BLUETOOTH,
-            Manifest.permission.ACCESS_FINE_LOCATION,  Manifest.permission.MANAGE_EXTERNAL_STORAGE
+            Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.MANAGE_EXTERNAL_STORAGE
         ).subscribe {
             if (true) {
                 val intent = Intent(this, BTActivity::class.java)
@@ -164,6 +174,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginVM>() {
             finish()
         }
 
+        mViewModel.updateApp.observe(this) {
+            parseXMLWithPull(it.toString())
+        }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -229,7 +243,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginVM>() {
             BLUETOOTH
         ).subscribe {
             if (it) {
-                LogUtils.getInstance().init()
+                mViewModel.updateAppfun()
+
             } else {
                 DialogUtil.showNotifyDialog(
                     this@LoginActivity, "权限申请", "程序运行需要权限，请到应用设置中开启。", "确定"
@@ -237,6 +252,70 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginVM>() {
                     finish()
                 }
             }
+        }
+    }
+
+    private fun parseXMLWithPull(xmlData: String) {
+        try {
+            val factory = XmlPullParserFactory.newInstance()
+            val xmlPullParser = factory.newPullParser()
+            xmlPullParser.setInput(StringReader(xmlData))
+            var eventType = xmlPullParser.eventType
+            var versionNum = ""
+            var versionReamrk = ""
+            var url = ""
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                val nodeName = xmlPullParser.name
+                when (eventType) {
+                    // 开始解析某个节点
+                    XmlPullParser.START_TAG -> {
+                        when (nodeName) {
+                            "versionNum" -> versionNum = xmlPullParser.nextText()
+                            "versionReamrk" -> versionReamrk = xmlPullParser.nextText()
+                            "url" -> url = xmlPullParser.nextText()
+                        }
+                    }
+                    // 完成解析某个节点
+                    XmlPullParser.END_TAG -> {
+                        if ("update" == nodeName) {
+                            Log.d("sansuiban", "versionNum is $versionNum")
+                            Log.d("sansuiban", "versionReamrk is $versionReamrk")
+                            Log.d("sansuiban", "url is $url")
+
+                            if (versionNum != AppUtils.getAppVersionName()) {
+                                var updateConfig = UpdateConfig()
+                                updateConfig.checkWifi = true
+                                updateConfig.force = true
+                                updateConfig.notifyImgRes =
+                                    cn.ryanliu.jycz.R.mipmap.ic_launcher_round
+
+                                val uiConfig = UiConfig()
+                                uiConfig.uiType = PLENTIFUL
+
+                                getInstance()
+                                    .apkUrl(url)
+                                    .updateTitle("发现新版本V${versionNum}")
+                                    .updateContent(versionReamrk)
+                                    .uiConfig(uiConfig)
+                                    .updateConfig(updateConfig)
+                                    .setMd5CheckResultListener(object : Md5CheckResultListener {
+                                        override fun onResult(result: Boolean) {}
+                                    })
+                                    .setUpdateDownloadListener(object : UpdateDownloadListener {
+                                        override fun onStart() {}
+                                        override fun onDownload(progress: Int) {}
+                                        override fun onFinish() {}
+                                        override fun onError(e: Throwable) {}
+                                    })
+                                    .update()
+                            }
+                        }
+                    }
+                }
+                eventType = xmlPullParser.next()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 

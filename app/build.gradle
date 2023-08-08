@@ -20,8 +20,8 @@ android {
         applicationId "cn.ryanliu.jycz"
         minSdk 21
         targetSdk 32
-        versionCode 18
-        versionName "1.0.0"
+        versionCode 21
+        versionName "1.0.1"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -129,4 +129,5 @@ dependencies {
     api 'io.github.scwang90:refresh-header-classics:2.0.5'    //经典刷新头
     api 'io.github.scwang90:refresh-footer-classics:2.0.5'    //经典加载
 
+    implementation 'com.teprinciple:updateapputilsx:2.3.0'
 }

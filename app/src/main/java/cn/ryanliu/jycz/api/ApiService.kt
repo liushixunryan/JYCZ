@@ -174,6 +174,11 @@ interface ApiService {
     @POST("/api/APP/create_oil_label")
     suspend fun create_oil_label(@Body request: Pcreateoillabel): BaseResponse<createoillabel>
 
+
+    //生成机油标签
+    @GET("/appver.xml")
+    suspend fun updateApp(): BaseResponse<String>
+
     companion object {
         // 4.通过动态代理获取到所定义的接口
         val apiService = RetrofitManager.retrofit.create(ApiService::class.java)
