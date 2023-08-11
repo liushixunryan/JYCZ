@@ -48,6 +48,7 @@
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/bg_edittext"
                     android:hint="请输入关键字"
+                    android:inputType="text"
                     android:lines="1"
                     android:maxLines="1"
                     android:textSize="@dimen/sp_14" />

@@ -20,27 +20,18 @@ object PrintBCCodeType {
     @Throws(java.lang.Exception::class)
     fun PrintTM(detail: String): Int {
         //data:image/png;base64,
-        Print.PrintText(
-            "\n\n\n\n"
-        )
         return PrintBitmap(getBase64("$detail"), 0, 50)
     }
 
     //补打箱码
     @Throws(java.lang.Exception::class)
     fun PrintXM(code: String): Int {
-        Print.PrintText(
-            "\n\n\n\n"
-        )
         return PrintBitmap(getBase64("$code"), 0, 50)
     }
 
     // 机油标签规格查询
     @Throws(java.lang.Exception::class)
     fun PrintJYBQ(code: String): Int {
-        Print.PrintText(
-            "\n\n\n\n"
-        )
 
 
         return PrintBitmap(getBase64("$code"), 0, 50)
