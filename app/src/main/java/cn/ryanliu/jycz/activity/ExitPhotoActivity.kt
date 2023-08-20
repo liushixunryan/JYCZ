@@ -224,7 +224,9 @@ class ExitPhotoActivity : BaseActivity<ActivityExitPhotoBinding, ExitPhotoVM>() 
 
     override fun createObserver() {
         mViewModel.mBackList.observe(this) {
+
             ToastUtilsExt.info(it)
+
             onBackPressed()
         }
 

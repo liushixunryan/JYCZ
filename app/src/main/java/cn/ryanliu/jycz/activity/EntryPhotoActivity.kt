@@ -1,14 +1,20 @@
 package cn.ryanliu.jycz.activity
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
+import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.basic.BaseActivity
 import cn.ryanliu.jycz.bean.EntryHandoverBean
+import cn.ryanliu.jycz.common.constant.Constant
 import cn.ryanliu.jycz.databinding.ActivityEntryPhotoBinding
 import cn.ryanliu.jycz.util.DialogUtil
 import cn.ryanliu.jycz.util.GlideEngine
+import cn.ryanliu.jycz.util.MmkvHelper
+import cn.ryanliu.jycz.util.ToastUtilsExt
 import cn.ryanliu.jycz.viewmodel.EntryPhotoVM
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -18,6 +24,7 @@ import com.luck.picture.lib.config.SelectMimeType
 import com.luck.picture.lib.entity.LocalMedia
 import com.luck.picture.lib.interfaces.OnResultCallbackListener
 import com.xql.loading.LoadingDialog
+import print.Print
 import java.io.File
 
 
@@ -222,6 +229,8 @@ class EntryPhotoActivity : BaseActivity<ActivityEntryPhotoBinding, EntryPhotoVM>
 
     override fun createObserver() {
         mViewModel.mBackList.observe(this) {
+            ToastUtilsExt.info(it)
+
             onBackPressed()
         }
 
@@ -388,6 +397,43 @@ class EntryPhotoActivity : BaseActivity<ActivityEntryPhotoBinding, EntryPhotoVM>
         }
     }
 
+
+    //连接蓝牙
+    private fun connectBT(BTmac: String?) {
+        if (TextUtils.isEmpty(BTmac)) return
+        val progressDialog = ProgressDialog(this)
+        progressDialog.setMessage("connect")
+        progressDialog.show()
+        object : Thread() {
+            override fun run() {
+                super.run()
+                try {
+                    val result = Print.PortOpen(context, "Bluetooth,$BTmac")
+                    runOnUiThread {
+                        if (result == 0) {
+                            MmkvHelper.getInstance().putBoolean(Constant.MmKv_KEY.ISCONNECT, true)
+
+                            ToastUtilsExt.info("连接成功")
+                            val setJustification = Print.SetJustification(2)
+                            if (setJustification != -1) {
+
+                            } else {
+                                ToastUtilsExt.info("打印机设置失败")
+                            }
+
+                        } else {
+                            MmkvHelper.getInstance().putBoolean(Constant.MmKv_KEY.ISCONNECT, false)
+                            ToastUtilsExt.info("连接失败" + result)
+                        }
+
+                    }
+                    progressDialog.dismiss()
+                } catch (e: Exception) {
+                    progressDialog.dismiss()
+                }
+            }
+        }.start()
+    }
     companion object {
         fun launch(context: Context, crc: String, entyyHandover: EntryHandoverBean?) {
             val intent = Intent(context, EntryPhotoActivity::class.java)

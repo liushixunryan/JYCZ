@@ -14,7 +14,8 @@ open class BaseResponse<T>(
             return true
         } else {
             if (!msg.isNullOrEmpty())
-                ToastUtilsExt.info(msg)
+                if (!msg.equals("未查询到信息"))
+                    ToastUtilsExt.info(msg)
         }
         return false
     }

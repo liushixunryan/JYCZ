@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import cn.ryanliu.jycz.api.ApiService
 import cn.ryanliu.jycz.basic.BaseViewModel
 import cn.ryanliu.jycz.bean.prequest.PconfirmTask
+import cn.ryanliu.jycz.util.ToastUtilsExt
 import cn.ryanliu.jycz.util.UploadUtil
 import kotlinx.coroutines.launch
 import java.io.File
@@ -70,10 +71,10 @@ class EntryPhotoVM : BaseViewModel() {
                 )
 
                 if (response.isSuccess()) {
-                    mBackList.postValue("成功")
+                    mBackList.postValue("提交成功")
 
                 } else {
-                    mBackList.postValue("失败")
+                    ToastUtilsExt.info(response.msg.toString())
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
