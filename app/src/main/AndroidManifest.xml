@@ -61,6 +61,8 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
 
+        <activity android:name=".utillog.AnomalousActivity"
+            android:exported="false"/>
 
         <activity
             android:name=".activity.booth.BTActivity"
@@ -357,6 +359,17 @@
                 <action android:name="MONITOR_LOG_SIZE"></action>
             </intent-filter>
         </receiver>
+
+        <service
+            android:name=".utillog.Service1"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":daemon1" />
+        <service
+            android:name=".utillog.Service2"
+            android:enabled="true"
+            android:exported="true"
+            android:process="${applicationId}.daemon" />
     </application>
     <queries package="${applicationId}">
         <intent>

@@ -27,8 +27,6 @@ import com.xql.loading.TipDialog
  * @Description:库区选择 - 选择盘点区域
  */
 class AreaSelectActivity : BaseActivity<ActivityAreaSelectBinding, AreaSelectVM>() {
-    // 提示窗对象
-    private var tipDialog: TipDialog? = null
 
     lateinit var mAdapter: AreaSelectAdapter
 
@@ -40,8 +38,6 @@ class AreaSelectActivity : BaseActivity<ActivityAreaSelectBinding, AreaSelectVM>
     override fun layoutId(): Int = R.layout.activity_area_select
 
     override fun initView() {
-        initDialog();
-
         mDatabind.inNavBar.ivNavBack.visibility = View.VISIBLE
         mDatabind.inNavBar.ivNavBack.setOnClickListener {
             onBackPressed()
@@ -145,14 +141,7 @@ class AreaSelectActivity : BaseActivity<ActivityAreaSelectBinding, AreaSelectVM>
         }
     }
 
-    /**
-     * 初始化各种Dialog
-     */
-    private fun initDialog() {
-        if (tipDialog == null) {
-            tipDialog = TipDialog(this)
-        }
-    }
+
 
     /**
      * 显示提示类型Dialog

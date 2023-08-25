@@ -8,9 +8,12 @@ import android.os.Bundle
 import android.os.Process
 import androidx.multidex.MultiDex
 import cn.ryanliu.jycz.util.AppManager
-import com.blankj.utilcode.util.LogUtils
+import cn.ryanliu.jycz.utillog.Anomalous
+import cn.ryanliu.jycz.utillog.Service1
+import cn.ryanliu.jycz.utillog.Service2
 import com.tencent.mmkv.MMKV
-import java.io.File
+import me.weishu.leoric.Leoric
+import me.weishu.leoric.LeoricConfigs
 
 /**
  * @Author: lsx
@@ -51,6 +54,37 @@ open class BaseApplication : Application(){
         val rootDir = MMKV.initialize(this)
         println("mmkv root: $rootDir")
         MultiDex.install(this)
+
+        Anomalous.install(this)
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+////        MultiDex.install(this)
+//        val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+//
+//        val myDate: String = format.format(Date())
+//        //定义前台服务的默认样式。即标题、描述和图标
+//        KeepLive.foregroundNotification = ForegroundNotification(
+//            getString(R.string.app_monitor) + "后台服务正在运行", "启动时间:$myDate", R.mipmap.ic_logo
+//        )  //定义前台服务的通知点击事件
+//        { context, intent ->
+//            val component = ComponentName(packageName, LAUNCHER_NAME)
+//            val explicitIntent = Intent()
+//            explicitIntent.component = component
+//            startActivity(explicitIntent)
+//        }
+//        KeepLive.launcherName = LAUNCHER_NAME
+
+        Leoric.init(
+            base, LeoricConfigs(
+                LeoricConfigs.LeoricConfig(
+                    "$packageName:daemon1", Service1::class.java.canonicalName, "", ""
+                ), LeoricConfigs.LeoricConfig(
+                    "$packageName.daemon", Service2::class.java.canonicalName, "", ""
+                )
+            )
+        )
     }
 
     /**

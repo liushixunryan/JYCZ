@@ -37,8 +37,6 @@ class SortingStackActivity : BaseActivity<ActivitySortingStackBinding, SortingSt
     var AreaID: Int = 0
     var isconnect = false
 
-    // 提示窗对象
-    private var tipDialog: TipDialog? = null
     private fun connectionBluetooth() {
         //获取蓝牙动态权限
         val rxPermissions = RxPermissions(this)
@@ -74,8 +72,6 @@ class SortingStackActivity : BaseActivity<ActivitySortingStackBinding, SortingSt
             true
         })
         mDatabind.etSmtm.requestFocus();
-
-        initDialog();
         mSoundPool = SoundPool(3, AudioManager.STREAM_SYSTEM, 5);
         mSoundPool = SoundPool(3, AudioManager.STREAM_SYSTEM, 5);
         mSoundPool = SoundPool(3, AudioManager.STREAM_SYSTEM, 5);
@@ -310,14 +306,6 @@ class SortingStackActivity : BaseActivity<ActivitySortingStackBinding, SortingSt
         }.start()
     }
 
-    /**
-     * 初始化各种Dialog
-     */
-    private fun initDialog() {
-        if (tipDialog == null) {
-            tipDialog = TipDialog(this)
-        }
-    }
 
     /**
      * 显示提示类型Dialog

@@ -3,6 +3,7 @@ package cn.ryanliu.jycz.activity
 import android.Manifest
 import android.Manifest.permission.*
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
@@ -24,6 +25,8 @@ import cn.ryanliu.jycz.viewmodel.LoginVM
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.KeyboardUtils
 import com.tbruyelle.rxpermissions.RxPermissions
+import com.xql.loading.LoadingDialog
+import com.xql.loading.TipDialog
 import constant.UiType.PLENTIFUL
 import listener.Md5CheckResultListener
 import listener.UpdateDownloadListener
@@ -37,6 +40,7 @@ import java.io.StringReader
 
 
 class LoginActivity : BaseActivity<ActivityLoginBinding, LoginVM>() {
+
     //打印测试类
     private var PAct: PublicAction? = null
 
@@ -64,6 +68,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginVM>() {
 
     @SuppressLint("SetTextI18n")
     override fun initView() {
+        initDialog()
         Requestspermissions()
         mDatabind.etMobile.setText(MmkvHelper.getInstance().getString(Constant.MmKv_KEY.user))
         mDatabind.etPassword.setText(MmkvHelper.getInstance().getString(Constant.MmKv_KEY.psd))
@@ -140,6 +145,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginVM>() {
                 ToastUtilsExt.info("请输入密码")
                 return@setOnClickListener
             }
+            showLoading()
             mViewModel.login(
                 mDatabind.etMobile.text.toString(),
                 mDatabind.etPassword.text.toString()
@@ -169,7 +175,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginVM>() {
                 .putString(Constant.MmKv_KEY.user, mDatabind.etMobile.text.toString() ?: "")
             MmkvHelper.getInstance()
                 .putString(Constant.MmKv_KEY.psd, mDatabind.etPassword.text.toString() ?: "")
-
+            hideLoading()
             MainActivity.launchClear(this)
             finish()
         }

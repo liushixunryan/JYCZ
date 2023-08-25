@@ -72,6 +72,15 @@ class EngineOilActivity : BaseActivity<ActivityEngineOilBinding, EngineOilVM>() 
 
 
         mDatabind.btnCx.setOnClickListener {
+            if(mDatabind.etCj.text.toString().isNullOrEmpty()){
+                ToastUtilsExt.info("没有厂家信息")
+                return@setOnClickListener
+            }
+            if(mDatabind.etXmmc.text.toString().isNullOrEmpty()){
+                ToastUtilsExt.info("没有项目信息")
+                return@setOnClickListener
+            }
+
             mViewModel.searchOilModel(
                 mDatabind.etCj.text.toString(),
                 mDatabind.etZtjs.text.toString(),
@@ -125,7 +134,7 @@ class EngineOilActivity : BaseActivity<ActivityEngineOilBinding, EngineOilVM>() 
                 ToastUtilsExt.info("暂无项目信息")
                 return@observe
             }
-            bean1 = it!!
+            bean1 = it
             val array = bean1.map { it.project_name }.toTypedArray()
             mDatabind.etXmmc.text = it[0].project_name
             xmmcid = it[0].project_id
@@ -173,7 +182,11 @@ class EngineOilActivity : BaseActivity<ActivityEngineOilBinding, EngineOilVM>() 
 
 
         mViewModel.mOilList.observe(this) {
-            bean = it!!
+            if (it.isNullOrEmpty()){
+                ToastUtilsExt.info("暂无机油标签厂家信息")
+                return@observe
+            }
+            bean = it
             val array = bean.map { it.brand_name }.toTypedArray()
             mDatabind.etCj.text = it[0].brand_name
             //设备状态

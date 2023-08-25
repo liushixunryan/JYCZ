@@ -37,9 +37,6 @@ class EntryPhotoActivity : BaseActivity<ActivityEntryPhotoBinding, EntryPhotoVM>
     private var crc: String = ""
     private var entyyHandover: EntryHandoverBean? = null
 
-    // 提示窗对象
-    private var loadingDialog: LoadingDialog? = null
-
     override fun layoutId(): Int = R.layout.activity_entry_photo
 
     override fun initView() {
@@ -369,31 +366,6 @@ class EntryPhotoActivity : BaseActivity<ActivityEntryPhotoBinding, EntryPhotoVM>
                 }
             }
 
-        }
-    }
-
-    /**
-     * 初始化各种Dialog
-     */
-    private fun initDialog() {
-        if (loadingDialog == null) {
-            loadingDialog = LoadingDialog(this)
-        }
-    }
-
-    /**
-     * 显示等待Dialog
-     */
-    fun showLoading() {
-        if (loadingDialog != null && !loadingDialog!!.isShowing()) loadingDialog!!.show()
-    }
-
-    /**
-     * 隐藏等待Dialog
-     */
-    fun hideLoading() {
-        if (loadingDialog != null && loadingDialog!!.isShowing()) {
-            loadingDialog!!.dismiss()
         }
     }
 

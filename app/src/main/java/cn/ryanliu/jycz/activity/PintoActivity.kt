@@ -43,8 +43,6 @@ class PintoActivity : BaseActivity<ActivityPintoBinding, PintoVM>() {
     var AreaNameID = ""
     var isconnect = false
 
-    // 提示窗对象
-    private var tipDialog: TipDialog? = null
     private lateinit var mSoundPool: SoundPool
     private val soundID = HashMap<Int, Int>()
 
@@ -68,8 +66,6 @@ class PintoActivity : BaseActivity<ActivityPintoBinding, PintoVM>() {
 
     @SuppressLint("ClickableViewAccessibility")
     override fun initView() {
-        initDialog();
-
         mSoundPool = SoundPool(3, AudioManager.STREAM_SYSTEM, 5);
         mSoundPool = SoundPool(3, AudioManager.STREAM_SYSTEM, 5);
         mSoundPool = SoundPool(3, AudioManager.STREAM_SYSTEM, 5);
@@ -293,14 +289,7 @@ class PintoActivity : BaseActivity<ActivityPintoBinding, PintoVM>() {
         }.start()
     }
 
-    /**
-     * 初始化各种Dialog
-     */
-    private fun initDialog() {
-        if (tipDialog == null) {
-            tipDialog = TipDialog(this)
-        }
-    }
+
 
     /**
      * 显示提示类型Dialog

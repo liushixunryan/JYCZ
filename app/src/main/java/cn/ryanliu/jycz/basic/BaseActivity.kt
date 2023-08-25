@@ -2,16 +2,16 @@ package cn.ryanliu.jycz.basic
 
 import android.app.Activity
 import android.content.Context
-import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.View
-import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.xql.loading.LoadingDialog
+import com.xql.loading.TipDialog
 import java.lang.reflect.ParameterizedType
 
 /**
@@ -22,6 +22,8 @@ import java.lang.reflect.ParameterizedType
 abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel> : AppCompatActivity() {
     lateinit var mDatabind: B
     lateinit var mViewModel: VM;
+    var loadingDialog: LoadingDialog? = null
+    var tipDialog: TipDialog? = null
 
     //是否显示标题栏
     private var isShowTitle: Boolean? = false;
@@ -50,6 +52,7 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel> : AppCompat
         initView()
         //设置数据
         createObserver()
+        initDialog()
     }
 
     /**
@@ -70,6 +73,43 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel> : AppCompat
                 ViewModelProvider.NewInstanceFactory()
             ).get<ViewModel>(modelClass as Class<ViewModel>) as VM
 
+    }
+
+    /**
+     * 初始化各种Dialog
+     */
+     open fun initDialog() {
+        if (loadingDialog == null) {
+            loadingDialog = LoadingDialog(this)
+        }
+        if (tipDialog == null) {
+            tipDialog = TipDialog(this)
+        }
+    }
+
+    /**
+     * 显示等待Dialog
+     */
+    open fun showLoading() {
+        if (loadingDialog != null && !loadingDialog!!.isShowing) loadingDialog!!.show()
+    }
+
+    /**
+     * 显示等待Dialog，可自定义显示内容
+     */
+    open fun showLoading(msg: String?): LoadingDialog? {
+        if (loadingDialog != null && !loadingDialog!!.isShowing) loadingDialog!!.setMessage(msg)
+            .show()
+        return loadingDialog
+    }
+
+    /**
+     * 隐藏等待Dialog
+     */
+    open fun hideLoading() {
+        if (loadingDialog != null && loadingDialog!!.isShowing) {
+            loadingDialog!!.dismiss()
+        }
     }
 
     /**

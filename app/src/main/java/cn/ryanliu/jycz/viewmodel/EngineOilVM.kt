@@ -61,8 +61,6 @@ class EngineOilVM : BaseViewModel() {
                 if (response.isSuccess()) {
                     mOilList.postValue(response.data)
 
-                } else {
-                    mOilList.postValue(response.data)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

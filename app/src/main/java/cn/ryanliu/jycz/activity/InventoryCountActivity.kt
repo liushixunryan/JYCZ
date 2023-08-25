@@ -27,8 +27,6 @@ import com.xql.loading.TipDialog
  * @Description:库存盘点
  */
 class InventoryCountActivity : BaseActivity<ActivityInventoryCountBinding, InventoryCountVM>() {
-    // 提示窗对象
-    private var tipDialog: TipDialog? = null
     private lateinit var invent_id: lockAllCancel
     var ysxm = 0
     private lateinit var mSoundPool: SoundPool
@@ -59,8 +57,6 @@ class InventoryCountActivity : BaseActivity<ActivityInventoryCountBinding, Inven
         soundID[3] = mSoundPool.load(this, R.raw.complete_3, 1);
 
         invent_id = intent.getSerializableExtra("invent_id") as lockAllCancel
-
-        initDialog();
 
         mDatabind.inNavBar.ivNavBack.visibility = View.VISIBLE
         mDatabind.inNavBar.ivNavBack.setOnClickListener {
@@ -146,14 +142,6 @@ class InventoryCountActivity : BaseActivity<ActivityInventoryCountBinding, Inven
         }
     }
 
-    /**
-     * 初始化各种Dialog
-     */
-    private fun initDialog() {
-        if (tipDialog == null) {
-            tipDialog = TipDialog(this)
-        }
-    }
 
     /**
      * 显示提示类型Dialog
