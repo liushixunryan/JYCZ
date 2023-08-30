@@ -131,7 +131,7 @@ public class Service1 extends Service {
         notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("appService1通知Title")
                 .setContentText("appService1通知Content")
-                .setSmallIcon(R.mipmap.ic_launcher_foreground)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentIntent(hangPendingIntent)
                 .setAutoCancel(true)
                 .build();

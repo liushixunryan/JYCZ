@@ -14,7 +14,6 @@ import cn.ryanliu.jycz.activity.detail.*
 import cn.ryanliu.jycz.adapter.HomeCARAdapter
 import cn.ryanliu.jycz.adapter.HomePDAAdapter
 import cn.ryanliu.jycz.basic.BaseActivity
-import cn.ryanliu.jycz.basic.BaseApplication
 import cn.ryanliu.jycz.bean.HomeCARBean
 import cn.ryanliu.jycz.bean.HomePDABean
 import cn.ryanliu.jycz.common.constant.Constant
@@ -23,11 +22,7 @@ import cn.ryanliu.jycz.databinding.ActivityMainBinding
 import cn.ryanliu.jycz.util.*
 import cn.ryanliu.jycz.view.GridSpaceItemDecoration
 import cn.ryanliu.jycz.viewmodel.MainVM
-import cn.ryanliu.jycz.viewmodel.ScanLoadingVM
-import cn.ryanliu.jycz.viewmodel.detail.AreaAdjustDetailVM
 import com.tbruyelle.rxpermissions.RxPermissions
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import print.Print
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainVM>() {
@@ -66,6 +61,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainVM>() {
         mDatabind.dayinjiImg.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
                 isconnect = MmkvHelper.getInstance().getBoolean(MmKv_KEY.ISCONNECT)
+//                isconnect = true
                 if (isconnect) {
                     DialogUtil.showSelectDialog(
                         this@MainActivity,

@@ -224,6 +224,7 @@ class PatchworkXMActivity : BaseActivity<ActivityPatchworkXmactivityBinding, Pat
                     }
                 }
             } catch (e: java.lang.Exception) {
+                ToastUtilsExt.info("打印机未连接")
                 Log.e(
                     "SDKSample",
                     java.lang.StringBuilder("Activity_Main --> onClickWIFI ").append(e.message)

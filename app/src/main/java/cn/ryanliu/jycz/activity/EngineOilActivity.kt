@@ -4,9 +4,11 @@ import android.Manifest
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
+import android.text.InputFilter
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.activity.booth.BTActivity
 import cn.ryanliu.jycz.adapter.EngineOilAdapter
@@ -15,10 +17,12 @@ import cn.ryanliu.jycz.basic.BaseActivity
 import cn.ryanliu.jycz.bean.*
 import cn.ryanliu.jycz.common.constant.Constant
 import cn.ryanliu.jycz.databinding.ActivityEngineOilBinding
+import cn.ryanliu.jycz.util.EditNoEnterFilter
 import cn.ryanliu.jycz.util.MmkvHelper
 import cn.ryanliu.jycz.util.PrintBCCodeType
 import cn.ryanliu.jycz.util.ToastUtilsExt
 import cn.ryanliu.jycz.viewmodel.EngineOilVM
+import com.blankj.utilcode.util.KeyboardUtils
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.AttachPopupView
 import com.lxj.xpopup.enums.PopupAnimation
@@ -38,6 +42,7 @@ class EngineOilActivity : BaseActivity<ActivityEngineOilBinding, EngineOilVM>() 
 
     lateinit var bean1: List<getProjectList>
     var xmmcid: Int = -1
+    var isPrintnum: Int = 0
 
     private fun connectionBluetooth() {
         //获取蓝牙动态权限
@@ -54,6 +59,7 @@ class EngineOilActivity : BaseActivity<ActivityEngineOilBinding, EngineOilVM>() 
             }
         }
     }
+
     override fun layoutId(): Int = R.layout.activity_engine_oil
 
     override fun initView() {
@@ -72,11 +78,11 @@ class EngineOilActivity : BaseActivity<ActivityEngineOilBinding, EngineOilVM>() 
 
 
         mDatabind.btnCx.setOnClickListener {
-            if(mDatabind.etCj.text.toString().isNullOrEmpty()){
+            if (mDatabind.etCj.text.toString().isNullOrEmpty()) {
                 ToastUtilsExt.info("没有厂家信息")
                 return@setOnClickListener
             }
-            if(mDatabind.etXmmc.text.toString().isNullOrEmpty()){
+            if (mDatabind.etXmmc.text.toString().isNullOrEmpty()) {
                 ToastUtilsExt.info("没有项目信息")
                 return@setOnClickListener
             }
@@ -93,12 +99,47 @@ class EngineOilActivity : BaseActivity<ActivityEngineOilBinding, EngineOilVM>() 
                 val isSelect = arrayListOf<Int>()
                 for (i in selectBean!!.indices) {
                     if (selectBean!![i].isselect == 1) {
-                        mViewModel.createoillabel(
-                            selectBean!![i].bar_code,
-                            selectBean!![i].label_model,
-                            selectBean!![i].brand_name,
-                            1
-                        )
+                        val popupView = XPopup.Builder(this)
+                            .isDestroyOnDismiss(true) //对于只使用一次的弹窗对象，推荐设置这个
+                            .isViewMode(true).asInputConfirm(
+                                "请输入机油标签打印数量:", null, "1", "请在此处输入"
+                            ) {
+                                if (it.isNullOrEmpty()) {
+                                    if (it.toInt() >= 1) {
+                                        ToastUtilsExt.info("您输入的数字必须大于1")
+                                        return@asInputConfirm
+                                    }
+                                    ToastUtilsExt.info("您为输入数据")
+                                    return@asInputConfirm
+
+                                }
+                                Log.e("sansuiban", "initView: ${it}")
+                                isPrintnum = it.toInt()
+
+                                mViewModel.createoillabel(
+                                    selectBean!![i].bar_code,
+                                    selectBean!![i].label_model,
+                                    selectBean!![i].brand_name,
+                                    1
+                                )
+
+                            }
+//                    commonItemView2.content = it
+//                    listener?.onConfirm(it)
+
+                        popupView.show()
+                        popupView.post {
+                            popupView.editText.inputType = EditorInfo.TYPE_CLASS_NUMBER
+                            popupView.editText.filters =
+                                arrayOf(
+                                    InputFilter.LengthFilter(2),
+                                    EditNoEnterFilter(popupView.editText)
+                                )
+                            popupView.editText.setSelection(popupView.editText.text.toString().length)
+                            popupView.editText.imeOptions = EditorInfo.IME_ACTION_DONE
+                            KeyboardUtils.showSoftInput(popupView.editText)
+                        }
+
 
                     } else {
                         isSelect.add(i)
@@ -112,6 +153,7 @@ class EngineOilActivity : BaseActivity<ActivityEngineOilBinding, EngineOilVM>() 
 
 
             } catch (e: java.lang.Exception) {
+                ToastUtilsExt.info("打印机未连接")
                 Log.e(
                     "SDKSample",
                     java.lang.StringBuilder("Activity_Main --> onClickWIFI ").append(e.message)
@@ -130,7 +172,7 @@ class EngineOilActivity : BaseActivity<ActivityEngineOilBinding, EngineOilVM>() 
     lateinit var bean: List<getOilFactory>
     override fun createObserver() {
         mViewModel.mSelect.observe(this) {
-            if (it.isNullOrEmpty()){
+            if (it.isNullOrEmpty()) {
                 ToastUtilsExt.info("暂无项目信息")
                 return@observe
             }
@@ -167,22 +209,24 @@ class EngineOilActivity : BaseActivity<ActivityEngineOilBinding, EngineOilVM>() 
 
 
         mViewModel.mCode.observe(this) {
-            val printTM = PrintBCCodeType.PrintJYBQ(
-                it.img_data
-            )
+            for (i in 1..isPrintnum) {
+                val printTM = PrintBCCodeType.PrintJYBQ(
+                    it.img_data
+                )
 
-            if (printTM != -1) {
-                //切纸
-                Print.GotoNextLabel()
-            } else {
-                ToastUtilsExt.info("打印错误")
-                connectionBluetooth()
+                if (printTM != -1) {
+                    //切纸
+                    Print.GotoNextLabel()
+                } else {
+                    ToastUtilsExt.info("打印错误")
+                    connectionBluetooth()
+                }
             }
         }
 
 
         mViewModel.mOilList.observe(this) {
-            if (it.isNullOrEmpty()){
+            if (it.isNullOrEmpty()) {
                 ToastUtilsExt.info("暂无机油标签厂家信息")
                 return@observe
             }
@@ -228,12 +272,16 @@ class EngineOilActivity : BaseActivity<ActivityEngineOilBinding, EngineOilVM>() 
 
         }
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         try {
             val strIsConnected: String?
             when (resultCode) {
                 RESULT_CANCELED -> {
-                    MmkvHelper.getInstance().putString(Constant.MmKv_KEY.BTmac,data!!.getStringExtra("SelectedBDAddress"))
+                    MmkvHelper.getInstance().putString(
+                        Constant.MmKv_KEY.BTmac,
+                        data!!.getStringExtra("SelectedBDAddress")
+                    )
 
                     connectBT(data!!.getStringExtra("SelectedBDAddress"))
                 }
@@ -260,7 +308,8 @@ class EngineOilActivity : BaseActivity<ActivityEngineOilBinding, EngineOilVM>() 
                     val result = Print.PortOpen(context, "Bluetooth,$BTmac")
                     runOnUiThread {
                         if (result == 0) {
-                            MmkvHelper.getInstance().putBoolean(Constant.MmKv_KEY.ISCONNECT, true)
+                            MmkvHelper.getInstance()
+                                .putBoolean(Constant.MmKv_KEY.ISCONNECT, true)
 
                             ToastUtilsExt.info("连接成功")
                             val setJustification = Print.SetJustification(2)
@@ -271,7 +320,8 @@ class EngineOilActivity : BaseActivity<ActivityEngineOilBinding, EngineOilVM>() 
                             }
 
                         } else {
-                            MmkvHelper.getInstance().putBoolean(Constant.MmKv_KEY.ISCONNECT, false)
+                            MmkvHelper.getInstance()
+                                .putBoolean(Constant.MmKv_KEY.ISCONNECT, false)
                             ToastUtilsExt.info("连接失败" + result)
                         }
 
@@ -283,6 +333,7 @@ class EngineOilActivity : BaseActivity<ActivityEngineOilBinding, EngineOilVM>() 
             }
         }.start()
     }
+
     companion object {
         fun launch(context: Context) {
             val intent = Intent(context, EngineOilActivity::class.java)
