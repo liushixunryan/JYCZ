@@ -278,10 +278,10 @@ class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
 
             }
 
-            mViewModel.mBackList.observe(this) {
-                ToastUtilsExt.info("提交成功")
-                MainActivity.launchClear(this)
-            }
+        }
+        mViewModel.mBackList.observe(this) {
+            ToastUtilsExt.info("提交成功")
+            MainActivity.launchClear(this)
         }
     }
 
