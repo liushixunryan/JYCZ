@@ -6,6 +6,7 @@ import cn.ryanliu.jycz.api.ApiService
 import cn.ryanliu.jycz.basic.BaseViewModel
 import cn.ryanliu.jycz.bean.SelectCarBean
 import cn.ryanliu.jycz.bean.prequest.PCarInfoIn1
+import cn.ryanliu.jycz.bean.prequest.PIsVehicleCarNumber
 import kotlinx.coroutines.launch
 
 /**
@@ -21,13 +22,37 @@ class ScanLoadingVM : BaseViewModel() {
 
             try {
                 showLoading()
-                val response = ApiService.apiService.getCarInfoIn2(PCarInfoIn1(car_number,"装车"))
+                val response = ApiService.apiService.getCarInfoIn2(PCarInfoIn1(car_number, "装车"))
 
                 if (response.isSuccess()) {
                     mSelectCar.postValue(response.data)
 
                 } else {
                     mSelectCar.postValue(response.data)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                showNetErr(e)
+            } finally {
+                hideLoading()
+            }
+        }
+
+    }
+
+    var mIsCarnumber = MutableLiveData<String>()
+
+    fun IsVehicleCarNumber(car_number: String) {
+        viewModelScope.launch {
+
+            try {
+                showLoading()
+                val response =
+                    ApiService.apiService.IsVehicleCarNumber(PIsVehicleCarNumber(car_number))
+
+                if (response.isSuccess()) {
+                    mIsCarnumber.postValue(response.data.toString())
+
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

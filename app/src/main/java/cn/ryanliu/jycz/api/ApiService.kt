@@ -179,6 +179,11 @@ interface ApiService {
     @GET("/appver.xml")
     suspend fun updateApp(): BaseResponse<String>
 
+    //验证车牌号是否正确
+    @POST("/api/APP/IsVehicleCarNumber")
+    suspend fun IsVehicleCarNumber(@Body request: PIsVehicleCarNumber): BaseResponse<Any>
+
+
     companion object {
         // 4.通过动态代理获取到所定义的接口
         val apiService = RetrofitManager.retrofit.create(ApiService::class.java)

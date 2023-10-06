@@ -98,22 +98,9 @@ class ScanUnloadingActivity : BaseActivity<ActivityScanUnloadingBinding, ScanUnl
                     return
                 }
 
-                if (reservationId == 0) {
-                    //卸车传0 装车传1
-                    //跳转到司机
-                    DriverActivity.launch(
-                        this@ScanUnloadingActivity,
-                        mDatabind.etCph.text.toString(),
-                        Constant.PageModel.XIECHE,
-                        mareaID,mDatabind.etKq.text.toString())
-                } else if (reservationId == 1) {
-                    //跳转到项目
-                    ProjectActivity.launch(
-                        this@ScanUnloadingActivity,
-                        mDatabind.etCph.text.toString(),
-                        Constant.PageModel.XIECHE,mareaID,mDatabind.etKq.text.toString()
-                    )
-                }
+
+                mViewModel.IsVehicleCarNumber(mDatabind.etCph.text.toString())
+
             }
         })
     }
@@ -127,12 +114,32 @@ class ScanUnloadingActivity : BaseActivity<ActivityScanUnloadingBinding, ScanUnl
             }
             if (SelectAreaActivity.REQUEST_CODE_XXKQ == requestCode) {
                 mDatabind.etKq.setText(data?.getStringExtra("areaName") ?: "")
-                mareaID = data?.getIntExtra("areaId",0).toString()
+                mareaID = data?.getIntExtra("areaId", 0).toString()
             }
         }
     }
 
     override fun createObserver() {
+        mViewModel.mIsCarnumber.observe(this) {
+            if (reservationId == 0) {
+                //卸车传0 装车传1
+                //跳转到司机
+                DriverActivity.launch(
+                    this@ScanUnloadingActivity,
+                    mDatabind.etCph.text.toString(),
+                    Constant.PageModel.XIECHE,
+                    mareaID, mDatabind.etKq.text.toString()
+                )
+            } else if (reservationId == 1) {
+                //跳转到项目
+                ProjectActivity.launch(
+                    this@ScanUnloadingActivity,
+                    mDatabind.etCph.text.toString(),
+                    Constant.PageModel.XIECHE, mareaID, mDatabind.etKq.text.toString()
+                )
+            }
+        }
+
         mViewModel.mSelectCar.observe(this) {
             if (it.isNullOrEmpty()) {
                 mDatabind.driverLl.visibility = View.GONE

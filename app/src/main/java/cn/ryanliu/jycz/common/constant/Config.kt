@@ -15,10 +15,19 @@ object Config {
     var sPlatformServerIP = "jys.caacpl.com"//服务器
 
     @JvmField
-    var sPlatformServerPort = "33250"
+    var sPlatformServerPort = "33254"
 
     @JvmField
-    var sBaseUrl: String = "https://$sPlatformServerIP:$sPlatformServerPort"//服务器
+    var sBaseUrl: String = "http://$sPlatformServerIP:$sPlatformServerPort"//服务器
+
+//    @JvmField
+//    var sPlatformServerIP = "118.186.19.35"//服务器
+//
+//    @JvmField
+//    var sPlatformServerPort = "33251"
+//
+//    @JvmField
+//    var sBaseUrl: String = "http://$sPlatformServerIP:$sPlatformServerPort"//服务器
 
 
 }

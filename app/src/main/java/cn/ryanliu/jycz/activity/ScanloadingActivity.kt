@@ -21,8 +21,7 @@ import com.lxj.xpopup.enums.PopupPosition
  * @Date: 2023/6/8
  * @Description:扫码装车
  */
-class ScanloadingActivity :
-    BaseActivity<ActivityScanloadingActivityBinding, ScanLoadingVM>() {
+class ScanloadingActivity : BaseActivity<ActivityScanloadingActivityBinding, ScanLoadingVM>() {
     var reservationId = 0
     var mareaID = ""
     override fun layoutId(): Int = R.layout.activity_scanloading_activity
@@ -88,22 +87,7 @@ class ScanloadingActivity :
                     ToastUtilsExt.info("您未选择预约类型")
                     return
                 }
-
-                if (reservationId == 0) {
-                    //跳转到司机
-                    DriverActivity.launch(
-                        this@ScanloadingActivity, mDatabind.etCph.text.toString(),
-                        Constant.PageModel.ZHUANGCHE,
-                        mareaID,""
-                    )
-                } else if (reservationId == 1) {
-                    //跳转到项目
-                    ProjectActivity.launch(
-                        this@ScanloadingActivity,
-                        mDatabind.etCph.text.toString(),
-                        Constant.PageModel.ZHUANGCHE, mareaID,""
-                    )
-                }
+                mViewModel.IsVehicleCarNumber(mDatabind.etCph.text.toString())
             }
         })
     }
@@ -120,6 +104,30 @@ class ScanloadingActivity :
     }
 
     override fun createObserver() {
+        mViewModel.mIsCarnumber.observe(this) {
+
+            if (reservationId == 0) {
+                //跳转到司机
+                DriverActivity.launch(
+                    this@ScanloadingActivity,
+                    mDatabind.etCph.text.toString(),
+                    Constant.PageModel.ZHUANGCHE,
+                    mareaID,
+                    ""
+                )
+            } else if (reservationId == 1) {
+                //跳转到项目
+                ProjectActivity.launch(
+                    this@ScanloadingActivity,
+                    mDatabind.etCph.text.toString(),
+                    Constant.PageModel.ZHUANGCHE,
+                    mareaID,
+                    ""
+                )
+            }
+        }
+
+
         mViewModel.mSelectCar.observe(this) {
             if (it.isNullOrEmpty()) {
                 mDatabind.driverLl.visibility = View.GONE
