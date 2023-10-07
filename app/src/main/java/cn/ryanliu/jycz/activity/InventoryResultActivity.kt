@@ -38,10 +38,14 @@ class InventoryResultActivity : BaseActivity<ActivityInventoryResultBinding, Inv
         mDatabind.inNavBar.ivNavBack.setOnClickListener {
             onBackPressed()
         }
-        mDatabind.inNavBar.tvNavTitle.text = "箱码列表"
+        mDatabind.inNavBar.tvNavTitle.text = "盘点结果"
 
         mAdapter = XMListAdapter();
         mDatabind.cylistRv.adapter = mAdapter
+
+        if (inventResult.scan_code_list.isEmpty()){
+            mAdapter.setNewInstance(inventResult.scan_code_list)
+        }
 
 
         onClick();

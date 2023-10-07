@@ -99,6 +99,7 @@ class AreaSelectActivity : BaseActivity<ActivityAreaSelectBinding, AreaSelectVM>
                 showTipDialog("确认是否开始盘点？",
                     "提示",
                     {
+                        showLoading()
                         mViewModel.lockAllCancel(bean, "指定区域")
                     },
                     {})
@@ -111,6 +112,7 @@ class AreaSelectActivity : BaseActivity<ActivityAreaSelectBinding, AreaSelectVM>
                 showTipDialog("确认是否开始盘点？",
                     "提示",
                     {
+                        showLoading()
                         mViewModel.lockAllCancel(bean, "全库")
                     },
                     {})
@@ -138,6 +140,7 @@ class AreaSelectActivity : BaseActivity<ActivityAreaSelectBinding, AreaSelectVM>
             } else {
                 InventoryCountActivity.launch(this@AreaSelectActivity, it)
             }
+            hideLoading()
         }
     }
 

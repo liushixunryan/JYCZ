@@ -15,6 +15,7 @@ import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.AttachPopupView
 import com.lxj.xpopup.enums.PopupAnimation
 import com.lxj.xpopup.enums.PopupPosition
+import wang.relish.widget.vehicleedittext.VehicleKeyboardHelper
 
 /**
  * @Author: lsx
@@ -33,7 +34,10 @@ class ScanloadingActivity : BaseActivity<ActivityScanloadingActivityBinding, Sca
         }
         mDatabind.inNavBar.tvNavTitle.text = "扫码装车"
         mDatabind.etYylx.text = "司机预约"
+
+        VehicleKeyboardHelper.bind(mDatabind.etCph);
         onClick();
+
     }
 
     private fun onClick() {

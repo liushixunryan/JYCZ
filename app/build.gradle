@@ -20,8 +20,8 @@ android {
         applicationId "cn.ryanliu.jycz"
         minSdk 21
         targetSdk 32
-        versionCode 29
-        versionName "1.0.8"
+        versionCode 30
+        versionName "1.0.9"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -131,4 +131,6 @@ dependencies {
     api 'io.github.scwang90:refresh-footer-classics:2.0.5'    //经典加载
 
     implementation 'com.teprinciple:updateapputilsx:2.3.0'
+
+    implementation "wang.relish.widget:vehicleedittext:1.0.2"
 }

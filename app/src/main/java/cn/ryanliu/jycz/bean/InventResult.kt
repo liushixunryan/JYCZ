@@ -7,7 +7,7 @@ package cn.ryanliu.jycz.bean
  */
 data class InventResult(
     val invent_num: Int,
-    val scan_code_list: List<XMListBean>,
+    val scan_code_list: MutableList<XMListBean>,
     val sys_ware_num: Int,
     val ware_area: String
 ):java.io.Serializable
