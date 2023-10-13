@@ -59,18 +59,6 @@ android {
         variant.outputs.all {
             outputFileName = "${appName}-${packageTime()}.apk"
         }
-        def outputFilePath = "${rootDir.absolutePath}/apk"
-        File outputFile = new File(outputFilePath)
-        variant.assemble.doLast {
-            copy {
-                variant.outputs.all { file ->
-                    copy {
-                        from file.outputFile
-                        into outputFile
-                    }
-                }
-            }
-        }
     }
 }
 
