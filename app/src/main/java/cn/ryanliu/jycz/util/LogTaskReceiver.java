@@ -15,7 +15,7 @@ public class LogTaskReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
         if (MONITOR_LOG_SIZE_ACTION.equals(action)) {
-            LogUtils.getInstance().updateLogFileSize();
+            LogUtils.getInstance().updateLogFileSize(context);
 
         }
     }

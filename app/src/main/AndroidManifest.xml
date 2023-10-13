@@ -352,14 +352,6 @@
                 android:value="" />
         </activity>
 
-        <!--    定时查看日志大小广播    -->
-        <receiver android:name=".util.LogTaskReceiver"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="MONITOR_LOG_SIZE"></action>
-            </intent-filter>
-        </receiver>
-
         <service
             android:name=".utillog.Service1"
             android:enabled="true"

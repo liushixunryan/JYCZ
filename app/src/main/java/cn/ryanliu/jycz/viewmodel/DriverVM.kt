@@ -9,6 +9,7 @@ import cn.ryanliu.jycz.bean.ScanOrdersBean
 import cn.ryanliu.jycz.bean.prequest.PScanInCode
 import cn.ryanliu.jycz.bean.prequest.PScanOrders
 import cn.ryanliu.jycz.bean.prequest.PSubmitSaveIn
+import cn.ryanliu.jycz.util.ToastUtilsExt
 import kotlinx.coroutines.launch
 
 /**
@@ -45,6 +46,7 @@ class DriverVM : BaseViewModel() {
 
                 } else {
                     mData.postValue(response.data)
+                    ToastUtilsExt.info(response.msg)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

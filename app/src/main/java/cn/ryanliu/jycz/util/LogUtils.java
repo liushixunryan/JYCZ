@@ -6,6 +6,7 @@ import static cn.ryanliu.jycz.util.LogTaskReceiver.MONITOR_LOG_SIZE_ACTION;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
@@ -29,14 +30,14 @@ import cn.ryanliu.jycz.basic.BaseApplication;
 
 public class LogUtils {
     private static final String TAG = LogUtils.class.getSimpleName();
-    private static final String PACKAGE_NAME = "cn.shixun";
+    private static final String PACKAGE_NAME = "com.xql.iiscreen";
     private final static String LOG_FILE_NAME_PATTERN = "yyyy-MM-dd_HH:mm";
     private final static String LOG_FILE_PATTERN = "yyyy-MM-dd";
 
     private static LogUtils logUtils;
 
     private static final long LOG_FILE_SIZE_MAX = 20 * 1024 * 1024L;// 20M
-    private static final String PATH = "/sdcard/ShiXun_LOG/" + dataTimeMsToString(getTimesMorning(), LOG_FILE_PATTERN) + "/";
+    private static final String PATH = "/sdcard/Sys_LOG/" + TimeUtils.dataTimeMsToString(TimeUtils.getTimesMorning(), LOG_FILE_PATTERN) + "/";
     private static final String TXT = ".txt";
     private static String fileName = "";
 
@@ -48,7 +49,7 @@ public class LogUtils {
 
     public final static boolean isDebug = true;
 
-    private final static String APP_TAG = "ShiXun》》》";
+    private final static String APP_TAG = "IIScreen》》》";
     private static String lastMsg;
 
     private LogUtils() {
@@ -61,15 +62,15 @@ public class LogUtils {
         return logUtils;
     }
 
-    public void init() {
+    public void init(Context context) {
         deleteCacheLog();
-        createLogCollector();
+        createLogCollector(context);
     }
 
     //在程序退出时调用
-    public void deInit() {
+    public void deInit(Context context) {
         // 取消定时闹铃
-        cancelLogSizeMonitorTask();
+        cancelLogSizeMonitorTask(context);
         if (process != null)
             process.destroy();
     }
@@ -189,21 +190,21 @@ public class LogUtils {
     /**
      * 开始收集日志信息
      */
-    public void createLogCollector() {
+    public void createLogCollector(Context context) {
         new Thread() {
             @Override
             public void run() {
                 super.run();
                 try {
-                    error(TAG, "文件是否存在： " + isFileExist(PATH, fileName));
-                    if (TextUtils.isEmpty(fileName) || !isFileExist(PATH, fileName) || getFileSize(PATH + fileName) >= LOG_FILE_SIZE_MAX)
-                        fileName = dataTimeMsToString(System.currentTimeMillis(), LOG_FILE_NAME_PATTERN) + TXT;
-                    if (!isFileExist(PATH, fileName)) {
-                        createFile(PATH, fileName);
+                    error(TAG, "文件是否存在： " + FileUtils.isFileExist(PATH, fileName));
+                    if (TextUtils.isEmpty(fileName) || !FileUtils.isFileExist(PATH, fileName) || FileUtils.getFileSize(PATH + fileName) >= LOG_FILE_SIZE_MAX)
+                        fileName = TimeUtils.dataTimeMsToString(System.currentTimeMillis(), LOG_FILE_PATTERN) + TXT;
+                    if (!FileUtils.isFileExist(PATH, fileName)) {
+                        FileUtils.createFile(PATH, fileName);
                     }
 
                     try {
-                        deployLogSizeMonitorTask();
+                        deployLogSizeMonitorTask(context);
                         List<String> commandList = new ArrayList<>();
                         commandList.add("logcat");
                         commandList.add("-f");
@@ -218,8 +219,8 @@ public class LogUtils {
                         commandList.add(PACKAGE_NAME + ":E");
 
                         commandList.add("System.err:W");// 过滤所有的错误信息
-                        //                        commandList.add("System.err:F");// 过滤所有的错误信息
-                        //                        commandList.add("System.out:I");// 过滤所有的错误信息
+                        commandList.add("System.err:F");// 过滤所有的错误信息
+                        commandList.add("System.out:I");// 过滤所有的错误信息
                         commandList.add("AndroidRuntime:E"); //运行报错
 
                         try {
@@ -227,7 +228,7 @@ public class LogUtils {
                             Thread.sleep(1000);
                             LogUtils.error(TAG, "waitFor:" + process.waitFor());
                             if (logSizeMoniting)
-                                createLogCollector();
+                                createLogCollector(context);
                         } catch (Exception e) {
                             LogUtils.error(TAG, "CollectorThread == >" + e.getMessage());
                         }
@@ -250,15 +251,15 @@ public class LogUtils {
     /**
      * 部署日志大小监控任务
      */
-    private void deployLogSizeMonitorTask() {
+    private void deployLogSizeMonitorTask(Context context) {
         //如果当前正在监控着，则不需要继续部署
         if (logSizeMoniting) {
             return;
         }
         logSizeMoniting = true;
-        Intent intent = new Intent(MONITOR_LOG_SIZE_ACTION);
-        PendingIntent sender = PendingIntent.getBroadcast(BaseApplication.getInstance().getMediaTApplication(), 0, intent, 0);
-        AlarmManager am = (AlarmManager) BaseApplication.getInstance().getMediaTApplication().getSystemService(ALARM_SERVICE);
+        Intent intent = new Intent("MONITOR_LOG_SIZE");
+        PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         if (am != null) {
             am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), MEMORY_LOG_FILE_MONITOR_INTERVAL, sender);
         }
@@ -268,11 +269,11 @@ public class LogUtils {
     /**
      * 取消部署日志大小监控任务
      */
-    private void cancelLogSizeMonitorTask() {
+    private void cancelLogSizeMonitorTask(Context context) {
         logSizeMoniting = false;
-        AlarmManager am = (AlarmManager) BaseApplication.getInstance().getMediaTApplication().getSystemService(ALARM_SERVICE);
-        Intent intent = new Intent(MONITOR_LOG_SIZE_ACTION);
-        PendingIntent sender = PendingIntent.getBroadcast(BaseApplication.getInstance().getMediaTApplication(), 0, intent, 0);
+        AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+        Intent intent = new Intent("MONITOR_LOG_SIZE");
+        PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         if (am != null) {
             am.cancel(sender);
         }
@@ -282,13 +283,13 @@ public class LogUtils {
     /**
      * 监测文件大小，如超出文件大小限制，重新写入新文件中
      */
-    public void updateLogFileSize() {
+    public void updateLogFileSize(Context context) {
         error("定时监控当前写入文件大小");
         if (logSizeMoniting)
-            if (getFileSize(PATH + fileName) >= LOG_FILE_SIZE_MAX) {
+            if (FileUtils.getFileSize(PATH + fileName) >= LOG_FILE_SIZE_MAX) {
                 process.destroy();
                 //日志文件监测action
-                createLogCollector();
+                createLogCollector(context);
             }
     }
 
@@ -297,151 +298,15 @@ public class LogUtils {
      */
     private void deleteCacheLog() {
         LogUtils.error(TAG, "deleteCacheLog(),删除缓存的日志文件");
-        File[] files = getFileList("/sdcard/ShiXun_LOG/");
+        File[] files = FileUtils.getFileList("/sdcard/XQL_LOG/");
         if (files == null || files.length <= 0)
             return;
         for (File file : files) {
-            if (getTimesMorning() - 86400 * 1000 * 2L >= dateTimeStringTo_Ms(file.getName(), LOG_FILE_PATTERN)) {
+            if (TimeUtils.getTimesMorning() - 86400 * 1000 * 2L >= TimeUtils.dateTimeStringTo_Ms(file.getName(), LOG_FILE_PATTERN)) {
                 LogUtils.error(TAG, "删除文件夹：" + file.getName());
-                deleteDirection(file);
+                FileUtils.deleteDirection(file);
             }
         }
 
-    }
-
-
-    /**
-     * 判断文件是否已经存在
-     *
-     * @param fileName 要检查的文件名
-     * @return boolean, true表示存在，false表示不存在
-     */
-    public static boolean isFileExist(String path, String fileName) {
-        File file = new File(path + fileName);
-        return file.exists();
-    }
-
-
-    /**
-     * 创建文件
-     *
-     * @param path     文件所在目录的目录名
-     * @param fileName 文件名
-     * @return 文件新建成功则返回true
-     */
-    public static boolean createFile(String path, String fileName) {
-        File file = new File(path);
-        if (!file.exists()) {
-            try {
-                //按照指定的路径创建文件夹
-                boolean a = file.mkdirs();
-                Log.e(TAG, "createFile: " + a);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        File dir = new File(path + fileName);
-        if (!dir.exists()) {
-            try {
-                boolean newFile = dir.createNewFile();
-                //在指定的文件夹中创建文件
-                Log.e(TAG, "createFile: " + newFile);
-                return newFile;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return false;
-    }
-
-
-    /**
-     * 描述：删除一个目录（可以是非空目录）
-     *
-     * @param dir 目录绝对路径
-     */
-    public static boolean deleteDirection(File dir) {
-        if (dir == null || !dir.exists() || dir.isFile()) {
-            return false;
-        }
-        for (File file : dir.listFiles()) {
-            if (file.isFile()) {
-                file.delete();
-            } else if (file.isDirectory()) {
-                deleteDirection(file);//递归
-            }
-        }
-        dir.delete();
-        return true;
-    }
-
-
-    /**
-     * 描述：计算某个文件的大小
-     *
-     * @param path 文件的绝对路径
-     * @return 文件大小
-     */
-    public static long getFileSize(String path) {
-        File file = new File(path);
-        return file.length();
-    }
-
-
-    /**
-     * 描述：获取某个路径下的文件列表
-     *
-     * @param path 文件路径
-     * @return 文件列表File[] files
-     */
-    public static File[] getFileList(String path) {
-        File file = new File(path);
-        if (file.isDirectory()) {
-            File[] files = file.listFiles();
-            if (files != null) {
-                return files;
-            } else {
-                return null;
-            }
-        } else {
-            return null;
-        }
-    }
-
-
-    /**
-     * 描述：将毫秒转成所需的格式
-     *
-     * @param nowDateTime_Ms：毫秒
-     * @param format：日期时间格式
-     * @return 指定格式的时间字符串
-     */
-    public static String dataTimeMsToString(long nowDateTime_Ms, String format) {
-        DateFormat formatter = new SimpleDateFormat(format);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(nowDateTime_Ms);
-
-        return formatter.format(calendar.getTime());
-    }
-
-    //获得当天0点时间 
-    public static long getTimesMorning() {
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, 0);
-        cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.MILLISECOND, 0);
-        return cal.getTimeInMillis();
-    }
-
-
-    public static long dateTimeStringTo_Ms(String st, String pattern) {
-        SimpleDateFormat s = new SimpleDateFormat(pattern);
-        try {
-            return s.parse(st).getTime();
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return 0;
-        }
     }
 }

@@ -14,6 +14,7 @@ import cn.ryanliu.jycz.activity.detail.*
 import cn.ryanliu.jycz.adapter.HomeCARAdapter
 import cn.ryanliu.jycz.adapter.HomePDAAdapter
 import cn.ryanliu.jycz.basic.BaseActivity
+import cn.ryanliu.jycz.basic.BaseApplication
 import cn.ryanliu.jycz.bean.HomeCARBean
 import cn.ryanliu.jycz.bean.HomePDABean
 import cn.ryanliu.jycz.common.constant.Constant
@@ -52,6 +53,9 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainVM>() {
 
     @SuppressLint("SetTextI18n")
     override fun initView() {
+        LogUtils.getInstance().init(BaseApplication.getInstance().getMediaTApplication())
+
+
         mDatabind.zzTv.text = MmkvHelper.getInstance().getString(Constant.MmKv_KEY.UNIT_NAME)
         mDatabind.czTv.text = MmkvHelper.getInstance().getString(Constant.MmKv_KEY.SITE_NAME)
         mDatabind.xmTv.text = MmkvHelper.getInstance().getString(Constant.MmKv_KEY.USER_NAME) + "(${
