@@ -13,11 +13,16 @@ open class BaseResponse<T>(
         if (code == 1) {
             return true
         } else {
-            if (!msg.isNullOrEmpty())
-                if (!msg.equals("未查询到信息"))
+            if (!msg.isNullOrEmpty()) {
+                if (!msg.equals("未查询到信息")) {
                     ToastUtilsExt.info(msg)
+                    return false
+                }
+                return false
+            }
+            return false
+
         }
-        return false
     }
 
 

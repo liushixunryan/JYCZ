@@ -65,6 +65,7 @@ public class Constant {
         public final static int ZHUANGCHE = 1;
         //卸车
         public final static int XIECHE = 0;
+        public final static int PANDIAN = 3;
 
     }
 

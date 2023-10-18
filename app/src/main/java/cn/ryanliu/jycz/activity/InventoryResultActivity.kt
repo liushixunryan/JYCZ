@@ -43,7 +43,7 @@ class InventoryResultActivity : BaseActivity<ActivityInventoryResultBinding, Inv
         mAdapter = XMListAdapter();
         mDatabind.cylistRv.adapter = mAdapter
 
-        if (inventResult.scan_code_list.isEmpty()){
+        if (inventResult.scan_code_list.isNotEmpty()){
             mAdapter.setNewInstance(inventResult.scan_code_list)
         }
 

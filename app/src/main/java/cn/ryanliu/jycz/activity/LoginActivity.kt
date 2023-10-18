@@ -170,6 +170,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginVM>() {
     }
 
     override fun createObserver() {
+        mViewModel.failData.observe(this){
+            hideLoading()
+        }
         mViewModel.loginResponseLV.observe(this) {
             MmkvHelper.getInstance()
                 .putString(Constant.MmKv_KEY.user, mDatabind.etMobile.text.toString() ?: "")

@@ -57,9 +57,17 @@ class XMListActivity : BaseActivity<ActivityXmlistBinding, XMListVM>() {
             scanTag = intent.getStringExtra("scan_tag").toString()
 
             mViewModel.getBoxcodeList(
-                handtaskid, if (pageModel == Constant.PageModel.XIECHE) {
+                if (pageModel == Constant.PageModel.PANDIAN){
+                    pyordercode.toInt()
+                }else{
+                    handtaskid
+                }
+                , if (pageModel == Constant.PageModel.XIECHE) {
                     "卸车"
-                } else {
+                } else if (pageModel == Constant.PageModel.PANDIAN) {
+                    "盘点"
+                }else
+                {
                     "装车"
                 }, pyordercode, scanTag
             )

@@ -32,6 +32,7 @@ import javax.xml.parsers.SAXParserFactory
 class LoginVM : BaseViewModel() {
     val loginResponseLV = MutableLiveData<LoginResponse?>()
     val updateApp = MutableLiveData<String?>()
+    val failData = MutableLiveData<String?>()
     fun login(name: String, password: String) {
         viewModelScope.launch {
 
@@ -74,9 +75,11 @@ class LoginVM : BaseViewModel() {
                     loginResponseLV.postValue(response.data)
 
                 } else {
-
+                    failData.postValue(response.data.toString())
+                    hideLoading()
                 }
             } catch (e: Exception) {
+                hideLoading()
                 e.printStackTrace()
                 showNetErr(e)
             } finally {

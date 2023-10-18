@@ -106,7 +106,7 @@ class InventoryCountActivity : BaseActivity<ActivityInventoryCountBinding, Inven
             if (mDatabind.ysxmTv.text.toString() == "已扫箱码(0)") {
                 ToastUtilsExt.info("您未扫描任何箱码")
             } else {
-                XMListActivity.launch(this, 0, handtaskid, pyordercode, "全部")
+                XMListActivity.launch(this, 3, handtaskid, invent_id.invent_id.toString(), "全部")
             }
 
         }
@@ -115,7 +115,7 @@ class InventoryCountActivity : BaseActivity<ActivityInventoryCountBinding, Inven
             if (mDatabind.xsTv.text.isNullOrEmpty()) {
                 ToastUtilsExt.info("没有数据")
             } else {
-                XMListActivity.launch(this, 0, handtaskid, pyordercode, "全部")
+                XMListActivity.launch(this, 3, handtaskid, invent_id.invent_id.toString(), "全部")
             }
 
         }
@@ -124,7 +124,7 @@ class InventoryCountActivity : BaseActivity<ActivityInventoryCountBinding, Inven
             if (mDatabind.khddhTv.text.isNullOrEmpty()) {
                 ToastUtilsExt.info("没有数据")
             } else {
-                XMListActivity.launch(this, 0, handtaskid, pyordercode, "全部")
+                XMListActivity.launch(this, 3, handtaskid, invent_id.invent_id.toString(), "全部")
             }
 
 
