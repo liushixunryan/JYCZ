@@ -27,11 +27,13 @@ import cn.ryanliu.jycz.util.MmkvHelper
 import cn.ryanliu.jycz.util.PrintBCCodeType
 import cn.ryanliu.jycz.util.ToastUtilsExt
 import cn.ryanliu.jycz.viewmodel.ScanBoxTMVM
+import com.blankj.utilcode.util.LogUtils
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.AttachPopupView
 import com.lxj.xpopup.enums.PopupAnimation
 import com.lxj.xpopup.enums.PopupPosition
 import com.tbruyelle.rxpermissions.RxPermissions
+import extension.log
 import print.Print
 
 /**
@@ -109,6 +111,7 @@ class ScanBoxTMActivity : BaseActivity<ActivityScanBoxTmactivityBinding, ScanBox
                 if (!mDatabind.etSmxm.text.toString().isNullOrEmpty()){
                     if (xmmcid!=-1){
                         mAdapter.addData(BoxCode(mDatabind.etSmxm.text.toString()))
+                        LogUtils.e("xmmcid:$xmmcid")
                         p.add(PcreateTCode2(mDatabind.etSmxm.text.toString(),xmmcid.toString()))
                         mDatabind.etZtjs.setText("${mAdapter.data.size}")
 
@@ -139,6 +142,9 @@ class ScanBoxTMActivity : BaseActivity<ActivityScanBoxTmactivityBinding, ScanBox
 
         mDatabind.btnSctm.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
+                for (i in p.indices){
+                    p[i].project_id = xmmcid.toString()
+                }
                 mViewModel.createTCode2(p)
             }
 
@@ -183,10 +189,10 @@ class ScanBoxTMActivity : BaseActivity<ActivityScanBoxTmactivityBinding, ScanBox
                 ToastUtilsExt.info("暂无项目信息")
                 return@observe
             }
-            bean = it!!
+            bean = it
             val array = bean.map { it.project_name }.toTypedArray()
-            mDatabind.etXmmc.text = it[0].project_name
-            xmmcid = it[0].project_id
+            mDatabind.etXmmc.text = bean[0].project_name
+            xmmcid = bean[0].project_id
             mDatabind.etXmmc.setOnClickListener { v ->
                 //创建一个xpopupview
                 val attachPopupView: AttachPopupView = XPopup.Builder(context)
@@ -201,9 +207,12 @@ class ScanBoxTMActivity : BaseActivity<ActivityScanBoxTmactivityBinding, ScanBox
                         intArrayOf(),
                         { position, text ->
                             mDatabind.etXmmc.text = text
-                            for (i in bean!!.indices) {
+                            for (i in bean.indices) {
+                                LogUtils.e("text:${text}/bean:${bean[i].project_name}")
                                 if (text == bean[i].project_name) {
+                                    LogUtils.e("project_id:${bean[i].project_id}")
                                     xmmcid = bean[i].project_id
+                                    LogUtils.e("xmmcid:${xmmcid}")
                                 }
                             }
                         },

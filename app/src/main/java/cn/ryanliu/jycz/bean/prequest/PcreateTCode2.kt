@@ -8,5 +8,5 @@ package cn.ryanliu.jycz.bean.prequest
  */
 data class PcreateTCode2(
     val box_code_list: String,
-    val project_id: String
+    var project_id: String
 )
