@@ -100,10 +100,12 @@ class ScanUnloadingActivity : BaseActivity<ActivityScanUnloadingBinding, ScanUnl
                     ToastUtilsExt.info("您未选择预约类型")
                     return
                 }
+                showLoading()
+                mViewModel.getCarInfoIn2(mDatabind.etCph.text.toString())
 
+                Thread.sleep(1200);//休眠3秒
 
                 mViewModel.IsVehicleCarNumber(mDatabind.etCph.text.toString())
-
             }
         })
     }
@@ -124,6 +126,7 @@ class ScanUnloadingActivity : BaseActivity<ActivityScanUnloadingBinding, ScanUnl
 
     override fun createObserver() {
         mViewModel.mIsCarnumber.observe(this) {
+            hideLoading()
             if (reservationId == 0) {
                 //卸车传0 装车传1
                 //跳转到司机

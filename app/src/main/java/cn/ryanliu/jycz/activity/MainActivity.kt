@@ -64,18 +64,25 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainVM>() {
         mDatabind.sjTv.text = MmkvHelper.getInstance().getString(Constant.MmKv_KEY.PHONE)
         mDatabind.dayinjiImg.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
-                isconnect = MmkvHelper.getInstance().getBoolean(MmKv_KEY.ISCONNECT)
-//                isconnect = true
+//                isconnect = MmkvHelper.getInstance().getBoolean(MmKv_KEY.ISCONNECT)
+                isconnect = true
                 if (isconnect) {
                     DialogUtil.showSelectDialog(
                         this@MainActivity,
                         "条码打印",
-                        arrayOf("仅打印一个【托码】标签", "扫箱码后补打【托码】标签", "补打【箱码】标签", "打印机油标签")
+                        arrayOf(
+                            "仅打印一个【托码】标签",
+                            "扫箱码后补打【托码】标签",
+                            "补打【箱码】标签",
+                            "打印机油标签",
+                            "补打破损标签"
+                        )
                     ) { position, text ->
                         when (position) {
                             0 -> {
                                 OnlyPrintTMActivity.launch(this@MainActivity)
                             }
+
                             1 -> {
                                 ScanBoxTMActivity.launch(this@MainActivity)
                             }
@@ -83,8 +90,13 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainVM>() {
                             2 -> {
                                 PatchworkXMActivity.launch(this@MainActivity, "")
                             }
+
                             3 -> {
                                 EngineOilActivity.launch(this@MainActivity)
+                            }
+
+                            4 -> {
+                                RepairDamagedActivity.launch(this@MainActivity)
                             }
                         }
                     }
@@ -112,26 +124,32 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainVM>() {
                     //跳转到model中
                     ScanUnloadingActivity.launch(this)
                 }
+
                 Constant.PDAType.RUCHANGJIAOJIE -> {
                     //跳转到model中
                     EntryHandoverActivity.launch(this)
                 }
+
                 Constant.PDAType.SAOMAZHUANGCHE -> {
                     //跳转到model中
                     ScanloadingActivity.launch(this)
                 }
+
                 Constant.PDAType.CHUCHANGJIAOJIE -> {
                     //跳转到model中
                     ExitHandoverActivity.launch(this)
                 }
+
                 Constant.PDAType.FENJIANMAFANG -> {
                     //跳转到model中
                     SortingStackActivity.launch(this)
                 }
+
                 Constant.PDAType.KUQUTIAOZHENG -> {
                     //跳转到model中
                     SelectAreaActivity.launch(this, 1)
                 }
+
                 Constant.PDAType.KUCUNPANDIAN -> {
                     //跳转到model中
                     AreaSelectActivity.launch(this)
@@ -146,18 +164,22 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainVM>() {
                     //跳转到model中
                     UnLoadingDetailActivity.launch(this)
                 }
+
                 Constant.CARType.ZHUANGCHEMINGXI -> {
                     //跳转到model中
                     LoadingDetailActivity.launch(this)
                 }
+
                 Constant.CARType.ZHUANGXIECHEHUZONG -> {
                     //跳转到model中
                     OrderDetailActivity.launch(this)
                 }
+
                 Constant.CARType.PANDIANCHAXUN -> {
                     //跳转到model中
                     InventoryDetailActivity.launch(this)
                 }
+
                 Constant.CARType.KUQUTIAOZHENGMINGXI -> {
                     //跳转到model中
                     AreaAdjustDetailActivity.launch(this)
@@ -283,7 +305,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainVM>() {
             val strIsConnected: String?
             when (resultCode) {
                 RESULT_CANCELED -> {
-                    MmkvHelper.getInstance().putString(MmKv_KEY.BTmac,data!!.getStringExtra("SelectedBDAddress"))
+                    MmkvHelper.getInstance()
+                        .putString(MmKv_KEY.BTmac, data!!.getStringExtra("SelectedBDAddress"))
 
                     connectBT(data!!.getStringExtra("SelectedBDAddress"))
                 }

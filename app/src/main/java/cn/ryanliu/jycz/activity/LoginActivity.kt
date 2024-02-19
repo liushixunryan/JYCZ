@@ -70,8 +70,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginVM>() {
     override fun initView() {
         initDialog()
         Requestspermissions()
-        mDatabind.etMobile.setText(MmkvHelper.getInstance().getString(Constant.MmKv_KEY.user))
-        mDatabind.etPassword.setText(MmkvHelper.getInstance().getString(Constant.MmKv_KEY.psd))
+        //以下代码用于账号密码自动记忆
+        // mDatabind.etMobile.setText(MmkvHelper.getInstance().getString(Constant.MmKv_KEY.user))
+        // mDatabind.etPassword.setText(MmkvHelper.getInstance().getString(Constant.MmKv_KEY.psd))
         MmkvHelper.getInstance().getString(Constant.MmKv_KEY.TOKEN)
 
         PAct = PublicAction(context)

@@ -91,6 +91,12 @@ class ScanloadingActivity : BaseActivity<ActivityScanloadingActivityBinding, Sca
                     ToastUtilsExt.info("您未选择预约类型")
                     return
                 }
+
+                showLoading()
+                mViewModel.getCarInfoIn2(mDatabind.etCph.text.toString())
+
+                Thread.sleep(1200);//休眠3秒
+
                 mViewModel.IsVehicleCarNumber(mDatabind.etCph.text.toString())
             }
         })
@@ -109,7 +115,7 @@ class ScanloadingActivity : BaseActivity<ActivityScanloadingActivityBinding, Sca
 
     override fun createObserver() {
         mViewModel.mIsCarnumber.observe(this) {
-
+            hideLoading()
             if (reservationId == 0) {
                 //跳转到司机
                 DriverActivity.launch(
