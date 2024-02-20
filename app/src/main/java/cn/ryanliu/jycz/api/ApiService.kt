@@ -183,6 +183,13 @@ interface ApiService {
     @POST("/api/APP/IsVehicleCarNumber")
     suspend fun IsVehicleCarNumber(@Body request: PIsVehicleCarNumber): BaseResponse<Any>
 
+    //根据条码关键字后六位进行条码模糊查询
+    @POST("/api/APP/search_barcode")
+    suspend fun SearchBarcode(@Body request: PSearchbarcode): BaseResponse<searchbarcode>
+
+    //补打条码
+    @POST("/api/APP/rebar_code")
+    suspend fun RebarCode(@Body request: PSearchbarcode): BaseResponse<createoillabel>
 
     companion object {
         // 4.通过动态代理获取到所定义的接口
