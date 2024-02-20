@@ -64,8 +64,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainVM>() {
         mDatabind.sjTv.text = MmkvHelper.getInstance().getString(Constant.MmKv_KEY.PHONE)
         mDatabind.dayinjiImg.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
-//                isconnect = MmkvHelper.getInstance().getBoolean(MmKv_KEY.ISCONNECT)
-                isconnect = true
+                isconnect = MmkvHelper.getInstance().getBoolean(MmKv_KEY.ISCONNECT)
+//                isconnect = true
                 if (isconnect) {
                     DialogUtil.showSelectDialog(
                         this@MainActivity,

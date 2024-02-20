@@ -65,8 +65,13 @@ class RepairDamagedActivity : BaseActivity<ActivityRepairDamagedBinding, RepairD
             )
         }
 
-        //点击生成条码
+        //点打印
         mDatabind.btnPrinttm.setOnClickListener {
+            if (mDatabind.tmRv.text.isNullOrBlank()){
+                ToastUtilsExt.info("暂无打印内容")
+                return@setOnClickListener
+            }
+
             try {
                 mViewModel.RebarCode(
                     mDatabind.tmRv.text.toString(),
@@ -112,7 +117,6 @@ class RepairDamagedActivity : BaseActivity<ActivityRepairDamagedBinding, RepairD
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         try {
-            val strIsConnected: String?
             when (resultCode) {
                 RESULT_CANCELED -> {
                     MmkvHelper.getInstance().putString(
