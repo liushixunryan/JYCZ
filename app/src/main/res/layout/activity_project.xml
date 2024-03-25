@@ -201,7 +201,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_10"
-                android:text="当前扫描条码(箱码/托码号)" />
+                android:text="当前扫描条码(点击下方已扫条码可拍照上传货损照片)" />
 
             <View
                 android:layout_width="match_parent"
