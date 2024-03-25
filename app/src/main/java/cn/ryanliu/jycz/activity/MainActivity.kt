@@ -71,143 +71,143 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainVM>() {
 
     @SuppressLint("SetTextI18n")
     override fun initView() {
-        mDatabind.ivHead.setOnClickListener(object : OnSingleClickListener() {
-            override fun onSingleClick(view: View?) {
-                CommitImgDialog.Builder(this@MainActivity)
-                    .setOnConfirmListener(object : CommitImgDialog.OnConfirmListener {
-                        override fun onClick(dialog: Dialog,input:EditText) {
-                            ToastUtilsExt.info("点击取消")
-                            dialog.dismiss()
-                        }
-                    })
-                    .setOnCancelListener(object : CommitImgDialog.OnCancelListener {
-                        override fun onClick(dialog: Dialog,input:EditText) {
-                            ToastUtilsExt.info("点击保存")
-                            mViewModel.saveAbor(
-                                "123", input.text.toString(), YCImg1,
-                                YCImg2,
-                                YCImg3,
-                                YCImg4
-                            )
-                            dialog.dismiss()
-                        }
-
-                    })
-                    .setOnOneListener(object : CommitImgDialog.OnoneImageListener {
-                        override fun onClick(dialog: Dialog, img: ImageView, gonell: LinearLayout) {
-                            PictureSelector.create(this@MainActivity)
-                                .openGallery(SelectMimeType.ofImage()).setMaxSelectNum(1)
-                                .setQueryOnlyMimeType("image/jpeg", "image/png", "image/jpg")
-                                .setImageEngine(GlideEngine.createGlideEngine())
-                                .forResult(object : OnResultCallbackListener<LocalMedia?> {
-                                    override fun onResult(result: java.util.ArrayList<LocalMedia?>) {
-                                        mViewModel.upload(File(result[0]!!.realPath), 1)
-                                        Glide.with(this@MainActivity)
-                                            .load(result[0]!!.realPath)
-                                            .centerCrop()
-                                            .placeholder(R.color.app_color_f6)
-                                            .diskCacheStrategy(DiskCacheStrategy.NONE)
-                                            .into(img)
-                                        gonell.visibility = View.GONE
-                                        img.visibility = View.VISIBLE
-                                        showLoading()
-                                    }
-
-                                    override fun onCancel() {
-                                        hideLoading()
-                                    }
-                                })
-                        }
-
-                    })
-                    .setOnTwolListener(object : CommitImgDialog.OnTwoImageListener {
-                        override fun onClick(dialog: Dialog, img: ImageView, gonell: LinearLayout) {
-                            PictureSelector.create(this@MainActivity)
-                                .openGallery(SelectMimeType.ofImage()).setMaxSelectNum(1)
-                                .setQueryOnlyMimeType("image/jpeg", "image/png", "image/jpg")
-                                .setImageEngine(GlideEngine.createGlideEngine())
-                                .forResult(object : OnResultCallbackListener<LocalMedia?> {
-                                    override fun onResult(result: java.util.ArrayList<LocalMedia?>) {
-                                        mViewModel.upload(File(result[0]!!.realPath), 2)
-                                        Glide.with(this@MainActivity)
-                                            .load(result[0]!!.realPath)
-                                            .centerCrop()
-                                            .placeholder(R.color.app_color_f6)
-                                            .diskCacheStrategy(DiskCacheStrategy.NONE)
-                                            .into(img)
-                                        gonell.visibility = View.GONE
-                                        img.visibility = View.VISIBLE
-                                        showLoading()
-
-                                    }
-
-                                    override fun onCancel() {
-                                        hideLoading()
-                                    }
-                                })
-                        }
-
-                    })
-                    .setOnThreelListener(object : CommitImgDialog.OnThreeImageListener {
-                        override fun onClick(dialog: Dialog, img: ImageView, gonell: LinearLayout) {
-                            PictureSelector.create(this@MainActivity)
-                                .openGallery(SelectMimeType.ofImage()).setMaxSelectNum(1)
-                                .setQueryOnlyMimeType("image/jpeg", "image/png", "image/jpg")
-                                .setImageEngine(GlideEngine.createGlideEngine())
-                                .forResult(object : OnResultCallbackListener<LocalMedia?> {
-                                    override fun onResult(result: java.util.ArrayList<LocalMedia?>) {
-                                        mViewModel.upload(File(result[0]!!.realPath), 3)
-                                        Glide.with(this@MainActivity)
-                                            .load(result[0]!!.realPath)
-                                            .centerCrop()
-                                            .placeholder(R.color.app_color_f6)
-                                            .diskCacheStrategy(DiskCacheStrategy.NONE)
-                                            .into(img)
-                                        gonell.visibility = View.GONE
-                                        img.visibility = View.VISIBLE
-                                        showLoading()
-
-                                    }
-
-                                    override fun onCancel() {
-                                        hideLoading()
-                                    }
-                                })
-                        }
-
-                    })
-                    .setOnFourListener(object : CommitImgDialog.OnFourImageListener {
-                        override fun onClick(dialog: Dialog, img: ImageView, gonell: LinearLayout) {
-                            PictureSelector.create(this@MainActivity)
-                                .openGallery(SelectMimeType.ofImage()).setMaxSelectNum(1)
-                                .setQueryOnlyMimeType("image/jpeg", "image/png", "image/jpg")
-                                .setImageEngine(GlideEngine.createGlideEngine())
-                                .forResult(object : OnResultCallbackListener<LocalMedia?> {
-                                    override fun onResult(result: java.util.ArrayList<LocalMedia?>) {
-                                        mViewModel.upload(File(result[0]!!.realPath), 4)
-                                        Glide.with(this@MainActivity)
-                                            .load(result[0]!!.realPath)
-                                            .centerCrop()
-                                            .placeholder(R.color.app_color_f6)
-                                            .diskCacheStrategy(DiskCacheStrategy.NONE)
-                                            .into(img)
-                                        gonell.visibility = View.GONE
-                                        img.visibility = View.VISIBLE
-                                        showLoading()
-
-                                    }
-
-                                    override fun onCancel() {
-                                        hideLoading()
-                                    }
-                                })
-                        }
-
-                    })
-                    .create()
-                    .show()
-            }
-        })
+//        mDatabind.ivHead.setOnClickListener(object : OnSingleClickListener() {
+//            override fun onSingleClick(view: View?) {
+//                CommitImgDialog.Builder(this@MainActivity)
+//                    .setOnConfirmListener(object : CommitImgDialog.OnConfirmListener {
+//                        override fun onClick(dialog: Dialog,input:EditText) {
+//                            ToastUtilsExt.info("点击取消")
+//                            dialog.dismiss()
+//                        }
+//                    })
+//                    .setOnCancelListener(object : CommitImgDialog.OnCancelListener {
+//                        override fun onClick(dialog: Dialog,input:EditText) {
+//                            ToastUtilsExt.info("点击保存")
+//                            mViewModel.saveAbor(
+//                                "123", input.text.toString(), YCImg1,
+//                                YCImg2,
+//                                YCImg3,
+//                                YCImg4
+//                            )
+//                            dialog.dismiss()
+//                        }
+//
+//                    })
+//                    .setOnOneListener(object : CommitImgDialog.OnoneImageListener {
+//                        override fun onClick(dialog: Dialog, img: ImageView, gonell: LinearLayout) {
+//                            PictureSelector.create(this@MainActivity)
+//                                .openGallery(SelectMimeType.ofImage()).setMaxSelectNum(1)
+//                                .setQueryOnlyMimeType("image/jpeg", "image/png", "image/jpg")
+//                                .setImageEngine(GlideEngine.createGlideEngine())
+//                                .forResult(object : OnResultCallbackListener<LocalMedia?> {
+//                                    override fun onResult(result: java.util.ArrayList<LocalMedia?>) {
+//                                        mViewModel.upload(File(result[0]!!.realPath), 1)
+//                                        Glide.with(this@MainActivity)
+//                                            .load(result[0]!!.realPath)
+//                                            .centerCrop()
+//                                            .placeholder(R.color.app_color_f6)
+//                                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+//                                            .into(img)
+//                                        gonell.visibility = View.GONE
+//                                        img.visibility = View.VISIBLE
+//                                        showLoading()
+//                                    }
+//
+//                                    override fun onCancel() {
+//                                        hideLoading()
+//                                    }
+//                                })
+//                        }
+//
+//                    })
+//                    .setOnTwolListener(object : CommitImgDialog.OnTwoImageListener {
+//                        override fun onClick(dialog: Dialog, img: ImageView, gonell: LinearLayout) {
+//                            PictureSelector.create(this@MainActivity)
+//                                .openGallery(SelectMimeType.ofImage()).setMaxSelectNum(1)
+//                                .setQueryOnlyMimeType("image/jpeg", "image/png", "image/jpg")
+//                                .setImageEngine(GlideEngine.createGlideEngine())
+//                                .forResult(object : OnResultCallbackListener<LocalMedia?> {
+//                                    override fun onResult(result: java.util.ArrayList<LocalMedia?>) {
+//                                        mViewModel.upload(File(result[0]!!.realPath), 2)
+//                                        Glide.with(this@MainActivity)
+//                                            .load(result[0]!!.realPath)
+//                                            .centerCrop()
+//                                            .placeholder(R.color.app_color_f6)
+//                                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+//                                            .into(img)
+//                                        gonell.visibility = View.GONE
+//                                        img.visibility = View.VISIBLE
+//                                        showLoading()
+//
+//                                    }
+//
+//                                    override fun onCancel() {
+//                                        hideLoading()
+//                                    }
+//                                })
+//                        }
+//
+//                    })
+//                    .setOnThreelListener(object : CommitImgDialog.OnThreeImageListener {
+//                        override fun onClick(dialog: Dialog, img: ImageView, gonell: LinearLayout) {
+//                            PictureSelector.create(this@MainActivity)
+//                                .openGallery(SelectMimeType.ofImage()).setMaxSelectNum(1)
+//                                .setQueryOnlyMimeType("image/jpeg", "image/png", "image/jpg")
+//                                .setImageEngine(GlideEngine.createGlideEngine())
+//                                .forResult(object : OnResultCallbackListener<LocalMedia?> {
+//                                    override fun onResult(result: java.util.ArrayList<LocalMedia?>) {
+//                                        mViewModel.upload(File(result[0]!!.realPath), 3)
+//                                        Glide.with(this@MainActivity)
+//                                            .load(result[0]!!.realPath)
+//                                            .centerCrop()
+//                                            .placeholder(R.color.app_color_f6)
+//                                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+//                                            .into(img)
+//                                        gonell.visibility = View.GONE
+//                                        img.visibility = View.VISIBLE
+//                                        showLoading()
+//
+//                                    }
+//
+//                                    override fun onCancel() {
+//                                        hideLoading()
+//                                    }
+//                                })
+//                        }
+//
+//                    })
+//                    .setOnFourListener(object : CommitImgDialog.OnFourImageListener {
+//                        override fun onClick(dialog: Dialog, img: ImageView, gonell: LinearLayout) {
+//                            PictureSelector.create(this@MainActivity)
+//                                .openGallery(SelectMimeType.ofImage()).setMaxSelectNum(1)
+//                                .setQueryOnlyMimeType("image/jpeg", "image/png", "image/jpg")
+//                                .setImageEngine(GlideEngine.createGlideEngine())
+//                                .forResult(object : OnResultCallbackListener<LocalMedia?> {
+//                                    override fun onResult(result: java.util.ArrayList<LocalMedia?>) {
+//                                        mViewModel.upload(File(result[0]!!.realPath), 4)
+//                                        Glide.with(this@MainActivity)
+//                                            .load(result[0]!!.realPath)
+//                                            .centerCrop()
+//                                            .placeholder(R.color.app_color_f6)
+//                                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+//                                            .into(img)
+//                                        gonell.visibility = View.GONE
+//                                        img.visibility = View.VISIBLE
+//                                        showLoading()
+//
+//                                    }
+//
+//                                    override fun onCancel() {
+//                                        hideLoading()
+//                                    }
+//                                })
+//                        }
+//
+//                    })
+//                    .create()
+//                    .show()
+//            }
+//        })
 
 
         LogUtils.getInstance().init(BaseApplication.getInstance().getMediaTApplication())
