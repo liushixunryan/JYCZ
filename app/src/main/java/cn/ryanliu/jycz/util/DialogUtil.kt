@@ -1,5 +1,6 @@
 package cn.ryanliu.jycz.util
 
+import android.R
 import android.content.Context
 import cn.ryanliu.jycz.common.constant.Constant.TimePattern.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -8,7 +9,9 @@ import com.loper7.date_time_picker.dialog.CardDatePickerDialog
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.enums.PopupPosition
 import com.lxj.xpopup.interfaces.OnConfirmListener
+import com.lxj.xpopup.interfaces.OnInputConfirmListener
 import com.lxj.xpopup.interfaces.OnSelectListener
+import java.security.AccessController.getContext
 import java.util.*
 
 
@@ -126,6 +129,5 @@ object DialogUtil {
         //得到 BottomSheetDialog 实体，设置其 isHideable 为 fasle
         (dialog as BottomSheetDialog).behavior.isHideable = false
     }
-
 
 }

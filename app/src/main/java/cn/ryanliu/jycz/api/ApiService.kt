@@ -60,6 +60,16 @@ interface ApiService {
     @POST("/api/APP/upload_photo")
     suspend fun upload_photo(@Part parts: List<MultipartBody.Part>): BaseResponse<String?>
 
+    //上传异常片
+    @Multipart
+    @POST("/api/APP/upload_abor_photo")
+    suspend fun upload_ycphoto(@Part parts: List<MultipartBody.Part>): BaseResponse<String?>
+
+    //保存异常图片
+//    /api/APP/save_abor_photo
+
+
+
     //完成出场交接
     @POST("/api/APP/confirm_task")
     suspend fun confirmTask(@Body request: PconfirmTask): BaseResponse<Any?>

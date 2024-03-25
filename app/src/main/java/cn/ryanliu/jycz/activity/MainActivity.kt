@@ -2,12 +2,14 @@ package cn.ryanliu.jycz.activity
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.activity.booth.BTActivity
 import cn.ryanliu.jycz.activity.detail.*
@@ -20,6 +22,7 @@ import cn.ryanliu.jycz.bean.HomePDABean
 import cn.ryanliu.jycz.common.constant.Constant
 import cn.ryanliu.jycz.common.constant.Constant.MmKv_KEY
 import cn.ryanliu.jycz.databinding.ActivityMainBinding
+import cn.ryanliu.jycz.dialog.CommitImgDialog
 import cn.ryanliu.jycz.util.*
 import cn.ryanliu.jycz.view.GridSpaceItemDecoration
 import cn.ryanliu.jycz.viewmodel.MainVM
@@ -53,6 +56,46 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainVM>() {
 
     @SuppressLint("SetTextI18n")
     override fun initView() {
+        mDatabind.ivHead.setOnClickListener(object :OnSingleClickListener(){
+            override fun onSingleClick(view: View?) {
+                CommitImgDialog.Builder(this@MainActivity)
+                    .setOnConfirmListener(object :CommitImgDialog.OnConfirmListener{
+                        override fun onClick(dialog: Dialog) {
+                            ToastUtilsExt.info("点击取消")
+                            dialog.dismiss()
+                        }
+                    })
+                    .setOnCancelListener(object :CommitImgDialog.OnCancelListener{
+                        override fun onClick(dialog: Dialog) {
+                            ToastUtilsExt.info("点击保存")
+                            dialog.dismiss()
+                        }
+
+                    })
+                    .setOnOneListener(object :CommitImgDialog.OnoneImageListener{
+                        override fun onClick(dialog: Dialog, img: ImageView) {
+
+                        }
+
+                    })
+                    .setOnTwolListener(object :CommitImgDialog.OnTwoImageListener{
+                        override fun onClick(dialog: Dialog, img: ImageView) {
+
+                        }
+
+                    })
+                    .setOnThreelListener(object :CommitImgDialog.OnThreeImageListener{
+                        override fun onClick(dialog: Dialog, img: ImageView) {
+
+                        }
+
+                    })
+                    .create()
+                    .show()
+            }
+        })
+
+
         LogUtils.getInstance().init(BaseApplication.getInstance().getMediaTApplication())
 
 

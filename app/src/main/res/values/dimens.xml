@@ -30,4 +30,5 @@
     <dimen name="sp_8">12sp</dimen>
     <dimen name="dp_48">48dp</dimen>
     <dimen name="sp_6">10sp</dimen>
+    <dimen name="dp_100">100dp</dimen>
 </resources>

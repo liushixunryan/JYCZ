@@ -32,6 +32,30 @@ object UploadUtil {
         return null
     }
 
+    //单独
+    suspend fun YTupload(file: File):String? {
+        try {
+            val body = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), file);
+
+            val multipartBody1 = MultipartBody.Builder()
+                .addFormDataPart(file.name, file.name, body)
+                .setType(MultipartBody.FORM)
+                .build();
+            val res = ApiService.apiService.upload_ycphoto(multipartBody1.parts)
+            if (res.isSuccess()){
+                return res.data
+            }else{
+                ToastUtilsExt.info(res.msg)
+                return ""
+            }
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+            ToastUtilsExt.info("上传出错")
+        }
+        return null
+    }
+
 
     //批量
     suspend fun fileuploadList(files: Map<String,File>?): Map<String, String>? {
