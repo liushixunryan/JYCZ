@@ -26,8 +26,15 @@ import cn.ryanliu.jycz.dialog.CommitImgDialog
 import cn.ryanliu.jycz.util.*
 import cn.ryanliu.jycz.view.GridSpaceItemDecoration
 import cn.ryanliu.jycz.viewmodel.MainVM
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.luck.picture.lib.basic.PictureSelector
+import com.luck.picture.lib.config.SelectMimeType
+import com.luck.picture.lib.entity.LocalMedia
+import com.luck.picture.lib.interfaces.OnResultCallbackListener
 import com.tbruyelle.rxpermissions.RxPermissions
 import print.Print
+import java.io.File
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainVM>() {
     lateinit var mPdaAdapter: HomePDAAdapter
@@ -56,37 +63,126 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainVM>() {
 
     @SuppressLint("SetTextI18n")
     override fun initView() {
-        mDatabind.ivHead.setOnClickListener(object :OnSingleClickListener(){
+        mDatabind.ivHead.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(view: View?) {
                 CommitImgDialog.Builder(this@MainActivity)
-                    .setOnConfirmListener(object :CommitImgDialog.OnConfirmListener{
+                    .setOnConfirmListener(object : CommitImgDialog.OnConfirmListener {
                         override fun onClick(dialog: Dialog) {
                             ToastUtilsExt.info("点击取消")
                             dialog.dismiss()
                         }
                     })
-                    .setOnCancelListener(object :CommitImgDialog.OnCancelListener{
+                    .setOnCancelListener(object : CommitImgDialog.OnCancelListener {
                         override fun onClick(dialog: Dialog) {
                             ToastUtilsExt.info("点击保存")
                             dialog.dismiss()
                         }
 
                     })
-                    .setOnOneListener(object :CommitImgDialog.OnoneImageListener{
+                    .setOnOneListener(object : CommitImgDialog.OnoneImageListener {
                         override fun onClick(dialog: Dialog, img: ImageView) {
+                            PictureSelector.create(this@MainActivity)
+                                .openGallery(SelectMimeType.ofImage()).setMaxSelectNum(1)
+                                .setQueryOnlyMimeType("image/jpeg", "image/png", "image/jpg")
+                                .setImageEngine(GlideEngine.createGlideEngine())
+                                .forResult(object : OnResultCallbackListener<LocalMedia?> {
+                                    override fun onResult(result: java.util.ArrayList<LocalMedia?>) {
+                                        mViewModel.upload(File(result[0]!!.realPath), 1)
+                                        showLoading()
 
+
+                                        mViewModel.mUrl.observe(this@MainActivity) { url ->
+                                            mViewModel.mIndex.observe(this@MainActivity) { index ->
+                                                when (index) {
+                                                    1 -> {
+                                                        img.visibility = View.VISIBLE
+//                                                        mDatabind.text1.text = url
+//                                                        mDatabind.uploadimg1.visibility = View.GONE
+
+                                                        Glide.with(this@MainActivity)
+                                                            .load(url)
+                                                            .centerCrop()
+                                                            .placeholder(R.color.app_color_f6)
+                                                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                                            .into(img)
+                                                        hideLoading()
+                                                    }
+
+                                                    else -> {
+                                                        hideLoading()
+
+                                                    }
+                                                }
+
+                                            }
+                                        }
+
+                                    }
+
+                                    override fun onCancel() {
+                                        hideLoading()
+                                    }
+                                })
                         }
 
                     })
-                    .setOnTwolListener(object :CommitImgDialog.OnTwoImageListener{
+                    .setOnTwolListener(object : CommitImgDialog.OnTwoImageListener {
                         override fun onClick(dialog: Dialog, img: ImageView) {
+                            PictureSelector.create(this@MainActivity)
+                                .openGallery(SelectMimeType.ofImage()).setMaxSelectNum(1)
+                                .setQueryOnlyMimeType("image/jpeg", "image/png", "image/jpg")
+                                .setImageEngine(GlideEngine.createGlideEngine())
+                                .forResult(object : OnResultCallbackListener<LocalMedia?> {
+                                    override fun onResult(result: java.util.ArrayList<LocalMedia?>) {
+                                        mViewModel.upload(File(result[0]!!.realPath), 2)
+                                        showLoading()
 
+                                    }
+
+                                    override fun onCancel() {
+                                        hideLoading()
+                                    }
+                                })
                         }
 
                     })
-                    .setOnThreelListener(object :CommitImgDialog.OnThreeImageListener{
+                    .setOnThreelListener(object : CommitImgDialog.OnThreeImageListener {
                         override fun onClick(dialog: Dialog, img: ImageView) {
+                            PictureSelector.create(this@MainActivity)
+                                .openGallery(SelectMimeType.ofImage()).setMaxSelectNum(1)
+                                .setQueryOnlyMimeType("image/jpeg", "image/png", "image/jpg")
+                                .setImageEngine(GlideEngine.createGlideEngine())
+                                .forResult(object : OnResultCallbackListener<LocalMedia?> {
+                                    override fun onResult(result: java.util.ArrayList<LocalMedia?>) {
+                                        mViewModel.upload(File(result[0]!!.realPath), 3)
+                                        showLoading()
 
+                                    }
+
+                                    override fun onCancel() {
+                                        hideLoading()
+                                    }
+                                })
+                        }
+
+                    })
+                    .setOnFourListener(object : CommitImgDialog.OnFourImageListener {
+                        override fun onClick(dialog: Dialog, img: ImageView) {
+                            PictureSelector.create(this@MainActivity)
+                                .openGallery(SelectMimeType.ofImage()).setMaxSelectNum(1)
+                                .setQueryOnlyMimeType("image/jpeg", "image/png", "image/jpg")
+                                .setImageEngine(GlideEngine.createGlideEngine())
+                                .forResult(object : OnResultCallbackListener<LocalMedia?> {
+                                    override fun onResult(result: java.util.ArrayList<LocalMedia?>) {
+                                        mViewModel.upload(File(result[0]!!.realPath), 4)
+                                        showLoading()
+
+                                    }
+
+                                    override fun onCancel() {
+                                        hideLoading()
+                                    }
+                                })
                         }
 
                     })
