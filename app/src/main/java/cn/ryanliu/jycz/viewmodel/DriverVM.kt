@@ -9,8 +9,11 @@ import cn.ryanliu.jycz.bean.ScanOrdersBean
 import cn.ryanliu.jycz.bean.prequest.PScanInCode
 import cn.ryanliu.jycz.bean.prequest.PScanOrders
 import cn.ryanliu.jycz.bean.prequest.PSubmitSaveIn
+import cn.ryanliu.jycz.bean.prequest.PsaveAbor
 import cn.ryanliu.jycz.util.ToastUtilsExt
+import cn.ryanliu.jycz.util.UploadUtil
 import kotlinx.coroutines.launch
+import java.io.File
 
 /**
  * @Author: lsx
@@ -120,6 +123,70 @@ class DriverVM : BaseViewModel() {
             }
         }
 
+    }
+
+
+    //返回
+    val mUrl = MutableLiveData<String>()
+    val mycBackList = MutableLiveData<String>()
+    val mIndex = MutableLiveData<Int>()
+
+    fun upload(file: File, index: Int) {
+        viewModelScope.launch {
+            try {
+                val upload = UploadUtil.YTupload(file)
+                if (upload.isNullOrEmpty()) {
+                    mIndex.postValue(7)
+                    mUrl.postValue("失败")
+                } else {
+                    mIndex.postValue(index)
+                    mUrl.postValue(upload.toString())
+                }
+
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+                showNetErr(e)
+            } finally {
+                hideLoading()
+            }
+        }
+    }
+
+    fun saveAbor(
+        bar_code: String,
+        abor_txt: String,
+        abor_img1: String?,
+        abor_img2: String?,
+        abor_img3: String?,
+        abor_img4: String?
+    ) {
+        viewModelScope.launch {
+            try {
+                val response = ApiService.apiService.saveAborPhoto(
+                    PsaveAbor(
+                        bar_code,
+                        abor_txt,
+                        abor_img1,
+                        abor_img2,
+                        abor_img3, abor_img4
+                    )
+                )
+                if (response.isSuccess()) {
+                    mycBackList.postValue("提交成功")
+
+                } else {
+                    ToastUtilsExt.info(response.msg.toString())
+                }
+
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+                showNetErr(e)
+            } finally {
+                hideLoading()
+            }
+        }
     }
 
 

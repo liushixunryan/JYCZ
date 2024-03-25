@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.Context
 import android.text.TextUtils
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -18,6 +19,7 @@ open class CommitImgDialog : Dialog {
     var tv_title:TextView? = null
     var tv_cancel:TextView? = null
     var tv_confirm:TextView? = null
+    var et_input:EditText? = null
 
     var oneimg: LinearLayout? = null
     var twoimg:LinearLayout? = null
@@ -38,6 +40,7 @@ open class CommitImgDialog : Dialog {
         tv_title = findViewById(R.id.tv_title)
         tv_cancel = findViewById(R.id.tv_cancel)
         tv_confirm = findViewById(R.id.tv_confirm)
+        et_input = findViewById(R.id.et_input)
 
         oneimg = findViewById(R.id.oneimg)
         twoimg = findViewById(R.id.twoimg)
@@ -140,32 +143,32 @@ open class CommitImgDialog : Dialog {
             }
 
             if (cancelListener != null) {
-                dialog.tv_cancel?.setOnClickListener { v -> cancelListener!!.onClick(dialog) }
+                dialog.tv_cancel?.setOnClickListener { v -> cancelListener!!.onClick(dialog,dialog.et_input!!) }
             }
             if (confirmListener != null) {
-                dialog.tv_confirm?.setOnClickListener { v -> confirmListener!!.onClick(dialog) }
+                dialog.tv_confirm?.setOnClickListener { v -> confirmListener!!.onClick(dialog,dialog.et_input!!) }
             }
 
 
             if (oneListener != null){
                 dialog.oneimg?.setOnClickListener { v -> oneListener!!.onClick(dialog,
-                    dialog.img1!!
+                    dialog.img1!!,dialog.oneimg!!
                 ) }
             }
 
             if (twoListener != null){
                 dialog.twoimg?.setOnClickListener { v -> twoListener!!.onClick(dialog,
-                    dialog.img2!!) }
+                    dialog.img2!!,dialog.twoimg!!) }
             }
 
             if (threeListener != null){
                 dialog.threeimg?.setOnClickListener { v -> threeListener!!.onClick(dialog,
-                    dialog.img3!!) }
+                    dialog.img3!!,dialog.threeimg!!) }
             }
 
             if (fourListener != null){
                 dialog.fourimg?.setOnClickListener { v -> fourListener!!.onClick(dialog,
-                    dialog.img4!!) }
+                    dialog.img4!!,dialog.fourimg!!) }
             }
 
             return dialog
@@ -175,31 +178,31 @@ open class CommitImgDialog : Dialog {
 
     // 点击弹窗取消按钮回调
     interface OnCancelListener {
-        fun onClick(dialog: Dialog)
+        fun onClick(dialog: Dialog,input:EditText)
     }
 
     // 点击弹窗跳转回调
     interface OnConfirmListener {
-        fun onClick(dialog: Dialog)
+        fun onClick(dialog: Dialog,input:EditText)
     }
 
     // 点击第一个图片回调
     interface OnoneImageListener {
-        fun onClick(dialog: Dialog,img:ImageView)
+        fun onClick(dialog: Dialog,img:ImageView,gonell:LinearLayout)
     }
 
     // 点击第二个图片回调
     interface OnTwoImageListener {
-        fun onClick(dialog: Dialog,img:ImageView)
+        fun onClick(dialog: Dialog,img:ImageView,gonell:LinearLayout)
     }
 
     // 点击第三个图片回调
     interface OnThreeImageListener {
-        fun onClick(dialog: Dialog,img:ImageView)
+        fun onClick(dialog: Dialog,img:ImageView,gonell:LinearLayout)
     }
 
     // 点击第四个图片回调
     interface OnFourImageListener {
-        fun onClick(dialog: Dialog,img:ImageView)
+        fun onClick(dialog: Dialog,img:ImageView,gonell:LinearLayout)
     }
 }

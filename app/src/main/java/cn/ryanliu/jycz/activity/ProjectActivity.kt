@@ -2,6 +2,7 @@ package cn.ryanliu.jycz.activity
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
@@ -17,17 +18,29 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.View.OnTouchListener
 import android.view.inputmethod.EditorInfo
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.LinearLayout
 import cn.ryanliu.jycz.R
 import cn.ryanliu.jycz.activity.booth.BTActivity
 import cn.ryanliu.jycz.basic.BaseActivity
 import cn.ryanliu.jycz.common.constant.Constant
 import cn.ryanliu.jycz.databinding.ActivityProjectBinding
+import cn.ryanliu.jycz.dialog.CommitImgDialog
 import cn.ryanliu.jycz.util.DialogUtil
+import cn.ryanliu.jycz.util.GlideEngine
 import cn.ryanliu.jycz.util.MmkvHelper
 import cn.ryanliu.jycz.util.ToastUtilsExt
 import cn.ryanliu.jycz.viewmodel.ProjectVM
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.luck.picture.lib.basic.PictureSelector
+import com.luck.picture.lib.config.SelectMimeType
+import com.luck.picture.lib.entity.LocalMedia
+import com.luck.picture.lib.interfaces.OnResultCallbackListener
 import com.tbruyelle.rxpermissions.RxPermissions
 import print.Print
+import java.io.File
 
 
 /**
@@ -36,6 +49,12 @@ import print.Print
  * @Description:项目预约
  */
 class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
+    var YCImg1: String = ""
+    var YCImg2: String = ""
+    var YCImg3: String = ""
+    var YCImg4: String = ""
+
+
     var carNum = ""
     var areaId = ""
     var areaName = ""
@@ -112,6 +131,144 @@ class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
 
     var order_id = ""
     private fun onClick() {
+        mDatabind.xmtmhTv.setOnClickListener(object : OnSingleClickListener() {
+            override fun onSingleClick(view: View?) {
+                CommitImgDialog.Builder(this@ProjectActivity)
+                    .setOnConfirmListener(object : CommitImgDialog.OnConfirmListener {
+                        override fun onClick(dialog: Dialog, input: EditText) {
+                            dialog.dismiss()
+                        }
+                    })
+                    .setOnCancelListener(object : CommitImgDialog.OnCancelListener {
+                        override fun onClick(dialog: Dialog, input: EditText) {
+                            mViewModel.saveAbor(
+                                mDatabind.xmtmhTv.text.toString(), input.text.toString(), YCImg1,
+                                YCImg2,
+                                YCImg3,
+                                YCImg4
+                            )
+                            dialog.dismiss()
+                        }
+
+                    })
+                    .setOnOneListener(object : CommitImgDialog.OnoneImageListener {
+                        override fun onClick(dialog: Dialog, img: ImageView, gonell: LinearLayout) {
+                            PictureSelector.create(this@ProjectActivity)
+                                .openGallery(SelectMimeType.ofImage()).setMaxSelectNum(1)
+                                .setQueryOnlyMimeType("image/jpeg", "image/png", "image/jpg")
+                                .setImageEngine(GlideEngine.createGlideEngine())
+                                .forResult(object : OnResultCallbackListener<LocalMedia?> {
+                                    override fun onResult(result: java.util.ArrayList<LocalMedia?>) {
+                                        mViewModel.upload(File(result[0]!!.realPath), 1)
+                                        Glide.with(this@ProjectActivity)
+                                            .load(result[0]!!.realPath)
+                                            .centerCrop()
+                                            .placeholder(R.color.app_color_f6)
+                                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                            .into(img)
+                                        gonell.visibility = View.GONE
+                                        img.visibility = View.VISIBLE
+                                        showLoading()
+                                    }
+
+                                    override fun onCancel() {
+                                        hideLoading()
+                                    }
+                                })
+                        }
+
+                    })
+                    .setOnTwolListener(object : CommitImgDialog.OnTwoImageListener {
+                        override fun onClick(dialog: Dialog, img: ImageView, gonell: LinearLayout) {
+                            PictureSelector.create(this@ProjectActivity)
+                                .openGallery(SelectMimeType.ofImage()).setMaxSelectNum(1)
+                                .setQueryOnlyMimeType("image/jpeg", "image/png", "image/jpg")
+                                .setImageEngine(GlideEngine.createGlideEngine())
+                                .forResult(object : OnResultCallbackListener<LocalMedia?> {
+                                    override fun onResult(result: java.util.ArrayList<LocalMedia?>) {
+                                        mViewModel.upload(File(result[0]!!.realPath), 2)
+                                        Glide.with(this@ProjectActivity)
+                                            .load(result[0]!!.realPath)
+                                            .centerCrop()
+                                            .placeholder(R.color.app_color_f6)
+                                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                            .into(img)
+                                        gonell.visibility = View.GONE
+                                        img.visibility = View.VISIBLE
+                                        showLoading()
+
+                                    }
+
+                                    override fun onCancel() {
+                                        hideLoading()
+                                    }
+                                })
+                        }
+
+                    })
+                    .setOnThreelListener(object : CommitImgDialog.OnThreeImageListener {
+                        override fun onClick(dialog: Dialog, img: ImageView, gonell: LinearLayout) {
+                            PictureSelector.create(this@ProjectActivity)
+                                .openGallery(SelectMimeType.ofImage()).setMaxSelectNum(1)
+                                .setQueryOnlyMimeType("image/jpeg", "image/png", "image/jpg")
+                                .setImageEngine(GlideEngine.createGlideEngine())
+                                .forResult(object : OnResultCallbackListener<LocalMedia?> {
+                                    override fun onResult(result: java.util.ArrayList<LocalMedia?>) {
+                                        mViewModel.upload(File(result[0]!!.realPath), 3)
+                                        Glide.with(this@ProjectActivity)
+                                            .load(result[0]!!.realPath)
+                                            .centerCrop()
+                                            .placeholder(R.color.app_color_f6)
+                                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                            .into(img)
+                                        gonell.visibility = View.GONE
+                                        img.visibility = View.VISIBLE
+                                        showLoading()
+
+                                    }
+
+                                    override fun onCancel() {
+                                        hideLoading()
+                                    }
+                                })
+                        }
+
+                    })
+                    .setOnFourListener(object : CommitImgDialog.OnFourImageListener {
+                        override fun onClick(dialog: Dialog, img: ImageView, gonell: LinearLayout) {
+                            PictureSelector.create(this@ProjectActivity)
+                                .openGallery(SelectMimeType.ofImage()).setMaxSelectNum(1)
+                                .setQueryOnlyMimeType("image/jpeg", "image/png", "image/jpg")
+                                .setImageEngine(GlideEngine.createGlideEngine())
+                                .forResult(object : OnResultCallbackListener<LocalMedia?> {
+                                    override fun onResult(result: java.util.ArrayList<LocalMedia?>) {
+                                        mViewModel.upload(File(result[0]!!.realPath), 4)
+                                        Glide.with(this@ProjectActivity)
+                                            .load(result[0]!!.realPath)
+                                            .centerCrop()
+                                            .placeholder(R.color.app_color_f6)
+                                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                            .into(img)
+                                        gonell.visibility = View.GONE
+                                        img.visibility = View.VISIBLE
+                                        showLoading()
+
+                                    }
+
+                                    override fun onCancel() {
+                                        hideLoading()
+                                    }
+                                })
+                        }
+
+                    })
+                    .create()
+                    .show()
+            }
+
+        })
+
+
         mDatabind.bdtmbqBtn.setOnClickListener {
             isconnect = MmkvHelper.getInstance().getBoolean(Constant.MmKv_KEY.ISCONNECT)
             if (isconnect) {
@@ -221,6 +378,42 @@ class ProjectActivity : BaseActivity<ActivityProjectBinding, ProjectVM>() {
     }
 
     override fun createObserver() {
+        mViewModel.mUrl.observe(this) { url ->
+            mViewModel.mIndex.observe(this) { index ->
+                when (index) {
+                    1 -> {
+                        YCImg1 =  url
+                        hideLoading()
+
+                    }
+
+                    2 -> {
+                        YCImg2 =  url
+                        hideLoading()
+
+                    }
+
+                    3 -> {
+                        YCImg3=  url
+                        hideLoading()
+
+                    }
+
+                    4 -> {
+                        YCImg4 =  url
+                        hideLoading()
+
+                    }
+
+                    else -> {
+                        hideLoading()
+
+                    }
+                }
+
+            }
+        }
+
         mViewModel.mData.observe(this) {
             if (it.toString() != "null") {
                 mDatabind.inNavBar.tvNavRight.text = "库区：${areaName}"
