@@ -88,35 +88,13 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainVM>() {
                                 .forResult(object : OnResultCallbackListener<LocalMedia?> {
                                     override fun onResult(result: java.util.ArrayList<LocalMedia?>) {
                                         mViewModel.upload(File(result[0]!!.realPath), 1)
+                                        Glide.with(this@MainActivity)
+                                            .load(File(result[0]!!.realPath))
+                                            .centerCrop()
+                                            .placeholder(R.color.app_color_f6)
+                                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                            .into(img)
                                         showLoading()
-
-
-                                        mViewModel.mUrl.observe(this@MainActivity) { url ->
-                                            mViewModel.mIndex.observe(this@MainActivity) { index ->
-                                                when (index) {
-                                                    1 -> {
-                                                        img.visibility = View.VISIBLE
-//                                                        mDatabind.text1.text = url
-//                                                        mDatabind.uploadimg1.visibility = View.GONE
-
-                                                        Glide.with(this@MainActivity)
-                                                            .load(url)
-                                                            .centerCrop()
-                                                            .placeholder(R.color.app_color_f6)
-                                                            .diskCacheStrategy(DiskCacheStrategy.NONE)
-                                                            .into(img)
-                                                        hideLoading()
-                                                    }
-
-                                                    else -> {
-                                                        hideLoading()
-
-                                                    }
-                                                }
-
-                                            }
-                                        }
-
                                     }
 
                                     override fun onCancel() {
